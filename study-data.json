@@ -1,0 +1,203 @@
+{
+  "schemaVersion": 1,
+  "app": {
+    "name": "Study Timer",
+    "dataFormat": "study-timer-json",
+    "createdAt": "2026-09-19T03:50:00.450Z",
+    "updatedAt": "2026-09-19T10:40:21.417Z",
+    "timeZone": "Asia/Tehran"
+  },
+  "settings": {
+    "language": "en",
+    "theme": "dark",
+    "clockFormat": "24h",
+    "soundEnabled": true,
+    "reducedMotion": false,
+    "autoStartNextSession": false,
+    "defaultSessionMinutes": 50,
+    "lastSelectedMinutes": 60,
+    "lastSelectedSubject": "هوش مصنوعی"
+  },
+  "studyPlan": {
+    "startDate": "2026-09-19",
+    "examDate": "2027-05-06",
+    "totalWeeks": 33,
+    "dailyGoalMinutes": 240
+  },
+  "subjects": [
+    "ساختمان داده",
+    "طراحی الگوریتم",
+    "هوش مصنوعی",
+    "زبان تخصصی",
+    "ریاضی مهندسی ۱",
+    "ریاضی مهندسی ۲",
+    "آمار و احتمال مهندسی",
+    "نظریه زبان‌ها و ماشین‌ها",
+    "شبکه‌های کامپیوتری",
+    "سیستم‌عامل",
+    "پایگاه داده",
+    "سیگنال‌ها و سیستم‌ها",
+    "مدار منطقی"
+  ],
+  "sessions": [
+    {
+      "id": "s001",
+      "type": "study",
+      "status": "completed",
+      "subject": "ساختمان داده",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-09-19T05:30:00.000Z",
+        "endedAt": "2026-09-19T06:20:00.000Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "createdAt": "2026-09-19T05:30:00.000Z",
+      "updatedAt": "2026-09-19T06:20:00.000Z"
+    },
+    {
+      "id": "s002",
+      "type": "study",
+      "status": "completed",
+      "subject": "طراحی الگوریتم",
+      "planned": {
+        "durationSeconds": 3600
+      },
+      "actual": {
+        "startedAt": "2026-09-19T06:30:00.000Z",
+        "endedAt": "2026-09-19T07:30:00.000Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [
+        {
+          "startedAt": "2026-09-19T07:00:00.000Z",
+          "endedAt": "2026-09-19T07:05:00.000Z",
+          "durationSeconds": 300
+        }
+      ],
+      "derived": {
+        "activeDurationSeconds": 3300,
+        "totalPausedSeconds": 300,
+        "pauseCount": 1
+      },
+      "createdAt": "2026-09-19T06:30:00.000Z",
+      "updatedAt": "2026-09-19T07:30:00.000Z"
+    },
+    {
+      "id": "s003",
+      "type": "study",
+      "status": "abandoned",
+      "subject": "هوش مصنوعی",
+      "planned": {
+        "durationSeconds": 5400
+      },
+      "actual": {
+        "startedAt": "2026-09-19T08:00:00.000Z",
+        "endedAt": "2026-09-19T08:25:00.000Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 1500,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "createdAt": "2026-09-19T08:00:00.000Z",
+      "updatedAt": "2026-09-19T08:25:00.000Z"
+    },
+    {
+      "id": "s004",
+      "type": "study",
+      "status": "completed",
+      "subject": "آمار و احتمال مهندسی",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-09-18T05:30:00.000Z",
+        "endedAt": "2026-09-18T06:20:00.000Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "createdAt": "2026-09-18T05:30:00.000Z",
+      "updatedAt": "2026-09-18T06:20:00.000Z"
+    },
+    {
+      "id": "s005",
+      "type": "study",
+      "status": "completed",
+      "subject": "شبکه‌های کامپیوتری",
+      "planned": {
+        "durationSeconds": 2700
+      },
+      "actual": {
+        "startedAt": "2026-09-18T07:00:00.000Z",
+        "endedAt": "2026-09-18T07:45:00.000Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 2700,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "createdAt": "2026-09-18T07:00:00.000Z",
+      "updatedAt": "2026-09-18T07:45:00.000Z"
+    }
+  ],
+  "derived": {
+    "note": "Rebuildable from `sessions`. Safe to ignore or delete; regenerated on every save.",
+    "generatedAt": "2026-09-19T10:40:21.417Z",
+    "dailySummaries": {
+      "2026-09-18": {
+        "studySeconds": 5700,
+        "sessionCount": 2,
+        "completedSessionCount": 2
+      },
+      "2026-09-19": {
+        "studySeconds": 7800,
+        "sessionCount": 3,
+        "completedSessionCount": 2
+      }
+    },
+    "subjectSummaries": [
+      {
+        "subject": "طراحی الگوریتم",
+        "studySeconds": 3300,
+        "sessionCount": 1
+      },
+      {
+        "subject": "ساختمان داده",
+        "studySeconds": 3000,
+        "sessionCount": 1
+      },
+      {
+        "subject": "آمار و احتمال مهندسی",
+        "studySeconds": 3000,
+        "sessionCount": 1
+      },
+      {
+        "subject": "شبکه‌های کامپیوتری",
+        "studySeconds": 2700,
+        "sessionCount": 1
+      },
+      {
+        "subject": "هوش مصنوعی",
+        "studySeconds": 1500,
+        "sessionCount": 1
+      }
+    ]
+  }
+}

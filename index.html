@@ -1,0 +1,1147 @@
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+
+    <title>Study Timer</title>
+
+    <link
+      rel="stylesheet"
+      href="./style.css"
+    />
+  </head>
+
+  <body
+    data-theme="dark"
+    data-state="idle"
+    data-lang="en"
+  >
+    <!-- =========================
+         HEADER
+    ========================== -->
+    <header class="app-header">
+      <div class="header-left">
+        <div class="brand">
+          <span class="brand__dot"></span>
+
+          <span
+            class="brand__label"
+            id="modeLabel"
+            data-i18n="focusSession"
+          >
+            FOCUS SESSION
+          </span>
+        </div>
+
+        <div
+          class="save-status"
+          id="saveStatus"
+        >
+          <span class="save-status__dot"></span>
+
+          <span
+            id="saveStatusText"
+            data-i18n="saveNotConnected"
+          >
+            Not connected
+          </span>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <!-- Analytics Link -->
+        <a
+          href="./analytics.html"
+          class="icon-btn"
+          id="analyticsLink"
+          aria-label="Analytics"
+          title="Analytics"
+        >
+          📊
+        </a>
+
+        <!-- Language -->
+        <div
+          class="lang-switch"
+          id="langSwitch"
+          role="group"
+          aria-label="Language"
+        >
+          <button
+            type="button"
+            id="langFaBtn"
+            class="lang-btn"
+            data-lang="fa"
+          >
+            FA
+          </button>
+
+          <button
+            type="button"
+            id="langEnBtn"
+            class="lang-btn is-active"
+            data-lang="en"
+          >
+            EN
+          </button>
+        </div>
+
+        <!-- Theme -->
+        <button
+          type="button"
+          class="icon-btn"
+          id="themeToggle"
+          aria-label="Toggle theme"
+          title="Toggle theme"
+        >
+          ◐
+        </button>
+
+        <!-- Fullscreen -->
+        <button
+          type="button"
+          class="icon-btn"
+          id="fullscreenToggle"
+          aria-label="Fullscreen"
+          title="Fullscreen"
+        >
+          ⛶
+        </button>
+
+        <!-- Settings -->
+        <button
+          type="button"
+          class="icon-btn"
+          id="settingsToggle"
+          aria-label="Open settings"
+          title="Settings"
+        >
+          ⚙
+        </button>
+      </div>
+    </header>
+
+    <!-- =========================
+         LIVE CLOCK
+    ========================== -->
+    <section class="live-clock-section">
+      <div
+        class="live-clock"
+        id="liveClock"
+      >
+        00:00:00
+      </div>
+
+      <div
+        class="live-date"
+        id="liveDate"
+      >
+        Monday, January 1
+      </div>
+    </section>
+
+    <!-- =========================
+         MAIN
+    ========================== -->
+    <main class="app-main">
+      <!-- =========================
+           TIMER / HERO
+      ========================== -->
+      <section class="timer-section">
+        <div class="timer-card">
+          <div
+            class="timer-ring"
+            id="timerRing"
+          >
+            <div class="timer-ring__inner">
+              <div
+                class="ring__status"
+                id="statusLabel"
+                data-i18n="readyToFocus"
+              >
+                READY TO FOCUS
+              </div>
+
+              <div
+                class="time-display"
+                id="timeDisplay"
+              >
+                50:00
+              </div>
+
+              <div
+                class="ring__caption"
+                id="timeCaption"
+                data-i18n="timeRemaining"
+              >
+                TIME REMAINING
+              </div>
+
+              <div
+                class="ring__subject"
+                id="ringSubject"
+                hidden
+              ></div>
+            </div>
+          </div>
+
+          <!-- Timer info -->
+          <div class="timer-info">
+            <div class="timer-info__item">
+              <span
+                class="timer-info__label"
+                id="elapsedLabel"
+                data-i18n="elapsed"
+              >
+                Elapsed
+              </span>
+
+              <span
+                class="timer-info__value"
+                id="elapsedValue"
+              >
+                00:00
+              </span>
+            </div>
+
+            <div class="timer-info__divider"></div>
+
+            <div class="timer-info__item">
+              <span
+                class="timer-info__label"
+                id="remainingLabel"
+                data-i18n="remaining"
+              >
+                Remaining
+              </span>
+
+              <span
+                class="timer-info__value"
+                id="remainingValue"
+              >
+                50:00
+              </span>
+            </div>
+          </div>
+
+          <!-- Progress -->
+          <div class="session-progress">
+            <div class="session-progress__header">
+              <span
+                id="progressLabel"
+                data-i18n="studySession"
+              >
+                Study Session
+              </span>
+
+              <span id="progressPercent"> 0% </span>
+            </div>
+
+            <div class="progress-bar">
+              <div
+                class="progress-bar__fill"
+                id="sessionProgressFill"
+                style="width: 0%"
+              ></div>
+            </div>
+          </div>
+
+          <!-- Main controls -->
+          <div class="timer-controls">
+            <button
+              type="button"
+              class="secondary-btn"
+              id="resetBtn"
+            >
+              <span data-i18n="reset">Reset</span>
+            </button>
+
+            <button
+              type="button"
+              class="primary-btn"
+              id="primaryBtn"
+            >
+              <span
+                id="primaryBtnLabel"
+                data-i18n="start"
+              >
+                Start
+              </span>
+            </button>
+          </div>
+
+          <!-- Secondary controls -->
+          <div class="secondary-controls">
+            <button
+              type="button"
+              class="text-btn"
+              id="finishBtn"
+            >
+              <span data-i18n="finish">Finish</span>
+            </button>
+
+            <button
+              type="button"
+              class="text-btn"
+              id="breakBtn"
+            >
+              <span data-i18n="startBreak"> Start 5-min break </span>
+            </button>
+          </div>
+
+          <!-- =========================
+               SUBJECT
+          ========================== -->
+          <div class="subject-section">
+            <div
+              class="section-label"
+              id="subjectLabel"
+              data-i18n="subject"
+            >
+              Subject
+            </div>
+
+            <div
+              class="subject-grid"
+              id="subjectGrid"
+            ></div>
+          </div>
+
+          <!-- =========================
+               DURATION
+          ========================== -->
+          <div class="duration-section">
+            <div
+              class="section-label"
+              id="durationLabel"
+              data-i18n="duration"
+            >
+              Duration
+            </div>
+
+            <div class="preset-grid">
+              <button
+                type="button"
+                class="preset-btn"
+                data-minutes="25"
+              >
+                25m
+              </button>
+
+              <button
+                type="button"
+                class="preset-btn is-active"
+                data-minutes="50"
+              >
+                50m
+              </button>
+
+              <button
+                type="button"
+                class="preset-btn"
+                data-minutes="90"
+              >
+                90m
+              </button>
+
+              <button
+                type="button"
+                class="preset-btn"
+                data-minutes="120"
+              >
+                120m
+              </button>
+
+              <button
+                type="button"
+                class="preset-btn"
+                id="customPresetBtn"
+              >
+                <span data-i18n="custom">Custom</span>
+              </button>
+            </div>
+
+            <div
+              class="custom-duration"
+              id="customDuration"
+              hidden
+            >
+              <input
+                type="number"
+                id="customMinutes"
+                min="1"
+                max="600"
+                inputmode="numeric"
+                placeholder="min"
+              />
+
+              <span data-i18n="minutes">min</span>
+            </div>
+          </div>
+
+          <!-- =========================
+               STUDY WINDOW
+          ========================== -->
+          <div class="study-window">
+            <div
+              class="section-label"
+              id="windowLabel"
+              data-i18n="studyWindow"
+            >
+              Or set a study window
+            </div>
+
+            <div class="window-grid">
+              <label class="field">
+                <span
+                  class="field__label"
+                  id="windowStartLabel"
+                  data-i18n="startTime"
+                >
+                  Start
+                </span>
+
+                <input
+                  type="time"
+                  id="windowStart"
+                />
+              </label>
+
+              <label class="field">
+                <span
+                  class="field__label"
+                  id="windowEndLabel"
+                  data-i18n="endTime"
+                >
+                  End
+                </span>
+
+                <input
+                  type="time"
+                  id="windowEnd"
+                />
+              </label>
+
+              <button
+                type="button"
+                class="secondary-btn"
+                id="applyWindowBtn"
+              >
+                <span data-i18n="apply">Apply</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================
+           SIDEBAR
+      ========================== -->
+      <aside class="sidebar">
+        <!-- Today -->
+        <section class="side-card today-card">
+          <div class="side-card__header">
+            <h2
+              class="side-card__title"
+              id="todayTitle"
+              data-i18n="today"
+            >
+              Today
+            </h2>
+
+            <span
+              class="today-date"
+              id="todayDate"
+            >
+              —
+            </span>
+          </div>
+
+          <div class="today-stats">
+            <div class="stat-item">
+              <span
+                class="stat-item__label"
+                id="todayStudyTimeLabel"
+                data-i18n="studyTime"
+              >
+                Study time
+              </span>
+
+              <strong
+                class="stat-item__value"
+                id="todayStudyTime"
+              >
+                0m
+              </strong>
+            </div>
+
+            <div class="stat-item">
+              <span
+                class="stat-item__label"
+                id="todaySessionsLabel"
+                data-i18n="sessions"
+              >
+                Sessions
+              </span>
+
+              <strong
+                class="stat-item__value"
+                id="todaySessions"
+              >
+                0
+              </strong>
+            </div>
+
+            <div class="stat-item">
+              <span
+                class="stat-item__label"
+                id="todayRemainingGoalLabel"
+                data-i18n="leftToGoal"
+              >
+                Left to goal
+              </span>
+
+              <strong
+                class="stat-item__value"
+                id="todayRemainingGoal"
+              >
+                4h
+              </strong>
+            </div>
+          </div>
+
+          <div class="goal-section">
+            <div class="goal-header">
+              <span
+                id="dailyGoalLabel"
+                data-i18n="dailyGoal"
+              >
+                Daily goal
+              </span>
+
+              <span id="dailyGoalValue"> 4h </span>
+            </div>
+
+            <div class="progress-bar">
+              <div
+                class="progress-bar__fill"
+                id="dailyGoalProgressFill"
+                style="width: 0%"
+              ></div>
+            </div>
+          </div>
+
+          <div class="subject-breakdown-section">
+            <div
+              class="section-label"
+              id="bySubjectLabel"
+              data-i18n="bySubjectToday"
+            >
+              By subject
+            </div>
+
+            <div
+              class="subject-breakdown"
+              id="subjectBreakdown"
+            ></div>
+
+            <div
+              class="empty-state"
+              id="subjectBreakdownEmpty"
+              data-i18n="noSubjectDataToday"
+              hidden
+            >
+              No subject data yet today.
+            </div>
+          </div>
+        </section>
+
+        <!-- Timeline -->
+        <section class="side-card">
+          <div class="side-card__header">
+            <h2
+              class="side-card__title"
+              id="timelineTitle"
+              data-i18n="timeline"
+            >
+              Timeline
+            </h2>
+          </div>
+
+          <div
+            class="timeline"
+            id="timeline"
+          ></div>
+
+          <div
+            class="empty-state"
+            id="timelineEmpty"
+            data-i18n="noSessionsToday"
+          >
+            No sessions yet today.
+          </div>
+        </section>
+
+        <!-- Session history -->
+        <section class="side-card">
+          <div class="side-card__header">
+            <h2
+              class="side-card__title"
+              id="historyTitle"
+              data-i18n="sessionHistory"
+            >
+              Session history
+            </h2>
+          </div>
+
+          <div
+            class="history"
+            id="history"
+          ></div>
+
+          <div
+            class="empty-state"
+            id="historyEmpty"
+            data-i18n="finishedSessions"
+          >
+            Your finished sessions will show up here.
+          </div>
+        </section>
+      </aside>
+    </main>
+
+    <!-- =========================
+         EXAM COUNTDOWN
+    ========================== -->
+    <section class="exam-section">
+      <div class="exam-card">
+        <div class="exam-card__header">
+          <div>
+            <div
+              class="exam-card__eyebrow"
+              id="examCountdownTitle"
+              data-i18n="examCountdown"
+            >
+              EXAM COUNTDOWN
+            </div>
+
+            <div
+              class="exam-days-left-label"
+              id="examDaysLeftLabel"
+              data-i18n="daysLeftLabel"
+            >
+              DAYS LEFT
+            </div>
+          </div>
+
+          <div
+            class="exam-days-left"
+            id="examDaysLeft"
+          >
+            0
+          </div>
+        </div>
+
+        <div class="exam-meta">
+          <span id="examWeekLabel"> Week — / — </span>
+
+          <span class="exam-meta__separator"> • </span>
+
+          <span id="examDaysPassed"> 0 days passed </span>
+
+          <span class="exam-meta__separator"> • </span>
+
+          <span id="examDaysLeftMini"> 0 days left </span>
+        </div>
+
+        <div class="exam-progress">
+          <div class="progress-bar">
+            <div
+              class="progress-bar__fill"
+              id="examProgressFill"
+              style="width: 0%"
+            ></div>
+          </div>
+        </div>
+
+        <div
+          class="exam-empty-note"
+          id="examEmptyNote"
+          data-i18n="setExamDates"
+        >
+          Set your study start date and exam date in Settings to activate the countdown.
+        </div>
+
+        <!-- Exam daily / weekly status -->
+        <div class="exam-status-grid">
+          <div class="exam-status-card">
+            <div
+              class="exam-status-card__title"
+              id="dailyStatusTitle"
+              data-i18n="todayStatus"
+            >
+              TODAY
+            </div>
+
+            <div
+              class="exam-status-card__value"
+              id="dailyStatusValue"
+            >
+              —
+            </div>
+          </div>
+
+          <div class="exam-status-card">
+            <div
+              class="exam-status-card__title"
+              id="weeklyStatusTitle"
+            >
+              WEEK —
+            </div>
+
+            <div
+              class="exam-status-card__value"
+              id="weeklyStatusValue"
+            >
+              —
+            </div>
+          </div>
+        </div>
+
+        <!-- Calendar -->
+        <div class="calendar-section">
+          <div
+            class="calendar-title"
+            id="calendarTitle"
+            data-i18n="thisWeek"
+          >
+            This week
+          </div>
+
+          <div
+            class="calendar"
+            id="calendar"
+          ></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         SETTINGS MODAL
+    ========================== -->
+    <div
+      class="modal"
+      id="settingsModal"
+      hidden
+      aria-hidden="true"
+    >
+      <div
+        class="modal__backdrop"
+        data-close-settings
+      ></div>
+
+      <div
+        class="modal__dialog settings-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="settingsTitle"
+      >
+        <div class="modal__header">
+          <h2
+            id="settingsTitle"
+            data-i18n="settings"
+          >
+            Settings
+          </h2>
+
+          <button
+            type="button"
+            class="modal-close"
+            id="settingsCloseBtn"
+            aria-label="Close settings"
+            title="Close settings"
+          >
+            ×
+          </button>
+        </div>
+
+        <div class="modal__body">
+          <!-- General -->
+          <section class="settings-section">
+            <div class="settings-grid">
+              <label class="field">
+                <span
+                  class="field__label"
+                  id="settingGoalHoursLabel"
+                  data-i18n="dailyGoalHours"
+                >
+                  Daily goal (hours)
+                </span>
+
+                <input
+                  type="number"
+                  id="settingGoalHours"
+                  min="0"
+                  max="24"
+                  step="0.5"
+                />
+              </label>
+
+              <label class="field">
+                <span
+                  class="field__label"
+                  id="settingDefaultMinutesLabel"
+                  data-i18n="defaultSessionLength"
+                >
+                  Default session length (min)
+                </span>
+
+                <input
+                  type="number"
+                  id="settingDefaultMinutes"
+                  min="1"
+                  max="600"
+                />
+              </label>
+            </div>
+
+            <div class="settings-options">
+              <label class="setting-toggle">
+                <input
+                  type="checkbox"
+                  id="settingSound"
+                />
+
+                <span
+                  id="settingSoundLabel"
+                  data-i18n="soundOnCompletion"
+                >
+                  Sound on completion
+                </span>
+              </label>
+
+              <label class="setting-toggle">
+                <input
+                  type="checkbox"
+                  id="settingClock24"
+                />
+
+                <span
+                  id="settingClock24Label"
+                  data-i18n="clock24"
+                >
+                  24-hour clock
+                </span>
+              </label>
+
+              <label class="setting-toggle">
+                <input
+                  type="checkbox"
+                  id="settingReducedMotion"
+                />
+
+                <span
+                  id="settingReducedMotionLabel"
+                  data-i18n="reducedAnimation"
+                >
+                  Reduced animation
+                </span>
+              </label>
+
+              <label class="setting-toggle">
+                <input
+                  type="checkbox"
+                  id="settingAutoStart"
+                />
+
+                <span
+                  id="settingAutoStartLabel"
+                  data-i18n="autoStartNext"
+                >
+                  Auto-start next session
+                </span>
+              </label>
+            </div>
+          </section>
+
+          <!-- Subjects -->
+          <section class="settings-section">
+            <div
+              class="settings-divider"
+              id="subjectsDivider"
+              data-i18n="subjectsSectionTitle"
+            >
+              SUBJECTS
+            </div>
+
+            <div class="subject-manage">
+              <div class="subject-manage__form">
+                <input
+                  type="text"
+                  id="newSubjectInput"
+                  maxlength="60"
+                  data-i18n-placeholder="addSubjectPlaceholder"
+                  placeholder="New subject"
+                />
+
+                <button
+                  type="button"
+                  class="secondary-btn"
+                  id="addSubjectBtn"
+                >
+                  <span data-i18n="add">Add</span>
+                </button>
+              </div>
+
+              <div
+                class="subject-manage__list"
+                id="subjectManageList"
+              ></div>
+            </div>
+          </section>
+
+          <!-- Exam plan -->
+          <section class="settings-section">
+            <div
+              class="settings-divider"
+              id="examPlanDivider"
+              data-i18n="examPlan"
+            >
+              EXAM PLAN
+            </div>
+
+            <div class="settings-grid">
+              <label class="field">
+                <span
+                  class="field__label"
+                  id="studyStartLabel"
+                  data-i18n="studyStartDate"
+                >
+                  Study start date
+                </span>
+
+                <input
+                  type="date"
+                  id="studyStartDate"
+                />
+              </label>
+
+              <label class="field">
+                <span
+                  class="field__label"
+                  id="examDateLabel"
+                  data-i18n="examDate"
+                >
+                  Exam date
+                </span>
+
+                <input
+                  type="date"
+                  id="examDate"
+                />
+              </label>
+
+              <label class="field">
+                <span
+                  class="field__label"
+                  id="totalWeeksLabel"
+                  data-i18n="totalWeeks"
+                >
+                  Total weeks
+                </span>
+
+                <input
+                  type="number"
+                  id="totalWeeks"
+                  min="0"
+                  max="520"
+                />
+              </label>
+            </div>
+          </section>
+
+          <!-- Data file -->
+          <section class="settings-section">
+            <div
+              class="settings-divider"
+              id="dataDivider"
+              data-i18n="studyDataFile"
+            >
+              STUDY DATA FILE
+            </div>
+
+            <div class="data-actions">
+              <button
+                type="button"
+                class="secondary-btn"
+                id="connectFileBtn"
+              >
+                <span data-i18n="createConnectFile"> Create / Connect file </span>
+              </button>
+
+              <button
+                type="button"
+                class="secondary-btn"
+                id="openFileBtn"
+              >
+                <span data-i18n="openFile">Open file</span>
+              </button>
+              <button
+                type="button"
+                class="secondary-btn"
+                id="saveNowBtn"
+              >
+                <span data-i18n="saveNow">Save now</span>
+              </button>
+
+              <button
+                type="button"
+                class="secondary-btn"
+                id="exportBtn"
+              >
+                <span data-i18n="exportJson"> Export JSON </span>
+              </button>
+
+              <label
+                class="secondary-btn file-input-btn"
+                for="importFileInput"
+              >
+                <span data-i18n="importJson"> Import JSON </span>
+
+                <input
+                  type="file"
+                  id="importFileInput"
+                  accept=".json,application/json"
+                  hidden
+                />
+              </label>
+            </div>
+          </section>
+        </div>
+
+        <div class="modal__footer">
+          <button
+            type="button"
+            class="danger-btn"
+            id="clearDataBtn"
+          >
+            <span data-i18n="clearSavedData"> Clear all saved data </span>
+          </button>
+
+          <button
+            type="button"
+            class="primary-btn"
+            id="saveSettingsBtn"
+          >
+            <span data-i18n="saveClose"> Save & close </span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================
+         CONNECT FILE MODAL
+    ========================== -->
+    <div
+      class="modal"
+      id="connectModal"
+      hidden
+      aria-hidden="true"
+    >
+      <div
+        class="modal__backdrop"
+        data-close-connect
+      ></div>
+
+      <div
+        class="modal__dialog connect-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="connectTitle"
+      >
+        <div class="modal__header">
+          <h2
+            id="connectTitle"
+            data-i18n="connectTitle"
+          >
+            Your study data is not connected
+          </h2>
+
+          <button
+            type="button"
+            class="modal-close"
+            id="connectCloseBtn"
+            aria-label="Close"
+            title="Close"
+          >
+            ×
+          </button>
+        </div>
+
+        <div class="modal__body">
+          <p
+            class="connect-description"
+            id="connectBody"
+            data-i18n="connectBody"
+          >
+            Connect a study data file to keep your progress safe across sessions.
+          </p>
+        </div>
+
+        <div class="modal__footer">
+          <button
+            type="button"
+            class="secondary-btn"
+            id="connectOpenBtn"
+          >
+            <span data-i18n="openExistingFile">Open existing file</span>
+          </button>
+          <button
+            type="button"
+            class="secondary-btn"
+            id="connectLaterBtn"
+          >
+            <span data-i18n="continueWithoutFile"> Continue without a file </span>
+          </button>
+
+          <button
+            type="button"
+            class="primary-btn"
+            id="connectNowBtn"
+          >
+            <span data-i18n="createConnectFileCaps"> Create / Connect File </span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================
+         TOAST
+    ========================== -->
+    <div
+      class="toast"
+      id="toast"
+      role="status"
+      aria-live="polite"
+      hidden
+    >
+      <span id="toastText"></span>
+    </div>
+
+    <!-- =========================
+         SCRIPTS
+    ========================== -->
+
+    <script
+      type="module"
+      src="./files/app.js"
+    ></script>
+  </body>
+</html>

@@ -1,0 +1,372 @@
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+
+    <title>Study Analytics</title>
+
+    <link
+      rel="stylesheet"
+      href="./style.css"
+    />
+  </head>
+
+  <body
+    data-theme="dark"
+    data-lang="en"
+  >
+    <!-- =========================
+         HEADER
+    ========================== -->
+    <header class="app-header">
+      <div class="header-left">
+        <div class="brand">
+          <span class="brand__dot"></span>
+          <span
+            class="brand__label"
+            data-i18n="eyebrow"
+            >STUDY ANALYTICS</span
+          >
+        </div>
+
+        
+          class="analytics-back-link"
+          href="./index.html"
+          data-i18n="backToTimer"
+        >
+          ← Back to timer
+        </a>
+      </div>
+
+      <div class="header-right">
+        <div
+          class="lang-switch"
+          role="group"
+          aria-label="Language"
+        >
+          <button
+            type="button"
+            id="aLangFaBtn"
+            class="lang-btn"
+            data-lang="fa"
+          >
+            FA
+          </button>
+          <button
+            type="button"
+            id="aLangEnBtn"
+            class="lang-btn is-active"
+            data-lang="en"
+          >
+            EN
+          </button>
+        </div>
+
+        <button
+          type="button"
+          class="icon-btn"
+          id="aThemeToggle"
+          aria-label="Toggle theme"
+          title="Toggle theme"
+        >
+          ◐
+        </button>
+      </div>
+    </header>
+
+    <!-- =========================
+         MAIN
+    ========================== -->
+    <main class="analytics-main">
+      <!-- Connect panel (shown until a data file is loaded) -->
+      <section
+        class="analytics-connect"
+        id="connectSection"
+      >
+        <div class="analytics-connect__card">
+          <h2 data-i18n="connectTitle">Connect your study data</h2>
+          <p
+            id="connectBody"
+            data-i18n="connectBody"
+          >
+            Open the same study-data.json file you use in the timer to see your stats here.
+          </p>
+
+          <div class="data-actions">
+            <button
+              type="button"
+              class="primary-btn"
+              id="openFileBtn"
+            >
+              <span data-i18n="openFile">Open Data File</span>
+            </button>
+
+            <label
+              class="secondary-btn file-input-btn"
+              for="importFileInput"
+            >
+              <span data-i18n="importJson">Import JSON</span>
+              <input
+                type="file"
+                id="importFileInput"
+                accept=".json,application/json"
+                hidden
+              />
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <!-- Content (shown once a document is loaded) -->
+      <section
+        class="analytics-content"
+        id="contentSection"
+        hidden
+      >
+        <div class="analytics-toolbar">
+          <span
+            class="analytics-toolbar__file"
+            id="fileNameLabel"
+          ></span>
+
+          <div class="analytics-toolbar__actions">
+            <button
+              type="button"
+              class="secondary-btn"
+              id="refreshBtn"
+              hidden
+            >
+              <span data-i18n="refresh">Refresh</span>
+            </button>
+
+            <button
+              type="button"
+              class="secondary-btn"
+              id="changeFileBtn"
+            >
+              <span data-i18n="changeFile">Change file</span>
+            </button>
+          </div>
+        </div>
+
+        <div
+          class="empty-state analytics-empty"
+          id="emptyState"
+          data-i18n="noSessionsYet"
+          hidden
+        >
+          No finished study sessions yet — come back after your first session.
+        </div>
+
+        <!-- Stat cards -->
+        <div
+          class="analytics-stats-grid"
+          id="statsGrid"
+        >
+          <div class="stat-card">
+            <span
+              class="stat-card__label"
+              data-i18n="totalStudyTime"
+              >Total study time</span
+            >
+            <strong
+              class="stat-card__value"
+              id="statTotalTime"
+              >—</strong
+            >
+            <span
+              class="stat-card__meta"
+              id="statTotalTimeMeta"
+            ></span>
+          </div>
+
+          <div class="stat-card">
+            <span
+              class="stat-card__label"
+              data-i18n="currentStreak"
+              >Current streak</span
+            >
+            <strong
+              class="stat-card__value"
+              id="statStreak"
+              >—</strong
+            >
+            <span
+              class="stat-card__meta"
+              id="statStreakMeta"
+            ></span>
+          </div>
+
+          <div class="stat-card">
+            <span
+              class="stat-card__label"
+              data-i18n="completionRate"
+              >Completion rate</span
+            >
+            <strong
+              class="stat-card__value"
+              id="statCompletion"
+              >—</strong
+            >
+            <span
+              class="stat-card__meta"
+              id="statCompletionMeta"
+            ></span>
+          </div>
+
+          <div class="stat-card">
+            <span
+              class="stat-card__label"
+              data-i18n="avgSession"
+              >Avg. session</span
+            >
+            <strong
+              class="stat-card__value"
+              id="statAvgSession"
+              >—</strong
+            >
+            <span
+              class="stat-card__meta"
+              id="statAvgSessionMeta"
+            ></span>
+          </div>
+
+          <div class="stat-card">
+            <span
+              class="stat-card__label"
+              data-i18n="goalDays"
+              >Goal days (30d)</span
+            >
+            <strong
+              class="stat-card__value"
+              id="statGoalDays"
+              >—</strong
+            >
+            <span
+              class="stat-card__meta"
+              id="statGoalDaysMeta"
+            ></span>
+          </div>
+
+          <div class="stat-card">
+            <span
+              class="stat-card__label"
+              data-i18n="bestDay"
+              >Best day (30d)</span
+            >
+            <strong
+              class="stat-card__value"
+              id="statBestDay"
+              >—</strong
+            >
+            <span
+              class="stat-card__meta"
+              id="statBestDayMeta"
+            ></span>
+          </div>
+
+          <div class="stat-card">
+            <span
+              class="stat-card__label"
+              data-i18n="breakTime"
+              >Break time</span
+            >
+            <strong
+              class="stat-card__value"
+              id="statBreakTime"
+              >—</strong
+            >
+            <span
+              class="stat-card__meta"
+              id="statBreakTimeMeta"
+            ></span>
+          </div>
+        </div>
+
+        <!-- Subject breakdown -->
+        <section class="chart-card chart-card--wide">
+          <div class="chart-card__header">
+            <h3 data-i18n="subjectsTitle">Subjects</h3>
+          </div>
+          <div class="chart-card__body">
+            <div
+              class="analytics-stats-grid"
+              id="subjectStats"
+            ></div>
+          </div>
+        </section>
+
+        <!-- Charts -->
+        <div
+          class="analytics-charts-grid"
+          id="chartsGrid"
+        >
+          <div class="chart-card chart-card--wide">
+            <div class="chart-card__header">
+              <h3 data-i18n="last30Days">Last 30 Days</h3>
+              <span class="chart-legend__item">
+                <span class="chart-legend__swatch chart-legend__swatch--line"></span>
+                <span data-i18n="goalLineLegend">Daily goal</span>
+              </span>
+            </div>
+            <div
+              class="chart-card__body"
+              id="dailyChart"
+            ></div>
+          </div>
+
+          <div class="chart-card chart-card--wide">
+            <div class="chart-card__header">
+              <h3 data-i18n="weeklyTrend">Weekly Trend</h3>
+            </div>
+            <div
+              class="chart-card__body"
+              id="weeklyChart"
+            ></div>
+          </div>
+
+          <div class="chart-card">
+            <div class="chart-card__header">
+              <h3 data-i18n="sessionOutcomes">Session Outcomes</h3>
+            </div>
+            <div class="chart-card__body chart-card__body--donut">
+              <div id="donutChart"></div>
+              <div
+                class="chart-legend"
+                id="donutLegend"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- =========================
+         TOAST
+    ========================== -->
+    <div
+      class="toast"
+      id="toast"
+      role="status"
+      aria-live="polite"
+      hidden
+    >
+      <span id="toastText"></span>
+    </div>
+
+    <!-- =========================
+         SCRIPTS
+    ========================== -->
+    <script
+      type="module"
+      src="./files/analyticsApp.js"
+    ></script>
+  </body>
+</html>
