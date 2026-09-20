@@ -23,13 +23,41 @@ import {
   bestDayOf,
   goalDaysCount,
   buildStreaks,
+  buildExamPlanStatus,
+  buildDaypartDistribution,
+  buildWeekdayAverages,
+  buildSessionLengthDistribution,
+  buildMonthlySeries,
 } from './analyticsData.js';
-import { renderBarChart, renderLineChart, renderDonutChart, esc } from './analyticsCharts.js';
+import {
+  renderBarChart,
+  renderLineChart,
+  renderDonutChart,
+  renderCategoryBarChart,
+  categoricalPalette,
+  esc,
+} from './analyticsCharts.js';
 
 const $ = (id) => document.getElementById(id);
 const LOCAL_PREFS_KEY = 'study-timer:analytics-prefs';
 const DAILY_WINDOW_DAYS = 30;
 const WEEKLY_WINDOW_WEEKS = 12;
+
+/* Structural (non-translated-dictionary) label sets: order/rotation
+   differs by language (week starts Saturday in fa), so these live
+   outside I18N rather than as flat string keys. */
+const WEEKDAY_LABELS = {
+  en: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+  fa: ['یک', 'دو', 'سه', 'چهار', 'پنج', 'جمعه', 'شنبه'],
+};
+const WEEKDAY_DISPLAY_ORDER = {
+  en: [0, 1, 2, 3, 4, 5, 6],
+  fa: [6, 0, 1, 2, 3, 4, 5],
+};
+const SESSION_LENGTH_LABELS = {
+  en: ['≤25 min', '26-50 min', '51-90 min', '90+ min'],
+  fa: ['≤25 دقیقه', '26-50 دقیقه', '51-90 دقیقه', '90+ دقیقه'],
+};
 
 const I18N = {
   en: {
@@ -47,6 +75,7 @@ const I18N = {
     noPermission: 'Permission to access the file was denied',
     refreshed: 'Refreshed',
     noSessionsYet: 'No finished study sessions yet — come back after your first session.',
+    overviewTitle: 'Overview',
     totalStudyTime: 'Total study time',
     currentStreak: 'Current streak',
     completionRate: 'Completion rate',
@@ -71,6 +100,26 @@ const I18N = {
     cancelledLabel: 'Cancelled',
     subjectsTitle: 'Subjects',
     noSubjectsYet: 'No subjects yet',
+    examCountdown: 'EXAM COUNTDOWN',
+    daysLeftLabel: 'DAYS LEFT',
+    todayStatus: 'TODAY',
+    setExamDates:
+      "Set your study start date and exam date in the timer's Settings to activate the countdown.",
+    weekWord: 'Week',
+    daysPassedSuffix: 'days passed',
+    daysLeftSuffix: 'days left',
+    daypartTitle: 'Time of Day',
+    morning: 'Morning',
+    afternoon: 'Afternoon',
+    evening: 'Evening',
+    night: 'Night',
+    weekdayTitle: 'Study by Day of Week',
+    sessionLengthTitle: 'Session Lengths',
+    subjectShareTitle: 'Subject Share',
+    pauseBreakTitle: 'Study vs Break vs Idle',
+    studyLabel: 'Study',
+    pausedLabel: 'Idle (paused)',
+    monthlyTitle: 'Monthly Overview',
   },
   fa: {
     eyebrow: 'تحلیل مطالعه',
@@ -88,6 +137,7 @@ const I18N = {
     noPermission: 'دسترسی به فایل داده نشد',
     refreshed: 'به‌روزرسانی شد',
     noSessionsYet: 'هنوز جلسه‌ی مطالعه‌ی تمام‌شده‌ای ثبت نشده — بعد از اولین جلسه دوباره سر بزنید.',
+    overviewTitle: 'نمای کلی',
     totalStudyTime: 'کل زمان مطالعه',
     currentStreak: 'روزهای متوالی فعلی',
     completionRate: 'نرخ تکمیل',
@@ -112,6 +162,26 @@ const I18N = {
     cancelledLabel: 'لغوشده',
     subjectsTitle: 'دروس',
     noSubjectsYet: 'هنوز درسی ثبت نشده',
+    examCountdown: 'شمارش معکوس امتحان',
+    daysLeftLabel: 'روز مانده',
+    todayStatus: 'امروز',
+    setExamDates:
+      'تاریخ شروع مطالعه و تاریخ امتحان را در تنظیمات تایمر مشخص کنید تا شمارش معکوس فعال شود.',
+    weekWord: 'هفته',
+    daysPassedSuffix: 'روز گذشته',
+    daysLeftSuffix: 'روز مانده',
+    daypartTitle: 'توزیع ساعت مطالعه',
+    morning: 'صبح',
+    afternoon: 'ظهر',
+    evening: 'عصر',
+    night: 'شب',
+    weekdayTitle: 'مطالعه بر حسب روز هفته',
+    sessionLengthTitle: 'توزیع طول جلسات',
+    subjectShareTitle: 'سهم دروس',
+    pauseBreakTitle: 'مطالعه / استراحت / مکث',
+    studyLabel: 'مطالعه',
+    pausedLabel: 'مکث‌شده',
+    monthlyTitle: 'نمای ماهانه',
   },
 };
 
@@ -131,6 +201,7 @@ const el = {
   changeFileBtn: $('changeFileBtn'),
 
   emptyState: $('emptyState'),
+  overviewSection: $('overviewSection'),
   statsGrid: $('statsGrid'),
 
   statTotalTime: $('statTotalTime'),
@@ -150,11 +221,35 @@ const el = {
 
   subjectStats: $('subjectStats'),
 
+  examDaysLeft: $('aExamDaysLeft'),
+  examMeta: $('aExamMeta'),
+  examWeekLabel: $('aExamWeekLabel'),
+  examDaysPassed: $('aExamDaysPassed'),
+  examDaysLeftMini: $('aExamDaysLeftMini'),
+  examProgress: $('aExamProgress'),
+  examProgressFill: $('aExamProgressFill'),
+  examEmptyNote: $('aExamEmptyNote'),
+  examStatusGrid: $('aExamStatusGrid'),
+  dailyStatusValue: $('aDailyStatusValue'),
+  weeklyStatusTitle: $('aWeeklyStatusTitle'),
+  weeklyStatusValue: $('aWeeklyStatusValue'),
+
   chartsGrid: $('chartsGrid'),
   dailyChart: $('dailyChart'),
   weeklyChart: $('weeklyChart'),
   donutChart: $('donutChart'),
   donutLegend: $('donutLegend'),
+
+  daypartChart: $('daypartChart'),
+  weekdayChart: $('weekdayChart'),
+  sessionLengthChart: $('sessionLengthChart'),
+  subjectDonutChart: $('subjectDonutChart'),
+  subjectDonutLegend: $('subjectDonutLegend'),
+  pauseDonutChart: $('pauseDonutChart'),
+  pauseDonutLegend: $('pauseDonutLegend'),
+
+  monthlySection: $('monthlySection'),
+  monthlyChart: $('monthlyChart'),
 
   toast: $('toast'),
   toastText: $('toastText'),
@@ -184,6 +279,10 @@ let prefs = { language: 'en', theme: 'dark', ...readLocalPrefs() };
 
 function tr() {
   return I18N[prefs.language] || I18N.en;
+}
+
+function lang() {
+  return prefs.language === 'fa' ? 'fa' : 'en';
 }
 
 function applyLanguage() {
@@ -249,6 +348,11 @@ function dayLabel(dayKey) {
   // Keep digits plain (no locale numeral conversion) — matches fmtHoursMinutes/pad elsewhere.
   const [, m, d] = dayKey.split('-');
   return `${d}/${m}`;
+}
+
+function monthLabel(monthKey) {
+  const [y, m] = monthKey.split('-');
+  return `${m}/${y}`;
 }
 
 async function readAndRender(h) {
@@ -342,10 +446,11 @@ async function refresh() {
 }
 
 /* ------------------------------------------------------------
-   Subjects panel
+   Subjects panel — leaderboard-style rows (name/time, comparison
+   bar relative to the top subject, % of total study time)
    ------------------------------------------------------------ */
 
-function renderSubjectStats(items) {
+function renderSubjectStats(items, totalStudySeconds) {
   if (!el.subjectStats) return;
   const t = tr();
 
@@ -354,18 +459,179 @@ function renderSubjectStats(items) {
     return;
   }
 
+  const maxSeconds = Math.max(1, ...items.map((i) => i.studySeconds));
+
   el.subjectStats.innerHTML = items
     .map((item) => {
       const time = item.studySeconds > 0 ? fmtHoursMinutes(item.studySeconds) : '—';
+      const pct =
+        totalStudySeconds > 0 ? Math.round((item.studySeconds / totalStudySeconds) * 100) : 0;
+      const barPct = Math.round((item.studySeconds / maxSeconds) * 100);
       return `
-        <div class="stat-card">
-          <span class="stat-card__label">${esc(item.subject)}</span>
-          <strong class="stat-card__value">${time}</strong>
-          <span class="stat-card__meta">${item.sessionCount} ${esc(t.sessions)}</span>
+        <div class="subject-row">
+          <div class="stat-item">
+            <span class="stat-item__label">${esc(item.subject)}</span>
+            <strong class="stat-item__value">${time}</strong>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-bar__fill" style="width: ${barPct}%"></div>
+          </div>
+          <span class="stat-card__meta">${pct}% ${esc(t.ofTotalTime)} · ${item.sessionCount} ${esc(t.sessions)}</span>
         </div>
       `;
     })
     .join('');
+}
+
+function renderSubjectDonut(subjectStats) {
+  if (!el.subjectDonutChart) return;
+
+  const withTime = subjectStats.filter((s) => s.studySeconds > 0);
+  if (!withTime.length) {
+    el.subjectDonutChart.innerHTML = `<div class="chart-empty">—</div>`;
+    el.subjectDonutLegend.innerHTML = '';
+    return;
+  }
+
+  const colors = categoricalPalette(withTime.length);
+  const total = withTime.reduce((sum, s) => sum + s.studySeconds, 0);
+  const segments = withTime.map((s, i) => ({
+    value: s.studySeconds,
+    label: s.subject,
+    color: colors[i],
+  }));
+
+  el.subjectDonutChart.innerHTML = renderDonutChart(segments) || `<div class="chart-empty">—</div>`;
+  el.subjectDonutLegend.innerHTML = segments
+    .map((seg) => {
+      const pct = Math.round((seg.value / total) * 100);
+      return `<span class="chart-legend__item"><span class="chart-legend__swatch" style="background:${seg.color}"></span>${esc(seg.label)} · ${pct}%</span>`;
+    })
+    .join('');
+}
+
+/* ------------------------------------------------------------
+   Exam plan panel
+   ------------------------------------------------------------ */
+
+function renderExamStatus(doc) {
+  if (!el.examDaysLeft) return;
+  const t = tr();
+  const status = buildExamPlanStatus(doc.studyPlan, doc.sessions || []);
+
+  if (!status) {
+    el.examMeta.hidden = true;
+    el.examProgress.hidden = true;
+    el.examStatusGrid.hidden = true;
+    el.examEmptyNote.hidden = false;
+    el.examDaysLeft.textContent = '—';
+    return;
+  }
+
+  el.examMeta.hidden = false;
+  el.examProgress.hidden = false;
+  el.examStatusGrid.hidden = false;
+  el.examEmptyNote.hidden = true;
+
+  el.examDaysLeft.textContent = status.daysLeft;
+  el.examWeekLabel.textContent =
+    status.currentWeek != null ? `${t.weekWord} ${status.currentWeek} / ${status.totalWeeks}` : '—';
+  el.examDaysPassed.textContent = `${status.daysPassed} ${t.daysPassedSuffix}`;
+  el.examDaysLeftMini.textContent = `${status.daysLeft} ${t.daysLeftSuffix}`;
+  el.examProgressFill.style.width = `${status.progressPct}%`;
+
+  el.dailyStatusValue.textContent =
+    status.goalSeconds > 0
+      ? `${fmtHoursMinutes(status.todaySeconds)} / ${fmtHoursMinutes(status.goalSeconds)}`
+      : fmtHoursMinutes(status.todaySeconds);
+
+  el.weeklyStatusTitle.textContent =
+    status.currentWeek != null
+      ? `${t.weekWord.toUpperCase()} ${status.currentWeek}`
+      : t.weekWord.toUpperCase();
+  el.weeklyStatusValue.textContent =
+    status.weekGoalSeconds > 0
+      ? `${fmtHoursMinutes(status.weekSeconds)} / ${fmtHoursMinutes(status.weekGoalSeconds)}`
+      : fmtHoursMinutes(status.weekSeconds);
+}
+
+/* ------------------------------------------------------------
+   New pattern charts: time-of-day, day-of-week, session length,
+   study/break/idle split, monthly overview
+   ------------------------------------------------------------ */
+
+function renderDaypartChart(sessions) {
+  if (!el.daypartChart) return;
+  const t = tr();
+  const dist = buildDaypartDistribution(sessions);
+  const labels = { morning: t.morning, afternoon: t.afternoon, evening: t.evening, night: t.night };
+  const categories = dist.map((d) => ({ label: labels[d.key], value: d.seconds }));
+  el.daypartChart.innerHTML =
+    renderCategoryBarChart(categories, { gap: 24 }) || `<div class="chart-empty">—</div>`;
+}
+
+function renderWeekdayChart(sessions) {
+  if (!el.weekdayChart) return;
+  const l = lang();
+  const labels = WEEKDAY_LABELS[l];
+  const order = WEEKDAY_DISPLAY_ORDER[l];
+  const averages = buildWeekdayAverages(sessions);
+  const categories = order.map((w) => ({ label: labels[w], value: averages[w].averageSeconds }));
+  el.weekdayChart.innerHTML =
+    renderCategoryBarChart(categories, { gap: 8 }) || `<div class="chart-empty">—</div>`;
+}
+
+function renderSessionLengthChart(sessions) {
+  if (!el.sessionLengthChart) return;
+  const labels = SESSION_LENGTH_LABELS[lang()];
+  const dist = buildSessionLengthDistribution(sessions);
+  const categories = dist.map((d, i) => ({ label: labels[i], value: d.count }));
+  el.sessionLengthChart.innerHTML =
+    renderCategoryBarChart(categories, {
+      gap: 24,
+      formatValue: (v) => String(Math.round(v)),
+      formatTooltip: (c) => `${c.label}: ${c.value}`,
+    }) || `<div class="chart-empty">—</div>`;
+}
+
+function renderPauseDonut(stats) {
+  if (!el.pauseDonutChart) return;
+  const t = tr();
+  const segments = [
+    {
+      value: stats.totalStudySeconds,
+      label: t.studyLabel,
+      className: 'chart-donut-segment--study',
+    },
+    { value: stats.totalBreakSeconds, label: t.breakTime, className: 'chart-donut-segment--break' },
+    {
+      value: stats.totalPausedSeconds,
+      label: t.pausedLabel,
+      className: 'chart-donut-segment--paused',
+    },
+  ];
+  el.pauseDonutChart.innerHTML = renderDonutChart(segments) || `<div class="chart-empty">—</div>`;
+  const total = segments.reduce((sum, seg) => sum + seg.value, 0);
+  el.pauseDonutLegend.innerHTML = segments
+    .filter((seg) => seg.value > 0)
+    .map((seg) => {
+      const pct = total > 0 ? Math.round((seg.value / total) * 100) : 0;
+      return `<span class="chart-legend__item"><span class="chart-legend__swatch ${seg.className}"></span>${esc(seg.label)} · ${pct}%</span>`;
+    })
+    .join('');
+}
+
+function renderMonthlyChart(sessions) {
+  if (!el.monthlySection) return;
+  const monthly = buildMonthlySeries(sessions);
+  if (monthly.length <= 1) {
+    el.monthlySection.hidden = true;
+    return;
+  }
+  el.monthlySection.hidden = false;
+  const categories = monthly.map((m) => ({ label: monthLabel(m.monthKey), value: m.studySeconds }));
+  el.monthlyChart.innerHTML =
+    renderCategoryBarChart(categories, { gap: 12 }) || `<div class="chart-empty">—</div>`;
 }
 
 /* ------------------------------------------------------------
@@ -377,19 +643,23 @@ function renderAnalytics(doc) {
   const sessions = doc.sessions || [];
   const subjects = doc.subjects || [];
 
+  renderExamStatus(doc);
+
   const stats = buildOverallStats(sessions);
   const subjectStats = buildSubjectStats(sessions, subjects);
-  renderSubjectStats(subjectStats);
+  renderSubjectStats(subjectStats, stats.totalStudySeconds);
+  renderSubjectDonut(subjectStats);
 
   const finishedStudy = stats.completedSessions + stats.abandonedSessions + stats.cancelledSessions;
   if (finishedStudy === 0) {
     el.emptyState.hidden = false;
-    el.statsGrid.hidden = true;
+    el.overviewSection.hidden = true;
     el.chartsGrid.hidden = true;
+    el.monthlySection.hidden = true;
     return;
   }
   el.emptyState.hidden = true;
-  el.statsGrid.hidden = false;
+  el.overviewSection.hidden = false;
   el.chartsGrid.hidden = false;
 
   const daily = buildDailySeries(sessions, DAILY_WINDOW_DAYS);
@@ -454,6 +724,12 @@ function renderAnalytics(doc) {
         `<span class="chart-legend__item"><span class="chart-legend__swatch ${seg.className}"></span>${seg.label} · ${seg.value}</span>`
     )
     .join('');
+
+  renderDaypartChart(sessions);
+  renderWeekdayChart(sessions);
+  renderSessionLengthChart(sessions);
+  renderPauseDonut(stats);
+  renderMonthlyChart(sessions);
 }
 
 /* ------------------------------------------------------------

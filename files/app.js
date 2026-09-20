@@ -14,6 +14,7 @@ import {
 } from './state.js';
 import { TimerEngine } from './timer.js';
 import { Persistence } from './persistence.js';
+import { WakeLock } from './wakeLock.js';
 import {
   el,
   Render,
@@ -33,6 +34,14 @@ import {
   closeConnectModal,
   isAnyModalOpen,
 } from './ui.js';
+
+/* ============================================================
+   Wake lock: screen must stay on for the whole "running" duration
+   ============================================================ */
+
+function syncWakeLock() {
+  WakeLock.sync(state.session.state === 'running');
+}
 
 /* ============================================================
    Main loop
@@ -63,11 +72,13 @@ setInterval(() => {
     Render.timer();
     Render.stats();
   }
+  syncWakeLock();
 }, 1000);
 
 TimerEngine.onChange = () => {
   Render.all();
   ensureLoop();
+  syncWakeLock();
 };
 
 /* ============================================================
@@ -96,6 +107,7 @@ function applyDocumentToUI() {
   TimerEngine.recover();
   Render.all();
   ensureLoop();
+  syncWakeLock();
 }
 
 /* ============================================================
@@ -106,6 +118,7 @@ el.primaryBtn.addEventListener('click', () => {
   TimerEngine.toggle();
   ensureLoop();
   Render.all();
+  syncWakeLock();
 });
 
 el.resetBtn.addEventListener('click', () => {
@@ -113,11 +126,13 @@ el.resetBtn.addEventListener('click', () => {
   if ((s === 'running' || s === 'paused') && !confirm(tr().confirmReset)) return;
   TimerEngine.reset();
   Render.all();
+  syncWakeLock();
 });
 
 el.finishBtn.addEventListener('click', () => {
   TimerEngine.finish(false);
   Render.all();
+  syncWakeLock();
 });
 
 el.breakBtn.addEventListener('click', () => {
@@ -129,6 +144,7 @@ el.breakBtn.addEventListener('click', () => {
     ensureLoop();
   }
   Render.all();
+  syncWakeLock();
 });
 
 /* ============================================================
@@ -364,6 +380,7 @@ document.addEventListener('keydown', (event) => {
     TimerEngine.toggle();
     ensureLoop();
     Render.all();
+    syncWakeLock();
     return;
   }
 
@@ -393,6 +410,8 @@ document.addEventListener('visibilitychange', () => {
   Render.timer();
   Render.stats();
   ensureLoop();
+  WakeLock.reacquireIfNeeded(); // OS releases the lock while hidden; re-request it
+  syncWakeLock();
 });
 
 window.addEventListener('pagehide', () => Persistence.flush());
@@ -421,6 +440,7 @@ async function init() {
     openConnectModal();
   }
   Render.all();
+  syncWakeLock();
 }
 
 init();

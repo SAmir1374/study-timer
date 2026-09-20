@@ -3133,3 +3133,46 @@ body[data-theme='light'] .subject-manage-chip {
     flex-direction: column;
   }
 }
+
+/* --- Analytics: chart axis labels & gridlines --- */
+.chart-gridline {
+  stroke: var(--border, rgba(255, 255, 255, 0.08));
+  stroke-width: 1;
+}
+
+.chart-axis-label {
+  fill: var(--text-muted, rgba(255, 255, 255, 0.45));
+  font-size: 9px;
+  font-family: inherit;
+}
+
+.chart-bar-value,
+.chart-line-value {
+  fill: var(--text-secondary, rgba(255, 255, 255, 0.75));
+  font-size: 8px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* --- Analytics: subject comparison rows --- */
+.subject-compare-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.subject-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.chart-donut-segment--study {
+  stroke: var(--accent, #6ea8fe);
+}
+.chart-donut-segment--break {
+  stroke: var(--success, #4caf82);
+}
+.chart-donut-segment--paused {
+  stroke: var(--warning, #d9a441);
+}

@@ -36,7 +36,7 @@
           >
         </div>
 
-        
+        <a
           class="analytics-back-link"
           href="./index.html"
           data-i18n="backToTimer"
@@ -165,130 +165,237 @@
           No finished study sessions yet — come back after your first session.
         </div>
 
-        <!-- Stat cards -->
-        <div
-          class="analytics-stats-grid"
-          id="statsGrid"
+        <!-- Exam plan (config-level, shown regardless of session history) -->
+        <section class="exam-section">
+          <div class="exam-card">
+            <div class="exam-card__header">
+              <div>
+                <div
+                  class="exam-card__eyebrow"
+                  data-i18n="examCountdown"
+                >
+                  EXAM COUNTDOWN
+                </div>
+                <div
+                  class="exam-days-left-label"
+                  data-i18n="daysLeftLabel"
+                >
+                  DAYS LEFT
+                </div>
+              </div>
+              <div
+                class="exam-days-left"
+                id="aExamDaysLeft"
+              >
+                0
+              </div>
+            </div>
+
+            <div
+              class="exam-meta"
+              id="aExamMeta"
+            >
+              <span id="aExamWeekLabel">Week — / —</span>
+              <span class="exam-meta__separator">•</span>
+              <span id="aExamDaysPassed">0 days passed</span>
+              <span class="exam-meta__separator">•</span>
+              <span id="aExamDaysLeftMini">0 days left</span>
+            </div>
+
+            <div
+              class="exam-progress"
+              id="aExamProgress"
+            >
+              <div class="progress-bar">
+                <div
+                  class="progress-bar__fill"
+                  id="aExamProgressFill"
+                  style="width: 0%"
+                ></div>
+              </div>
+            </div>
+
+            <div
+              class="exam-empty-note"
+              id="aExamEmptyNote"
+              data-i18n="setExamDates"
+              hidden
+            >
+              Set your study start date and exam date in the timer's Settings to activate the
+              countdown.
+            </div>
+
+            <div
+              class="exam-status-grid"
+              id="aExamStatusGrid"
+            >
+              <div class="exam-status-card">
+                <div
+                  class="exam-status-card__title"
+                  data-i18n="todayStatus"
+                >
+                  TODAY
+                </div>
+                <div
+                  class="exam-status-card__value"
+                  id="aDailyStatusValue"
+                >
+                  —
+                </div>
+              </div>
+
+              <div class="exam-status-card">
+                <div
+                  class="exam-status-card__title"
+                  id="aWeeklyStatusTitle"
+                >
+                  WEEK —
+                </div>
+                <div
+                  class="exam-status-card__value"
+                  id="aWeeklyStatusValue"
+                >
+                  —
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Overview -->
+        <section
+          class="chart-card chart-card--wide"
+          id="overviewSection"
         >
-          <div class="stat-card">
-            <span
-              class="stat-card__label"
-              data-i18n="totalStudyTime"
-              >Total study time</span
-            >
-            <strong
-              class="stat-card__value"
-              id="statTotalTime"
-              >—</strong
-            >
-            <span
-              class="stat-card__meta"
-              id="statTotalTimeMeta"
-            ></span>
+          <div class="chart-card__header">
+            <h3 data-i18n="overviewTitle">Overview</h3>
           </div>
+          <div class="chart-card__body">
+            <div
+              class="analytics-stats-grid"
+              id="statsGrid"
+            >
+              <div class="stat-card">
+                <span
+                  class="stat-card__label"
+                  data-i18n="totalStudyTime"
+                  >Total study time</span
+                >
+                <strong
+                  class="stat-card__value"
+                  id="statTotalTime"
+                  >—</strong
+                >
+                <span
+                  class="stat-card__meta"
+                  id="statTotalTimeMeta"
+                ></span>
+              </div>
 
-          <div class="stat-card">
-            <span
-              class="stat-card__label"
-              data-i18n="currentStreak"
-              >Current streak</span
-            >
-            <strong
-              class="stat-card__value"
-              id="statStreak"
-              >—</strong
-            >
-            <span
-              class="stat-card__meta"
-              id="statStreakMeta"
-            ></span>
-          </div>
+              <div class="stat-card">
+                <span
+                  class="stat-card__label"
+                  data-i18n="currentStreak"
+                  >Current streak</span
+                >
+                <strong
+                  class="stat-card__value"
+                  id="statStreak"
+                  >—</strong
+                >
+                <span
+                  class="stat-card__meta"
+                  id="statStreakMeta"
+                ></span>
+              </div>
 
-          <div class="stat-card">
-            <span
-              class="stat-card__label"
-              data-i18n="completionRate"
-              >Completion rate</span
-            >
-            <strong
-              class="stat-card__value"
-              id="statCompletion"
-              >—</strong
-            >
-            <span
-              class="stat-card__meta"
-              id="statCompletionMeta"
-            ></span>
-          </div>
+              <div class="stat-card">
+                <span
+                  class="stat-card__label"
+                  data-i18n="completionRate"
+                  >Completion rate</span
+                >
+                <strong
+                  class="stat-card__value"
+                  id="statCompletion"
+                  >—</strong
+                >
+                <span
+                  class="stat-card__meta"
+                  id="statCompletionMeta"
+                ></span>
+              </div>
 
-          <div class="stat-card">
-            <span
-              class="stat-card__label"
-              data-i18n="avgSession"
-              >Avg. session</span
-            >
-            <strong
-              class="stat-card__value"
-              id="statAvgSession"
-              >—</strong
-            >
-            <span
-              class="stat-card__meta"
-              id="statAvgSessionMeta"
-            ></span>
-          </div>
+              <div class="stat-card">
+                <span
+                  class="stat-card__label"
+                  data-i18n="avgSession"
+                  >Avg. session</span
+                >
+                <strong
+                  class="stat-card__value"
+                  id="statAvgSession"
+                  >—</strong
+                >
+                <span
+                  class="stat-card__meta"
+                  id="statAvgSessionMeta"
+                ></span>
+              </div>
 
-          <div class="stat-card">
-            <span
-              class="stat-card__label"
-              data-i18n="goalDays"
-              >Goal days (30d)</span
-            >
-            <strong
-              class="stat-card__value"
-              id="statGoalDays"
-              >—</strong
-            >
-            <span
-              class="stat-card__meta"
-              id="statGoalDaysMeta"
-            ></span>
-          </div>
+              <div class="stat-card">
+                <span
+                  class="stat-card__label"
+                  data-i18n="goalDays"
+                  >Goal days (30d)</span
+                >
+                <strong
+                  class="stat-card__value"
+                  id="statGoalDays"
+                  >—</strong
+                >
+                <span
+                  class="stat-card__meta"
+                  id="statGoalDaysMeta"
+                ></span>
+              </div>
 
-          <div class="stat-card">
-            <span
-              class="stat-card__label"
-              data-i18n="bestDay"
-              >Best day (30d)</span
-            >
-            <strong
-              class="stat-card__value"
-              id="statBestDay"
-              >—</strong
-            >
-            <span
-              class="stat-card__meta"
-              id="statBestDayMeta"
-            ></span>
-          </div>
+              <div class="stat-card">
+                <span
+                  class="stat-card__label"
+                  data-i18n="bestDay"
+                  >Best day (30d)</span
+                >
+                <strong
+                  class="stat-card__value"
+                  id="statBestDay"
+                  >—</strong
+                >
+                <span
+                  class="stat-card__meta"
+                  id="statBestDayMeta"
+                ></span>
+              </div>
 
-          <div class="stat-card">
-            <span
-              class="stat-card__label"
-              data-i18n="breakTime"
-              >Break time</span
-            >
-            <strong
-              class="stat-card__value"
-              id="statBreakTime"
-              >—</strong
-            >
-            <span
-              class="stat-card__meta"
-              id="statBreakTimeMeta"
-            ></span>
+              <div class="stat-card">
+                <span
+                  class="stat-card__label"
+                  data-i18n="breakTime"
+                  >Break time</span
+                >
+                <strong
+                  class="stat-card__value"
+                  id="statBreakTime"
+                  >—</strong
+                >
+                <span
+                  class="stat-card__meta"
+                  id="statBreakTimeMeta"
+                ></span>
+              </div>
+            </div>
           </div>
-        </div>
+        </section>
 
         <!-- Subject breakdown -->
         <section class="chart-card chart-card--wide">
@@ -297,7 +404,7 @@
           </div>
           <div class="chart-card__body">
             <div
-              class="analytics-stats-grid"
+              class="subject-compare-list"
               id="subjectStats"
             ></div>
           </div>
@@ -344,7 +451,78 @@
               ></div>
             </div>
           </div>
+
+          <div class="chart-card">
+            <div class="chart-card__header">
+              <h3 data-i18n="daypartTitle">Time of Day</h3>
+            </div>
+            <div
+              class="chart-card__body"
+              id="daypartChart"
+            ></div>
+          </div>
+
+          <div class="chart-card chart-card--wide">
+            <div class="chart-card__header">
+              <h3 data-i18n="weekdayTitle">Study by Day of Week</h3>
+            </div>
+            <div
+              class="chart-card__body"
+              id="weekdayChart"
+            ></div>
+          </div>
+
+          <div class="chart-card">
+            <div class="chart-card__header">
+              <h3 data-i18n="sessionLengthTitle">Session Lengths</h3>
+            </div>
+            <div
+              class="chart-card__body"
+              id="sessionLengthChart"
+            ></div>
+          </div>
+
+          <div class="chart-card">
+            <div class="chart-card__header">
+              <h3 data-i18n="subjectShareTitle">Subject Share</h3>
+            </div>
+            <div class="chart-card__body chart-card__body--donut">
+              <div id="subjectDonutChart"></div>
+              <div
+                class="chart-legend"
+                id="subjectDonutLegend"
+              ></div>
+            </div>
+          </div>
+
+          <div class="chart-card">
+            <div class="chart-card__header">
+              <h3 data-i18n="pauseBreakTitle">Study vs Break vs Idle</h3>
+            </div>
+            <div class="chart-card__body chart-card__body--donut">
+              <div id="pauseDonutChart"></div>
+              <div
+                class="chart-legend"
+                id="pauseDonutLegend"
+              ></div>
+            </div>
+          </div>
         </div>
+
+        <!-- Monthly overview (only shown once data spans more than one month) -->
+        <section
+          class="chart-card chart-card--wide"
+          id="monthlySection"
+          hidden
+        >
+          <div class="chart-card__header">
+            <h3 data-i18n="monthlyTitle">Monthly Overview</h3>
+          </div>
+          <div
+            class="chart-card__body"
+            id="monthlyChart"
+          ></div>
+        </section>
       </section>
     </main>
 
