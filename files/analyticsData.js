@@ -13,7 +13,7 @@ import {
   currentUtcOffsetMinutes,
   dateKeyOf,
   fromIso,
-} from './dataLayer.js';
+} from "./dataLayer.js";
 
 /* ------------------------------------------------------------
    Day-key arithmetic
@@ -23,12 +23,12 @@ import {
    ------------------------------------------------------------ */
 
 function dayNumber(key) {
-  const [y, m, d] = key.split('-').map(Number);
+  const [y, m, d] = key.split("-").map(Number);
   return Date.UTC(y, m - 1, d) / 86400000;
 }
 
 export function addDays(key, n) {
-  const [y, m, d] = key.split('-').map(Number);
+  const [y, m, d] = key.split("-").map(Number);
   return new Date(Date.UTC(y, m - 1, d + n)).toISOString().slice(0, 10);
 }
 
@@ -46,11 +46,13 @@ export function todayKey(nowMs = Date.now()) {
 
 export function buildOverallStats(sessions) {
   const stats = {
-    totalStudySeconds: 0,
+    totalStudySeconds: 0, // regular study + practice tests
+    totalPracticeSeconds: 0, // the practice-test part of totalStudySeconds
     totalBreakSeconds: 0,
     totalPausedSeconds: 0,
     totalPauseCount: 0,
     totalSessions: 0, // counted study sessions (completed or abandoned, long enough to count)
+    practiceSessions: 0, // counted practice-test sessions (subset of totalSessions)
     completedSessions: 0,
     abandonedSessions: 0,
     cancelledSessions: 0,
@@ -62,15 +64,19 @@ export function buildOverallStats(sessions) {
       stats.totalPauseCount += rec.derived.pauseCount || 0;
     }
 
-    if (rec.type === 'study') {
+    if (rec.type === "study") {
       if (isCountedSession(rec)) {
         stats.totalStudySeconds += rec.derived.activeDurationSeconds;
         stats.totalSessions += 1;
+        if (rec.isPractice) {
+          stats.totalPracticeSeconds += rec.derived.activeDurationSeconds;
+          stats.practiceSessions += 1;
+        }
       }
-      if (rec.status === 'completed') stats.completedSessions += 1;
-      else if (rec.status === 'abandoned') stats.abandonedSessions += 1;
-      else if (rec.status === 'cancelled') stats.cancelledSessions += 1;
-    } else if (rec.type === 'break' && isCountedSession(rec)) {
+      if (rec.status === "completed") stats.completedSessions += 1;
+      else if (rec.status === "abandoned") stats.abandonedSessions += 1;
+      else if (rec.status === "cancelled") stats.cancelledSessions += 1;
+    } else if (rec.type === "break" && isCountedSession(rec)) {
       stats.totalBreakSeconds += rec.derived.activeDurationSeconds;
     }
   }
@@ -85,46 +91,58 @@ export function buildOverallStats(sessions) {
  * list, not just a "what have I studied" breakdown. Sorted by study
  * time descending, so untouched subjects sink to the bottom while
  * keeping their original order among themselves.
+ *
+ * "Practice test" is a property of each SESSION (rec.isPractice), so one
+ * subject row carries both numbers:
+ *   studySeconds / sessionCount  → everything (regular study + practice)
+ *   practiceSeconds / practiceSessionCount → only the practice-test part
+ * Regular study time is therefore studySeconds - practiceSeconds.
+ *
+ * Accepts either the current `{name}[]` shape or a plain string array
+ * (older/hand-written files), so an unmigrated subjects list here
+ * doesn't crash the page.
  */
 export function buildSubjectStats(sessions, subjects = []) {
   const map = new Map();
 
+  const blank = (name) => ({
+    subject: name,
+    studySeconds: 0,
+    sessionCount: 0,
+    completedSessions: 0,
+    abandonedSessions: 0,
+    practiceSeconds: 0,
+    practiceSessionCount: 0,
+  });
+
   for (const subject of subjects) {
-    map.set(subject, {
-      subject,
-      studySeconds: 0,
-      sessionCount: 0,
-      completedSessions: 0,
-      abandonedSessions: 0,
-    });
+    const name = typeof subject === "string" ? subject : subject.name;
+    map.set(name, blank(name));
   }
 
   for (const rec of sessions) {
-    if (rec.type !== 'study' || !rec.subject || !isCountedSession(rec)) {
+    if (rec.type !== "study" || !rec.subject || !isCountedSession(rec)) {
       continue;
     }
 
-    if (!map.has(rec.subject)) {
-      map.set(rec.subject, {
-        subject: rec.subject,
-        studySeconds: 0,
-        sessionCount: 0,
-        completedSessions: 0,
-        abandonedSessions: 0,
-      });
-    }
+    if (!map.has(rec.subject)) map.set(rec.subject, blank(rec.subject));
 
     const item = map.get(rec.subject);
 
     item.studySeconds += rec.derived.activeDurationSeconds;
     item.sessionCount += 1;
 
-    if (rec.status === 'completed') {
+    if (rec.status === "completed") {
       item.completedSessions += 1;
     }
 
-    if (rec.status === 'abandoned') {
+    if (rec.status === "abandoned") {
       item.abandonedSessions += 1;
+    }
+
+    if (rec.isPractice) {
+      item.practiceSeconds += rec.derived.activeDurationSeconds;
+      item.practiceSessionCount += 1;
     }
   }
 
@@ -180,10 +198,7 @@ export function buildWeeklySeries(sessions, weeks) {
 
 /** The best (highest study-time) day within a daily series. Null if the series is empty. */
 export function bestDayOf(dailySeries) {
-  return dailySeries.reduce(
-    (best, d) => (d.studySeconds > (best ? best.studySeconds : -1) ? d : best),
-    null
-  );
+  return dailySeries.reduce((best, d) => (d.studySeconds > (best ? best.studySeconds : -1) ? d : best), null);
 }
 
 /** How many days in the series met or exceeded the given per-day goal. */
@@ -283,20 +298,20 @@ function localHourOf(rec) {
   return new Date(localMs).getUTCHours();
 }
 
-const DAYPART_ORDER = ['morning', 'afternoon', 'evening', 'night'];
+const DAYPART_ORDER = ["morning", "afternoon", "evening", "night"];
 
 function daypartOf(hour) {
-  if (hour >= 5 && hour < 12) return 'morning';
-  if (hour >= 12 && hour < 17) return 'afternoon';
-  if (hour >= 17 && hour < 21) return 'evening';
-  return 'night'; // 21:00–04:59
+  if (hour >= 5 && hour < 12) return "morning";
+  if (hour >= 12 && hour < 17) return "afternoon";
+  if (hour >= 17 && hour < 21) return "evening";
+  return "night"; // 21:00–04:59
 }
 
 /** Total study seconds bucketed into morning/afternoon/evening/night, in that order. */
 export function buildDaypartDistribution(sessions) {
   const totals = { morning: 0, afternoon: 0, evening: 0, night: 0 };
   for (const rec of sessions) {
-    if (rec.type !== 'study' || !isCountedSession(rec)) continue;
+    if (rec.type !== "study" || !isCountedSession(rec)) continue;
     totals[daypartOf(localHourOf(rec))] += rec.derived.activeDurationSeconds;
   }
   return DAYPART_ORDER.map((key) => ({ key, seconds: totals[key] }));
@@ -319,7 +334,7 @@ export function buildWeekdayAverages(sessions) {
   const counts = Array(7).fill(0);
 
   for (const [dayKey, s] of Object.entries(summaries)) {
-    const [y, m, d] = dayKey.split('-').map(Number);
+    const [y, m, d] = dayKey.split("-").map(Number);
     const weekday = new Date(Date.UTC(y, m - 1, d)).getUTCDay();
     sums[weekday] += s.studySeconds;
     counts[weekday] += 1;
@@ -336,17 +351,17 @@ export function buildWeekdayAverages(sessions) {
    ------------------------------------------------------------ */
 
 const DURATION_BUCKETS = [
-  { key: '<=25', maxSeconds: 25 * 60 },
-  { key: '26-50', maxSeconds: 50 * 60 },
-  { key: '51-90', maxSeconds: 90 * 60 },
-  { key: '90+', maxSeconds: Infinity },
+  { key: "<=25", maxSeconds: 25 * 60 },
+  { key: "26-50", maxSeconds: 50 * 60 },
+  { key: "51-90", maxSeconds: 90 * 60 },
+  { key: "90+", maxSeconds: Infinity },
 ];
 
 /** Session counts (completed/abandoned, long enough to count) bucketed by actual duration. */
 export function buildSessionLengthDistribution(sessions) {
   const counts = DURATION_BUCKETS.map(() => 0);
   for (const rec of sessions) {
-    if (rec.type !== 'study' || !isCountedSession(rec)) continue;
+    if (rec.type !== "study" || !isCountedSession(rec)) continue;
     const seconds = rec.derived.activeDurationSeconds;
     const idx = DURATION_BUCKETS.findIndex((b) => seconds <= b.maxSeconds);
     counts[idx === -1 ? DURATION_BUCKETS.length - 1 : idx] += 1;

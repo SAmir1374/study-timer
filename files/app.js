@@ -8,13 +8,14 @@ import {
   tr,
   setSelectedMinutes,
   setSelectedSubject,
+  setSelectedPractice,
   addSubject,
   removeSubject,
   updateSettings,
-} from './state.js';
-import { TimerEngine } from './timer.js';
-import { Persistence } from './persistence.js';
-import { WakeLock } from './wakeLock.js';
+} from "./state.js";
+import { TimerEngine } from "./timer.js";
+import { Persistence } from "./persistence.js";
+import { WakeLock } from "./wakeLock.js";
 import {
   el,
   Render,
@@ -33,14 +34,14 @@ import {
   openConnectModal,
   closeConnectModal,
   isAnyModalOpen,
-} from './ui.js';
+} from "./ui.js";
 
 /* ============================================================
    Wake lock: screen must stay on for the whole "running" duration
    ============================================================ */
 
 function syncWakeLock() {
-  WakeLock.sync(state.session.state === 'running');
+  WakeLock.sync(state.session.state === "running");
 }
 
 /* ============================================================
@@ -54,11 +55,11 @@ function loop() {
   Render.timer();
   Render.stats();
 
-  rafId = state.session.state === 'running' ? requestAnimationFrame(loop) : null;
+  rafId = state.session.state === "running" ? requestAnimationFrame(loop) : null;
 }
 
 function ensureLoop() {
-  if (state.session.state === 'running' && rafId == null) {
+  if (state.session.state === "running" && rafId == null) {
     rafId = requestAnimationFrame(loop);
   }
 }
@@ -68,7 +69,7 @@ function ensureLoop() {
 setInterval(() => {
   TimerEngine.checkCompletion();
   Render.clock();
-  if (state.session.state !== 'running') {
+  if (state.session.state !== "running") {
     Render.timer();
     Render.stats();
   }
@@ -114,33 +115,33 @@ function applyDocumentToUI() {
    Timer controls
    ============================================================ */
 
-el.primaryBtn.addEventListener('click', () => {
+el.primaryBtn.addEventListener("click", () => {
   TimerEngine.toggle();
   ensureLoop();
   Render.all();
   syncWakeLock();
 });
 
-el.resetBtn.addEventListener('click', () => {
+el.resetBtn.addEventListener("click", () => {
   const s = state.session.state;
-  if ((s === 'running' || s === 'paused') && !confirm(tr().confirmReset)) return;
+  if ((s === "running" || s === "paused") && !confirm(tr().confirmReset)) return;
   TimerEngine.reset();
   Render.all();
   syncWakeLock();
 });
 
-el.finishBtn.addEventListener('click', () => {
+el.finishBtn.addEventListener("click", () => {
   TimerEngine.finish(false);
   Render.all();
   syncWakeLock();
 });
 
-el.breakBtn.addEventListener('click', () => {
-  if (state.session.type === 'break') {
+el.breakBtn.addEventListener("click", () => {
+  if (state.session.type === "break") {
     TimerEngine.reset();
   } else {
-    if (state.session.state === 'running' || state.session.state === 'paused') return;
-    TimerEngine.start(5 * 60 * 1000, 'break');
+    if (state.session.state === "running" || state.session.state === "paused") return;
+    TimerEngine.start(5 * 60 * 1000, "break");
     ensureLoop();
   }
   Render.all();
@@ -151,23 +152,33 @@ el.breakBtn.addEventListener('click', () => {
    Language / theme / fullscreen
    ============================================================ */
 
-el.langFaBtn.addEventListener('click', () => setLanguage('fa'));
-el.langEnBtn.addEventListener('click', () => setLanguage('en'));
+el.langFaBtn.addEventListener("click", () => setLanguage("fa"));
+el.langEnBtn.addEventListener("click", () => setLanguage("en"));
 
-el.themeToggle.addEventListener('click', () => {
-  updateSettings({ theme: state.doc.settings.theme === 'dark' ? 'light' : 'dark' });
+el.themeToggle.addEventListener("click", () => {
+  updateSettings({ theme: state.doc.settings.theme === "dark" ? "light" : "dark" });
   applyTheme();
 });
 
-el.fullscreenToggle.addEventListener('click', () => toggleFullscreen());
+el.fullscreenToggle.addEventListener("click", () => toggleFullscreen());
 
 /* ============================================================
-   Subject picker
+   Session kind (study / practice test) + subject picker
    ============================================================ */
 
-el.subjectGrid?.addEventListener('click', (event) => {
-  const btn = event.target.closest('.subject-chip');
-  if (!btn || state.session.state !== 'idle') return;
+/* Kind is a property of the *session*, not of the subject: the same
+   subject can be studied first and practiced (test questions) next. */
+el.kindGrid?.addEventListener("click", (event) => {
+  const btn = event.target.closest(".kind-btn");
+  if (!btn || state.session.state !== "idle") return;
+
+  setSelectedPractice(btn.dataset.kind === "practice");
+  Render.all();
+});
+
+el.subjectGrid?.addEventListener("click", (event) => {
+  const btn = event.target.closest(".subject-chip");
+  if (!btn || state.session.state !== "idle") return;
 
   setSelectedSubject(btn.dataset.subject || null);
   Render.all();
@@ -177,11 +188,11 @@ el.subjectGrid?.addEventListener('click', (event) => {
    Presets / custom duration / study window
    ============================================================ */
 
-el.presetGroup.addEventListener('click', (event) => {
-  const btn = event.target.closest('.preset-btn');
-  if (!btn || state.session.state !== 'idle') return;
+el.presetGroup.addEventListener("click", (event) => {
+  const btn = event.target.closest(".preset-btn");
+  if (!btn || state.session.state !== "idle") return;
 
-  if (btn.id === 'customPresetBtn') {
+  if (btn.id === "customPresetBtn") {
     el.customDuration.hidden = false;
     el.customMinutes.focus();
     return;
@@ -195,8 +206,8 @@ el.presetGroup.addEventListener('click', (event) => {
   Render.all();
 });
 
-el.customMinutes.addEventListener('change', () => {
-  if (state.session.state !== 'idle') return;
+el.customMinutes.addEventListener("change", () => {
+  if (state.session.state !== "idle") return;
   let minutes = Math.round(Number(el.customMinutes.value));
   if (!minutes || minutes < 1) return;
   minutes = Math.min(600, Math.max(1, minutes));
@@ -204,18 +215,18 @@ el.customMinutes.addEventListener('change', () => {
   Render.all();
 });
 
-el.applyWindowBtn.addEventListener('click', () => {
+el.applyWindowBtn.addEventListener("click", () => {
   if (!el.windowStart.value || !el.windowEnd.value) return;
 
-  const [sh, sm] = el.windowStart.value.split(':').map(Number);
-  const [eh, em] = el.windowEnd.value.split(':').map(Number);
+  const [sh, sm] = el.windowStart.value.split(":").map(Number);
+  const [eh, em] = el.windowEnd.value.split(":").map(Number);
 
   const startMin = sh * 60 + sm;
   let endMin = eh * 60 + em;
   if (endMin <= startMin) endMin += 24 * 60; // window crosses midnight
 
   const minutes = endMin - startMin;
-  if (minutes <= 0 || minutes > 1440 || state.session.state !== 'idle') return;
+  if (minutes <= 0 || minutes > 1440 || state.session.state !== "idle") return;
 
   setSelectedMinutes(minutes);
   Render.all();
@@ -225,13 +236,11 @@ el.applyWindowBtn.addEventListener('click', () => {
    Settings modal
    ============================================================ */
 
-el.settingsToggle.addEventListener('click', () => openSettings());
-el.settingsCloseBtn?.addEventListener('click', () => closeSettings());
-el.settingsModal
-  .querySelector('[data-close-settings]')
-  ?.addEventListener('click', () => closeSettings());
+el.settingsToggle.addEventListener("click", () => openSettings());
+el.settingsCloseBtn?.addEventListener("click", () => closeSettings());
+el.settingsModal.querySelector("[data-close-settings]")?.addEventListener("click", () => closeSettings());
 
-el.saveSettingsBtn?.addEventListener('click', () => {
+el.saveSettingsBtn?.addEventListener("click", () => {
   if (applySettingsFromForm({ showErrors: true })) closeSettings();
 });
 
@@ -243,31 +252,31 @@ el.saveSettingsBtn?.addEventListener('click', () => {
   el.settingReducedMotion,
   el.settingAutoStart,
 ].forEach((input) => {
-  input.addEventListener('change', () => applySettingsFromForm());
+  input.addEventListener("change", () => applySettingsFromForm());
 });
 
 /* Settings -> Subjects (add / remove) */
 
 function submitNewSubject() {
   if (addSubject(el.newSubjectInput.value)) {
-    el.newSubjectInput.value = '';
+    el.newSubjectInput.value = "";
     renderSubjectManageList();
     Render.all(); // refresh the subject picker on the main page too
   }
   el.newSubjectInput.focus();
 }
 
-el.addSubjectBtn?.addEventListener('click', () => submitNewSubject());
+el.addSubjectBtn?.addEventListener("click", () => submitNewSubject());
 
-el.newSubjectInput?.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') {
+el.newSubjectInput?.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
     e.preventDefault();
     submitNewSubject();
   }
 });
 
-el.subjectManageList?.addEventListener('click', (event) => {
-  const btn = event.target.closest('.subject-manage-chip__remove');
+el.subjectManageList?.addEventListener("click", (event) => {
+  const btn = event.target.closest(".subject-manage-chip__remove");
   if (!btn) return;
   removeSubject(btn.dataset.subject);
   renderSubjectManageList();
@@ -278,33 +287,33 @@ el.subjectManageList?.addEventListener('click', (event) => {
    Data file: connect / open / save / export / import / clear
    ============================================================ */
 
-el.connectFileBtn?.addEventListener('click', () => Persistence.connect());
-el.openFileBtn?.addEventListener('click', () => Persistence.openFile());
+el.connectFileBtn?.addEventListener("click", () => Persistence.connect());
+el.openFileBtn?.addEventListener("click", () => Persistence.openFile());
 
-el.saveNowBtn?.addEventListener('click', async () => {
+el.saveNowBtn?.addEventListener("click", async () => {
   if (!Persistence.isConnected()) {
-    showToast(tr().toastNoFile, 'error');
+    showToast(tr().toastNoFile, "error");
     return;
   }
-  if (await Persistence.saveNow()) showToast(tr().toastSaved, 'success');
+  if (await Persistence.saveNow()) showToast(tr().toastSaved, "success");
 });
 
-el.exportBtn?.addEventListener('click', () => Persistence.exportData());
+el.exportBtn?.addEventListener("click", () => Persistence.exportData());
 
-el.importFileInput?.addEventListener('change', async () => {
+el.importFileInput?.addEventListener("change", async () => {
   const file = el.importFileInput.files && el.importFileInput.files[0];
   if (!file) return;
   try {
     Persistence.importText(await file.text());
   } catch (err) {
     console.error(err);
-    showToast(tr().toastReadFailed, 'error');
+    showToast(tr().toastReadFailed, "error");
   } finally {
-    el.importFileInput.value = '';
+    el.importFileInput.value = "";
   }
 });
 
-el.clearDataBtn?.addEventListener('click', () => {
+el.clearDataBtn?.addEventListener("click", () => {
   if (!confirm(tr().confirmClear)) return;
   TimerEngine.reset(); // closes any running session cleanly first
   Persistence.clearAllData();
@@ -312,48 +321,46 @@ el.clearDataBtn?.addEventListener('click', () => {
 
 /* Connect modal (shown at startup when no file is connected) */
 
-el.connectCloseBtn?.addEventListener('click', () => closeConnectModal());
-el.connectLaterBtn?.addEventListener('click', () => closeConnectModal());
-el.connectModal
-  .querySelector('[data-close-connect]')
-  ?.addEventListener('click', () => closeConnectModal());
+el.connectCloseBtn?.addEventListener("click", () => closeConnectModal());
+el.connectLaterBtn?.addEventListener("click", () => closeConnectModal());
+el.connectModal.querySelector("[data-close-connect]")?.addEventListener("click", () => closeConnectModal());
 
-el.connectNowBtn?.addEventListener('click', async () => {
+el.connectNowBtn?.addEventListener("click", async () => {
   if (await Persistence.connect()) closeConnectModal();
 });
 
-el.connectOpenBtn?.addEventListener('click', async () => {
+el.connectOpenBtn?.addEventListener("click", async () => {
   if (await Persistence.openFile()) closeConnectModal();
 });
 
 /* Clickable save-status indicator */
 
 if (el.saveStatus) {
-  el.saveStatus.setAttribute('role', 'button');
+  el.saveStatus.setAttribute("role", "button");
   el.saveStatus.tabIndex = 0;
 
   const onStatusActivate = () => {
     switch (state.file.status) {
-      case 'permission':
+      case "permission":
         Persistence.connect();
         break;
-      case 'error':
-      case 'unsaved':
+      case "error":
+      case "unsaved":
         Persistence.saveNow();
         break;
-      case 'disconnected':
+      case "disconnected":
         openConnectModal();
         break;
-      case 'unsupported':
-        showToast(tr().toastNoFileApi, 'error');
+      case "unsupported":
+        showToast(tr().toastNoFileApi, "error");
         break;
       default:
     }
   };
 
-  el.saveStatus.addEventListener('click', onStatusActivate);
-  el.saveStatus.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
+  el.saveStatus.addEventListener("click", onStatusActivate);
+  el.saveStatus.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       onStatusActivate();
     }
@@ -364,18 +371,18 @@ if (el.saveStatus) {
    Keyboard shortcuts
    ============================================================ */
 
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') {
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
     if (!el.settingsModal.hidden) return closeSettings();
     if (!el.connectModal.hidden) return closeConnectModal();
   }
 
   const target = event.target;
-  const tag = target && target.tagName ? target.tagName : '';
-  const typing = tag === 'INPUT' || tag === 'TEXTAREA' || target?.isContentEditable;
+  const tag = target && target.tagName ? target.tagName : "";
+  const typing = tag === "INPUT" || tag === "TEXTAREA" || target?.isContentEditable;
   if (typing || isAnyModalOpen()) return;
 
-  if (event.code === 'Space') {
+  if (event.code === "Space") {
     event.preventDefault();
     TimerEngine.toggle();
     ensureLoop();
@@ -384,13 +391,13 @@ document.addEventListener('keydown', (event) => {
     return;
   }
 
-  if (event.key === 'r' || event.key === 'R') {
+  if (event.key === "r" || event.key === "R") {
     event.preventDefault();
     el.resetBtn.click();
     return;
   }
 
-  if (event.key === 'f' || event.key === 'F') {
+  if (event.key === "f" || event.key === "F") {
     event.preventDefault();
     toggleFullscreen();
   }
@@ -400,8 +407,8 @@ document.addEventListener('keydown', (event) => {
    Page lifecycle
    ============================================================ */
 
-document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState === 'hidden') {
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "hidden") {
     Persistence.flush();
     return;
   }
@@ -414,14 +421,14 @@ document.addEventListener('visibilitychange', () => {
   syncWakeLock();
 });
 
-window.addEventListener('pagehide', () => Persistence.flush());
+window.addEventListener("pagehide", () => Persistence.flush());
 
 /* Warn before leaving when data exists only in memory / isn't saved yet. */
-window.addEventListener('beforeunload', (event) => {
+window.addEventListener("beforeunload", (event) => {
   Persistence.flush();
   if (Persistence.hasUnsavedData()) {
     event.preventDefault();
-    event.returnValue = '';
+    event.returnValue = "";
   }
 });
 
@@ -434,9 +441,9 @@ async function init() {
 
   const result = await Persistence.init(); // may load a file -> onLoaded re-applies
 
-  if (result === 'unsupported') {
-    showToast(tr().toastNoFileApi, 'info');
-  } else if (result !== 'loaded') {
+  if (result === "unsupported") {
+    showToast(tr().toastNoFileApi, "info");
+  } else if (result !== "loaded") {
     openConnectModal();
   }
   Render.all();

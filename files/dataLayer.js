@@ -10,21 +10,21 @@
      Everything under `derived` / `sessions[].derived` can be rebuilt.
    ============================================================= */
 
-export const SCHEMA_VERSION = 1;
-export const DATA_FORMAT = 'study-timer-json';
-export const APP_NAME = 'Study Timer';
-export const DEFAULT_FILE_NAME = 'study-data.json';
-export const INVALID_FILE_MESSAGE = 'Invalid study data file';
+export const SCHEMA_VERSION = 3;
+export const DATA_FORMAT = "study-timer-json";
+export const APP_NAME = "Study Timer";
+export const DEFAULT_FILE_NAME = "study-data.json";
+export const INVALID_FILE_MESSAGE = "Invalid study data file";
 
-export const SESSION_TYPES = Object.freeze(['study', 'break']);
+export const SESSION_TYPES = Object.freeze(["study", "break"]);
 export const SESSION_STATUSES = Object.freeze([
-  'running',
-  'paused',
-  'completed', // reached planned duration
-  'abandoned', // finished early by the user
-  'cancelled', // reset by the user
+  "running",
+  "paused",
+  "completed", // reached planned duration
+  "abandoned", // finished early by the user
+  "cancelled", // reset by the user
 ]);
-export const ACTIVE_STATUSES = Object.freeze(['running', 'paused']);
+export const ACTIVE_STATUSES = Object.freeze(["running", "paused"]);
 
 /** Sessions shorter than this are kept as raw data but not counted in UI stats. */
 export const MIN_COUNTED_SECONDS = 5;
@@ -37,7 +37,7 @@ const MAX_SUBJECTS = 60;
 export class DataError extends Error {
   constructor(message, details = []) {
     super(message);
-    this.name = 'DataError';
+    this.name = "DataError";
     this.details = details;
   }
 }
@@ -47,15 +47,16 @@ export class DataError extends Error {
    ------------------------------------------------------------ */
 
 export const DEFAULT_SETTINGS = Object.freeze({
-  language: 'en', // "fa" | "en"
-  theme: 'dark', // "dark" | "light"
-  clockFormat: '24h', // "24h" | "12h"
+  language: "en", // "fa" | "en"
+  theme: "dark", // "dark" | "light"
+  clockFormat: "24h", // "24h" | "12h"
   soundEnabled: true,
   reducedMotion: false,
   autoStartNextSession: false,
   defaultSessionMinutes: 50,
   lastSelectedMinutes: 50, // last duration chosen in the timer UI
-  lastSelectedSubject: null, // last subject chosen in the timer UI (string or null)
+  lastSelectedSubject: null, // last subject chosen in the timer UI (subject name, or null)
+  lastSelectedPractice: false, // last session kind chosen in the timer UI (false = study, true = practice test)
 });
 
 export const DEFAULT_STUDY_PLAN = Object.freeze({
@@ -63,33 +64,50 @@ export const DEFAULT_STUDY_PLAN = Object.freeze({
   examDate: null, // "YYYY-MM-DD" (Gregorian) | null
   totalWeeks: 0,
   dailyGoalMinutes: 240,
+  // Filename of the connected weekly-plans.json (see weeklyPlanData.js /
+  // weeklyPlanStore.js), or null if no weekly-plans file is connected yet.
+  // Pure metadata — this app never reads/writes that file's *content*
+  // through studyPlan; weeklyPlanStore.js owns that independently.
+  weeklyPlanSource: null,
 });
 
-/** Seed subject list for a brand-new document. Fully user-editable afterward
-    (Settings → Subjects) — this is just a helpful starting point. */
-export const DEFAULT_SUBJECTS = Object.freeze([
-  'ساختمان داده',
-  'طراحی الگوریتم',
-  'هوش مصنوعی',
-  'زبان تخصصی',
-  'ریاضی مهندسی ۱',
-  'ریاضی مهندسی ۲',
-  'آمار و احتمال مهندسی',
-  'نظریه زبان‌ها و ماشین‌ها',
-  'شبکه‌های کامپیوتری',
-  'سیستم‌عامل',
-  'پایگاه داده',
-  'سیگنال‌ها و سیستم‌ها',
-  'مدار منطقی',
-]);
+/**
+ * Seed subject list for a brand-new document. Fully user-editable afterward
+ * (Settings → Subjects) — this is just a helpful starting point.
+ * Each subject is just { name }. Whether a session is "study" or
+ * "practice test" is a property of the SESSION (sessions[].isPractice),
+ * not of the subject — the same subject can have both kinds of sessions.
+ */
+export const DEFAULT_SUBJECTS = Object.freeze(
+  [
+    "ساختمان داده",
+    "طراحی الگوریتم",
+    "هوش مصنوعی",
+    "زبان تخصصی",
+    "ریاضی مهندسی ۱",
+    "ریاضی مهندسی ۲",
+    "آمار و احتمال مهندسی",
+    "نظریه زبان‌ها و ماشین‌ها",
+    "شبکه‌های کامپیوتری",
+    "سیستم‌عامل",
+    "پایگاه داده",
+    "سیگنال‌ها و سیستم‌ها",
+    "مدار منطقی",
+  ].map((name) => Object.freeze({ name })),
+);
 
 /* ------------------------------------------------------------
    Small helpers
+
+   isObj/isNum/isInt are exported (not just module-private) so
+   weeklyPlanData.js can reuse them instead of redefining its own —
+   same for DataError, toIso, fromIso, isIsoUtc, isDateKey,
+   detectTimeZone, generateId, APP_NAME below.
    ------------------------------------------------------------ */
 
-const isObj = (v) => v !== null && typeof v === 'object' && !Array.isArray(v);
-const isNum = (v) => typeof v === 'number' && Number.isFinite(v);
-const isInt = (v) => Number.isInteger(v);
+export const isObj = (v) => v !== null && typeof v === "object" && !Array.isArray(v);
+export const isNum = (v) => typeof v === "number" && Number.isFinite(v);
+export const isInt = (v) => Number.isInteger(v);
 
 export const toIso = (ms) => new Date(ms).toISOString();
 export const fromIso = (iso) => Date.parse(iso);
@@ -98,11 +116,11 @@ const ISO_UTC_RE = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?Z$/;
 const DATE_KEY_RE = /^(\d{4})-(\d{2})-(\d{2})$/;
 
 export function isIsoUtc(v) {
-  return typeof v === 'string' && ISO_UTC_RE.test(v) && !Number.isNaN(Date.parse(v));
+  return typeof v === "string" && ISO_UTC_RE.test(v) && !Number.isNaN(Date.parse(v));
 }
 
 export function isDateKey(v) {
-  if (typeof v !== 'string') return false;
+  if (typeof v !== "string") return false;
   const m = DATE_KEY_RE.exec(v);
   if (!m) return false;
   const y = Number(m[1]);
@@ -114,9 +132,9 @@ export function isDateKey(v) {
 
 export function detectTimeZone() {
   try {
-    return Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+    return Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
   } catch {
-    return 'UTC';
+    return "UTC";
   }
 }
 
@@ -131,14 +149,19 @@ export function dateKeyOf(ms, offsetMinutes) {
 }
 
 export function generateId() {
-  if (globalThis.crypto && typeof globalThis.crypto.randomUUID === 'function') {
+  if (globalThis.crypto && typeof globalThis.crypto.randomUUID === "function") {
     return globalThis.crypto.randomUUID();
   }
   const b = globalThis.crypto.getRandomValues(new Uint8Array(16));
   b[6] = (b[6] & 0x0f) | 0x40;
   b[8] = (b[8] & 0x3f) | 0x80;
-  const h = [...b].map((x) => x.toString(16).padStart(2, '0')).join('');
+  const h = [...b].map((x) => x.toString(16).padStart(2, "0")).join("");
   return `${h.slice(0, 8)}-${h.slice(8, 12)}-${h.slice(12, 16)}-${h.slice(16, 20)}-${h.slice(20)}`;
+}
+
+/** Find a subject entry by name. Returns null if not present. */
+export function findSubject(subjects, name) {
+  return subjects.find((s) => s.name === name) || null;
 }
 
 /* ------------------------------------------------------------
@@ -158,7 +181,7 @@ export function createEmptyDocument(nowMs = Date.now()) {
     },
     settings: { ...DEFAULT_SETTINGS },
     studyPlan: { ...DEFAULT_STUDY_PLAN },
-    subjects: [...DEFAULT_SUBJECTS],
+    subjects: DEFAULT_SUBJECTS.map((s) => ({ ...s })),
     sessions: [],
   };
 }
@@ -168,7 +191,7 @@ export function createEmptyDocument(nowMs = Date.now()) {
    ------------------------------------------------------------
 
    {
-     id, type, status, subject,
+     id, type, status, subject, isPractice,
      planned: { durationSeconds },
      actual:  { startedAt, endedAt, utcOffsetMinutes },
      pauses:  [{ startedAt, endedAt, durationSeconds }],
@@ -176,13 +199,20 @@ export function createEmptyDocument(nowMs = Date.now()) {
      createdAt, updatedAt
    }
 
-   RAW:     planned, actual, pauses[].startedAt/endedAt, status, subject
+   RAW:     planned, actual, pauses[].startedAt/endedAt, status, subject, isPractice
    DERIVED: derived.*, pauses[].durationSeconds
 
    `subject` is a free-text label (or null — "no subject") set only on
-   "study" sessions; break sessions always have subject: null. Removing
-   a subject from `doc.subjects` later does not touch already-recorded
-   sessions — their `subject` string is independent, historical data.
+   "study" sessions; break sessions always have subject: null. It's a
+   plain string naming a subject, independent of `doc.subjects` — that
+   list is just what the picker offers; removing (or renaming) an entry
+   there does not touch already-recorded sessions.
+
+   `isPractice` says what KIND of study session this was: false = regular
+   study (reading / lectures / notes), true = practice test (solving test
+   questions). It belongs to the session, so the same subject can have a
+   study session first and a practice-test session right after. Break
+   sessions always have isPractice: false.
    ------------------------------------------------------------ */
 
 function lastEventMs(rec) {
@@ -240,13 +270,20 @@ function closePause(p, endMs) {
   p.durationSeconds = Math.round((t - fromIso(p.startedAt)) / 1000);
 }
 
-export function createSessionRecord({ type, durationSeconds, subject = null, nowMs = Date.now() }) {
+export function createSessionRecord({
+  type,
+  durationSeconds,
+  subject = null,
+  isPractice = false,
+  nowMs = Date.now(),
+}) {
   const iso = toIso(nowMs);
   const rec = {
     id: generateId(),
     type,
-    status: 'running',
-    subject: type === 'study' && subject ? subject : null,
+    status: "running",
+    subject: type === "study" && subject ? subject : null,
+    isPractice: type === "study" && !!isPractice,
     planned: { durationSeconds },
     actual: {
       startedAt: iso,
@@ -263,19 +300,19 @@ export function createSessionRecord({ type, durationSeconds, subject = null, now
 }
 
 export function pauseRecord(rec, nowMs) {
-  if (rec.status !== 'running') return false;
+  if (rec.status !== "running") return false;
   const t = Math.max(nowMs, lastEventMs(rec));
   rec.pauses.push({ startedAt: toIso(t), endedAt: null, durationSeconds: null });
-  rec.status = 'paused';
+  rec.status = "paused";
   touchRecord(rec, nowMs);
   return true;
 }
 
 export function resumeRecord(rec, nowMs) {
-  if (rec.status !== 'paused') return false;
+  if (rec.status !== "paused") return false;
   const open = rec.pauses[rec.pauses.length - 1];
   closePause(open, Math.max(nowMs, lastEventMs(rec)));
-  rec.status = 'running';
+  rec.status = "running";
   touchRecord(rec, nowMs);
   return true;
 }
@@ -305,7 +342,7 @@ export function sessionDayKey(rec) {
 
 export function isCountedSession(rec) {
   return (
-    (rec.status === 'completed' || rec.status === 'abandoned') &&
+    (rec.status === "completed" || rec.status === "abandoned") &&
     rec.derived &&
     rec.derived.activeDurationSeconds >= MIN_COUNTED_SECONDS
   );
@@ -318,12 +355,12 @@ export function isCountedSession(rec) {
 export function buildDailySummaries(sessions) {
   const days = {};
   for (const rec of sessions) {
-    if (rec.type !== 'study' || !isCountedSession(rec)) continue;
+    if (rec.type !== "study" || !isCountedSession(rec)) continue;
     const key = sessionDayKey(rec);
     const d = (days[key] ||= { studySeconds: 0, sessionCount: 0, completedSessionCount: 0 });
     d.studySeconds += rec.derived.activeDurationSeconds;
     d.sessionCount += 1;
-    if (rec.status === 'completed') d.completedSessionCount += 1;
+    if (rec.status === "completed") d.completedSessionCount += 1;
   }
   return Object.fromEntries(Object.entries(days).sort(([a], [b]) => (a < b ? -1 : 1)));
 }
@@ -332,20 +369,27 @@ export function buildDailySummaries(sessions) {
  * Per-subject totals across counted study sessions, sorted by time desc.
  * Pass `dayKey` to scope it to one local calendar day (e.g. "today");
  * omit it for an all-time breakdown. Sessions with no subject are skipped.
+ *
+ * Grouped by (subject, isPractice): a subject that has both regular
+ * study and practice-test sessions gets two separate rows, each with
+ * its own `isPractice` flag.
  */
 export function buildSubjectSummaries(sessions, { dayKey = null } = {}) {
   const bySubject = new Map();
   for (const rec of sessions) {
-    if (rec.type !== 'study' || !rec.subject || !isCountedSession(rec)) continue;
+    if (rec.type !== "study" || !rec.subject || !isCountedSession(rec)) continue;
     if (dayKey && sessionDayKey(rec) !== dayKey) continue;
-    const entry = bySubject.get(rec.subject) || {
+
+    const key = `${rec.subject}\u0000${rec.isPractice ? "p" : "s"}`;
+    const entry = bySubject.get(key) || {
       subject: rec.subject,
+      isPractice: !!rec.isPractice,
       studySeconds: 0,
       sessionCount: 0,
     };
     entry.studySeconds += rec.derived.activeDurationSeconds;
     entry.sessionCount += 1;
-    bySubject.set(rec.subject, entry);
+    bySubject.set(key, entry);
   }
   return [...bySubject.values()].sort((a, b) => b.studySeconds - a.studySeconds);
 }
@@ -356,7 +400,7 @@ export function buildSubjectSummaries(sessions, { dayKey = null } = {}) {
 
 export function serializeDocument(doc, nowMs = Date.now()) {
   const sessions = doc.sessions.map((rec) =>
-    ACTIVE_STATUSES.includes(rec.status) ? { ...rec, derived: computeDerived(rec, nowMs) } : rec
+    ACTIVE_STATUSES.includes(rec.status) ? { ...rec, derived: computeDerived(rec, nowMs) } : rec,
   );
 
   const out = {
@@ -364,33 +408,68 @@ export function serializeDocument(doc, nowMs = Date.now()) {
     app: { ...doc.app, updatedAt: toIso(nowMs), timeZone: detectTimeZone() },
     sessions,
     derived: {
-      note: 'Rebuildable from `sessions`. Safe to ignore or delete; regenerated on every save.',
+      note: "Rebuildable from `sessions`. Safe to ignore or delete; regenerated on every save.",
       generatedAt: toIso(nowMs),
       dailySummaries: buildDailySummaries(sessions),
       subjectSummaries: buildSubjectSummaries(sessions),
     },
   };
 
-  return JSON.stringify(out, null, 2) + '\n';
+  return JSON.stringify(out, null, 2) + "\n";
 }
 
 /* ------------------------------------------------------------
    Migration
 
-   To add schema v2:
-     1. bump SCHEMA_VERSION to 2
-     2. write migrateV1ToV2(doc) that returns a doc with schemaVersion = 2
-     3. register it below:  1: migrateV1ToV2
+   To add schema v(N+1):
+     1. bump SCHEMA_VERSION to N+1
+     2. write migrateVNToVN+1(doc) that returns a doc with schemaVersion = N+1
+     3. register it below:  N: migrateVNToVN+1
 
-   (Adding `subjects` / `sessions[].subject` did NOT need a migration —
-   normalizeDocument()/finalizeLoadedDocument() below default them for
-   any file saved before this feature existed, the same way settings/
-   studyPlan already default missing keys.)
+   v1 -> v2: `subjects` changed from a flat string array to
+   `{ name, isPractice }[]`.
+
+   v2 -> v3: "practice test" moved from the subject to the session.
+   - `subjects` go back to `{ name }[]`.
+   - every session gets `isPractice`. To keep old data meaningful,
+     study sessions whose subject was flagged isPractice in v2 are
+     migrated with isPractice: true; everything else with false.
+   - settings.lastSelectedPractice is filled in by normalizeDocument().
+
+   studyPlan.weeklyPlanSource (added alongside weekly-plans.json / the
+   Weekly Study Plans feature) did NOT need a version bump or migration
+   step — same as subjects/sessions[].subject before it: normalizeDocument()
+   below merges DEFAULT_STUDY_PLAN under any loaded studyPlan, so old files
+   simply pick up weeklyPlanSource: null automatically.
    ------------------------------------------------------------ */
 
+function migrateV1ToV2(doc) {
+  const subjects = Array.isArray(doc.subjects)
+    ? doc.subjects.map((s) => (typeof s === "string" ? { name: s, isPractice: false } : s))
+    : [];
+  return { ...doc, schemaVersion: 2, subjects };
+}
+
+function migrateV2ToV3(doc) {
+  const rawSubjects = Array.isArray(doc.subjects) ? doc.subjects : [];
+
+  const practiceNames = new Set(rawSubjects.filter((s) => isObj(s) && s.isPractice).map((s) => s.name));
+
+  const subjects = rawSubjects.map((s) => ({ name: typeof s === "string" ? s : s && s.name }));
+
+  const sessions = Array.isArray(doc.sessions)
+    ? doc.sessions.map((rec) =>
+        isObj(rec) ? { ...rec, isPractice: rec.type === "study" && practiceNames.has(rec.subject) } : rec,
+      )
+    : doc.sessions;
+
+  return { ...doc, schemaVersion: 3, subjects, sessions };
+}
+
 const MIGRATIONS = {
-  // 1: migrateV1ToV2,
-  // 2: migrateV2ToV3,
+  1: migrateV1ToV2,
+  2: migrateV2ToV3,
+  // 3: migrateV3ToV4,
 };
 
 export function migrateData(input) {
@@ -398,7 +477,7 @@ export function migrateData(input) {
   let version = data.schemaVersion;
 
   if (!isInt(version) || version < 1) {
-    throw new DataError(INVALID_FILE_MESSAGE, ['schemaVersion must be a positive integer']);
+    throw new DataError(INVALID_FILE_MESSAGE, ["schemaVersion must be a positive integer"]);
   }
   if (version > SCHEMA_VERSION) {
     throw new DataError(INVALID_FILE_MESSAGE, [
@@ -408,10 +487,8 @@ export function migrateData(input) {
 
   while (version < SCHEMA_VERSION) {
     const step = MIGRATIONS[version];
-    if (typeof step !== 'function') {
-      throw new DataError(INVALID_FILE_MESSAGE, [
-        `No migration available from schemaVersion ${version}`,
-      ]);
+    if (typeof step !== "function") {
+      throw new DataError(INVALID_FILE_MESSAGE, [`No migration available from schemaVersion ${version}`]);
     }
     data = step(data);
     if (!data || data.schemaVersion !== version + 1) {
@@ -427,58 +504,64 @@ export function migrateData(input) {
    ------------------------------------------------------------ */
 
 function validateSettings(s, err) {
-  if (!isObj(s)) return err('settings must be an object');
-  if (!['fa', 'en'].includes(s.language)) err('settings.language must be "fa" or "en"');
-  if (!['dark', 'light'].includes(s.theme)) err('settings.theme must be "dark" or "light"');
-  if (!['24h', '12h'].includes(s.clockFormat)) err('settings.clockFormat must be "24h" or "12h"');
-  for (const k of ['soundEnabled', 'reducedMotion', 'autoStartNextSession']) {
-    if (typeof s[k] !== 'boolean') err(`settings.${k} must be a boolean`);
+  if (!isObj(s)) return err("settings must be an object");
+  if (!["fa", "en"].includes(s.language)) err('settings.language must be "fa" or "en"');
+  if (!["dark", "light"].includes(s.theme)) err('settings.theme must be "dark" or "light"');
+  if (!["24h", "12h"].includes(s.clockFormat)) err('settings.clockFormat must be "24h" or "12h"');
+  for (const k of ["soundEnabled", "reducedMotion", "autoStartNextSession"]) {
+    if (typeof s[k] !== "boolean") err(`settings.${k} must be a boolean`);
   }
-  if (
-    !isInt(s.defaultSessionMinutes) ||
-    s.defaultSessionMinutes < 1 ||
-    s.defaultSessionMinutes > 600
-  ) {
-    err('settings.defaultSessionMinutes must be an integer between 1 and 600');
+  if (!isInt(s.defaultSessionMinutes) || s.defaultSessionMinutes < 1 || s.defaultSessionMinutes > 600) {
+    err("settings.defaultSessionMinutes must be an integer between 1 and 600");
   }
   if (!isInt(s.lastSelectedMinutes) || s.lastSelectedMinutes < 1 || s.lastSelectedMinutes > 1440) {
-    err('settings.lastSelectedMinutes must be an integer between 1 and 1440');
+    err("settings.lastSelectedMinutes must be an integer between 1 and 1440");
   }
-  if (s.lastSelectedSubject !== null && typeof s.lastSelectedSubject !== 'string') {
-    err('settings.lastSelectedSubject must be null or a string');
+  if (s.lastSelectedSubject !== null && typeof s.lastSelectedSubject !== "string") {
+    err("settings.lastSelectedSubject must be null or a string");
+  }
+  if (typeof s.lastSelectedPractice !== "boolean") {
+    err("settings.lastSelectedPractice must be a boolean");
   }
 }
 
 function validateStudyPlan(p, err) {
-  if (!isObj(p)) return err('studyPlan must be an object');
-  for (const k of ['startDate', 'examDate']) {
-    if (p[k] !== null && !isDateKey(p[k]))
-      err(`studyPlan.${k} must be null or a "YYYY-MM-DD" date`);
+  if (!isObj(p)) return err("studyPlan must be an object");
+  for (const k of ["startDate", "examDate"]) {
+    if (p[k] !== null && !isDateKey(p[k])) err(`studyPlan.${k} must be null or a "YYYY-MM-DD" date`);
   }
   if (isDateKey(p.startDate) && isDateKey(p.examDate) && p.examDate <= p.startDate) {
-    err('studyPlan.examDate must be after studyPlan.startDate');
+    err("studyPlan.examDate must be after studyPlan.startDate");
   }
   if (!isInt(p.totalWeeks) || p.totalWeeks < 0 || p.totalWeeks > 520) {
-    err('studyPlan.totalWeeks must be an integer between 0 and 520');
+    err("studyPlan.totalWeeks must be an integer between 0 and 520");
   }
   if (!isNum(p.dailyGoalMinutes) || p.dailyGoalMinutes <= 0 || p.dailyGoalMinutes > 1440) {
-    err('studyPlan.dailyGoalMinutes must be a number between 1 and 1440');
+    err("studyPlan.dailyGoalMinutes must be a number between 1 and 1440");
+  }
+  if (p.weeklyPlanSource !== null && (typeof p.weeklyPlanSource !== "string" || !p.weeklyPlanSource.trim())) {
+    err("studyPlan.weeklyPlanSource must be null or a non-empty string");
   }
 }
 
 function validateSubjects(subjects, err) {
-  if (!Array.isArray(subjects)) return err('subjects must be an array');
+  if (!Array.isArray(subjects)) return err("subjects must be an array");
   if (subjects.length > MAX_SUBJECTS) err(`subjects must have at most ${MAX_SUBJECTS} entries`);
   const seen = new Set();
   subjects.forEach((s, i) => {
-    if (typeof s !== 'string' || !s.trim()) {
-      err(`subjects[${i}] must be a non-empty string`);
+    if (!isObj(s)) {
+      err(`subjects[${i}] must be an object`);
       return;
     }
-    if (s.length > MAX_SUBJECT_LENGTH)
-      err(`subjects[${i}] is too long (max ${MAX_SUBJECT_LENGTH} chars)`);
-    if (seen.has(s)) err(`subjects[${i}] "${s}" is duplicated`);
-    seen.add(s);
+    if (typeof s.name !== "string" || !s.name.trim()) {
+      err(`subjects[${i}].name must be a non-empty string`);
+    } else {
+      if (s.name.length > MAX_SUBJECT_LENGTH) {
+        err(`subjects[${i}].name is too long (max ${MAX_SUBJECT_LENGTH} chars)`);
+      }
+      if (seen.has(s.name)) err(`subjects[${i}].name "${s.name}" is duplicated`);
+      seen.add(s.name);
+    }
   });
 }
 
@@ -486,21 +569,26 @@ function validateSession(rec, index, seenIds, err) {
   const p = `sessions[${index}]`;
   if (!isObj(rec)) return err(`${p} must be an object`);
 
-  if (typeof rec.id !== 'string' || rec.id.trim() === '') err(`${p}.id must be a non-empty string`);
+  if (typeof rec.id !== "string" || rec.id.trim() === "") err(`${p}.id must be a non-empty string`);
   else if (seenIds.has(rec.id)) err(`${p}.id "${rec.id}" is duplicated`);
   else seenIds.add(rec.id);
 
-  if (!SESSION_TYPES.includes(rec.type))
-    err(`${p}.type must be one of: ${SESSION_TYPES.join(', ')}`);
+  if (!SESSION_TYPES.includes(rec.type)) err(`${p}.type must be one of: ${SESSION_TYPES.join(", ")}`);
   const statusOk = SESSION_STATUSES.includes(rec.status);
-  if (!statusOk) err(`${p}.status must be one of: ${SESSION_STATUSES.join(', ')}`);
+  if (!statusOk) err(`${p}.status must be one of: ${SESSION_STATUSES.join(", ")}`);
   const active = statusOk && ACTIVE_STATUSES.includes(rec.status);
 
-  if (rec.subject !== null && (typeof rec.subject !== 'string' || !rec.subject.trim())) {
+  if (rec.subject !== null && (typeof rec.subject !== "string" || !rec.subject.trim())) {
     err(`${p}.subject must be null or a non-empty string`);
   }
-  if (rec.type === 'break' && rec.subject !== null) {
+  if (rec.type === "break" && rec.subject !== null) {
     err(`${p}.subject must be null for break sessions`);
+  }
+
+  if (typeof rec.isPractice !== "boolean") {
+    err(`${p}.isPractice must be a boolean`);
+  } else if (rec.type === "break" && rec.isPractice) {
+    err(`${p}.isPractice must be false for break sessions`);
   }
 
   if (
@@ -547,7 +635,7 @@ function validateSession(rec, index, seenIds, err) {
       if (s < cursor) err(`${q} overlaps or precedes the previous event`);
 
       if (pz.endedAt === null) {
-        if (!(rec.status === 'paused' && i === rec.pauses.length - 1)) {
+        if (!(rec.status === "paused" && i === rec.pauses.length - 1)) {
           err(`${q}.endedAt can be null only for the last pause of a paused session`);
         }
         cursor = s;
@@ -561,7 +649,7 @@ function validateSession(rec, index, seenIds, err) {
       }
     });
 
-    if (rec.status === 'paused') {
+    if (rec.status === "paused") {
       const last = rec.pauses[rec.pauses.length - 1];
       if (!last || last.endedAt !== null) err(`${p} is "paused" but has no open pause`);
     }
@@ -578,18 +666,18 @@ export function validateDocument(doc) {
   };
 
   if (!isObj(doc)) {
-    err('Root must be a JSON object');
+    err("Root must be a JSON object");
     return errors;
   }
 
   if (doc.schemaVersion !== SCHEMA_VERSION) err(`schemaVersion must be ${SCHEMA_VERSION}`);
 
   if (!isObj(doc.app)) {
-    err('app must be an object');
+    err("app must be an object");
   } else {
     if (doc.app.dataFormat !== DATA_FORMAT) err(`app.dataFormat must be "${DATA_FORMAT}"`);
-    if (!isIsoUtc(doc.app.createdAt)) err('app.createdAt must be an ISO 8601 UTC timestamp');
-    if (!isIsoUtc(doc.app.updatedAt)) err('app.updatedAt must be an ISO 8601 UTC timestamp');
+    if (!isIsoUtc(doc.app.createdAt)) err("app.createdAt must be an ISO 8601 UTC timestamp");
+    if (!isIsoUtc(doc.app.updatedAt)) err("app.updatedAt must be an ISO 8601 UTC timestamp");
   }
 
   validateSettings(doc.settings, err);
@@ -597,14 +685,12 @@ export function validateDocument(doc) {
   validateSubjects(doc.subjects, err);
 
   if (!Array.isArray(doc.sessions)) {
-    err('sessions must be an array');
+    err("sessions must be an array");
   } else {
     const seen = new Set();
     doc.sessions.forEach((rec, i) => validateSession(rec, i, seen, err));
-    const activeCount = doc.sessions.filter(
-      (r) => isObj(r) && ACTIVE_STATUSES.includes(r.status)
-    ).length;
-    if (activeCount > 1) err('Only one session can be running or paused at a time');
+    const activeCount = doc.sessions.filter((r) => isObj(r) && ACTIVE_STATUSES.includes(r.status)).length;
+    if (activeCount > 1) err("Only one session can be running or paused at a time");
   }
 
   return errors;
@@ -630,7 +716,7 @@ function normalizeDocument(raw) {
         : isObj(raw.studyPlan)
           ? { ...DEFAULT_STUDY_PLAN, ...raw.studyPlan }
           : raw.studyPlan,
-    subjects: raw.subjects === undefined ? [...DEFAULT_SUBJECTS] : raw.subjects,
+    subjects: raw.subjects === undefined ? DEFAULT_SUBJECTS.map((s) => ({ ...s })) : raw.subjects,
   };
 }
 
@@ -652,9 +738,9 @@ export function parseDocument(text) {
   try {
     raw = JSON.parse(text);
   } catch {
-    throw new DataError(INVALID_FILE_MESSAGE, ['File is not valid JSON']);
+    throw new DataError(INVALID_FILE_MESSAGE, ["File is not valid JSON"]);
   }
-  if (!isObj(raw)) throw new DataError(INVALID_FILE_MESSAGE, ['Root must be a JSON object']);
+  if (!isObj(raw)) throw new DataError(INVALID_FILE_MESSAGE, ["Root must be a JSON object"]);
 
   const migrated = migrateData(structuredClone(raw));
   const doc = normalizeDocument(migrated);

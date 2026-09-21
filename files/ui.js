@@ -15,112 +15,114 @@ import {
   getTodaySummary,
   getTodaySubjectBreakdown,
   getDaySessions,
+  getDisplayedPractice,
   mutateDocument,
   updateSettings,
   setSelectedMinutes,
-} from './state.js';
-import { TimerEngine, fmtHMS, fmtMS, fmtHoursMinutes, fmtClock } from './timer.js';
-import { fromIso } from './dataLayer.js';
+} from "./state.js";
+import { TimerEngine, fmtHMS, fmtMS, fmtHoursMinutes, fmtClock } from "./timer.js";
+import { fromIso } from "./dataLayer.js";
 
 const $ = (id) => document.getElementById(id);
 
 export const el = {
   body: document.body,
 
-  dailyStatusValue: $('dailyStatusValue'),
-  weeklyStatusValue: $('weeklyStatusValue'),
+  dailyStatusValue: $("dailyStatusValue"),
+  weeklyStatusValue: $("weeklyStatusValue"),
 
-  liveClock: $('liveClock'),
-  liveDate: $('liveDate'),
-  modeLabel: $('modeLabel'),
-  statusLabel: $('statusLabel'),
-  timeDisplay: $('timeDisplay'),
-  timeCaption: $('timeCaption'),
-  ringSubject: $('ringSubject'),
-  elapsedValue: $('elapsedValue'),
-  remainingValue: $('remainingValue'),
+  liveClock: $("liveClock"),
+  liveDate: $("liveDate"),
+  modeLabel: $("modeLabel"),
+  statusLabel: $("statusLabel"),
+  timeDisplay: $("timeDisplay"),
+  timeCaption: $("timeCaption"),
+  ringSubject: $("ringSubject"),
+  elapsedValue: $("elapsedValue"),
+  remainingValue: $("remainingValue"),
 
-  progressLabel: $('progressLabel'),
-  progressPercent: $('progressPercent'),
-  sessionProgressFill: $('sessionProgressFill'),
+  progressLabel: $("progressLabel"),
+  progressPercent: $("progressPercent"),
+  sessionProgressFill: $("sessionProgressFill"),
 
-  primaryBtn: $('primaryBtn'),
-  primaryBtnLabel: $('primaryBtnLabel'),
-  resetBtn: $('resetBtn'),
-  finishBtn: $('finishBtn'),
-  breakBtn: $('breakBtn'),
+  primaryBtn: $("primaryBtn"),
+  primaryBtnLabel: $("primaryBtnLabel"),
+  resetBtn: $("resetBtn"),
+  finishBtn: $("finishBtn"),
+  breakBtn: $("breakBtn"),
 
-  subjectGrid: $('subjectGrid'),
+  kindGrid: $("kindGrid"),
+  subjectGrid: $("subjectGrid"),
 
-  presetGroup: document.querySelector('.preset-grid'),
-  customDuration: $('customDuration'),
-  customMinutes: $('customMinutes'),
-  windowStart: $('windowStart'),
-  windowEnd: $('windowEnd'),
-  applyWindowBtn: $('applyWindowBtn'),
+  presetGroup: document.querySelector(".preset-grid"),
+  customDuration: $("customDuration"),
+  customMinutes: $("customMinutes"),
+  windowStart: $("windowStart"),
+  windowEnd: $("windowEnd"),
+  applyWindowBtn: $("applyWindowBtn"),
 
-  todayDate: $('todayDate'),
-  todayStudyTime: $('todayStudyTime'),
-  todaySessions: $('todaySessions'),
-  todayRemainingGoal: $('todayRemainingGoal'),
-  goalProgressFill: $('dailyGoalProgressFill'),
-  subjectBreakdown: $('subjectBreakdown'),
-  subjectBreakdownEmpty: $('subjectBreakdownEmpty'),
+  todayDate: $("todayDate"),
+  todayStudyTime: $("todayStudyTime"),
+  todaySessions: $("todaySessions"),
+  todayRemainingGoal: $("todayRemainingGoal"),
+  goalProgressFill: $("dailyGoalProgressFill"),
+  subjectBreakdown: $("subjectBreakdown"),
+  subjectBreakdownEmpty: $("subjectBreakdownEmpty"),
 
-  timeline: $('timeline'),
-  timelineEmpty: $('timelineEmpty'),
-  historyList: $('history'),
-  historyEmpty: $('historyEmpty'),
+  timeline: $("timeline"),
+  timelineEmpty: $("timelineEmpty"),
+  historyList: $("history"),
+  historyEmpty: $("historyEmpty"),
 
-  examDaysLeft: $('examDaysLeft'),
-  examWeekLabel: $('examWeekLabel'),
-  examProgressFill: $('examProgressFill'),
-  examDaysPassed: $('examDaysPassed'),
-  examDaysLeftMini: $('examDaysLeftMini'),
-  examEmptyNote: $('examEmptyNote'),
+  examDaysLeft: $("examDaysLeft"),
+  examWeekLabel: $("examWeekLabel"),
+  examProgressFill: $("examProgressFill"),
+  examDaysPassed: $("examDaysPassed"),
+  examDaysLeftMini: $("examDaysLeftMini"),
+  examEmptyNote: $("examEmptyNote"),
 
-  saveStatus: $('saveStatus'),
-  saveStatusText: $('saveStatusText'),
+  saveStatus: $("saveStatus"),
+  saveStatusText: $("saveStatusText"),
 
-  settingsModal: $('settingsModal'),
-  settingsCloseBtn: $('settingsCloseBtn'),
-  saveSettingsBtn: $('saveSettingsBtn'),
-  settingGoalHours: $('settingGoalHours'),
-  settingDefaultMinutes: $('settingDefaultMinutes'),
-  settingSound: $('settingSound'),
-  settingClock24: $('settingClock24'),
-  settingReducedMotion: $('settingReducedMotion'),
-  settingAutoStart: $('settingAutoStart'),
-  studyStartDate: $('studyStartDate'),
-  examDate: $('examDate'),
-  totalWeeks: $('totalWeeks'),
+  settingsModal: $("settingsModal"),
+  settingsCloseBtn: $("settingsCloseBtn"),
+  saveSettingsBtn: $("saveSettingsBtn"),
+  settingGoalHours: $("settingGoalHours"),
+  settingDefaultMinutes: $("settingDefaultMinutes"),
+  settingSound: $("settingSound"),
+  settingClock24: $("settingClock24"),
+  settingReducedMotion: $("settingReducedMotion"),
+  settingAutoStart: $("settingAutoStart"),
+  studyStartDate: $("studyStartDate"),
+  examDate: $("examDate"),
+  totalWeeks: $("totalWeeks"),
 
-  newSubjectInput: $('newSubjectInput'),
-  addSubjectBtn: $('addSubjectBtn'),
-  subjectManageList: $('subjectManageList'),
+  newSubjectInput: $("newSubjectInput"),
+  addSubjectBtn: $("addSubjectBtn"),
+  subjectManageList: $("subjectManageList"),
 
-  connectFileBtn: $('connectFileBtn'),
-  openFileBtn: $('openFileBtn'),
-  saveNowBtn: $('saveNowBtn'),
-  exportBtn: $('exportBtn'),
-  importFileInput: $('importFileInput'),
-  clearDataBtn: $('clearDataBtn'),
+  connectFileBtn: $("connectFileBtn"),
+  openFileBtn: $("openFileBtn"),
+  saveNowBtn: $("saveNowBtn"),
+  exportBtn: $("exportBtn"),
+  importFileInput: $("importFileInput"),
+  clearDataBtn: $("clearDataBtn"),
 
-  connectModal: $('connectModal'),
-  connectCloseBtn: $('connectCloseBtn'),
-  connectLaterBtn: $('connectLaterBtn'),
-  connectNowBtn: $('connectNowBtn'),
-  connectOpenBtn: $('connectOpenBtn'),
+  connectModal: $("connectModal"),
+  connectCloseBtn: $("connectCloseBtn"),
+  connectLaterBtn: $("connectLaterBtn"),
+  connectNowBtn: $("connectNowBtn"),
+  connectOpenBtn: $("connectOpenBtn"),
 
-  langFaBtn: $('langFaBtn'),
-  langEnBtn: $('langEnBtn'),
-  themeToggle: $('themeToggle'),
-  fullscreenToggle: $('fullscreenToggle'),
-  settingsToggle: $('settingsToggle'),
+  langFaBtn: $("langFaBtn"),
+  langEnBtn: $("langEnBtn"),
+  themeToggle: $("themeToggle"),
+  fullscreenToggle: $("fullscreenToggle"),
+  settingsToggle: $("settingsToggle"),
 
-  toast: $('toast'),
-  toastText: $('toastText'),
-  calendar: $('calendar'),
+  toast: $("toast"),
+  toastText: $("toastText"),
+  calendar: $("calendar"),
 };
 
 /* ------------------------------------------------------------
@@ -128,7 +130,7 @@ export const el = {
    ------------------------------------------------------------ */
 
 function dateLocale() {
-  return state.doc.settings.language === 'fa' ? 'fa-IR-u-ca-persian' : 'en-US';
+  return state.doc.settings.language === "fa" ? "fa-IR-u-ca-persian" : "en-US";
 }
 
 export const Render = {
@@ -151,23 +153,23 @@ export const Render = {
     this.setText(
       el.liveDate,
       new Date(now).toLocaleDateString(dateLocale(), {
-        weekday: 'long',
-        month: 'long',
-        day: 'numeric',
-      })
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+      }),
     );
     this.setText(
       el.todayDate,
-      new Date(now).toLocaleDateString(dateLocale(), { month: 'short', day: 'numeric' })
+      new Date(now).toLocaleDateString(dateLocale(), { month: "short", day: "numeric" }),
     );
   },
 
   statusText() {
     const s = state.session;
     const t = tr();
-    if (s.state === 'running') return s.type === 'study' ? t.focusing : t.onBreak;
-    if (s.state === 'paused') return t.paused;
-    if (s.state === 'complete') return s.type === 'study' ? t.sessionComplete : t.breakComplete;
+    if (s.state === "running") return s.type === "study" ? t.focusing : t.onBreak;
+    if (s.state === "paused") return t.paused;
+    if (s.state === "complete") return s.type === "study" ? t.sessionComplete : t.breakComplete;
     return t.readyToFocus;
   },
 
@@ -179,36 +181,41 @@ export const Render = {
     const elapsed = TimerEngine.elapsedMs();
     const fraction = s.durationMs > 0 ? Math.min(1, elapsed / s.durationMs) : 0;
 
-    el.body.setAttribute('data-state', s.state);
-    el.body.setAttribute('data-type', s.type);
+    el.body.setAttribute("data-state", s.state);
+    el.body.setAttribute("data-type", s.type);
 
-    this.setText(el.modeLabel, s.type === 'break' ? t.break : t.focusSession);
+    this.setText(el.modeLabel, s.type === "break" ? t.break : t.focusSession);
     this.setText(el.statusLabel, this.statusText());
     this.setText(el.timeDisplay, fmtHMS(remaining));
-    this.setText(el.timeCaption, s.state === 'complete' ? t.done : t.timeRemaining);
+    this.setText(el.timeCaption, s.state === "complete" ? t.done : t.timeRemaining);
     this.setText(el.elapsedValue, fmtMS(elapsed));
     this.setText(el.remainingValue, fmtMS(remaining));
 
     if (el.ringSubject) {
-      const showSubject = s.type === 'study' && !!s.subject;
-      el.ringSubject.hidden = !showSubject;
-      this.setText(el.ringSubject, showSubject ? s.subject : '');
+      // "Subject · Practice test" — the kind is shown even when no subject is picked.
+      const parts = [];
+      if (s.type === "study") {
+        if (s.subject) parts.push(s.subject);
+        if (getDisplayedPractice()) parts.push(t.kindPractice);
+      }
+      el.ringSubject.hidden = parts.length === 0;
+      this.setText(el.ringSubject, parts.join(" · "));
     }
 
     const pct = Math.round(fraction * 100);
-    this.setText(el.progressLabel, s.type === 'break' ? t.break : t.studySession);
-    this.setText(el.progressPercent, pct + '%');
-    el.sessionProgressFill.style.width = pct + '%';
+    this.setText(el.progressLabel, s.type === "break" ? t.break : t.studySession);
+    this.setText(el.progressPercent, pct + "%");
+    el.sessionProgressFill.style.width = pct + "%";
 
     this.setText(
       el.primaryBtnLabel,
-      s.state === 'running' ? t.pause : s.state === 'paused' ? t.resume : t.start
+      s.state === "running" ? t.pause : s.state === "paused" ? t.resume : t.start,
     );
 
-    el.finishBtn.disabled = s.state === 'idle' || s.state === 'complete';
-    el.resetBtn.disabled = s.state === 'complete';
-    el.breakBtn.hidden = s.state === 'running' || s.state === 'paused';
-    this.setText(el.breakBtn, s.type === 'break' ? t.backToStudy : t.startBreak);
+    el.finishBtn.disabled = s.state === "idle" || s.state === "complete";
+    el.resetBtn.disabled = s.state === "complete";
+    el.breakBtn.hidden = s.state === "running" || s.state === "paused";
+    this.setText(el.breakBtn, s.type === "break" ? t.backToStudy : t.startBreak);
   },
 
   stats() {
@@ -217,7 +224,7 @@ export const Render = {
     const day = getTodaySummary();
 
     const live =
-      s.record && s.type === 'study' && (s.state === 'running' || s.state === 'paused')
+      s.record && s.type === "study" && (s.state === "running" || s.state === "paused")
         ? Math.round(TimerEngine.elapsedMs() / 1000)
         : 0;
     const totalSeconds = day.studySeconds + live;
@@ -227,19 +234,19 @@ export const Render = {
 
     const goalSeconds = state.doc.studyPlan.dailyGoalMinutes * 60;
     const remainingGoal = Math.max(0, goalSeconds - totalSeconds);
-    this.setText(
-      el.todayRemainingGoal,
-      remainingGoal === 0 ? t.goalMet : fmtHoursMinutes(remainingGoal)
-    );
+    this.setText(el.todayRemainingGoal, remainingGoal === 0 ? t.goalMet : fmtHoursMinutes(remainingGoal));
 
     const goalPct = goalSeconds > 0 ? Math.round(Math.min(1, totalSeconds / goalSeconds) * 100) : 0;
-    el.goalProgressFill.style.width = goalPct + '%';
+    el.goalProgressFill.style.width = goalPct + "%";
   },
 
+  /** Today's per-(subject, kind) totals. The same subject can appear twice:
+      once for regular study and once for practice tests. */
   todaySubjects() {
     if (!el.subjectBreakdown) return;
+    const t = tr();
     const items = getTodaySubjectBreakdown();
-    el.subjectBreakdown.querySelectorAll('.subject-breakdown-item').forEach((n) => n.remove());
+    el.subjectBreakdown.querySelectorAll(".subject-breakdown-item").forEach((n) => n.remove());
 
     if (!items.length) {
       el.subjectBreakdownEmpty.hidden = false;
@@ -248,15 +255,16 @@ export const Render = {
     el.subjectBreakdownEmpty.hidden = true;
 
     items.forEach((item) => {
-      const row = document.createElement('div');
-      row.className = 'subject-breakdown-item';
+      const row = document.createElement("div");
+      row.className =
+        "subject-breakdown-item" + (item.isPractice ? " subject-breakdown-item--practice" : "");
 
-      const label = document.createElement('span');
-      label.className = 'subject-breakdown-item__label';
-      label.textContent = item.subject;
+      const label = document.createElement("span");
+      label.className = "subject-breakdown-item__label";
+      label.textContent = item.isPractice ? `${item.subject} · ${t.practiceShort}` : item.subject;
 
-      const value = document.createElement('span');
-      value.className = 'subject-breakdown-item__value';
+      const value = document.createElement("span");
+      value.className = "subject-breakdown-item__value";
       value.textContent = fmtHoursMinutes(item.studySeconds);
 
       row.appendChild(label);
@@ -266,8 +274,9 @@ export const Render = {
   },
 
   timeline() {
+    const t = tr();
     const items = getDaySessions(todayKey());
-    el.timeline.querySelectorAll('.timeline-item').forEach((n) => n.remove());
+    el.timeline.querySelectorAll(".timeline-item").forEach((n) => n.remove());
 
     if (!items.length) {
       el.timelineEmpty.hidden = false;
@@ -277,18 +286,28 @@ export const Render = {
 
     const maxDur = Math.max(...items.map((r) => r.derived.activeDurationSeconds), 1);
     items.forEach((rec) => {
-      const row = document.createElement('div');
-      row.className = 'timeline-item';
-      row.title = rec.type === 'study' && rec.subject ? rec.subject : '';
+      const row = document.createElement("div");
+      row.className = "timeline-item";
 
-      const bar = document.createElement('span');
+      if (rec.type === "study") {
+        const parts = [];
+        if (rec.subject) parts.push(rec.subject);
+        if (rec.isPractice) parts.push(t.kindPractice);
+        row.title = parts.join(" · ");
+      } else {
+        row.title = "";
+      }
+
+      const bar = document.createElement("span");
       bar.className =
-        'timeline-item__bar' + (rec.type === 'break' ? ' timeline-item__bar--break' : '');
+        "timeline-item__bar" +
+        (rec.type === "break" ? " timeline-item__bar--break" : "") +
+        (rec.type === "study" && rec.isPractice ? " timeline-item__bar--practice" : "");
       bar.style.flexGrow = String(Math.max(0.15, rec.derived.activeDurationSeconds / maxDur));
-      bar.style.flexBasis = '0';
+      bar.style.flexBasis = "0";
 
-      const label = document.createElement('span');
-      label.className = 'timeline-item__label';
+      const label = document.createElement("span");
+      label.className = "timeline-item__label";
       label.textContent = `${fmtClock(fromIso(rec.actual.startedAt))}–${fmtClock(fromIso(rec.actual.endedAt))}`;
 
       row.appendChild(bar);
@@ -299,7 +318,7 @@ export const Render = {
 
   history() {
     const items = getDaySessions(todayKey()).reverse();
-    el.historyList.querySelectorAll('.history-item').forEach((n) => n.remove());
+    el.historyList.querySelectorAll(".history-item").forEach((n) => n.remove());
 
     if (!items.length) {
       el.historyEmpty.hidden = false;
@@ -308,27 +327,35 @@ export const Render = {
     el.historyEmpty.hidden = true;
 
     items.forEach((rec) => {
-      const row = document.createElement('div');
-      row.className = 'history-item';
+      const row = document.createElement("div");
+      row.className = "history-item";
 
-      const left = document.createElement('span');
-      left.className = 'history-item__time';
+      const left = document.createElement("span");
+      left.className = "history-item__time";
       left.textContent = `${fmtClock(fromIso(rec.actual.startedAt))} – ${fmtClock(fromIso(rec.actual.endedAt))}`;
 
-      if (rec.type === 'break') {
-        const tag = document.createElement('span');
-        tag.className = 'history-item__type';
+      if (rec.type === "break") {
+        const tag = document.createElement("span");
+        tag.className = "history-item__type";
         tag.textContent = tr().break;
         left.appendChild(tag);
-      } else if (rec.subject) {
-        const tag = document.createElement('span');
-        tag.className = 'history-item__subject';
-        tag.textContent = rec.subject;
-        left.appendChild(tag);
+      } else {
+        if (rec.subject) {
+          const tag = document.createElement("span");
+          tag.className = "history-item__subject";
+          tag.textContent = rec.subject;
+          left.appendChild(tag);
+        }
+        if (rec.isPractice) {
+          const tag = document.createElement("span");
+          tag.className = "history-item__practice";
+          tag.textContent = tr().practiceShort;
+          left.appendChild(tag);
+        }
       }
 
-      const right = document.createElement('span');
-      right.className = 'history-item__duration';
+      const right = document.createElement("span");
+      right.className = "history-item__duration";
       right.textContent = fmtHoursMinutes(rec.derived.activeDurationSeconds);
 
       row.appendChild(left);
@@ -340,12 +367,10 @@ export const Render = {
   presets() {
     const minutes = Math.round(state.session.durationMs / 60000);
     const presets = [25, 50, 90, 120];
-    el.presetGroup.querySelectorAll('.preset-btn').forEach((btn) => {
-      const isCustomBtn = btn.id === 'customPresetBtn';
-      const active = isCustomBtn
-        ? !presets.includes(minutes)
-        : Number(btn.dataset.minutes) === minutes;
-      btn.classList.toggle('is-active', active);
+    el.presetGroup.querySelectorAll(".preset-btn").forEach((btn) => {
+      const isCustomBtn = btn.id === "customPresetBtn";
+      const active = isCustomBtn ? !presets.includes(minutes) : Number(btn.dataset.minutes) === minutes;
+      btn.classList.toggle("is-active", active);
     });
     if (!presets.includes(minutes)) {
       el.customDuration.hidden = false;
@@ -361,19 +386,28 @@ export const Render = {
     const t = tr();
     const current = state.session.subject;
 
-    el.subjectGrid.innerHTML = '';
+    el.subjectGrid.innerHTML = "";
 
     const makeChip = (label, value) => {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'subject-chip' + (current === value ? ' is-active' : '');
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "subject-chip" + (current === value ? " is-active" : "");
       btn.textContent = label;
-      btn.dataset.subject = value || '';
+      btn.dataset.subject = value || "";
       return btn;
     };
 
     el.subjectGrid.appendChild(makeChip(t.noSubject, null));
-    state.doc.subjects.forEach((s) => el.subjectGrid.appendChild(makeChip(s, s)));
+    state.doc.subjects.forEach((s) => el.subjectGrid.appendChild(makeChip(s.name, s.name)));
+  },
+
+  /** Study / Practice-test switch. Highlights the kind of the next (or current) study session. */
+  kind() {
+    if (!el.kindGrid) return;
+    const practice = getDisplayedPractice();
+    el.kindGrid.querySelectorAll(".kind-btn").forEach((btn) => {
+      btn.classList.toggle("is-active", (btn.dataset.kind === "practice") === practice);
+    });
   },
 
   exam() {
@@ -381,11 +415,11 @@ export const Render = {
 
     if (!progress) {
       el.examEmptyNote.hidden = false;
-      this.setText(el.examDaysLeft, '—');
-      this.setText(el.examDaysPassed, '—');
-      this.setText(el.examWeekLabel, '—');
-      this.setText(el.examDaysLeftMini, '—');
-      el.examProgressFill.style.width = '0%';
+      this.setText(el.examDaysLeft, "—");
+      this.setText(el.examDaysPassed, "—");
+      this.setText(el.examWeekLabel, "—");
+      this.setText(el.examDaysLeftMini, "—");
+      el.examProgressFill.style.width = "0%";
       return;
     }
 
@@ -414,27 +448,27 @@ export const Render = {
     const f = state.file;
 
     const keys = {
-      unsupported: 'saveUnsupported',
-      disconnected: 'saveNotConnected',
-      permission: 'savePermission',
-      saved: 'saveSaved',
-      saving: 'saveSaving',
-      unsaved: 'saveUnsaved',
-      error: 'saveError',
+      unsupported: "saveUnsupported",
+      disconnected: "saveNotConnected",
+      permission: "savePermission",
+      saved: "saveSaved",
+      saving: "saveSaving",
+      unsaved: "saveUnsaved",
+      error: "saveError",
     };
 
     let text = t[keys[f.status]] || t.saveNotConnected;
-    if (f.name && ['saved', 'saving', 'unsaved'].includes(f.status)) text += ` · ${f.name}`;
+    if (f.name && ["saved", "saving", "unsaved"].includes(f.status)) text += ` · ${f.name}`;
 
     el.saveStatus.dataset.status = f.status;
-    el.saveStatus.title = f.error || '';
+    el.saveStatus.title = f.error || "";
     this.setText(el.saveStatusText, text);
   },
 
   calendar() {
     if (!el.calendar) return;
 
-    el.calendar.innerHTML = '';
+    el.calendar.innerHTML = "";
     const today = new Date();
     const day = today.getDay();
     const monday = new Date(today);
@@ -443,11 +477,11 @@ export const Render = {
     for (let i = 0; i < 7; i++) {
       const d = new Date(monday);
       d.setDate(monday.getDate() + i);
-      const item = document.createElement('div');
-      item.className = 'calendar-day';
+      const item = document.createElement("div");
+      item.className = "calendar-day";
       item.textContent = d.toLocaleDateString(dateLocale(), {
-        weekday: 'short',
-        day: 'numeric',
+        weekday: "short",
+        day: "numeric",
       });
       el.calendar.appendChild(item);
     }
@@ -461,6 +495,7 @@ export const Render = {
     this.timeline();
     this.history();
     this.presets();
+    this.kind();
     this.subjects();
     this.exam();
     this.saveStatus();
@@ -474,11 +509,11 @@ export const Render = {
 
 export function renderTranslations() {
   const t = tr();
-  document.querySelectorAll('[data-i18n]').forEach((node) => {
+  document.querySelectorAll("[data-i18n]").forEach((node) => {
     const text = t[node.dataset.i18n];
     if (text) node.textContent = text;
   });
-  document.querySelectorAll('[data-i18n-placeholder]').forEach((node) => {
+  document.querySelectorAll("[data-i18n-placeholder]").forEach((node) => {
     const text = t[node.dataset.i18nPlaceholder];
     if (text) node.placeholder = text;
   });
@@ -488,14 +523,14 @@ export function renderTranslations() {
 export function applyLanguageAttributes() {
   const lang = state.doc.settings.language;
   document.documentElement.lang = lang;
-  document.documentElement.dir = lang === 'fa' ? 'rtl' : 'ltr';
+  document.documentElement.dir = lang === "fa" ? "rtl" : "ltr";
   document.body.dataset.lang = lang;
-  el.langFaBtn.classList.toggle('is-active', lang === 'fa');
-  el.langEnBtn.classList.toggle('is-active', lang === 'en');
+  el.langFaBtn.classList.toggle("is-active", lang === "fa");
+  el.langEnBtn.classList.toggle("is-active", lang === "en");
 }
 
 export function setLanguage(lang) {
-  if (lang !== 'fa' && lang !== 'en') return;
+  if (lang !== "fa" && lang !== "en") return;
   updateSettings({ language: lang });
   applyLanguageAttributes();
   renderTranslations();
@@ -504,11 +539,11 @@ export function setLanguage(lang) {
 }
 
 export function applyTheme() {
-  el.body.setAttribute('data-theme', state.doc.settings.theme);
+  el.body.setAttribute("data-theme", state.doc.settings.theme);
 }
 
 export function applyReducedMotion() {
-  el.body.setAttribute('data-reduced-motion', String(state.doc.settings.reducedMotion));
+  el.body.setAttribute("data-reduced-motion", String(state.doc.settings.reducedMotion));
 }
 
 export function toggleFullscreen() {
@@ -525,7 +560,7 @@ export function toggleFullscreen() {
 
 let toastTimer = null;
 
-export function showToast(text, tone = 'info') {
+export function showToast(text, tone = "info") {
   if (!el.toast) return;
   el.toastText.textContent = text;
   el.toast.dataset.tone = tone;
@@ -538,12 +573,12 @@ export function showToast(text, tone = 'info') {
 
 export function openConnectModal() {
   el.connectModal.hidden = false;
-  el.connectModal.setAttribute('aria-hidden', 'false');
+  el.connectModal.setAttribute("aria-hidden", "false");
 }
 
 export function closeConnectModal() {
   el.connectModal.hidden = true;
-  el.connectModal.setAttribute('aria-hidden', 'true');
+  el.connectModal.setAttribute("aria-hidden", "true");
 }
 
 export function isAnyModalOpen() {
@@ -557,30 +592,31 @@ export function isAnyModalOpen() {
 export function populateSettingsForm() {
   const plan = state.doc.studyPlan;
   // Stored as Gregorian "YYYY-MM-DD"; <input type="date"> uses the same format.
-  el.studyStartDate.value = plan.startDate || '';
-  el.examDate.value = plan.examDate || '';
-  el.totalWeeks.value = plan.totalWeeks || '';
+  el.studyStartDate.value = plan.startDate || "";
+  el.examDate.value = plan.examDate || "";
+  el.totalWeeks.value = plan.totalWeeks || "";
   renderSubjectManageList();
 }
 
 /** Rebuilds the removable subject chips inside Settings → Subjects. */
 export function renderSubjectManageList() {
   if (!el.subjectManageList) return;
-  el.subjectManageList.innerHTML = '';
+  el.subjectManageList.innerHTML = "";
 
   state.doc.subjects.forEach((s) => {
-    const chip = document.createElement('span');
-    chip.className = 'subject-manage-chip';
+    const chip = document.createElement("span");
+    chip.className = "subject-manage-chip";
 
-    const label = document.createElement('span');
-    label.textContent = s;
+    const label = document.createElement("span");
+    label.className = "subject-manage-chip__label";
+    label.textContent = s.name;
 
-    const removeBtn = document.createElement('button');
-    removeBtn.type = 'button';
-    removeBtn.className = 'subject-manage-chip__remove';
-    removeBtn.dataset.subject = s;
-    removeBtn.setAttribute('aria-label', 'Remove');
-    removeBtn.textContent = '×';
+    const removeBtn = document.createElement("button");
+    removeBtn.type = "button";
+    removeBtn.className = "subject-manage-chip__remove";
+    removeBtn.dataset.subject = s.name;
+    removeBtn.setAttribute("aria-label", "Remove");
+    removeBtn.textContent = "×";
 
     chip.appendChild(label);
     chip.appendChild(removeBtn);
@@ -593,18 +629,18 @@ export function openSettings() {
   el.settingGoalHours.value = studyPlan.dailyGoalMinutes / 60;
   el.settingDefaultMinutes.value = settings.defaultSessionMinutes;
   el.settingSound.checked = settings.soundEnabled;
-  el.settingClock24.checked = settings.clockFormat === '24h';
+  el.settingClock24.checked = settings.clockFormat === "24h";
   el.settingReducedMotion.checked = settings.reducedMotion;
   el.settingAutoStart.checked = settings.autoStartNextSession;
   populateSettingsForm();
 
   el.settingsModal.hidden = false;
-  el.settingsModal.setAttribute('aria-hidden', 'false');
+  el.settingsModal.setAttribute("aria-hidden", "false");
 }
 
 export function closeSettings() {
   el.settingsModal.hidden = true;
-  el.settingsModal.setAttribute('aria-hidden', 'true');
+  el.settingsModal.setAttribute("aria-hidden", "true");
 }
 
 function readPlanFromForm() {
@@ -618,9 +654,9 @@ function readPlanFromForm() {
 /** Returns an error code, or null when the plan is valid (an empty plan is valid = cleared). */
 export function validatePlan(plan) {
   if (!plan.startDate && !plan.examDate && !plan.totalWeeks) return null;
-  if (!plan.startDate || !plan.examDate) return 'missing';
-  if (plan.examDate <= plan.startDate) return 'range';
-  if (plan.totalWeeks <= 0) return 'weeks';
+  if (!plan.startDate || !plan.examDate) return "missing";
+  if (plan.examDate <= plan.startDate) return "range";
+  if (plan.totalWeeks <= 0) return "weeks";
   return null;
 }
 
@@ -633,11 +669,11 @@ export function applySettingsFromForm({ showErrors = false } = {}) {
   const planError = validatePlan(plan);
   const previousDefault = state.doc.settings.defaultSessionMinutes;
 
-  mutateDocument('settings', (doc) => {
+  mutateDocument("settings", (doc) => {
     Object.assign(doc.settings, {
       defaultSessionMinutes: defMinutes,
       soundEnabled: el.settingSound.checked,
-      clockFormat: el.settingClock24.checked ? '24h' : '12h',
+      clockFormat: el.settingClock24.checked ? "24h" : "12h",
       reducedMotion: el.settingReducedMotion.checked,
       autoStartNextSession: el.settingAutoStart.checked,
     });
@@ -652,7 +688,7 @@ export function applySettingsFromForm({ showErrors = false } = {}) {
   applyReducedMotion();
 
   // Changing the default length also selects it (only when idle).
-  if (defMinutes !== previousDefault && state.session.state === 'idle') {
+  if (defMinutes !== previousDefault && state.session.state === "idle") {
     setSelectedMinutes(defMinutes);
   }
 
@@ -660,10 +696,8 @@ export function applySettingsFromForm({ showErrors = false } = {}) {
 
   if (planError && showErrors) {
     const t = tr();
-    const msg = { missing: t.planErrMissing, range: t.planErrRange, weeks: t.planErrWeeks }[
-      planError
-    ];
-    showToast(msg, 'error');
+    const msg = { missing: t.planErrMissing, range: t.planErrRange, weeks: t.planErrWeeks }[planError];
+    showToast(msg, "error");
     return false;
   }
   return true;

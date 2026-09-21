@@ -15,20 +15,15 @@
 
    Local backup:
      Independently of any connected file, every data event also mirrors
-     state.doc into localStorage. This is what keeps settings / study
-     plan / sessions alive across a reload when no file is connected yet
-     (or the browser needs a fresh permission click) — the file is the
-     durable, shareable copy; localStorage is the always-on safety net.
+     state.doc into localStorage, synchronously. That copy is what keeps
+     settings / study plan / sessions alive across a reload — even a reload
+     that happens in the middle of a file write (dev servers with live
+     reload do exactly that). On startup the backup and the file are
+     reconciled: if the backup holds newer changes that never reached the
+     file, the backup wins and is written to the file.
    ============================================================= */
 
-import {
-  state,
-  onDataChange,
-  replaceDocument,
-  commit,
-  todayKey,
-  tr,
-} from "./state.js";
+import { state, onDataChange, replaceDocument, commit, todayKey, tr } from "./state.js";
 import {
   DEFAULT_FILE_NAME,
   DataError,
@@ -46,6 +41,7 @@ let handle = null; // connected file
 let pendingHandle = null; // remembered file that needs a permission click
 let saveTimer = null;
 let chain = Promise.resolve();
+let backupOk = false; // true while the localStorage mirror is known to work
 
 const hooks = {
   onStatus: () => {},
@@ -85,10 +81,23 @@ function hasMeaningfulData() {
    blocks or fails the rest of the app when it doesn't work.
    ------------------------------------------------------------ */
 
+function probeLocalStorage() {
+  try {
+    const key = `${LOCAL_BACKUP_KEY}:probe`;
+    localStorage.setItem(key, "1");
+    localStorage.removeItem(key);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 function backupToLocalStorage() {
   try {
     localStorage.setItem(LOCAL_BACKUP_KEY, serializeDocument(state.doc));
+    backupOk = true;
   } catch (err) {
+    backupOk = false;
     console.warn("Could not write local backup:", err);
   }
 }
@@ -110,17 +119,44 @@ function clearLocalBackup() {
   }
 }
 
-/** Load the local backup into state.doc, if one exists and is valid. Returns true if applied. */
+/**
+ * What a document "says", ignoring bookkeeping that changes on every
+ * serialization (app.updatedAt) and anything derived. Two documents with
+ * the same signature are the same data.
+ */
+function contentSignature(doc) {
+  return JSON.stringify({
+    settings: doc.settings,
+    studyPlan: doc.studyPlan,
+    subjects: doc.subjects,
+    sessions: doc.sessions.map(({ derived, ...rest }) => rest),
+  });
+}
+
+/**
+ * Load the local backup into state.doc, if one exists and is valid.
+ * Returns a small snapshot { signature, updatedAt } for later comparison
+ * with the file (a snapshot, because state.doc keeps changing), or null.
+ */
 function restoreLocalBackupIfAny() {
   const raw = readLocalBackup();
-  if (!raw) return false;
+  if (!raw) return null;
   try {
-    replaceDocument(parseDocument(raw));
-    return true;
+    const doc = parseDocument(raw);
+    const snapshot = { signature: contentSignature(doc), updatedAt: Date.parse(doc.app.updatedAt) };
+    replaceDocument(doc);
+    return snapshot;
   } catch (err) {
     console.warn("Local backup was invalid, ignoring it:", err);
-    return false;
+    return null;
   }
+}
+
+/** True when the backup has real changes the file doesn't have, and is newer. */
+function backupHasNewerChanges(backup, fileDoc) {
+  if (!backup) return false;
+  if (backup.signature === contentSignature(fileDoc)) return false; // same data → nothing to rescue
+  return backup.updatedAt > Date.parse(fileDoc.app.updatedAt);
 }
 
 /* ------------------------------------------------------------
@@ -207,7 +243,13 @@ function reportPickerError(err) {
   return false;
 }
 
-async function loadFromHandle(h, { confirmReplace = true } = {}) {
+/**
+ * `backup` is only passed when resuming the remembered file at startup.
+ * If the local backup has newer changes than the file (the page was reloaded
+ * before a save finished), the backup is kept and written to the file instead
+ * of being thrown away.
+ */
+async function loadFromHandle(h, { confirmReplace = true, backup = null } = {}) {
   let text;
   try {
     if (!(await FileStorage.ensurePermission(h, true))) {
@@ -241,6 +283,18 @@ async function loadFromHandle(h, { confirmReplace = true } = {}) {
     return false;
   }
 
+  // Reload during a save: the in-memory document (restored from the backup)
+  // is newer than the file. Keep it and push it into the file.
+  if (backupHasNewerChanges(backup, doc)) {
+    await attach(h);
+    state.file.dirty = true;
+    state.file.lastSavedAt = null;
+    setStatus("unsaved");
+    schedule(0);
+    hooks.onLoaded();
+    return true;
+  }
+
   if (confirmReplace && hasMeaningfulData() && !confirm(tr().confirmReplace)) {
     return false;
   }
@@ -269,11 +323,12 @@ export const Persistence = {
 
   async init() {
     state.file.supported = FileStorage.isSupported();
+    backupOk = probeLocalStorage();
 
     // Restore whatever was last in memory (settings, study plan, sessions)
     // before we even try to reach a connected file — a reload should never
     // silently drop data the user already entered.
-    restoreLocalBackupIfAny();
+    const backup = restoreLocalBackupIfAny();
 
     if (!state.file.supported) {
       setStatus("unsupported");
@@ -289,9 +344,10 @@ export const Persistence = {
     try {
       if (await FileStorage.ensurePermission(remembered, false)) {
         // The file is the source of truth once we can actually read it —
+        // unless the backup has newer, unsaved changes (see loadFromHandle).
         // confirmReplace stays off here since this is just resuming the
         // same session, not a user-initiated switch to a different file.
-        const ok = await loadFromHandle(remembered, { confirmReplace: false });
+        const ok = await loadFromHandle(remembered, { confirmReplace: false, backup });
         if (ok) return "loaded";
         setStatus("disconnected");
         return "disconnected";
@@ -356,11 +412,17 @@ export const Persistence = {
   /** Best-effort flush for visibilitychange / pagehide. */
   flush() {
     backupToLocalStorage();
-    if (handle && state.file.dirty && state.file.status !== "permission")
-      saveNow();
+    if (handle && state.file.dirty && state.file.status !== "permission") saveNow();
   },
 
+  /**
+   * Should the browser warn before leaving? Only when there is data that
+   * would really be lost. Every change is mirrored to localStorage
+   * synchronously and reconciled on the next start, so as long as that
+   * mirror works a reload or closing the tab loses nothing — no prompt.
+   */
   hasUnsavedData() {
+    if (backupOk) return false;
     return handle ? state.file.dirty : state.doc.sessions.length > 0;
   },
 

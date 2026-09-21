@@ -10,15 +10,15 @@
 .save-status {
   cursor: pointer;
 }
-.save-status[data-status='saved'] .save-status__dot {
+.save-status[data-status="saved"] .save-status__dot {
   background: #3ecf8e;
 }
-.save-status[data-status='saving'] .save-status__dot,
-.save-status[data-status='unsaved'] .save-status__dot {
+.save-status[data-status="saving"] .save-status__dot,
+.save-status[data-status="unsaved"] .save-status__dot {
   background: #f5a524;
 }
-.save-status[data-status='error'] .save-status__dot,
-.save-status[data-status='permission'] .save-status__dot {
+.save-status[data-status="error"] .save-status__dot,
+.save-status[data-status="permission"] .save-status__dot {
   background: #ef4444;
 }
 
@@ -81,17 +81,16 @@
   --transition-slow: 350ms ease;
 
   /* Font */
-  --font:
-    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
-  --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 }
 
 /* ============================================================
      2. LIGHT THEME
      ============================================================ */
 
-body[data-theme='light'] {
+body[data-theme="light"] {
   --bg-0: #f6f6f8;
   --bg-1: #ffffff;
   --bg-2: #f0f0f3;
@@ -319,7 +318,7 @@ body {
 }
 
 .save-status::before {
-  content: '';
+  content: "";
 
   width: 6px;
   height: 6px;
@@ -368,7 +367,7 @@ body {
 
 .lang-btn.active,
 .lang-btn.is-active,
-.lang-btn[aria-selected='true'] {
+.lang-btn[aria-selected="true"] {
   color: var(--text-0);
   background: var(--bg-3);
   box-shadow: var(--shadow-sm);
@@ -468,8 +467,7 @@ body {
 
   padding: 38px 28px 32px;
 
-  background:
-    radial-gradient(circle at 50% 35%, var(--accent-softer), transparent 36%), var(--bg-1);
+  background: radial-gradient(circle at 50% 35%, var(--accent-softer), transparent 36%), var(--bg-1);
 
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
@@ -495,7 +493,7 @@ body {
 }
 
 .timer-ring::before {
-  content: '';
+  content: "";
 
   position: absolute;
   inset: 7%;
@@ -888,7 +886,7 @@ button:disabled {
 }
 
 .preset-btn.active,
-.preset-btn[aria-selected='true'] {
+.preset-btn[aria-selected="true"] {
   color: var(--accent);
   background: var(--accent-soft);
   border-color: rgba(139, 124, 255, 0.3);
@@ -962,22 +960,22 @@ button:disabled {
 
 /* Light mode */
 
-body[data-theme='light'] .custom-duration {
+body[data-theme="light"] .custom-duration {
   background: #f8fafc;
   border-color: #e2e8f0;
 }
 
-body[data-theme='light'] .custom-duration label {
+body[data-theme="light"] .custom-duration label {
   color: #475569;
 }
 
-body[data-theme='light'] #customMinutes {
+body[data-theme="light"] #customMinutes {
   background: #fff;
   color: #1e293b;
   border-color: #cbd5e1;
 }
 
-body[data-theme='light'] #customMinutes:focus {
+body[data-theme="light"] #customMinutes:focus {
   border-color: #0ea5e9;
   box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
 }
@@ -1298,8 +1296,7 @@ body[data-theme='light'] #customMinutes:focus {
 .exam-card {
   padding: 24px;
 
-  background:
-    radial-gradient(circle at 90% 20%, var(--accent-softer), transparent 32%), var(--bg-1);
+  background: radial-gradient(circle at 90% 20%, var(--accent-softer), transparent 32%), var(--bg-1);
 
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
@@ -1446,7 +1443,7 @@ body[data-theme='light'] #customMinutes:focus {
 }
 
 .exam-status-card::before {
-  content: '';
+  content: "";
 
   position: absolute;
 
@@ -1557,7 +1554,7 @@ body[data-theme='light'] #customMinutes:focus {
 }
 
 .calendar-title::before {
-  content: '';
+  content: "";
 
   width: 8px;
 
@@ -1637,7 +1634,7 @@ body[data-theme='light'] #customMinutes:focus {
   border-color: rgba(95, 214, 155, 0.25);
 }
 .calendar-day.completed::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 5px;
   width: 5px;
@@ -1653,17 +1650,17 @@ body[data-theme='light'] #customMinutes:focus {
 .calendar-day.future {
   color: var(--text-1);
 }
-body[data-theme='light'] .calendar {
+body[data-theme="light"] .calendar {
   background: #fff;
 }
-body[data-theme='light'] .calendar-header {
+body[data-theme="light"] .calendar-header {
   background: #f8fafc;
 }
-body[data-theme='light'] .calendar-day {
+body[data-theme="light"] .calendar-day {
   background: #fff;
   border-color: #e5e7eb;
 }
-body[data-theme='light'] .calendar-day:hover {
+body[data-theme="light"] .calendar-day:hover {
   background: #f8fafc;
 }
 @media (max-width: 520px) {
@@ -1932,7 +1929,7 @@ body[data-theme='light'] .calendar-day:hover {
   border-color: var(--border-light);
 }
 
-.file-input-btn input[type='file'] {
+.file-input-btn input[type="file"] {
   display: none;
 }
 
@@ -2021,7 +2018,7 @@ body[data-theme='light'] .calendar-day:hover {
      29. TIMER STATES
      ============================================================ */
 
-body[data-state='running'] .brand__dot {
+body[data-state="running"] .brand__dot {
   animation: pulse-dot 1.8s ease-in-out infinite;
 }
 
@@ -2038,18 +2035,18 @@ body[data-state='running'] .brand__dot {
   }
 }
 
-body[data-state='break'] .timer-ring .ring-progress {
+body[data-state="break"] .timer-ring .ring-progress {
   stroke: var(--success);
 }
 
-body[data-state='break'] .brand__dot {
+body[data-state="break"] .brand__dot {
   background: var(--success);
   box-shadow:
     0 0 0 5px var(--success-soft),
     0 0 18px rgba(95, 214, 155, 0.3);
 }
 
-body[data-state='paused'] .brand__dot {
+body[data-state="paused"] .brand__dot {
   background: var(--warning);
   box-shadow: 0 0 0 5px var(--warning-soft);
 }
@@ -2058,29 +2055,29 @@ body[data-state='paused'] .brand__dot {
      30. RTL
      ============================================================ */
 
-body[data-lang='fa'] {
+body[data-lang="fa"] {
   direction: rtl;
 }
 
-body[data-lang='fa'] .live-date {
+body[data-lang="fa"] .live-date {
   margin-left: 0;
   margin-right: 10px;
 }
 
-body[data-lang='fa'] .timeline-item {
+body[data-lang="fa"] .timeline-item {
   grid-template-columns: 1fr 58px;
 }
 
-body[data-lang='fa'] .timeline-item__time {
+body[data-lang="fa"] .timeline-item__time {
   order: 2;
   text-align: left;
 }
 
-body[data-lang='fa'] .timeline-item__content {
+body[data-lang="fa"] .timeline-item__content {
   order: 1;
 }
 
-body[data-lang='fa'] .exam-days-left-label {
+body[data-lang="fa"] .exam-days-left-label {
   text-align: left;
 }
 
@@ -2333,7 +2330,7 @@ select:focus-visible {
     text-align: left;
   }
 
-  body[data-lang='fa'] .exam-days-left-label {
+  body[data-lang="fa"] .exam-days-left-label {
     text-align: right;
   }
 
@@ -2841,7 +2838,7 @@ select:focus-visible {
 
 /* RTL */
 
-body[data-lang='fa'] .analytics-toolbar__file {
+body[data-lang="fa"] .analytics-toolbar__file {
   direction: ltr;
   text-align: right;
 }
@@ -3076,40 +3073,40 @@ body[data-lang='fa'] .analytics-toolbar__file {
 
 /* Light mode */
 
-body[data-theme='light'] .subject-section {
+body[data-theme="light"] .subject-section {
   background: #fff;
   border-color: #e5e7eb;
 }
 
-body[data-theme='light'] .section-label {
+body[data-theme="light"] .section-label {
   color: #64748b;
 }
 
-body[data-theme='light'] .subject-grid button {
+body[data-theme="light"] .subject-grid button {
   background: #f8fafc;
   color: #334155;
   border-color: #e2e8f0;
 }
 
-body[data-theme='light'] .subject-grid button:hover {
+body[data-theme="light"] .subject-grid button:hover {
   background: #e0f2fe;
   border-color: #38bdf8;
 }
 
-body[data-theme='light'] .subject-grid button.is-active {
+body[data-theme="light"] .subject-grid button.is-active {
   color: #fff;
 }
 
-body[data-theme='light'] .subject-breakdown-item {
+body[data-theme="light"] .subject-breakdown-item {
   background: #f8fafc;
   border-color: #e5e7eb;
 }
 
-body[data-theme='light'] .subject-breakdown-item__label {
+body[data-theme="light"] .subject-breakdown-item__label {
   color: #334155;
 }
 
-body[data-theme='light'] .subject-manage-chip {
+body[data-theme="light"] .subject-manage-chip {
   background: #f8fafc;
   border-color: #e2e8f0;
   color: #334155;
@@ -3175,4 +3172,124 @@ body[data-theme='light'] .subject-manage-chip {
 }
 .chart-donut-segment--paused {
   stroke: var(--warning, #d9a441);
+}
+
+/* Practice/test-section badge on the main subject chip picker */
+.subject-chip--practice::after {
+  content: "🧪";
+  margin-inline-start: 4px;
+  font-size: 0.85em;
+}
+
+/* Settings → Subjects management row: name + practice toggle + remove, in one line */
+.subject-manage-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.subject-manage__practice-toggle,
+.subject-manage-chip__practice-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.8em;
+  white-space: nowrap;
+}
+
+/* Today's "By subject" sidebar breakdown */
+.subject-breakdown-item--practice .subject-breakdown-item__label::after {
+  content: " 🧪";
+}
+
+
+
+
+/* =============================================================
+   APPEND THIS BLOCK TO THE END OF style.css
+
+   Also DELETE these two old rules from style.css (they no longer
+   match anything, since "practice" is now per-session, not per-subject):
+
+     .subject-chip--practice::after { ... }
+     .subject-breakdown-item--practice .subject-breakdown-item__label::after { ... }
+   ============================================================= */
+
+/* Session kind switch (study / practice test) */
+.kind-section {
+  width: 100%;
+  margin-top: 28px;
+}
+
+.kind-grid {
+  display: inline-flex;
+  gap: 3px;
+  padding: 3px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.kind-btn {
+  min-height: 36px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.kind-btn:hover {
+  color: #fff;
+}
+
+.kind-btn.is-active {
+  color: #fff;
+  background: linear-gradient(135deg, #38bdf8, #2563eb);
+}
+
+.kind-btn[data-kind="practice"].is-active {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+body[data-theme="light"] .kind-grid {
+  background: #f1f5f9;
+  border-color: #e2e8f0;
+}
+
+body[data-theme="light"] .kind-btn {
+  color: #475569;
+}
+
+body[data-theme="light"] .kind-btn.is-active {
+  color: #fff;
+}
+
+/* Practice badge in session history */
+.history-item__practice {
+  padding: 2px 6px;
+  color: var(--warning);
+  background: var(--warning-soft);
+  border-radius: 5px;
+  font-family: var(--font);
+  font-size: 9px;
+  font-weight: 700;
+}
+
+/* Practice sessions in the timeline use the warning colour */
+.timeline-item__bar--practice {
+  background: var(--warning);
+}
+
+/* "By subject" rows for practice-test time */
+.subject-breakdown-item--practice {
+  border-inline-start: 3px solid var(--warning);
+}
+
+.subject-breakdown-item--practice .subject-breakdown-item__value {
+  color: var(--warning);
 }
