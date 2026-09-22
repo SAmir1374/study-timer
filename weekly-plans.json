@@ -1,0 +1,515 @@
+{
+  "schemaVersion": 1,
+  "app": {
+    "name": "Study Timer",
+    "dataFormat": "study-timer-weekly-plans-json",
+    "createdAt": "2026-09-22T09:00:00.000Z",
+    "updatedAt": "2026-09-22T09:00:00.000Z",
+    "timeZone": "Asia/Tehran"
+  },
+  "plans": [
+    {
+      "id": "2026-W39",
+      "weekStart": "2026-09-21",
+      "weekEnd": "2026-09-27",
+      "title": "هفته تثبیت و تشخیص",
+      "phase": "تثبیت ریاضی ۱، ساختمان داده و هوش مصنوعی + شروع آمار، گسسته و الگوریتم",
+      "targetMinutes": 1920,
+      "days": {
+        "2026-09-22": {
+          "weekday": 2,
+          "title": "سه‌شنبه",
+          "sessions": [
+            {
+              "subject": "نظریه",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "19:30"
+            },
+            {
+              "subject": "الگوریتم",
+              "minutes": 90,
+              "type": "practice",
+              "practice": true,
+              "startTime": "19:45",
+              "endTime": "21:15"
+            }
+          ],
+          "note": "صبح امروز مطالعه الگوریتم انجام شده است. شب روی نظریه و تست الگوریتم تمرکز کن."
+        },
+        "2026-09-23": {
+          "weekday": 3,
+          "title": "چهارشنبه",
+          "sessions": [
+            {
+              "subject": "دیفرانسیل و ریاضی ۱",
+              "minutes": 120,
+              "type": "study",
+              "practice": false,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "زبان",
+              "minutes": 20,
+              "type": "practice",
+              "practice": true,
+              "startTime": "17:30",
+              "endTime": "17:50"
+            },
+            {
+              "subject": "سیگنال و سیستم",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "19:30"
+            },
+            {
+              "subject": "آمار و احتمال",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "19:45",
+              "endTime": "21:15"
+            }
+          ],
+          "note": "دیفرانسیل فقط برای فعال‌سازی پایه است. آمار را مفهومی بخوان و فعلا فرمول حفظ نکن."
+        },
+        "2026-09-24": {
+          "weekday": 4,
+          "title": "پنجشنبه",
+          "sessions": [
+            {
+              "subject": "آمار و احتمال",
+              "minutes": 120,
+              "type": "study",
+              "practice": false,
+              "startTime": "08:00",
+              "endTime": "10:00"
+            },
+            {
+              "subject": "ساختمان داده",
+              "minutes": 120,
+              "type": "study",
+              "practice": false,
+              "startTime": "10:30",
+              "endTime": "12:30"
+            },
+            {
+              "subject": "الگوریتم",
+              "minutes": 120,
+              "type": "study",
+              "practice": false,
+              "startTime": "14:30",
+              "endTime": "16:30"
+            },
+            {
+              "subject": "زبان",
+              "minutes": 45,
+              "type": "practice",
+              "practice": true,
+              "startTime": "17:00",
+              "endTime": "17:45"
+            }
+          ],
+          "note": "روز سنگین مطالعه است؛ آمار مفهومی، ساختمان داده برای تثبیت و الگوریتم برای یادگیری جدی."
+        },
+        "2026-09-25": {
+          "weekday": 5,
+          "title": "جمعه",
+          "sessions": [
+            {
+              "subject": "هوش مصنوعی",
+              "minutes": 120,
+              "type": "study",
+              "practice": false,
+              "startTime": "08:00",
+              "endTime": "10:00"
+            },
+            {
+              "subject": "آزمون تشخیصی ترکیبی",
+              "minutes": 150,
+              "type": "practice",
+              "practice": true,
+              "startTime": "10:30",
+              "endTime": "13:00"
+            },
+            {
+              "subject": "تحلیل آزمون",
+              "minutes": 120,
+              "type": "review",
+              "practice": true,
+              "startTime": "14:00",
+              "endTime": "16:00"
+            },
+            {
+              "subject": "رفع ضعف",
+              "minutes": 90,
+              "type": "review",
+              "practice": true,
+              "startTime": "16:30",
+              "endTime": "18:00"
+            },
+            {
+              "subject": "مرور هفته",
+              "minutes": 60,
+              "type": "review",
+              "practice": true,
+              "startTime": "18:30",
+              "endTime": "19:30"
+            },
+            {
+              "subject": "زبان",
+              "minutes": 30,
+              "type": "practice",
+              "practice": true,
+              "startTime": "20:00",
+              "endTime": "20:30"
+            }
+          ],
+          "note": "آزمون از مباحث خوانده شده و چند سوال تشخیصی از الگوریتم، نظریه و ریاضی. بعد از آزمون تحلیل کامل انجام شود."
+        },
+        "2026-09-26": {
+          "weekday": 6,
+          "title": "شنبه",
+          "sessions": [
+            {
+              "subject": "الگوریتم",
+              "minutes": 120,
+              "type": "study",
+              "practice": false,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "زبان",
+              "minutes": 20,
+              "type": "practice",
+              "practice": true,
+              "startTime": "17:30",
+              "endTime": "17:50"
+            }
+          ],
+          "note": "عصر تکواندو. بعد از تمرین مطالعه سنگین انجام نشود."
+        },
+        "2026-09-27": {
+          "weekday": 0,
+          "title": "یکشنبه",
+          "sessions": [
+            {
+              "subject": "ریاضی و آمار",
+              "minutes": 120,
+              "type": "study",
+              "practice": false,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "زبان",
+              "minutes": 20,
+              "type": "practice",
+              "practice": true,
+              "startTime": "17:30",
+              "endTime": "17:50"
+            },
+            {
+              "subject": "ساختمان داده",
+              "minutes": 90,
+              "type": "practice",
+              "practice": true,
+              "startTime": "18:00",
+              "endTime": "19:30"
+            },
+            {
+              "subject": "نظریه",
+              "minutes": 75,
+              "type": "study",
+              "practice": false,
+              "startTime": "19:45",
+              "endTime": "21:00"
+            }
+          ],
+          "note": "تست ساختمان داده با تحلیل خطاها؛ سپس نظریه."
+        }
+      }
+    },
+    {
+      "id": "2026-W40",
+      "weekStart": "2026-09-28",
+      "weekEnd": "2026-10-04",
+      "title": "هفته ساختن ریتم اصلی",
+      "phase": "آمار و گسسته مفهومی + تقویت الگوریتم و تست دروس قبلی",
+      "targetMinutes": 2260,
+      "days": {
+        "2026-09-28": {
+          "weekday": 1,
+          "title": "دوشنبه",
+          "sessions": [
+            {
+              "subject": "الگوریتم",
+              "minutes": 120,
+              "type": "study",
+              "practice": false,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "زبان",
+              "minutes": 20,
+              "type": "practice",
+              "practice": true,
+              "startTime": "17:30",
+              "endTime": "17:50"
+            }
+          ],
+          "note": "عصر تکواندو. بعد از تمرین مطالعه سنگین انجام نشود."
+        },
+        "2026-09-29": {
+          "weekday": 2,
+          "title": "سه‌شنبه",
+          "sessions": [
+            {
+              "subject": "آمار و احتمال",
+              "minutes": 120,
+              "type": "study",
+              "practice": false,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "زبان",
+              "minutes": 20,
+              "type": "practice",
+              "practice": true,
+              "startTime": "17:30",
+              "endTime": "17:50"
+            },
+            {
+              "subject": "ساختمان داده",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "19:30"
+            },
+            {
+              "subject": "ساختمان داده",
+              "minutes": 90,
+              "type": "practice",
+              "practice": true,
+              "startTime": "19:45",
+              "endTime": "21:15"
+            }
+          ],
+          "note": "آمار را مفهومی جلو ببر؛ تست ساختمان داده بلافاصله پس از مرور همان مباحث."
+        },
+        "2026-09-30": {
+          "weekday": 3,
+          "title": "چهارشنبه",
+          "sessions": [
+            {
+              "subject": "هوش مصنوعی",
+              "minutes": 120,
+              "type": "study",
+              "practice": false,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "زبان",
+              "minutes": 20,
+              "type": "practice",
+              "practice": true,
+              "startTime": "17:30",
+              "endTime": "17:50"
+            },
+            {
+              "subject": "سیگنال و سیستم",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "19:30"
+            },
+            {
+              "subject": "نظریه",
+              "minutes": 75,
+              "type": "study",
+              "practice": false,
+              "startTime": "19:45",
+              "endTime": "21:00"
+            }
+          ],
+          "note": "AI برای ادامه مباحث و تثبیت؛ نظریه با حل مثال همراه باشد."
+        },
+        "2026-10-01": {
+          "weekday": 4,
+          "title": "پنجشنبه",
+          "sessions": [
+            {
+              "subject": "دیفرانسیل و ریاضی ۱",
+              "minutes": 120,
+              "type": "practice",
+              "practice": true,
+              "startTime": "08:00",
+              "endTime": "10:00"
+            },
+            {
+              "subject": "الگوریتم",
+              "minutes": 120,
+              "type": "study",
+              "practice": false,
+              "startTime": "10:30",
+              "endTime": "12:30"
+            },
+            {
+              "subject": "آمار و احتمال",
+              "minutes": 120,
+              "type": "study",
+              "practice": false,
+              "startTime": "14:30",
+              "endTime": "16:30"
+            },
+            {
+              "subject": "زبان",
+              "minutes": 45,
+              "type": "practice",
+              "practice": true,
+              "startTime": "17:00",
+              "endTime": "17:45"
+            },
+            {
+              "subject": "گسسته",
+              "minutes": 60,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:15",
+              "endTime": "19:15"
+            }
+          ],
+          "note": "دیفرانسیل تستی؛ آمار روی احتمال پایه و گسسته روی منطق و اثبات مستقیم تمرکز کند."
+        },
+        "2026-10-02": {
+          "weekday": 5,
+          "title": "جمعه",
+          "sessions": [
+            {
+              "subject": "هوش مصنوعی",
+              "minutes": 120,
+              "type": "study",
+              "practice": false,
+              "startTime": "08:00",
+              "endTime": "10:00"
+            },
+            {
+              "subject": "آزمون ترکیبی زمان‌دار",
+              "minutes": 150,
+              "type": "practice",
+              "practice": true,
+              "startTime": "10:30",
+              "endTime": "13:00"
+            },
+            {
+              "subject": "تحلیل آزمون",
+              "minutes": 120,
+              "type": "review",
+              "practice": true,
+              "startTime": "14:00",
+              "endTime": "16:00"
+            },
+            {
+              "subject": "رفع ضعف آمار و گسسته",
+              "minutes": 90,
+              "type": "review",
+              "practice": true,
+              "startTime": "16:30",
+              "endTime": "18:00"
+            },
+            {
+              "subject": "مرور هفتگی",
+              "minutes": 60,
+              "type": "review",
+              "practice": true,
+              "startTime": "18:30",
+              "endTime": "19:30"
+            },
+            {
+              "subject": "زبان",
+              "minutes": 30,
+              "type": "practice",
+              "practice": true,
+              "startTime": "20:00",
+              "endTime": "20:30"
+            }
+          ],
+          "note": "در آزمون زمان را ثبت کن؛ در تحلیل علت هر غلط را مشخص کن: ندانستن، بی‌دقتی، زمان یا روش حل."
+        },
+        "2026-10-03": {
+          "weekday": 6,
+          "title": "شنبه",
+          "sessions": [
+            {
+              "subject": "ساختمان داده",
+              "minutes": 120,
+              "type": "study",
+              "practice": false,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "زبان",
+              "minutes": 20,
+              "type": "practice",
+              "practice": true,
+              "startTime": "17:30",
+              "endTime": "17:50"
+            }
+          ],
+          "note": "عصر تکواندو. مطالعه بعد از تمرین سنگین نباشد."
+        },
+        "2026-10-04": {
+          "weekday": 0,
+          "title": "یکشنبه",
+          "sessions": [
+            {
+              "subject": "نظریه",
+              "minutes": 120,
+              "type": "study",
+              "practice": false,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "زبان",
+              "minutes": 20,
+              "type": "practice",
+              "practice": true,
+              "startTime": "17:30",
+              "endTime": "17:50"
+            },
+            {
+              "subject": "الگوریتم",
+              "minutes": 90,
+              "type": "practice",
+              "practice": true,
+              "startTime": "18:00",
+              "endTime": "19:30"
+            },
+            {
+              "subject": "سیگنال و سیستم",
+              "minutes": 90,
+              "type": "practice",
+              "practice": true,
+              "startTime": "19:45",
+              "endTime": "21:15"
+            }
+          ],
+          "note": "تست الگوریتم زمان‌دار و مرور تستی سیگنال؛ هفته را با جمع‌بندی خطاها ببند."
+        }
+      }
+    }
+  ]
+}

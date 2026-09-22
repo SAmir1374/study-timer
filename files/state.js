@@ -27,6 +27,8 @@ import {
 
 export const I18N = {
   en: {
+    weeklyPlanTitle: "Weekly Plan",
+    weeklyPlanFile: "WEEKLY PLAN FILE",
     settings: "Settings",
     daysLeft: "Days left",
     daysPassed: "Days passed",
@@ -154,6 +156,8 @@ export const I18N = {
   },
 
   fa: {
+    weeklyPlanTitle: "برنامه هفتگی",
+    weeklyPlanFile: "فایل برنامه هفتگی",
     settings: "تنظیمات",
     daysLeft: "روز باقی‌مانده",
     daysPassed: "روز گذشته",
@@ -461,6 +465,17 @@ export function removeSubject(name) {
   if (state.session.state === "idle" && state.session.subject === name) {
     state.session.subject = null;
   }
+}
+
+/**
+ * Records which weekly-plans file is connected (or null). Pure metadata —
+ * this never reads/writes weekly-plans.json itself; that's weeklyPlanStore.js's
+ * job. Called by app.js after WeeklyPlanStore connects/creates/loads a file.
+ */
+export function setWeeklyPlanSource(name) {
+  mutateDocument("studyPlan", (doc) => {
+    doc.studyPlan.weeklyPlanSource = name || null;
+  });
 }
 
 /* ------------------------------------------------------------

@@ -39,10 +39,10 @@
       "name": "زبان تخصصی"
     },
     {
-      "name": "ریاضی مهندسی ۱"
+      "name": "ریاضی فنی ۱"
     },
     {
-      "name": "ریاضی مهندسی ۲"
+      "name": "ریاضی فنی ۲"
     },
     {
       "name": "آمار و احتمال مهندسی"
@@ -71,7 +71,7 @@
       "id": "6296d555-337d-447d-9003-869bca861a6a",
       "type": "study",
       "status": "completed",
-      "subject": "ریاضی مهندسی ۱",
+      "subject": "ریاضی فنی ۱",
       "planned": {
         "durationSeconds": 3000
       },
@@ -100,7 +100,7 @@
       "id": "dee2c842-d369-4712-9d2d-5109417fc747",
       "type": "study",
       "status": "completed",
-      "subject": "ریاضی مهندسی ۱",
+      "subject": "ریاضی فنی ۱",
       "planned": {
         "durationSeconds": 1500
       },
@@ -391,7 +391,7 @@
     },
     "subjectSummaries": [
       {
-        "subject": "ریاضی مهندسی ۱",
+        "subject": "ریاضی فنی ۱",
         "isPractice": false,
         "studySeconds": 4500,
         "sessionCount": 2

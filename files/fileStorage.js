@@ -3,31 +3,40 @@
 
    Low-level file I/O only. No app state, no UI.
 
-   - File System Access API (Chrome / Edge / Opera, secure context)
-   - The *file handle* (not the data) is remembered in IndexedDB so the
-     same file can be re-opened after a reload. The data itself lives
-     only in the JSON file.
+   - File System Access API
+   - File handles are remembered in IndexedDB
+   - Supports multiple independent remembered handles
    ============================================================= */
 
 const DB_NAME = "study-timer-file-handles";
 const STORE = "handles";
 const KEY = "dataFile";
 
+export const WEEKLY_PLANS_HANDLE_KEY = "weeklyPlansFile";
+
 const FILE_TYPES = [
   {
-    description: "Study data (JSON)",
-    accept: { "application/json": [".json"] },
+    description: "JSON files",
+    accept: {
+      "application/json": [".json"],
+    },
   },
 ];
 
 /* ------------------------------------------------------------
-   IndexedDB (handle only)
+   IndexedDB
    ------------------------------------------------------------ */
 
 function openDb() {
   return new Promise((resolve, reject) => {
     const req = indexedDB.open(DB_NAME, 1);
-    req.onupgradeneeded = () => req.result.createObjectStore(STORE);
+
+    req.onupgradeneeded = () => {
+      if (!req.result.objectStoreNames.contains(STORE)) {
+        req.result.createObjectStore(STORE);
+      }
+    };
+
     req.onsuccess = () => resolve(req.result);
     req.onerror = () => reject(req.error);
   });
@@ -35,13 +44,24 @@ function openDb() {
 
 async function withStore(mode, run) {
   const db = await openDb();
+
   try {
     return await new Promise((resolve, reject) => {
       const tx = db.transaction(STORE, mode);
-      const req = run(tx.objectStore(STORE));
-      tx.oncomplete = () => resolve(req ? req.result : undefined);
-      tx.onerror = () => reject(tx.error);
-      tx.onabort = () => reject(tx.error);
+      const store = tx.objectStore(STORE);
+      const req = run(store);
+
+      tx.oncomplete = () => {
+        resolve(req ? req.result : undefined);
+      };
+
+      tx.onerror = () => {
+        reject(tx.error);
+      };
+
+      tx.onabort = () => {
+        reject(tx.error);
+      };
     });
   } finally {
     db.close();
@@ -53,43 +73,128 @@ async function withStore(mode, run) {
    ------------------------------------------------------------ */
 
 export const FileStorage = {
+  /**
+   * General File System Access API support.
+   */
   isSupported() {
     return (
       typeof window !== "undefined" &&
-      window.isSecureContext &&
-      "showSaveFilePicker" in window &&
-      "showOpenFilePicker" in window
+      window.isSecureContext === true &&
+      typeof window.showSaveFilePicker === "function" &&
+      typeof window.showOpenFilePicker === "function"
     );
   },
 
-  async pickSaveFile(suggestedName) {
-    return window.showSaveFilePicker({ suggestedName, types: FILE_TYPES });
+  /**
+   * Save picker support.
+   */
+  canSave() {
+    return (
+      typeof window !== "undefined" &&
+      window.isSecureContext === true &&
+      typeof window.showSaveFilePicker === "function"
+    );
   },
 
+  /**
+   * Open picker support.
+   */
+  canOpen() {
+    return (
+      typeof window !== "undefined" &&
+      window.isSecureContext === true &&
+      typeof window.showOpenFilePicker === "function"
+    );
+  },
+
+  /**
+   * Create / connect a file.
+   */
+  async pickSaveFile(suggestedName) {
+    if (!this.canSave()) {
+      throw new Error(
+        "File System Access API save picker is not supported in this browser/context.",
+      );
+    }
+
+    return window.showSaveFilePicker({
+      suggestedName,
+      types: FILE_TYPES,
+      excludeAcceptAllOption: false,
+    });
+  },
+
+  /**
+   * Open an existing file.
+   */
   async pickOpenFile() {
-    const [handle] = await window.showOpenFilePicker({ types: FILE_TYPES, multiple: false });
+    if (!this.canOpen()) {
+      throw new Error(
+        "File System Access API open picker is not supported in this browser/context.",
+      );
+    }
+
+    const [handle] = await window.showOpenFilePicker({
+      types: FILE_TYPES,
+      multiple: false,
+    });
+
     return handle;
   },
 
-  /** request=true must be called from a user gesture. */
+  /**
+   * request=true must be called from a user gesture.
+   */
   async ensurePermission(handle, request = false) {
-    const opts = { mode: "readwrite" };
-    if ((await handle.queryPermission(opts)) === "granted") return true;
-    if (request && (await handle.requestPermission(opts)) === "granted") return true;
-    return false;
+    if (!handle) return false;
+
+    const opts = {
+      mode: "readwrite",
+    };
+
+    try {
+      const current = await handle.queryPermission(opts);
+
+      if (current === "granted") {
+        return true;
+      }
+
+      if (!request) {
+        return false;
+      }
+
+      const requested = await handle.requestPermission(opts);
+
+      return requested === "granted";
+    } catch (err) {
+      console.error("Could not determine file permission:", err);
+      return false;
+    }
   },
 
+  /**
+   * Read a text file.
+   */
   async readText(handle) {
+    if (!handle) {
+      throw new Error("No file handle available.");
+    }
+
     const file = await handle.getFile();
+
     return file.text();
   },
 
   /**
-   * The browser writes to a temporary swap file and only replaces the real
-   * file on close(), so a failed write leaves the previous content intact.
+   * Write text atomically.
    */
   async writeText(handle, text) {
+    if (!handle) {
+      throw new Error("No file handle available.");
+    }
+
     const writable = await handle.createWritable();
+
     try {
       await writable.write(text);
       await writable.close();
@@ -97,46 +202,76 @@ export const FileStorage = {
       try {
         await writable.abort();
       } catch {
-        /* ignore */
+        // Ignore abort failure.
       }
+
       throw err;
     }
   },
 
-  async saveHandle(handle) {
+  /**
+   * Remember a file handle.
+   */
+  async saveHandle(handle, key = KEY) {
     try {
-      await withStore("readwrite", (s) => s.put(handle, KEY));
+      await withStore("readwrite", (store) => {
+        return store.put(handle, key);
+      });
     } catch (err) {
-      console.warn("Could not remember the data file handle:", err);
+      console.warn("Could not remember file handle:", err);
     }
   },
 
-  async loadHandle() {
+  /**
+   * Restore a remembered file handle.
+   */
+  async loadHandle(key = KEY) {
     try {
-      return (await withStore("readonly", (s) => s.get(KEY))) || null;
-    } catch {
+      return (
+        (await withStore("readonly", (store) => {
+          return store.get(key);
+        })) || null
+      );
+    } catch (err) {
+      console.warn("Could not load remembered file handle:", err);
       return null;
     }
   },
 
-  async clearHandle() {
+  /**
+   * Forget a remembered file handle.
+   */
+  async clearHandle(key = KEY) {
     try {
-      await withStore("readwrite", (s) => s.delete(KEY));
+      await withStore("readwrite", (store) => {
+        return store.delete(key);
+      });
     } catch {
-      /* ignore */
+      // Ignore.
     }
   },
 
-  /** Export fallback that works in every browser. */
+  /**
+   * Browser download fallback.
+   */
   downloadText(filename, text) {
-    const blob = new Blob([text], { type: "application/json" });
+    const blob = new Blob([text], {
+      type: "application/json",
+    });
+
     const url = URL.createObjectURL(blob);
+
     const a = document.createElement("a");
+
     a.href = url;
     a.download = filename;
+
     document.body.appendChild(a);
     a.click();
     a.remove();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+    setTimeout(() => {
+      URL.revokeObjectURL(url);
+    }, 1000);
   },
 };
