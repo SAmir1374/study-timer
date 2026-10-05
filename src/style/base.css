@@ -1,0 +1,351 @@
+/* ============================================================
+   base.css — design tokens, light theme, reset, shared primitives
+   ============================================================ */
+
+:root {
+  /* Background */
+  --bg-0: #08080a;
+  --bg-1: #0e0f13;
+  --bg-2: #16171d;
+  --bg-3: #1d1f27;
+  .kc-study {
+    --kind: #4f9cf9;
+  } /* آبی */
+  .kc-practice {
+    --kind: #a06cf9;
+  } /* بنفش */
+  .kc-test {
+    --kind: #f97316;
+  } /* نارنجی */
+  .kc-analysis {
+    --kind: #14b8a6;
+  } /* فیروزه‌ای */
+  .kc-review {
+    --kind: #eab308;
+  } /* زرد */
+  .kc-break {
+    --kind: #64748b;
+  }
+
+  --kc-test: #f0b75e;
+  --kc-analysis: #38bdf8;
+  --warning-soft: color-mix(in srgb, var(--warning) 12%, transparent);
+
+  /* Text */
+  --text-0: #f5f5f7;
+  --text-1: #c9cad0;
+  --text-2: #92949d;
+  --text-3: #62646d;
+
+  /* Accent */
+  --accent: #8b7cff;
+  --accent-hover: #9b8eff;
+  --accent-soft: rgba(139, 124, 255, 0.14);
+  --accent-softer: rgba(139, 124, 255, 0.07);
+
+  /* Info (blue used by subject chips, kind switch, custom duration) */
+  --info: #38bdf8;
+  --info-strong: #2563eb;
+  --info-soft: rgba(56, 189, 248, 0.12);
+  --info-text: #7dd3fc;
+
+  /* Status */
+  --success: #5fd69b;
+  --success-soft: rgba(95, 214, 155, 0.12);
+  --warning: #f0b75e;
+  --warning-soft: rgba(240, 183, 94, 0.12);
+  --danger: #f06d7a;
+  --danger-soft: rgba(240, 109, 122, 0.12);
+
+  /* Activity colors (day modal, timeline, history) */
+  --kc-study: var(--accent);
+  --kc-practice: var(--warning);
+  --kc-review: #a855f7;
+  --kc-test: #06b6d4;
+  --kc-break: var(--success);
+
+  /* Borders */
+  --border: rgba(255, 255, 255, 0.08);
+  --border-light: rgba(255, 255, 255, 0.12);
+  --border-strong: rgba(255, 255, 255, 0.17);
+
+  /* Translucent surfaces (hover / chips) */
+  --overlay-1: rgba(255, 255, 255, 0.04);
+  --overlay-2: rgba(255, 255, 255, 0.07);
+  --overlay-3: rgba(255, 255, 255, 0.1);
+
+  /* Shadows */
+  --shadow-sm: 0 4px 14px rgba(0, 0, 0, 0.18);
+  --shadow-md: 0 12px 35px rgba(0, 0, 0, 0.28);
+  --shadow-lg: 0 25px 70px rgba(0, 0, 0, 0.45);
+
+  /* Radius */
+  --radius-xs: 6px;
+  --radius-sm: 9px;
+  --radius-md: 13px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+
+  /* Layout */
+  --content-width: 1540px;
+  --sidebar-width: 330px;
+  --header-height: 68px;
+
+  /* Motion */
+  --transition-fast: 150ms ease;
+  --transition: 220ms ease;
+  --transition-slow: 350ms ease;
+
+  /* Font */
+  --font:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- Light theme ---------- */
+
+body[data-theme='light'] {
+  --bg-0: #f6f6f8;
+  --bg-1: #ffffff;
+  --bg-2: #f0f0f3;
+  --bg-3: #e7e7eb;
+
+  --text-0: #17181c;
+  --text-1: #404149;
+  --text-2: #70727c;
+  --text-3: #989aa2;
+
+  --accent: #6557e8;
+  --accent-hover: #584bd6;
+  --accent-soft: rgba(101, 87, 232, 0.12);
+  --accent-softer: rgba(101, 87, 232, 0.06);
+
+  --info: #0ea5e9;
+  --info-strong: #2563eb;
+  --info-soft: rgba(14, 165, 233, 0.12);
+  --info-text: #0369a1;
+
+  --success: #289a68;
+  --success-soft: rgba(40, 154, 104, 0.11);
+  --warning: #bd7c17;
+  --warning-soft: rgba(189, 124, 23, 0.11);
+  --danger: #cf4654;
+  --danger-soft: rgba(207, 70, 84, 0.11);
+
+  --border: rgba(20, 20, 30, 0.09);
+  --border-light: rgba(20, 20, 30, 0.13);
+  --border-strong: rgba(20, 20, 30, 0.19);
+
+  --overlay-1: rgba(20, 20, 30, 0.04);
+  --overlay-2: rgba(20, 20, 30, 0.06);
+  --overlay-3: rgba(20, 20, 30, 0.09);
+
+  --shadow-sm: 0 4px 14px rgba(20, 20, 30, 0.06);
+  --shadow-md: 0 12px 35px rgba(20, 20, 30, 0.09);
+  --shadow-lg: 0 25px 70px rgba(20, 20, 30, 0.14);
+}
+
+/* ---------- Reset ---------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+
+  background: var(--bg-0);
+  color: var(--text-0);
+
+  font-family: var(--font);
+  font-size: 14px;
+  line-height: 1.5;
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+
+  transition:
+    background-color var(--transition),
+    color var(--transition);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  border: 0;
+}
+
+button,
+label {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:not(:disabled) {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed !important;
+  opacity: 0.45;
+  transform: none !important;
+}
+
+input,
+select {
+  outline: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ---------- Scrollbar ---------- */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-3);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-3);
+}
+
+/* ---------- Focus ---------- */
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---------- Shared primitives ---------- */
+
+.section-label {
+  display: block;
+  margin-bottom: 16px;
+
+  color: var(--text-2);
+
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.empty-state {
+  padding: 18px;
+
+  color: var(--text-3);
+
+  font-size: 12px;
+  text-align: center;
+
+  border: 1px dashed var(--border-light);
+  border-radius: 14px;
+}
+
+.empty-state[hidden] {
+  display: none;
+}
+
+.settings-hint {
+  margin: 8px 0 0;
+
+  color: var(--text-3);
+
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.progress-bar {
+  position: relative;
+
+  width: 100%;
+  height: 5px;
+
+  overflow: hidden;
+
+  background: var(--bg-3);
+  border-radius: 999px;
+}
+
+.progress-bar__fill {
+  width: 0;
+  height: 100%;
+
+  background: var(--accent);
+  border-radius: inherit;
+
+  transition: width var(--transition-slow);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Settings → "Reduced animation" (set by JS on <body>) */
+body[data-reduced-motion='true'] *,
+body[data-reduced-motion='true'] *::before,
+body[data-reduced-motion='true'] *::after {
+  scroll-behavior: auto !important;
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}

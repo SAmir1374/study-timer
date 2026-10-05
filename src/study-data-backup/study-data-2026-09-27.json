@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 4,
+  "app": {
+    "name": "Study Timer",
+    "dataFormat": "study-timer-json",
+    "createdAt": "2026-09-26T03:00:01.956Z",
+    "updatedAt": "2026-09-27T03:05:03.112Z",
+    "timeZone": "Asia/Tehran"
+  },
+  "settings": {
+    "language": "en",
+    "theme": "dark",
+    "clockFormat": "24h",
+    "soundEnabled": true,
+    "reducedMotion": false,
+    "autoStartNextSession": false,
+    "defaultSessionMinutes": 50,
+    "lastSelectedMinutes": 72,
+    "lastSelectedSubject": "هوش مصنوعی",
+    "lastSelectedPractice": false,
+    "lastSelectedKind": "study"
+  },
+  "studyPlan": {
+    "startDate": null,
+    "examDate": null,
+    "totalWeeks": 0,
+    "dailyGoalMinutes": 240,
+    "weeklyPlanSource": "weekly-plans.json"
+  },
+  "subjects": [
+    {
+      "name": "ساختمان داده"
+    },
+    {
+      "name": "طراحی الگوریتم"
+    },
+    {
+      "name": "هوش مصنوعی"
+    },
+    {
+      "name": "زبان تخصصی"
+    },
+    {
+      "name": "ریاضی فنی ۱"
+    },
+    {
+      "name": "ریاضی فنی ۲"
+    },
+    {
+      "name": "آمار و احتمال مهندسی"
+    },
+    {
+      "name": "ریاضیات گسسته"
+    },
+    {
+      "name": "شبکه‌های کامپیوتری"
+    },
+    {
+      "name": "سیستم‌عامل"
+    },
+    {
+      "name": "پایگاه داده"
+    },
+    {
+      "name": "نظریه زبان‌ها و ماشین‌ها"
+    },
+    {
+      "name": "سیگنال‌ها و سیستم‌ها"
+    },
+    {
+      "name": "مدار منطقی"
+    },
+    {
+      "name": "معماری کامپیوتر"
+    },
+    {
+      "name": "مدار دیجیتال"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "4b25551c-b38b-4389-a763-a548fc2e09d7",
+      "type": "study",
+      "status": "completed",
+      "subject": "هوش مصنوعی",
+      "isPractice": false,
+      "planned": {
+        "durationSeconds": 4320
+      },
+      "actual": {
+        "startedAt": "2026-09-26T03:24:45.030Z",
+        "endedAt": "2026-09-26T04:43:33.267Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [
+        {
+          "startedAt": "2026-09-26T03:36:10.604Z",
+          "endedAt": "2026-09-26T03:36:14.402Z",
+          "durationSeconds": 4
+        },
+        {
+          "startedAt": "2026-09-26T03:36:16.101Z",
+          "endedAt": "2026-09-26T03:36:17.663Z",
+          "durationSeconds": 2
+        },
+        {
+          "startedAt": "2026-09-26T04:23:07.378Z",
+          "endedAt": "2026-09-26T04:29:50.255Z",
+          "durationSeconds": 403
+        }
+      ],
+      "derived": {
+        "activeDurationSeconds": 4320,
+        "totalPausedSeconds": 408,
+        "pauseCount": 3
+      },
+      "createdAt": "2026-09-26T03:24:45.030Z",
+      "updatedAt": "2026-09-26T04:43:33.278Z",
+      "analysis": null
+    }
+  ],
+  "derived": {
+    "note": "Rebuildable from `sessions`. Safe to ignore or delete; regenerated on every save.",
+    "generatedAt": "2026-09-27T03:05:03.112Z",
+    "dailySummaries": {
+      "2026-09-26": {
+        "studySeconds": 4320,
+        "sessionCount": 1,
+        "completedSessionCount": 1
+      }
+    },
+    "subjectSummaries": [
+      {
+        "subject": "هوش مصنوعی",
+        "kind": "study",
+        "isPractice": false,
+        "studySeconds": 4320,
+        "sessionCount": 1
+      }
+    ]
+  }
+}

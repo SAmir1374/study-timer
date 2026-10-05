@@ -1,0 +1,255 @@
+/* ============================================================
+   layout.css — header, live clock, page grid, RTL, timer-state accents
+   ============================================================ */
+
+/* ---------- Header ---------- */
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  height: var(--header-height);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 28px;
+
+  background: color-mix(in srgb, var(--bg-0) 88%, transparent);
+  border-bottom: 1px solid var(--border);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.header-left,
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.header-left {
+  gap: 18px;
+}
+
+.header-right {
+  gap: 10px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.brand__dot {
+  width: 9px;
+  height: 9px;
+
+  border-radius: 50%;
+
+  background: var(--accent);
+
+  box-shadow:
+    0 0 0 5px var(--accent-soft),
+    0 0 18px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+.brand__label {
+  color: var(--text-0);
+}
+
+/* Timer states — <body data-state> = idle|running|paused|complete,
+   <body data-type> = study|review|break */
+
+body[data-state="running"] .brand__dot {
+  animation: pulse-dot 1.8s ease-in-out infinite;
+}
+
+body[data-type="break"] .brand__dot {
+  background: var(--success);
+  box-shadow:
+    0 0 0 5px var(--success-soft),
+    0 0 18px color-mix(in srgb, var(--success) 30%, transparent);
+}
+
+body[data-type="break"] .timer-ring .ring-progress {
+  stroke: var(--success);
+}
+
+body[data-state="paused"] .brand__dot {
+  background: var(--warning);
+  box-shadow: 0 0 0 5px var(--warning-soft);
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.55;
+    transform: scale(0.75);
+  }
+}
+
+/* ---------- Live clock ---------- */
+
+.live-clock-section {
+  display: flex;
+  justify-content: center;
+
+  padding: 6px 0 24px;
+}
+
+.live-clock {
+  color: var(--text-0);
+
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.live-date {
+  margin-inline-start: 10px;
+
+  color: var(--text-3);
+
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* ---------- Main grid ---------- */
+
+.app-main {
+  width: min(calc(100% - 48px), var(--content-width));
+  margin: 0 auto;
+  padding: 30px 0 60px;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--sidebar-width);
+  gap: 28px;
+  align-items: start;
+}
+
+.timer-section,
+.sidebar {
+  min-width: 0;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ---------- RTL ---------- */
+
+body[data-lang="fa"] {
+  direction: rtl;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 1100px) {
+  :root {
+    --sidebar-width: 280px;
+  }
+
+  .app-header {
+    padding: 0 20px;
+  }
+
+  .app-main {
+    width: min(calc(100% - 32px), var(--content-width));
+    gap: 18px;
+  }
+}
+
+@media (max-width: 800px) {
+  :root {
+    --header-height: 60px;
+  }
+
+  .app-header {
+    padding: 0 14px;
+  }
+
+  .header-left {
+    gap: 10px;
+  }
+
+  .brand__label,
+  .save-status {
+    display: none;
+  }
+
+  .app-main {
+    width: min(calc(100% - 20px), 680px);
+    padding-top: 15px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .timer-section,
+  .sidebar {
+    width: 100%;
+  }
+
+  .live-clock-section {
+    padding-bottom: 15px;
+  }
+}
+
+@media (max-width: 520px) {
+  .header-right {
+    gap: 5px;
+  }
+
+  .lang-btn {
+    min-width: 30px;
+    padding: 0 7px;
+  }
+
+  .icon-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .live-clock {
+    font-size: 11px;
+  }
+
+  .live-date {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 370px) {
+  .app-header {
+    padding: 0 9px;
+  }
+
+  .lang-switch {
+    padding: 2px;
+  }
+
+  .lang-btn {
+    min-width: 27px;
+    height: 27px;
+    padding: 0 5px;
+
+    font-size: 9px;
+  }
+}

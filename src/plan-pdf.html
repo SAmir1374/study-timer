@@ -1,0 +1,693 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>برنامه‌ی هفتگی — PDF</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      :root {
+        --text: #1a1a1a;
+        --text-2: #555;
+        --text-3: #888;
+        --border: #ddd;
+        --border-light: #eaeaea;
+        --accent: #7c6cff;
+        --bg-soft: #fafafa;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Vazirmatn", "IRANSans", "Segoe UI", Tahoma, Arial, sans-serif;
+        color: var(--text);
+        background: #ececec;
+        font-size: 11px;
+        line-height: 1.5;
+      }
+
+      /* ---------- Toolbar (screen only) ---------- */
+      .toolbar {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        padding: 10px 20px;
+        background: #fff;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      }
+      .toolbar button {
+        padding: 8px 18px;
+        border: none;
+        border-radius: 6px;
+        background: var(--accent);
+        color: #fff;
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .toolbar button:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+      .toolbar button:hover:not(:disabled) {
+        filter: brightness(0.92);
+      }
+      .toolbar input[type="file"] {
+        font-size: 12px;
+      }
+      .toolbar-status {
+        color: var(--text-3);
+        font-size: 11px;
+      }
+
+      /* ---------- Page container ---------- */
+      .page {
+        width: 210mm;
+        min-height: 297mm;
+        padding: 12mm 14mm;
+        margin: 12mm auto;
+        background: #fff;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      }
+
+      /* ---------- Cover ---------- */
+      .cover {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        gap: 14px;
+      }
+      .cover h1 {
+        font-size: 30px;
+        font-weight: 800;
+        margin: 0;
+        color: var(--accent);
+      }
+      .cover h2 {
+        font-size: 16px;
+        font-weight: 600;
+        margin: 0;
+        color: var(--text-2);
+      }
+      .cover p {
+        margin: 0;
+        font-size: 13px;
+        color: #999;
+      }
+      .cover-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        max-width: 480px;
+        margin-top: 20px;
+      }
+      .cover-stat {
+        padding: 14px 8px;
+        background: #f5f3ff;
+        border-radius: 8px;
+      }
+      .cover-stat strong {
+        display: block;
+        font-size: 22px;
+        color: var(--accent);
+        line-height: 1.1;
+      }
+      .cover-stat span {
+        font-size: 11px;
+        color: var(--text-3);
+        margin-top: 4px;
+        display: block;
+      }
+      .cover-strategy {
+        max-width: 520px;
+        margin-top: 24px;
+        padding: 14px 18px;
+        background: #f5f3ff;
+        border-inline-start: 3px solid var(--accent);
+        border-radius: 6px;
+        font-size: 11px;
+        line-height: 1.8;
+        color: #444;
+        text-align: start;
+      }
+
+      /* ---------- Phase overview ---------- */
+      .phase-overview h2 {
+        font-size: 18px;
+        margin: 0 0 16px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid var(--accent);
+        color: var(--text);
+      }
+      .phase-item {
+        padding: 12px 0;
+        border-bottom: 1px solid var(--border-light);
+      }
+      .phase-item:last-child {
+        border-bottom: 0;
+      }
+      .phase-item h3 {
+        margin: 0 0 6px;
+        font-size: 14px;
+        color: var(--accent);
+      }
+      .phase-item p {
+        margin: 3px 0;
+        font-size: 11px;
+        color: var(--text-2);
+        line-height: 1.7;
+      }
+      .phase-item .phase-logic {
+        color: #999;
+        font-size: 10px;
+      }
+      .phase-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        font-size: 10px;
+        color: var(--text-3);
+        margin-top: 8px;
+        padding-top: 8px;
+        border-top: 1px dashed var(--border-light);
+      }
+
+      /* ---------- Week page ---------- */
+      .week-page {
+        page-break-after: always;
+      }
+      .week-page:last-child {
+        page-break-after: auto;
+      }
+
+      .week-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        padding-bottom: 8px;
+        margin-bottom: 10px;
+        border-bottom: 2px solid var(--accent);
+        gap: 12px;
+      }
+      .week-header__title {
+        font-size: 16px;
+        font-weight: 800;
+        color: var(--text);
+      }
+      .week-header__title small {
+        font-weight: 500;
+        color: var(--text-3);
+        font-size: 11px;
+        margin-inline-start: 8px;
+      }
+      .week-header__range {
+        font-size: 12px;
+        color: var(--accent);
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      .week-summary {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        padding: 8px 12px;
+        margin-bottom: 10px;
+        background: #f5f3ff;
+        border-radius: 6px;
+        font-size: 11px;
+      }
+      .week-summary span {
+        color: var(--text-2);
+      }
+      .week-summary strong {
+        color: var(--accent);
+        font-weight: 700;
+      }
+
+      /* ---------- Day block ---------- */
+      .day-block {
+        margin-bottom: 7px;
+        border: 1px solid var(--border-light);
+        border-radius: 5px;
+        overflow: hidden;
+        page-break-inside: avoid;
+      }
+      .day-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 10px;
+        background: #f8f8f8;
+        border-bottom: 1px solid var(--border-light);
+      }
+      .day-header__left {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+      }
+      .day-name {
+        font-weight: 700;
+        font-size: 12px;
+        color: var(--text);
+      }
+      .day-date {
+        font-size: 10px;
+        color: var(--text-3);
+      }
+      .day-total {
+        font-size: 11px;
+        color: var(--accent);
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      /* ---------- Sessions ---------- */
+      .sessions {
+        padding: 4px 10px 6px;
+      }
+      .sessions--two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0 16px;
+        padding: 4px 10px 6px;
+      }
+      .sessions__col {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .session {
+        display: grid;
+        grid-template-columns: 52px 1fr 28px;
+        gap: 6px;
+        padding: 2.5px 0;
+        align-items: center;
+        font-size: 9.5px;
+        line-height: 1.35;
+        border-bottom: 1px solid #f4f4f4;
+      }
+      .session:last-child {
+        border-bottom: 0;
+      }
+
+      .session-time {
+        font-family: "SF Mono", Consolas, monospace;
+        font-size: 8.5px;
+        color: #999;
+        direction: ltr;
+        text-align: center;
+      }
+      .session-body {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .session-dot {
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .session-dot.study {
+        background: #7c6cff;
+      }
+      .session-dot.practice {
+        background: #d99b2e;
+      }
+      .session-dot.test {
+        background: #e6743c;
+      }
+      .session-dot.analysis {
+        background: #3aa1d9;
+      }
+      .session-dot.review {
+        background: #4cbf7a;
+      }
+
+      .session-subject {
+        color: #444;
+        font-weight: 600;
+      }
+      .session-topic {
+        color: #666;
+      }
+
+      .session-minutes {
+        font-family: "SF Mono", Consolas, monospace;
+        font-size: 8.5px;
+        color: #888;
+        text-align: end;
+      }
+
+      /* ---------- Empty state ---------- */
+      .empty-sessions {
+        padding: 6px;
+        color: #bbb;
+        font-size: 10px;
+        text-align: center;
+      }
+
+      /* ---------- Print ---------- */
+      @media print {
+        @page {
+          size: A4 portrait;
+          margin: 10mm;
+        }
+        html,
+        body {
+          background: #fff;
+          font-size: 10.5px;
+        }
+        .toolbar {
+          display: none !important;
+        }
+        .page {
+          width: 100%;
+          min-height: 0;
+          padding: 0;
+          margin: 0;
+          box-shadow: none;
+        }
+        .week-page {
+          page-break-after: always;
+        }
+        .week-page:last-child {
+          page-break-after: auto;
+        }
+        .day-block {
+          page-break-inside: avoid;
+        }
+        * {
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="toolbar">
+      <label style="display: flex; align-items: center; gap: 8px; font-size: 12px">
+        <span>📂 فایل برنامه هفتگی:</span>
+        <input type="file" id="fileInput" accept=".json,application/json" />
+      </label>
+      <button id="printBtn" disabled>🖨️ چاپ / ذخیره PDF</button>
+      <span class="toolbar-status" id="status">منتظر بارگذاری فایل...</span>
+    </div>
+
+    <div id="content"></div>
+
+    <script>
+      const WEEKDAY_FA = ["یکشنبه", "دوشنبه", "سه‌شنبه", "چهارشنبه", "پنج‌شنبه", "جمعه", "شنبه"];
+      const SESSION_TYPE_FA = {
+        study: "مطالعه",
+        practice: "تمرین",
+        test: "تست",
+        analysis: "تحلیل",
+        review: "مرور",
+      };
+
+      // ---------- Jalali conversion ----------
+      function toJalali(dateKey) {
+        const [y, m, d] = dateKey.split("-").map(Number);
+        const date = new Date(Date.UTC(y, m - 1, d));
+        try {
+          const fmt = new Intl.DateTimeFormat("fa-IR-u-ca-persian", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            timeZone: "UTC",
+          });
+          const parts = fmt.formatToParts(date);
+          const get = (t) => parts.find((p) => p.type === t)?.value || "";
+          return { year: get("year"), month: get("month"), day: get("day"), full: fmt.format(date) };
+        } catch {
+          return { year: String(y), month: String(m), day: String(d), full: dateKey };
+        }
+      }
+
+      function weekdayFa(dateKey) {
+        const [y, m, d] = dateKey.split("-").map(Number);
+        return WEEKDAY_FA[new Date(Date.UTC(y, m - 1, d)).getUTCDay()];
+      }
+
+      function escapeHtml(s) {
+        return String(s ?? "").replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c],
+        );
+      }
+
+      function fmtHM(min) {
+        const m = Math.round(Number(min) || 0);
+        const h = Math.floor(m / 60);
+        const r = m % 60;
+        if (h === 0) return `${r}د`;
+        if (r === 0) return `${h}س`;
+        return `${h}س ${r}د`;
+      }
+
+      // ---------- Rendering ----------
+      function renderSession(s) {
+        const type = s.type || "study";
+        const dotClass = type;
+        return `
+        <div class="session">
+          <span class="session-time">${escapeHtml(s.startTime)}–${escapeHtml(s.endTime)}</span>
+          <span class="session-body" title="${escapeHtml(s.subject)} — ${escapeHtml(s.topic)}">
+            <span class="session-dot ${dotClass}"></span>
+            <span class="session-subject">${escapeHtml(s.subject)}</span>
+            <span class="session-topic">· ${escapeHtml(s.topic)}</span>
+          </span>
+          <span class="session-minutes">${s.minutes}د</span>
+        </div>
+      `;
+      }
+
+      function renderSessions(sessions) {
+        if (!sessions.length) {
+          return `<div class="empty-sessions">بدون جلسه</div>`;
+        }
+        if (sessions.length <= 6) {
+          return `<div class="sessions">${sessions.map(renderSession).join("")}</div>`;
+        }
+        const half = Math.ceil(sessions.length / 2);
+        const col1 = sessions.slice(0, half);
+        const col2 = sessions.slice(half);
+        return `
+        <div class="sessions--two-col">
+          <div class="sessions__col">${col1.map(renderSession).join("")}</div>
+          <div class="sessions__col">${col2.map(renderSession).join("")}</div>
+        </div>
+      `;
+      }
+
+      function renderPlan(doc) {
+        const phases = Array.isArray(doc.phases) ? doc.phases : [];
+        const weeks = [];
+        const allDays = [];
+
+        for (const phase of phases) {
+          for (const week of phase.weeks || []) {
+            weeks.push({ week, phase });
+            for (const day of week.days || []) allDays.push(day);
+          }
+        }
+
+        const totalSessions = allDays.reduce(
+          (s, d) => s + (Array.isArray(d.sessions) ? d.sessions.length : 0),
+          0,
+        );
+        const totalMinutes = allDays.reduce(
+          (s, d) =>
+            s +
+            (Array.isArray(d.sessions) ? d.sessions.reduce((ss, x) => ss + (Number(x.minutes) || 0), 0) : 0),
+          0,
+        );
+        const totalEnglish = allDays.reduce(
+          (s, d) =>
+            s +
+            (Array.isArray(d.sessions)
+              ? d.sessions
+                  .filter((x) => x.subject === "زبان تخصصی")
+                  .reduce((ss, x) => ss + (Number(x.minutes) || 0), 0)
+              : 0),
+          0,
+        );
+
+        // ----- Cover -----
+        const coverHtml = `
+        <div class="page cover">
+          <h1>${escapeHtml(doc.title || "برنامه‌ی مطالعاتی")}</h1>
+          <h2>${escapeHtml(doc.examGoal?.program || "کارشناسی ارشد هوش مصنوعی")}</h2>
+          <p>${escapeHtml(doc.examGoal?.targetUniversity || "دانشگاه صنعتی شریف")}</p>
+          <p style="color:#bbb;font-size:11px">${escapeHtml(doc.examGoal?.targetWindow || "")}</p>
+
+          <div class="cover-stats">
+            <div class="cover-stat"><strong>${phases.length}</strong><span>فاز</span></div>
+            <div class="cover-stat"><strong>${weeks.length}</strong><span>هفته</span></div>
+            <div class="cover-stat"><strong>${allDays.length}</strong><span>روز</span></div>
+            <div class="cover-stat"><strong>${totalSessions}</strong><span>جلسه</span></div>
+            <div class="cover-stat"><strong>${fmtHM(totalMinutes)}</strong><span>کل زمان</span></div>
+            <div class="cover-stat"><strong>${fmtHM(totalEnglish)}</strong><span>زبان تخصصی</span></div>
+          </div>
+
+          ${
+            doc.examGoal?.strategy
+              ? `
+            <div class="cover-strategy">
+              <strong style="color:#7c6cff;display:block;margin-bottom:6px">🎯 استراتژی</strong>
+              ${escapeHtml(doc.examGoal.strategy)}
+            </div>
+          `
+              : ""
+          }
+        </div>
+      `;
+
+        // ----- Phase overview -----
+        const phaseOverviewHtml = `
+        <div class="page phase-overview">
+          <h2>📋 نگاه کلی به فازها</h2>
+          ${phases
+            .map((p) => {
+              const weekCount = (p.weeks || []).length;
+              const dayCount = (p.weeks || []).reduce((s, w) => s + (w.days || []).length, 0);
+              const phaseMin = (p.weeks || []).reduce(
+                (s, w) =>
+                  s +
+                  (w.days || []).reduce(
+                    (ss, d) => ss + (d.sessions || []).reduce((sss, x) => sss + (Number(x.minutes) || 0), 0),
+                    0,
+                  ),
+                0,
+              );
+              return `
+              <div class="phase-item">
+                <h3>${escapeHtml(p.name)}</h3>
+                ${p.goal ? `<p>🎯 ${escapeHtml(p.goal)}</p>` : ""}
+                ${p.logic ? `<p class="phase-logic">${escapeHtml(p.logic)}</p>` : ""}
+                <div class="phase-meta">
+                  <span>📅 ${toJalali(p.startDate).full} تا ${toJalali(p.endDate).full}</span>
+                  <span>📆 ${weekCount} هفته</span>
+                  <span>🔢 ${dayCount} روز</span>
+                  <span>⏱️ ${fmtHM(phaseMin)}</span>
+                </div>
+              </div>
+            `;
+            })
+            .join("")}
+        </div>
+      `;
+
+        // ----- Week pages -----
+        const weekPagesHtml = weeks
+          .map(({ week, phase }, idx) => {
+            const days = (week.days || []).slice().sort((a, b) => a.date.localeCompare(b.date));
+            const weekMin = days.reduce(
+              (s, d) => s + (d.sessions || []).reduce((ss, x) => ss + (Number(x.minutes) || 0), 0),
+              0,
+            );
+            const weekSessions = days.reduce((s, d) => s + (d.sessions || []).length, 0);
+            const weekNum = week.weekNumber || idx + 1;
+            const phaseNum = phase.displayIndex || phases.indexOf(phase) + 1;
+
+            const daysHtml = days
+              .map((day) => {
+                const sessions = Array.isArray(day.sessions) ? day.sessions : [];
+                const dayMin = sessions.reduce((s, x) => s + (Number(x.minutes) || 0), 0);
+                const jalali = toJalali(day.date);
+
+                return `
+            <div class="day-block">
+              <div class="day-header">
+                <div class="day-header__left">
+                  <span class="day-name">${escapeHtml(weekdayFa(day.date))}</span>
+                  <span class="day-date">${escapeHtml(jalali.full)}</span>
+                </div>
+                <div class="day-total">${fmtHM(dayMin)} · ${sessions.length} جلسه</div>
+              </div>
+              ${renderSessions(sessions)}
+            </div>
+          `;
+              })
+              .join("");
+
+            return `
+          <div class="page week-page">
+            <div class="week-header">
+              <div class="week-header__title">
+                هفته ${weekNum}
+                <small>${escapeHtml(week.title || "")}</small>
+              </div>
+              <div class="week-header__range">
+                ${toJalali(week.startDate).full} — ${toJalali(week.endDate).full}
+              </div>
+            </div>
+
+            <div class="week-summary">
+              <span>⏱️ <strong>${fmtHM(weekMin)}</strong></span>
+              <span>🔢 <strong>${weekSessions}</strong> جلسه</span>
+              <span>📖 فاز ${phaseNum}</span>
+              ${week.goal ? `<span>🎯 ${escapeHtml(week.goal)}</span>` : ""}
+            </div>
+
+            ${daysHtml}
+          </div>
+        `;
+          })
+          .join("");
+
+        document.getElementById("content").innerHTML = coverHtml + phaseOverviewHtml + weekPagesHtml;
+      }
+
+      // ---------- Wiring ----------
+      const fileInput = document.getElementById("fileInput");
+      const printBtn = document.getElementById("printBtn");
+      const statusEl = document.getElementById("status");
+
+      fileInput.addEventListener("change", async (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        try {
+          const text = await file.text();
+          const doc = JSON.parse(text);
+          renderPlan(doc);
+          printBtn.disabled = false;
+          statusEl.textContent = `✓ ${file.name} بارگذاری شد — آماده‌ی چاپ`;
+          statusEl.style.color = "#4cbf7a";
+        } catch (err) {
+          console.error(err);
+          statusEl.textContent = "✗ خطا: " + err.message;
+          statusEl.style.color = "#e6743c";
+          printBtn.disabled = true;
+        }
+      });
+
+      printBtn.addEventListener("click", () => window.print());
+    </script>
+  </body>
+</html>

@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>نمای کلی برنامه — Study Timer</title>
+    <link rel="stylesheet" href="./style/style.css" />
+  </head>
+
+  <body data-theme="dark" data-lang="fa">
+    <header class="app-header">
+      <div class="header-left">
+        <div class="brand">
+          <span class="brand__dot"></span>
+          <a class="analytics-back-link" href="./index.html">← بازگشت به تایمر</a>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="تغییر تم" title="تغییر تم">
+          ◐
+        </button>
+      </div>
+    </header>
+
+    <main class="analytics-main">
+      <!-- CONNECT PANEL -->
+      <section class="analytics-connect" id="connectPanel" hidden>
+        <div class="analytics-connect__card">
+          <h2>فایل برنامه هفتگی متصل نیست</h2>
+          <p>برای دیدن این نمای کلی، یک فایل weekly-plans.json را وصل یا Import کنید.</p>
+          <div class="data-actions">
+            <button type="button" class="secondary-btn" id="connectWeeklyPlanBtn">ایجاد / اتصال فایل</button>
+            <button type="button" class="secondary-btn" id="openWeeklyPlanBtn">باز کردن فایل</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- DASHBOARD -->
+      <div id="dashboard" hidden>
+        <!-- ===== 1. HERO ===== -->
+        <section class="plan-hero" id="planHero"></section>
+
+        <!-- ===== 2. KPI GRID ===== -->
+        <section class="plan-kpis" id="kpiGrid"></section>
+
+        <!-- ===== 3. PHASE TIMELINE ===== -->
+        <section class="plan-section">
+          <div class="plan-section__header">
+            <h3 class="plan-section__title">🛣️ مسیر کلی فازها</h3>
+            <span class="plan-section__hint" id="phaseTimelineHint"></span>
+          </div>
+          <div class="plan-timeline" id="phaseTimeline"></div>
+        </section>
+
+        <!-- ===== 4. WEEKLY LOAD CHART ===== -->
+        <section class="plan-section">
+          <div class="plan-section__header">
+            <h3 class="plan-section__title">📊 بار هفتگی مطالعه</h3>
+            <span class="plan-section__hint" id="loadChartHint"></span>
+          </div>
+          <div class="plan-load-chart" id="loadChart"></div>
+        </section>
+
+        <!-- ===== 5. ACTIVITY HEATMAP ===== -->
+        <section class="plan-section">
+          <div class="plan-section__header">
+            <h3 class="plan-section__title">🔥 نقشه‌ی حرارتی فعالیت</h3>
+            <div class="plan-heatmap__legend" id="heatmapLegend"></div>
+          </div>
+          <div class="plan-heatmap" id="activityHeatmap"></div>
+        </section>
+
+        <!-- ===== 6. SUBJECTS + SESSION TYPES ===== -->
+        <section class="plan-two-col">
+          <div class="plan-section plan-section--flush">
+            <div class="plan-section__header">
+              <h3 class="plan-section__title">🎯 سهم دروس</h3>
+            </div>
+            <div class="subject-bar-list" id="subjectDistribution"></div>
+          </div>
+
+          <div class="plan-section plan-section--flush">
+            <div class="plan-section__header">
+              <h3 class="plan-section__title">⚖️ ترکیب نوع جلسات</h3>
+            </div>
+            <div class="session-type-mix" id="sessionTypeMix"></div>
+          </div>
+        </section>
+
+        <!-- ===== 7. PHASE CARDS ===== -->
+        <section class="plan-section">
+          <div class="plan-section__header">
+            <h3 class="plan-section__title">🧩 جزئیات فازها</h3>
+          </div>
+          <div class="phase-list" id="phaseList"></div>
+        </section>
+
+        <!-- ===== 8. MONTHLY OVERVIEW ===== -->
+        <section class="plan-section">
+          <div class="plan-section__header">
+            <h3 class="plan-section__title">📅 نمای ماهانه</h3>
+          </div>
+          <div class="month-grid" id="monthList"></div>
+        </section>
+
+        <!-- ===== 9. FINAL DAYS ===== -->
+        <section class="plan-section" id="finalDaysSection" hidden>
+          <div class="plan-section__header">
+            <h3 class="plan-section__title">🏁 روزهای نهایی</h3>
+          </div>
+          <div class="final-days-grid" id="finalDaysList"></div>
+        </section>
+      </div>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden>
+      <span id="toastText"></span>
+    </div>
+
+    <script type="module" src="./files/planOverviewApp.js"></script>
+  </body>
+</html>

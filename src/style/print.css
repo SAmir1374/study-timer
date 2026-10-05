@@ -1,0 +1,34 @@
+/* ============================================================
+   print.css
+   ============================================================ */
+
+@media print {
+  .app-header,
+  .analytics-toolbar,
+  .timer-controls,
+  .secondary-controls,
+  .duration-section,
+  .study-window,
+  .sidebar,
+  .modal,
+  .toast {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  .app-main {
+    display: block;
+    width: 100%;
+    padding: 0;
+  }
+
+  .timer-card,
+  .exam-card {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+}

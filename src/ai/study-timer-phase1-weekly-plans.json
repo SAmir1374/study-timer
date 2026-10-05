@@ -1,0 +1,2148 @@
+{
+  "schemaVersion": 1,
+  "app": {
+    "name": "Study Timer",
+    "dataFormat": "study-timer-weekly-plans-json",
+    "createdAt": "2026-09-25T15:35:07.428Z",
+    "updatedAt": "2026-09-25T15:35:07.428Z",
+    "timeZone": "Asia/Tehran"
+  },
+  "plans": [
+    {
+      "id": "2026-W40",
+      "weekStart": "2026-09-28",
+      "weekEnd": "2026-10-04",
+      "title": "هفته ساختن ریتم اصلی",
+      "phase": "تثبیت ساختمان داده و الگوریتم + ادامه هوش مصنوعی و شروع منظم گسسته، ریاضی ۱، نظریه و سیستم‌عامل",
+      "targetMinutes": 1855,
+      "days": {
+        "2026-09-28": {
+          "weekday": 1,
+          "title": "دوشنبه",
+          "sessions": [
+            {
+              "subject": "طراحی الگوریتم",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "06:00",
+              "endTime": "07:30"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "07:40",
+              "endTime": "08:00"
+            }
+          ],
+          "note": "Big-O، بازگشت و رابطه‌های بازگشتی را مفهومی بخوان. صبح درس اصلی، عصر درس فرعی و تست/مرور؛ زبان را کوتاه و روزانه نگه دار."
+        },
+        "2026-09-29": {
+          "weekday": 2,
+          "title": "سه‌شنبه",
+          "sessions": [
+            {
+              "subject": "ساختمان داده",
+              "minutes": 120,
+              "type": "study",
+              "practice": false,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "نظریه زبان‌ها و ماشین‌ها",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "19:30"
+            },
+            {
+              "subject": "ریاضیات گسسته",
+              "minutes": 55,
+              "type": "study",
+              "practice": false,
+              "startTime": "19:45",
+              "endTime": "20:40"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "20:40",
+              "endTime": "21:00"
+            }
+          ],
+          "note": "ادامه مباحث فعلی و سپس تست آموزشی همان مبحث. صبح درس اصلی؛ عصر مبحث فرعی و تثبیت. از بازخوانی منفعل پرهیز کن."
+        },
+        "2026-09-30": {
+          "weekday": 3,
+          "title": "چهارشنبه",
+          "sessions": [
+            {
+              "subject": "هوش مصنوعی",
+              "minutes": 120,
+              "type": "study",
+              "practice": false,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "ریاضی فنی ۱",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "19:30"
+            },
+            {
+              "subject": "سیستم‌عامل",
+              "minutes": 55,
+              "type": "study",
+              "practice": false,
+              "startTime": "19:45",
+              "endTime": "20:40"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "20:40",
+              "endTime": "21:00"
+            }
+          ],
+          "note": "Agent و فرموله‌سازی مسئله و سپس BFS/DFS/UCS. روز پرفشارتر مطالعه است؛ جلسه‌های عصر/بعدازظهر را با تمرکز روی تست و تحلیل انجام بده."
+        },
+        "2026-10-01": {
+          "weekday": 4,
+          "title": "پنجشنبه",
+          "sessions": [
+            {
+              "subject": "ساختمان داده",
+              "minutes": 120,
+              "type": "practice",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "ریاضیات گسسته",
+              "minutes": 90,
+              "type": "practice",
+              "practice": true,
+              "startTime": "09:30",
+              "endTime": "11:00"
+            },
+            {
+              "subject": "ریاضی فنی ۱",
+              "minutes": 60,
+              "type": "study",
+              "practice": false,
+              "startTime": "11:15",
+              "endTime": "12:15"
+            },
+            {
+              "subject": "آمار و احتمال مهندسی",
+              "minutes": 100,
+              "type": "study",
+              "practice": false,
+              "startTime": "14:30",
+              "endTime": "16:10"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "18:20"
+            }
+          ],
+          "note": "تست درخت‌ها و ساختارهای پایه؛ هر خطا را علت‌یابی کن. روز پرفشار ولی کنترل‌شده؛ بعد از هر مجموعه تست تحلیل و ثبت خطا انجام شود."
+        },
+        "2026-10-02": {
+          "weekday": 5,
+          "title": "جمعه",
+          "sessions": [
+            {
+              "subject": "طراحی الگوریتم",
+              "minutes": 120,
+              "type": "practice",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "سیستم‌عامل",
+              "minutes": 90,
+              "type": "practice",
+              "practice": true,
+              "startTime": "09:30",
+              "endTime": "11:00"
+            },
+            {
+              "subject": "طراحی الگوریتم",
+              "minutes": 60,
+              "type": "practice",
+              "practice": true,
+              "startTime": "11:15",
+              "endTime": "12:15"
+            },
+            {
+              "subject": "سیگنال‌ها و سیستم‌ها",
+              "minutes": 100,
+              "type": "study",
+              "practice": false,
+              "startTime": "14:30",
+              "endTime": "16:10"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "18:20"
+            }
+          ],
+          "note": "تست Big-O، بازگشت و Divide & Conquer با زمان‌بندی کنترل‌شده. روز تکواندو؛ حجم مطالعه محدود است و هدف حفظ ریتم و تداوم است."
+        },
+        "2026-10-03": {
+          "weekday": 6,
+          "title": "شنبه",
+          "sessions": [
+            {
+              "subject": "هوش مصنوعی",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "06:00",
+              "endTime": "07:30"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "07:40",
+              "endTime": "08:00"
+            }
+          ],
+          "note": "جست‌وجوی بدون اطلاع و تفاوت BFS، DFS و UCS را جمع‌بندی کن. هفته را با تست/مرور ببند؛ نتیجه‌ها برای تنظیم هفته بعد ثبت شوند."
+        },
+        "2026-10-04": {
+          "weekday": 0,
+          "title": "یکشنبه",
+          "sessions": [
+            {
+              "subject": "ساختمان داده",
+              "minutes": 120,
+              "type": "review",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "ریاضیات گسسته",
+              "minutes": 90,
+              "type": "practice",
+              "practice": true,
+              "startTime": "18:00",
+              "endTime": "19:30"
+            },
+            {
+              "subject": "ریاضیات گسسته",
+              "minutes": 55,
+              "type": "study",
+              "practice": false,
+              "startTime": "19:45",
+              "endTime": "20:40"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "20:40",
+              "endTime": "21:00"
+            }
+          ],
+          "note": "مرور فاصله‌دار مباحث خوانده‌شده و ثبت خطاهای تستی. به دلیل تکواندو، صبح فقط یک بلوک سنگین + زبان؛ هدف کیفیت بالاست."
+        }
+      }
+    },
+    {
+      "id": "2026-W41",
+      "weekStart": "2026-10-05",
+      "weekEnd": "2026-10-11",
+      "title": "هفته تقویت ساختارهای پایه",
+      "phase": "ساختمان داده: درخت و Heap + الگوریتم: مرتب‌سازی و جست‌وجو + هوش مصنوعی: Heuristic و A*؛ ادامه گسسته، ریاضی ۱، نظریه و سیستم‌عامل",
+      "targetMinutes": 1855,
+      "days": {
+        "2026-10-05": {
+          "weekday": 1,
+          "title": "دوشنبه",
+          "sessions": [
+            {
+              "subject": "ساختمان داده",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "06:00",
+              "endTime": "07:30"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "07:40",
+              "endTime": "08:00"
+            }
+          ],
+          "note": "Tree، BST و Heap را مفهومی یاد بگیر و مثال دست‌ساخت حل کن. صبح درس اصلی، عصر درس فرعی و تست/مرور؛ زبان را کوتاه و روزانه نگه دار."
+        },
+        "2026-10-06": {
+          "weekday": 2,
+          "title": "سه‌شنبه",
+          "sessions": [
+            {
+              "subject": "طراحی الگوریتم",
+              "minutes": 120,
+              "type": "study",
+              "practice": false,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "نظریه زبان‌ها و ماشین‌ها",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "19:30"
+            },
+            {
+              "subject": "ریاضیات گسسته",
+              "minutes": 55,
+              "type": "study",
+              "practice": false,
+              "startTime": "19:45",
+              "endTime": "20:40"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "20:40",
+              "endTime": "21:00"
+            }
+          ],
+          "note": "Sorting و Searching و تحلیل پیچیدگی آنها. صبح درس اصلی؛ عصر مبحث فرعی و تثبیت. از بازخوانی منفعل پرهیز کن."
+        },
+        "2026-10-07": {
+          "weekday": 3,
+          "title": "چهارشنبه",
+          "sessions": [
+            {
+              "subject": "هوش مصنوعی",
+              "minutes": 120,
+              "type": "study",
+              "practice": false,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "ریاضی فنی ۱",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "19:30"
+            },
+            {
+              "subject": "سیستم‌عامل",
+              "minutes": 55,
+              "type": "study",
+              "practice": false,
+              "startTime": "19:45",
+              "endTime": "20:40"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "20:40",
+              "endTime": "21:00"
+            }
+          ],
+          "note": "Heuristic Search و A* و شرایط مناسب بودن heuristic. روز پرفشارتر مطالعه است؛ جلسه‌های عصر/بعدازظهر را با تمرکز روی تست و تحلیل انجام بده."
+        },
+        "2026-10-08": {
+          "weekday": 4,
+          "title": "پنجشنبه",
+          "sessions": [
+            {
+              "subject": "ساختمان داده",
+              "minutes": 120,
+              "type": "practice",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "ریاضیات گسسته",
+              "minutes": 90,
+              "type": "practice",
+              "practice": true,
+              "startTime": "09:30",
+              "endTime": "11:00"
+            },
+            {
+              "subject": "ریاضی فنی ۱",
+              "minutes": 60,
+              "type": "practice",
+              "practice": true,
+              "startTime": "11:15",
+              "endTime": "12:15"
+            },
+            {
+              "subject": "آمار و احتمال مهندسی",
+              "minutes": 100,
+              "type": "study",
+              "practice": false,
+              "startTime": "14:30",
+              "endTime": "16:10"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "18:20"
+            }
+          ],
+          "note": "تست Tree/BST/Heap و تحلیل خطاها. روز پرفشار ولی کنترل‌شده؛ بعد از هر مجموعه تست تحلیل و ثبت خطا انجام شود."
+        },
+        "2026-10-09": {
+          "weekday": 5,
+          "title": "جمعه",
+          "sessions": [
+            {
+              "subject": "طراحی الگوریتم",
+              "minutes": 120,
+              "type": "practice",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "سیستم‌عامل",
+              "minutes": 90,
+              "type": "practice",
+              "practice": true,
+              "startTime": "09:30",
+              "endTime": "11:00"
+            },
+            {
+              "subject": "طراحی الگوریتم",
+              "minutes": 60,
+              "type": "practice",
+              "practice": true,
+              "startTime": "11:15",
+              "endTime": "12:15"
+            },
+            {
+              "subject": "سیگنال‌ها و سیستم‌ها",
+              "minutes": 100,
+              "type": "study",
+              "practice": false,
+              "startTime": "14:30",
+              "endTime": "16:10"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "18:20"
+            }
+          ],
+          "note": "تست Sorting/Searching و مسائل Divide & Conquer. روز تکواندو؛ حجم مطالعه محدود است و هدف حفظ ریتم و تداوم است."
+        },
+        "2026-10-10": {
+          "weekday": 6,
+          "title": "شنبه",
+          "sessions": [
+            {
+              "subject": "هوش مصنوعی",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "06:00",
+              "endTime": "07:30"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "07:40",
+              "endTime": "08:00"
+            }
+          ],
+          "note": "مثال‌های A* و مقایسه آن با UCS/Greedy Best-First. هفته را با تست/مرور ببند؛ نتیجه‌ها برای تنظیم هفته بعد ثبت شوند."
+        },
+        "2026-10-11": {
+          "weekday": 0,
+          "title": "یکشنبه",
+          "sessions": [
+            {
+              "subject": "ساختمان داده",
+              "minutes": 120,
+              "type": "review",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "ریاضی فنی ۱",
+              "minutes": 90,
+              "type": "practice",
+              "practice": true,
+              "startTime": "18:00",
+              "endTime": "19:30"
+            },
+            {
+              "subject": "سیستم‌عامل",
+              "minutes": 55,
+              "type": "review",
+              "practice": true,
+              "startTime": "19:45",
+              "endTime": "20:40"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "20:40",
+              "endTime": "21:00"
+            }
+          ],
+          "note": "مرور درخت و Heap و تست‌های فاصله‌دار هفته قبل. به دلیل تکواندو، صبح فقط یک بلوک سنگین + زبان؛ هدف کیفیت بالاست."
+        }
+      }
+    },
+    {
+      "id": "2026-W42",
+      "weekStart": "2026-10-12",
+      "weekEnd": "2026-10-18",
+      "title": "هفته عبور از پایه به مبحث‌های رتبه‌ساز",
+      "phase": "ساختمان داده: Hash و Sorting + الگوریتم: Greedy + هوش مصنوعی: Game Playing؛ شروع جدی‌تر CFG و همگام‌سازی سیستم‌عامل",
+      "targetMinutes": 1855,
+      "days": {
+        "2026-10-12": {
+          "weekday": 1,
+          "title": "دوشنبه",
+          "sessions": [
+            {
+              "subject": "هوش مصنوعی",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "06:00",
+              "endTime": "07:30"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "07:40",
+              "endTime": "08:00"
+            }
+          ],
+          "note": "Game Playing، Minimax و ایده Alpha-Beta را مفهومی بخوان. صبح درس اصلی، عصر درس فرعی و تست/مرور؛ زبان را کوتاه و روزانه نگه دار."
+        },
+        "2026-10-13": {
+          "weekday": 2,
+          "title": "سه‌شنبه",
+          "sessions": [
+            {
+              "subject": "ساختمان داده",
+              "minutes": 120,
+              "type": "study",
+              "practice": false,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "نظریه زبان‌ها و ماشین‌ها",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "19:30"
+            },
+            {
+              "subject": "ریاضیات گسسته",
+              "minutes": 55,
+              "type": "study",
+              "practice": false,
+              "startTime": "19:45",
+              "endTime": "20:40"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "20:40",
+              "endTime": "21:00"
+            }
+          ],
+          "note": "Hash Table و برخوردها و سپس تست آموزشی. صبح درس اصلی؛ عصر مبحث فرعی و تثبیت. از بازخوانی منفعل پرهیز کن."
+        },
+        "2026-10-14": {
+          "weekday": 3,
+          "title": "چهارشنبه",
+          "sessions": [
+            {
+              "subject": "طراحی الگوریتم",
+              "minutes": 120,
+              "type": "study",
+              "practice": false,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "ریاضی فنی ۱",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "19:30"
+            },
+            {
+              "subject": "سیستم‌عامل",
+              "minutes": 55,
+              "type": "study",
+              "practice": false,
+              "startTime": "19:45",
+              "endTime": "20:40"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "20:40",
+              "endTime": "21:00"
+            }
+          ],
+          "note": "Greedy، معیار انتخاب و ساخت استدلال درست‌بودن. روز پرفشارتر مطالعه است؛ جلسه‌های عصر/بعدازظهر را با تمرکز روی تست و تحلیل انجام بده."
+        },
+        "2026-10-15": {
+          "weekday": 4,
+          "title": "پنجشنبه",
+          "sessions": [
+            {
+              "subject": "هوش مصنوعی",
+              "minutes": 120,
+              "type": "practice",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "آمار و احتمال مهندسی",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "09:30",
+              "endTime": "11:00"
+            },
+            {
+              "subject": "شبکه‌های کامپیوتری",
+              "minutes": 60,
+              "type": "study",
+              "practice": false,
+              "startTime": "11:15",
+              "endTime": "12:15"
+            },
+            {
+              "subject": "شبکه‌های کامپیوتری",
+              "minutes": 100,
+              "type": "study",
+              "practice": false,
+              "startTime": "14:30",
+              "endTime": "16:10"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "18:20"
+            }
+          ],
+          "note": "تست Minimax/Alpha-Beta و تحلیل درخت بازی. روز پرفشار ولی کنترل‌شده؛ بعد از هر مجموعه تست تحلیل و ثبت خطا انجام شود."
+        },
+        "2026-10-16": {
+          "weekday": 5,
+          "title": "جمعه",
+          "sessions": [
+            {
+              "subject": "ساختمان داده",
+              "minutes": 120,
+              "type": "practice",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "پایگاه داده",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "09:30",
+              "endTime": "11:00"
+            },
+            {
+              "subject": "ساختمان داده",
+              "minutes": 60,
+              "type": "practice",
+              "practice": true,
+              "startTime": "11:15",
+              "endTime": "12:15"
+            },
+            {
+              "subject": "پایگاه داده",
+              "minutes": 100,
+              "type": "study",
+              "practice": false,
+              "startTime": "14:30",
+              "endTime": "16:10"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "18:20"
+            }
+          ],
+          "note": "تست Hash و Sorting و حل ترکیبی. روز تکواندو؛ حجم مطالعه محدود است و هدف حفظ ریتم و تداوم است."
+        },
+        "2026-10-17": {
+          "weekday": 6,
+          "title": "شنبه",
+          "sessions": [
+            {
+              "subject": "طراحی الگوریتم",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "06:00",
+              "endTime": "07:30"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "07:40",
+              "endTime": "08:00"
+            }
+          ],
+          "note": "مسائل کلاسیک Greedy و مقایسه با راه‌حل‌های دیگر. هفته را با تست/مرور ببند؛ نتیجه‌ها برای تنظیم هفته بعد ثبت شوند."
+        },
+        "2026-10-18": {
+          "weekday": 0,
+          "title": "یکشنبه",
+          "sessions": [
+            {
+              "subject": "هوش مصنوعی",
+              "minutes": 120,
+              "type": "review",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "آمار و احتمال مهندسی",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "19:30"
+            },
+            {
+              "subject": "ریاضیات گسسته",
+              "minutes": 55,
+              "type": "study",
+              "practice": false,
+              "startTime": "19:45",
+              "endTime": "20:40"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "20:40",
+              "endTime": "21:00"
+            }
+          ],
+          "note": "مرور Search و Game Playing و ثبت خطاهای مفهومی. به دلیل تکواندو، صبح فقط یک بلوک سنگین + زبان؛ هدف کیفیت بالاست."
+        }
+      }
+    },
+    {
+      "id": "2026-W43",
+      "weekStart": "2026-10-19",
+      "weekEnd": "2026-10-25",
+      "title": "هفته نقطه کنترل اول",
+      "phase": "ساختمان داده: Graph و BFS/DFS + الگوریتم: Dynamic Programming + هوش مصنوعی: CSP و Logic؛ پایان نیمه اول فاز و ارزیابی پیشرفت",
+      "targetMinutes": 1855,
+      "days": {
+        "2026-10-19": {
+          "weekday": 1,
+          "title": "دوشنبه",
+          "sessions": [
+            {
+              "subject": "طراحی الگوریتم",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "06:00",
+              "endTime": "07:30"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "07:40",
+              "endTime": "08:00"
+            }
+          ],
+          "note": "Dynamic Programming را با state، transition و recurrence یاد بگیر. صبح درس اصلی، عصر درس فرعی و تست/مرور؛ زبان را کوتاه و روزانه نگه دار."
+        },
+        "2026-10-20": {
+          "weekday": 2,
+          "title": "سه‌شنبه",
+          "sessions": [
+            {
+              "subject": "ساختمان داده",
+              "minutes": 120,
+              "type": "study",
+              "practice": false,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "نظریه زبان‌ها و ماشین‌ها",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "19:30"
+            },
+            {
+              "subject": "ریاضیات گسسته",
+              "minutes": 55,
+              "type": "practice",
+              "practice": true,
+              "startTime": "19:45",
+              "endTime": "20:40"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "20:40",
+              "endTime": "21:00"
+            }
+          ],
+          "note": "Graph و نمایش آن و BFS/DFS. صبح درس اصلی؛ عصر مبحث فرعی و تثبیت. از بازخوانی منفعل پرهیز کن."
+        },
+        "2026-10-21": {
+          "weekday": 3,
+          "title": "چهارشنبه",
+          "sessions": [
+            {
+              "subject": "هوش مصنوعی",
+              "minutes": 120,
+              "type": "study",
+              "practice": false,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "ریاضی فنی ۱",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "19:30"
+            },
+            {
+              "subject": "سیستم‌عامل",
+              "minutes": 55,
+              "type": "study",
+              "practice": false,
+              "startTime": "19:45",
+              "endTime": "20:40"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "20:40",
+              "endTime": "21:00"
+            }
+          ],
+          "note": "CSP، variable/constraint و راهبردهای حل. روز پرفشارتر مطالعه است؛ جلسه‌های عصر/بعدازظهر را با تمرکز روی تست و تحلیل انجام بده."
+        },
+        "2026-10-22": {
+          "weekday": 4,
+          "title": "پنجشنبه",
+          "sessions": [
+            {
+              "subject": "طراحی الگوریتم",
+              "minutes": 120,
+              "type": "practice",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "شبکه‌های کامپیوتری",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "09:30",
+              "endTime": "11:00"
+            },
+            {
+              "subject": "پایگاه داده",
+              "minutes": 60,
+              "type": "study",
+              "practice": false,
+              "startTime": "11:15",
+              "endTime": "12:15"
+            },
+            {
+              "subject": "شبکه‌های کامپیوتری",
+              "minutes": 100,
+              "type": "study",
+              "practice": false,
+              "startTime": "14:30",
+              "endTime": "16:10"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "18:20"
+            }
+          ],
+          "note": "تست DP و حل چند مسئله کلاسیک با تحلیل پاسخ. روز پرفشار ولی کنترل‌شده؛ بعد از هر مجموعه تست تحلیل و ثبت خطا انجام شود."
+        },
+        "2026-10-23": {
+          "weekday": 5,
+          "title": "جمعه",
+          "sessions": [
+            {
+              "subject": "ساختمان داده",
+              "minutes": 120,
+              "type": "practice",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "ریاضیات گسسته",
+              "minutes": 90,
+              "type": "practice",
+              "practice": true,
+              "startTime": "09:30",
+              "endTime": "11:00"
+            },
+            {
+              "subject": "ساختمان داده",
+              "minutes": 60,
+              "type": "practice",
+              "practice": true,
+              "startTime": "11:15",
+              "endTime": "12:15"
+            },
+            {
+              "subject": "پایگاه داده",
+              "minutes": 100,
+              "type": "study",
+              "practice": false,
+              "startTime": "14:30",
+              "endTime": "16:10"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "18:20"
+            }
+          ],
+          "note": "تست Graph/BFS/DFS و تحلیل خطاها. روز تکواندو؛ حجم مطالعه محدود است و هدف حفظ ریتم و تداوم است."
+        },
+        "2026-10-24": {
+          "weekday": 6,
+          "title": "شنبه",
+          "sessions": [
+            {
+              "subject": "هوش مصنوعی",
+              "minutes": 90,
+              "type": "practice",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "07:30"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "07:40",
+              "endTime": "08:00"
+            }
+          ],
+          "note": "تست CSP و Logic و جمع‌بندی مباحث چهار هفته اخیر. هفته را با تست/مرور ببند؛ نتیجه‌ها برای تنظیم هفته بعد ثبت شوند."
+        },
+        "2026-10-25": {
+          "weekday": 0,
+          "title": "یکشنبه",
+          "sessions": [
+            {
+              "subject": "طراحی الگوریتم",
+              "minutes": 120,
+              "type": "review",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "پایگاه داده",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "19:30"
+            },
+            {
+              "subject": "سیستم‌عامل",
+              "minutes": 55,
+              "type": "review",
+              "practice": true,
+              "startTime": "19:45",
+              "endTime": "20:40"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "20:40",
+              "endTime": "21:00"
+            }
+          ],
+          "note": "مرور Big-O، D&C، Greedy و DP و ثبت شکاف‌ها. به دلیل تکواندو، صبح فقط یک بلوک سنگین + زبان؛ هدف کیفیت بالاست."
+        }
+      }
+    },
+    {
+      "id": "2026-W44",
+      "weekStart": "2026-10-26",
+      "weekEnd": "2026-11-01",
+      "title": "هفته تعمیق مباحث اصلی",
+      "phase": "تعمیق Graph/Heap/Hash در ساختمان داده + DP کلاسیک در الگوریتم + Knowledge/Logic/Planning در هوش؛ ادامه پایه‌های فرعی",
+      "targetMinutes": 1855,
+      "days": {
+        "2026-10-26": {
+          "weekday": 1,
+          "title": "دوشنبه",
+          "sessions": [
+            {
+              "subject": "ساختمان داده",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "06:00",
+              "endTime": "07:30"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "07:40",
+              "endTime": "08:00"
+            }
+          ],
+          "note": "مسائل ترکیبی Graph، Heap و Hash را با حل دستی پیش ببر. صبح درس اصلی، عصر درس فرعی و تست/مرور؛ زبان را کوتاه و روزانه نگه دار."
+        },
+        "2026-10-27": {
+          "weekday": 2,
+          "title": "سه‌شنبه",
+          "sessions": [
+            {
+              "subject": "هوش مصنوعی",
+              "minutes": 120,
+              "type": "study",
+              "practice": false,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "نظریه زبان‌ها و ماشین‌ها",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "19:30"
+            },
+            {
+              "subject": "ریاضیات گسسته",
+              "minutes": 55,
+              "type": "study",
+              "practice": false,
+              "startTime": "19:45",
+              "endTime": "20:40"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "20:40",
+              "endTime": "21:00"
+            }
+          ],
+          "note": "Knowledge Representation و Logic را عمیق‌تر کن. صبح درس اصلی؛ عصر مبحث فرعی و تثبیت. از بازخوانی منفعل پرهیز کن."
+        },
+        "2026-10-28": {
+          "weekday": 3,
+          "title": "چهارشنبه",
+          "sessions": [
+            {
+              "subject": "طراحی الگوریتم",
+              "minutes": 120,
+              "type": "study",
+              "practice": false,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "ریاضی فنی ۱",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "19:30"
+            },
+            {
+              "subject": "سیستم‌عامل",
+              "minutes": 55,
+              "type": "study",
+              "practice": false,
+              "startTime": "19:45",
+              "endTime": "20:40"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "20:40",
+              "endTime": "21:00"
+            }
+          ],
+          "note": "DP کلاسیک و تشخیص الگوهای تکرارشونده. روز پرفشارتر مطالعه است؛ جلسه‌های عصر/بعدازظهر را با تمرکز روی تست و تحلیل انجام بده."
+        },
+        "2026-10-29": {
+          "weekday": 4,
+          "title": "پنجشنبه",
+          "sessions": [
+            {
+              "subject": "ساختمان داده",
+              "minutes": 120,
+              "type": "practice",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "آمار و احتمال مهندسی",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "09:30",
+              "endTime": "11:00"
+            },
+            {
+              "subject": "سیگنال‌ها و سیستم‌ها",
+              "minutes": 60,
+              "type": "study",
+              "practice": false,
+              "startTime": "11:15",
+              "endTime": "12:15"
+            },
+            {
+              "subject": "آمار و احتمال مهندسی",
+              "minutes": 100,
+              "type": "study",
+              "practice": false,
+              "startTime": "14:30",
+              "endTime": "16:10"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "18:20"
+            }
+          ],
+          "note": "تست ترکیبی ساختارها و زمان‌بندی حل. روز پرفشار ولی کنترل‌شده؛ بعد از هر مجموعه تست تحلیل و ثبت خطا انجام شود."
+        },
+        "2026-10-30": {
+          "weekday": 5,
+          "title": "جمعه",
+          "sessions": [
+            {
+              "subject": "هوش مصنوعی",
+              "minutes": 120,
+              "type": "practice",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "آمار و احتمال مهندسی",
+              "minutes": 90,
+              "type": "practice",
+              "practice": true,
+              "startTime": "09:30",
+              "endTime": "11:00"
+            },
+            {
+              "subject": "هوش مصنوعی",
+              "minutes": 60,
+              "type": "practice",
+              "practice": true,
+              "startTime": "11:15",
+              "endTime": "12:15"
+            },
+            {
+              "subject": "سیگنال‌ها و سیستم‌ها",
+              "minutes": 100,
+              "type": "study",
+              "practice": false,
+              "startTime": "14:30",
+              "endTime": "16:10"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "18:20"
+            }
+          ],
+          "note": "تست Logic/Knowledge/Planning و تحلیل مفهومی. روز تکواندو؛ حجم مطالعه محدود است و هدف حفظ ریتم و تداوم است."
+        },
+        "2026-10-31": {
+          "weekday": 6,
+          "title": "شنبه",
+          "sessions": [
+            {
+              "subject": "طراحی الگوریتم",
+              "minutes": 90,
+              "type": "practice",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "07:30"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "07:40",
+              "endTime": "08:00"
+            }
+          ],
+          "note": "تست DP و رفع اشکال مسائل غلط. هفته را با تست/مرور ببند؛ نتیجه‌ها برای تنظیم هفته بعد ثبت شوند."
+        },
+        "2026-11-01": {
+          "weekday": 0,
+          "title": "یکشنبه",
+          "sessions": [
+            {
+              "subject": "ساختمان داده",
+              "minutes": 120,
+              "type": "review",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "آمار و احتمال مهندسی",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "19:30"
+            },
+            {
+              "subject": "ریاضیات گسسته",
+              "minutes": 55,
+              "type": "study",
+              "practice": false,
+              "startTime": "19:45",
+              "endTime": "20:40"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "20:40",
+              "endTime": "21:00"
+            }
+          ],
+          "note": "مرور فاصله‌دار و تکمیل دفتر خطا. به دلیل تکواندو، صبح فقط یک بلوک سنگین + زبان؛ هدف کیفیت بالاست."
+        }
+      }
+    },
+    {
+      "id": "2026-W45",
+      "weekStart": "2026-11-02",
+      "weekEnd": "2026-11-08",
+      "title": "هفته تکمیل بلوک اول و ورود به تست ترکیبی",
+      "phase": "مرور و تست ترکیبی ساختمان داده + کوتاه‌ترین مسیر و MST در الگوریتم + Uncertainty/Bayesian در هوش؛ تکمیل اهداف اولیه ریاضی ۱",
+      "targetMinutes": 1855,
+      "days": {
+        "2026-11-02": {
+          "weekday": 1,
+          "title": "دوشنبه",
+          "sessions": [
+            {
+              "subject": "طراحی الگوریتم",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "06:00",
+              "endTime": "07:30"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "07:40",
+              "endTime": "08:00"
+            }
+          ],
+          "note": "Graph Algorithms و Shortest Path را مفهومی و مسئله‌محور بخوان. صبح درس اصلی، عصر درس فرعی و تست/مرور؛ زبان را کوتاه و روزانه نگه دار."
+        },
+        "2026-11-03": {
+          "weekday": 2,
+          "title": "سه‌شنبه",
+          "sessions": [
+            {
+              "subject": "هوش مصنوعی",
+              "minutes": 120,
+              "type": "study",
+              "practice": false,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "نظریه زبان‌ها و ماشین‌ها",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "19:30"
+            },
+            {
+              "subject": "ریاضیات گسسته",
+              "minutes": 55,
+              "type": "study",
+              "practice": false,
+              "startTime": "19:45",
+              "endTime": "20:40"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "20:40",
+              "endTime": "21:00"
+            }
+          ],
+          "note": "Probability و Bayesian Reasoning را با مثال جلو ببر. صبح درس اصلی؛ عصر مبحث فرعی و تثبیت. از بازخوانی منفعل پرهیز کن."
+        },
+        "2026-11-04": {
+          "weekday": 3,
+          "title": "چهارشنبه",
+          "sessions": [
+            {
+              "subject": "ساختمان داده",
+              "minutes": 120,
+              "type": "practice",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "ریاضی فنی ۱",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "19:30"
+            },
+            {
+              "subject": "سیستم‌عامل",
+              "minutes": 55,
+              "type": "study",
+              "practice": false,
+              "startTime": "19:45",
+              "endTime": "20:40"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "20:40",
+              "endTime": "21:00"
+            }
+          ],
+          "note": "تست ترکیبی Graph/Heap/Hash و تحلیل دقیق. روز پرفشارتر مطالعه است؛ جلسه‌های عصر/بعدازظهر را با تمرکز روی تست و تحلیل انجام بده."
+        },
+        "2026-11-05": {
+          "weekday": 4,
+          "title": "پنجشنبه",
+          "sessions": [
+            {
+              "subject": "طراحی الگوریتم",
+              "minutes": 120,
+              "type": "practice",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "شبکه‌های کامپیوتری",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "09:30",
+              "endTime": "11:00"
+            },
+            {
+              "subject": "پایگاه داده",
+              "minutes": 60,
+              "type": "study",
+              "practice": false,
+              "startTime": "11:15",
+              "endTime": "12:15"
+            },
+            {
+              "subject": "شبکه‌های کامپیوتری",
+              "minutes": 100,
+              "type": "study",
+              "practice": false,
+              "startTime": "14:30",
+              "endTime": "16:10"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "18:20"
+            }
+          ],
+          "note": "تست Shortest Path و MST و تحلیل پیچیدگی. روز پرفشار ولی کنترل‌شده؛ بعد از هر مجموعه تست تحلیل و ثبت خطا انجام شود."
+        },
+        "2026-11-06": {
+          "weekday": 5,
+          "title": "جمعه",
+          "sessions": [
+            {
+              "subject": "هوش مصنوعی",
+              "minutes": 120,
+              "type": "practice",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "ریاضیات گسسته",
+              "minutes": 90,
+              "type": "practice",
+              "practice": true,
+              "startTime": "09:30",
+              "endTime": "11:00"
+            },
+            {
+              "subject": "هوش مصنوعی",
+              "minutes": 60,
+              "type": "practice",
+              "practice": true,
+              "startTime": "11:15",
+              "endTime": "12:15"
+            },
+            {
+              "subject": "پایگاه داده",
+              "minutes": 100,
+              "type": "study",
+              "practice": false,
+              "startTime": "14:30",
+              "endTime": "16:10"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "18:20"
+            }
+          ],
+          "note": "تست Probability/Bayes و تحلیل خطاهای مفهومی. روز تکواندو؛ حجم مطالعه محدود است و هدف حفظ ریتم و تداوم است."
+        },
+        "2026-11-07": {
+          "weekday": 6,
+          "title": "شنبه",
+          "sessions": [
+            {
+              "subject": "ساختمان داده",
+              "minutes": 90,
+              "type": "review",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "07:30"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "07:40",
+              "endTime": "08:00"
+            }
+          ],
+          "note": "مرور مباحث اصلی و ساخت فهرست مباحث نیازمند تقویت. هفته را با تست/مرور ببند؛ نتیجه‌ها برای تنظیم هفته بعد ثبت شوند."
+        },
+        "2026-11-08": {
+          "weekday": 0,
+          "title": "یکشنبه",
+          "sessions": [
+            {
+              "subject": "طراحی الگوریتم",
+              "minutes": 120,
+              "type": "review",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "پایگاه داده",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "19:30"
+            },
+            {
+              "subject": "سیستم‌عامل",
+              "minutes": 55,
+              "type": "review",
+              "practice": true,
+              "startTime": "19:45",
+              "endTime": "20:40"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "20:40",
+              "endTime": "21:00"
+            }
+          ],
+          "note": "مرور Greedy/DP/Graph و تکمیل دفتر خطا. به دلیل تکواندو، صبح فقط یک بلوک سنگین + زبان؛ هدف کیفیت بالاست."
+        }
+      }
+    },
+    {
+      "id": "2026-W46",
+      "weekStart": "2026-11-09",
+      "weekEnd": "2026-11-15",
+      "title": "هفته افزایش سهم تست",
+      "phase": "ساختمان داده و الگوریتم با تست ترکیبی بیشتر + هوش مصنوعی با تمرکز بر Search/Logic/Probability؛ دروس فرعی وارد مرور فاصله‌دار می‌شوند",
+      "targetMinutes": 1855,
+      "days": {
+        "2026-11-09": {
+          "weekday": 1,
+          "title": "دوشنبه",
+          "sessions": [
+            {
+              "subject": "ساختمان داده",
+              "minutes": 90,
+              "type": "practice",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "07:30"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "07:40",
+              "endTime": "08:00"
+            }
+          ],
+          "note": "تست ترکیبی چند مبحث؛ ابتدا زمان‌بندی و سپس تحلیل. صبح درس اصلی، عصر درس فرعی و تست/مرور؛ زبان را کوتاه و روزانه نگه دار."
+        },
+        "2026-11-10": {
+          "weekday": 2,
+          "title": "سه‌شنبه",
+          "sessions": [
+            {
+              "subject": "طراحی الگوریتم",
+              "minutes": 120,
+              "type": "practice",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "نظریه زبان‌ها و ماشین‌ها",
+              "minutes": 90,
+              "type": "practice",
+              "practice": true,
+              "startTime": "18:00",
+              "endTime": "19:30"
+            },
+            {
+              "subject": "ریاضیات گسسته",
+              "minutes": 55,
+              "type": "practice",
+              "practice": true,
+              "startTime": "19:45",
+              "endTime": "20:40"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "20:40",
+              "endTime": "21:00"
+            }
+          ],
+          "note": "تست ترکیبی Greedy/DP/Graph و تحلیل علت هر خطا. صبح درس اصلی؛ عصر مبحث فرعی و تثبیت. از بازخوانی منفعل پرهیز کن."
+        },
+        "2026-11-11": {
+          "weekday": 3,
+          "title": "چهارشنبه",
+          "sessions": [
+            {
+              "subject": "هوش مصنوعی",
+              "minutes": 120,
+              "type": "practice",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "ریاضی فنی ۱",
+              "minutes": 90,
+              "type": "practice",
+              "practice": true,
+              "startTime": "18:00",
+              "endTime": "19:30"
+            },
+            {
+              "subject": "سیستم‌عامل",
+              "minutes": 55,
+              "type": "review",
+              "practice": true,
+              "startTime": "19:45",
+              "endTime": "20:40"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "20:40",
+              "endTime": "21:00"
+            }
+          ],
+          "note": "تست ترکیبی Search/Logic/Probability. روز پرفشارتر مطالعه است؛ جلسه‌های عصر/بعدازظهر را با تمرکز روی تست و تحلیل انجام بده."
+        },
+        "2026-11-12": {
+          "weekday": 4,
+          "title": "پنجشنبه",
+          "sessions": [
+            {
+              "subject": "ساختمان داده",
+              "minutes": 120,
+              "type": "review",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "آمار و احتمال مهندسی",
+              "minutes": 90,
+              "type": "practice",
+              "practice": true,
+              "startTime": "09:30",
+              "endTime": "11:00"
+            },
+            {
+              "subject": "سیگنال‌ها و سیستم‌ها",
+              "minutes": 60,
+              "type": "study",
+              "practice": false,
+              "startTime": "11:15",
+              "endTime": "12:15"
+            },
+            {
+              "subject": "آمار و احتمال مهندسی",
+              "minutes": 100,
+              "type": "study",
+              "practice": false,
+              "startTime": "14:30",
+              "endTime": "16:10"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "18:20"
+            }
+          ],
+          "note": "مرور خطاهای هفته و آزمونک کوتاه از مباحث مشکل. روز پرفشار ولی کنترل‌شده؛ بعد از هر مجموعه تست تحلیل و ثبت خطا انجام شود."
+        },
+        "2026-11-13": {
+          "weekday": 5,
+          "title": "جمعه",
+          "sessions": [
+            {
+              "subject": "طراحی الگوریتم",
+              "minutes": 120,
+              "type": "practice",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "شبکه‌های کامپیوتری",
+              "minutes": 90,
+              "type": "practice",
+              "practice": true,
+              "startTime": "09:30",
+              "endTime": "11:00"
+            },
+            {
+              "subject": "طراحی الگوریتم",
+              "minutes": 60,
+              "type": "practice",
+              "practice": true,
+              "startTime": "11:15",
+              "endTime": "12:15"
+            },
+            {
+              "subject": "سیگنال‌ها و سیستم‌ها",
+              "minutes": 100,
+              "type": "study",
+              "practice": false,
+              "startTime": "14:30",
+              "endTime": "16:10"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "18:20"
+            }
+          ],
+          "note": "مسائل زمان‌دار و تمرکز روی انتخاب روش حل. روز تکواندو؛ حجم مطالعه محدود است و هدف حفظ ریتم و تداوم است."
+        },
+        "2026-11-14": {
+          "weekday": 6,
+          "title": "شنبه",
+          "sessions": [
+            {
+              "subject": "هوش مصنوعی",
+              "minutes": 90,
+              "type": "review",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "07:30"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "07:40",
+              "endTime": "08:00"
+            }
+          ],
+          "note": "مرور A*، CSP، Logic و Probability و ثبت نقاط ضعف. هفته را با تست/مرور ببند؛ نتیجه‌ها برای تنظیم هفته بعد ثبت شوند."
+        },
+        "2026-11-15": {
+          "weekday": 0,
+          "title": "یکشنبه",
+          "sessions": [
+            {
+              "subject": "ساختمان داده",
+              "minutes": 120,
+              "type": "practice",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "آمار و احتمال مهندسی",
+              "minutes": 90,
+              "type": "practice",
+              "practice": true,
+              "startTime": "18:00",
+              "endTime": "19:30"
+            },
+            {
+              "subject": "ریاضیات گسسته",
+              "minutes": 55,
+              "type": "study",
+              "practice": false,
+              "startTime": "19:45",
+              "endTime": "20:40"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "20:40",
+              "endTime": "21:00"
+            }
+          ],
+          "note": "مجموعه تست از مباحث خوانده‌شده با تحلیل کامل. به دلیل تکواندو، صبح فقط یک بلوک سنگین + زبان؛ هدف کیفیت بالاست."
+        }
+      }
+    },
+    {
+      "id": "2026-W47",
+      "weekStart": "2026-11-16",
+      "weekEnd": "2026-11-22",
+      "title": "هفته جمع‌بندی فاز اول",
+      "phase": "تست جامع‌تر سه درس اصلی + مرور گسسته/ریاضی/نظریه/سیستم‌عامل + تثبیت آمار و سیگنال/شبکه و پایگاه داده؛ آماده ورود به فاز ۲",
+      "targetMinutes": 1855,
+      "days": {
+        "2026-11-16": {
+          "weekday": 1,
+          "title": "دوشنبه",
+          "sessions": [
+            {
+              "subject": "ساختمان داده",
+              "minutes": 90,
+              "type": "practice",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "07:30"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "07:40",
+              "endTime": "08:00"
+            }
+          ],
+          "note": "تست جامع‌تر مباحث فاز ۱ و علامت‌گذاری خطاهای پرتکرار. صبح درس اصلی، عصر درس فرعی و تست/مرور؛ زبان را کوتاه و روزانه نگه دار."
+        },
+        "2026-11-17": {
+          "weekday": 2,
+          "title": "سه‌شنبه",
+          "sessions": [
+            {
+              "subject": "طراحی الگوریتم",
+              "minutes": 120,
+              "type": "practice",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "نظریه زبان‌ها و ماشین‌ها",
+              "minutes": 90,
+              "type": "practice",
+              "practice": true,
+              "startTime": "18:00",
+              "endTime": "19:30"
+            },
+            {
+              "subject": "ریاضیات گسسته",
+              "minutes": 55,
+              "type": "practice",
+              "practice": true,
+              "startTime": "19:45",
+              "endTime": "20:40"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "20:40",
+              "endTime": "21:00"
+            }
+          ],
+          "note": "تست ترکیبی از Big-O، D&C، Greedy، DP و Graph. صبح درس اصلی؛ عصر مبحث فرعی و تثبیت. از بازخوانی منفعل پرهیز کن."
+        },
+        "2026-11-18": {
+          "weekday": 3,
+          "title": "چهارشنبه",
+          "sessions": [
+            {
+              "subject": "هوش مصنوعی",
+              "minutes": 120,
+              "type": "practice",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "ریاضی فنی ۱",
+              "minutes": 90,
+              "type": "review",
+              "practice": true,
+              "startTime": "18:00",
+              "endTime": "19:30"
+            },
+            {
+              "subject": "سیستم‌عامل",
+              "minutes": 55,
+              "type": "practice",
+              "practice": true,
+              "startTime": "19:45",
+              "endTime": "20:40"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "20:40",
+              "endTime": "21:00"
+            }
+          ],
+          "note": "تست ترکیبی Search، Game، CSP، Logic و Probability. روز پرفشارتر مطالعه است؛ جلسه‌های عصر/بعدازظهر را با تمرکز روی تست و تحلیل انجام بده."
+        },
+        "2026-11-19": {
+          "weekday": 4,
+          "title": "پنجشنبه",
+          "sessions": [
+            {
+              "subject": "ساختمان داده",
+              "minutes": 120,
+              "type": "review",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "شبکه‌های کامپیوتری",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "09:30",
+              "endTime": "11:00"
+            },
+            {
+              "subject": "پایگاه داده",
+              "minutes": 60,
+              "type": "study",
+              "practice": false,
+              "startTime": "11:15",
+              "endTime": "12:15"
+            },
+            {
+              "subject": "شبکه‌های کامپیوتری",
+              "minutes": 100,
+              "type": "study",
+              "practice": false,
+              "startTime": "14:30",
+              "endTime": "16:10"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "18:20"
+            }
+          ],
+          "note": "تحلیل آزمون‌های هفته و مرور هدفمند مباحث ضعیف. روز پرفشار ولی کنترل‌شده؛ بعد از هر مجموعه تست تحلیل و ثبت خطا انجام شود."
+        },
+        "2026-11-20": {
+          "weekday": 5,
+          "title": "جمعه",
+          "sessions": [
+            {
+              "subject": "طراحی الگوریتم",
+              "minutes": 120,
+              "type": "review",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "آمار و احتمال مهندسی",
+              "minutes": 90,
+              "type": "review",
+              "practice": true,
+              "startTime": "09:30",
+              "endTime": "11:00"
+            },
+            {
+              "subject": "طراحی الگوریتم",
+              "minutes": 60,
+              "type": "review",
+              "practice": true,
+              "startTime": "11:15",
+              "endTime": "12:15"
+            },
+            {
+              "subject": "پایگاه داده",
+              "minutes": 100,
+              "type": "study",
+              "practice": false,
+              "startTime": "14:30",
+              "endTime": "16:10"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "18:20"
+            }
+          ],
+          "note": "تحلیل خطاها و اصلاح روش حل، نه بازخوانی کامل منبع. روز تکواندو؛ حجم مطالعه محدود است و هدف حفظ ریتم و تداوم است."
+        },
+        "2026-11-21": {
+          "weekday": 6,
+          "title": "شنبه",
+          "sessions": [
+            {
+              "subject": "هوش مصنوعی",
+              "minutes": 90,
+              "type": "review",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "07:30"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "07:40",
+              "endTime": "08:00"
+            }
+          ],
+          "note": "مرور فشرده مباحث مهم و تکمیل فهرست ضعف‌ها. هفته را با تست/مرور ببند؛ نتیجه‌ها برای تنظیم هفته بعد ثبت شوند."
+        },
+        "2026-11-22": {
+          "weekday": 0,
+          "title": "یکشنبه",
+          "sessions": [
+            {
+              "subject": "ساختمان داده",
+              "minutes": 120,
+              "type": "practice",
+              "practice": true,
+              "startTime": "06:00",
+              "endTime": "08:00"
+            },
+            {
+              "subject": "پایگاه داده",
+              "minutes": 90,
+              "type": "study",
+              "practice": false,
+              "startTime": "18:00",
+              "endTime": "19:30"
+            },
+            {
+              "subject": "سیستم‌عامل",
+              "minutes": 55,
+              "type": "review",
+              "practice": true,
+              "startTime": "19:45",
+              "endTime": "20:40"
+            },
+            {
+              "subject": "زبان تخصصی",
+              "minutes": 20,
+              "type": "study",
+              "practice": false,
+              "startTime": "20:40",
+              "endTime": "21:00"
+            }
+          ],
+          "note": "مجموعه تست نهایی فاز ۱ و ثبت نتیجه برای برنامه فاز ۲. به دلیل تکواندو، صبح فقط یک بلوک سنگین + زبان؛ هدف کیفیت بالاست."
+        }
+      }
+    }
+  ]
+}

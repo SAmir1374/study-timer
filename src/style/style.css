@@ -1,0 +1,28 @@
+/* Entry point — order matters (later files may refine earlier ones). */
+@import url("./base.css");
+@import url("./components.css");
+@import url("./layout.css");
+@import url("./timer.css");
+@import url("./sidebar.css");
+@import url("./exam.css");
+@import url("./modals.css");
+@import url("./weekly-plan.css");
+@import url("./day-modal.css");
+@import url("./analytics.css");
+@import url("./print.css");
+@import url("./plan-overview.css");
+
+/* 
+style/
+├─ style.css        ← ورودی (فقط @import)
+├─ base.css         ← توکن‌ها، تم روشن، ریست، primitiveهای مشترک
+├─ components.css   ← دکمه، فیلد، زبان، save-status، toast
+├─ layout.css       ← هدر، ساعت زنده، چیدمان اصلی، حالت‌های تایمر
+├─ timer.css        ← کارت تایمر، حلقه، نوع جلسه، درس، مدت، بازه
+├─ sidebar.css      ← امروز، هدف، به‌تفکیک درس، تایم‌لاین، تاریخچه
+├─ exam.css         ← شمارش معکوس آزمون و تقویم
+├─ modals.css       ← مودال‌ها، تنظیمات، مدیریت درس‌ها
+├─ weekly-plan.css  ← برنامه هفتگی (هفته‌ها، روزها، جلسه‌ها)
+├─ day-modal.css    ← مودال سه‌تبه‌ی روز
+├─ analytics.css    ← صفحه‌ی analytics
+└─ print.css */

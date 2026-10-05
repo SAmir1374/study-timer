@@ -1,0 +1,1937 @@
+{
+  "schemaVersion": "study-timer-weekly-plans-json",
+  "version": 4,
+  "timezone": "Asia/Tehran",
+  "planType": "phased-master-study-plan",
+  "title": "مسیر کامل آمادگی ارشد هوش مصنوعی — هدف دانشگاه صنعتی شریف",
+  "examGoal": {
+    "program": "کارشناسی ارشد هوش مصنوعی",
+    "targetUniversity": "دانشگاه صنعتی شریف",
+    "targetWindow": "اواسط اردیبهشت ۱۴۰۶",
+    "strategy": "سه درس اصلی در مرکز برنامه؛ بازسازی ریاضی/گسسته/آمار؛ تکمیل تدریجی همه دروس؛ سپس تست ترکیبی، آزمون جامع و جمع‌بندی نهایی."
+  },
+  "studyRules": {
+    "specializedEnglishMinutesPerDay": 20,
+    "mainSubjects": [
+      "ساختمان داده",
+      "الگوریتم",
+      "هوش مصنوعی"
+    ],
+    "foundationSubjects": [
+      "ریاضی مهندسی ۱",
+      "ریاضی مهندسی ۲",
+      "گسسته",
+      "آمار و احتمال"
+    ],
+    "secondarySubjects": [
+      "نظریه زبان‌ها و ماشین‌ها",
+      "سیستم‌عامل",
+      "شبکه",
+      "پایگاه داده",
+      "سیگنال و سیستم",
+      "مدار منطقی",
+      "معماری کامپیوتر"
+    ],
+    "cycle": "مطالعه مفهومی → تمرین آموزشی → تست موضوعی → تحلیل خطا → مرور فاصله‌ای → تست زمان‌دار → آزمون ترکیبی/جامع",
+    "adjustment": "فازها عمداً مستقل‌اند؛ بازخورد واقعی می‌تواند طول فاز یا سهم هر درس را تغییر دهد بدون اینکه معماری کل مسیر عوض شود."
+  },
+  "phases": [
+    {
+      "id": "phase-1",
+      "name": "فاز ۱ — ساخت پایه و تثبیت",
+      "startDate": "2026-09-26",
+      "endDate": "2026-11-22",
+      "goal": "ساخت پایه قابل اتکا در سه درس اصلی و بازسازی ریاضی، گسسته و احتمال؛ شروع منظم دروس فرعی.",
+      "logic": "در این فاز یادگیری مفهومی اولویت دارد، اما هیچ مبحثی بدون تمرین و تست آموزشی رها نمی‌شود.",
+      "weeks": [
+        {
+          "id": "2026-W40",
+          "startDate": "2026-09-26",
+          "endDate": "2026-10-04",
+          "title": "هفته ساختن ریتم اصلی",
+          "goal": "تثبیت ساختمان داده و الگوریتم؛ ادامه هوش مصنوعی؛ شروع منظم گسسته، ریاضی ۱، نظریه و سیستم‌عامل.",
+          "prioritySubjects": [
+            "ساختمان داده",
+            "الگوریتم",
+            "هوش مصنوعی",
+            "گسسته",
+            "ریاضی مهندسی ۱",
+            "آمار و احتمال"
+          ],
+          "targetMinutes": 1855,
+          "days": [
+            {
+              "date": "2026-09-26",
+              "weekday": "شنبه",
+              "focus": "هوش مصنوعی: جستجوی ناآگاهانه، BFS/DFS/UCS + زبان تخصصی",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-09-27",
+              "weekday": "یکشنبه",
+              "focus": "ساختمان داده: تمرین + گسسته: مطالعه و تست + زبان تخصصی",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-09-28",
+              "weekday": "دوشنبه",
+              "focus": "الگوریتم: Big-O و روابط بازگشتی + زبان تخصصی",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-09-29",
+              "weekday": "سه‌شنبه",
+              "focus": "ساختمان داده + نظریه زبان‌ها و ماشین‌ها + گسسته + زبان تخصصی",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-09-30",
+              "weekday": "چهارشنبه",
+              "focus": "هوش مصنوعی: Agent/فرمول‌بندی مسئله/BFS/DFS/UCS + ریاضی ۱ + OS + زبان تخصصی",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-10-01",
+              "weekday": "پنج‌شنبه",
+              "focus": "ساختمان داده تمرینی + گسسته + ریاضی ۱ + آمار و احتمال + زبان تخصصی",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-10-02",
+              "weekday": "جمعه",
+              "focus": "الگوریتم تمرینی + OS تمرینی + سیگنال و سیستم + زبان تخصصی",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-10-03",
+              "weekday": "شنبه",
+              "focus": "هوش مصنوعی: مرور Search + زبان تخصصی",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-10-04",
+              "weekday": "یکشنبه",
+              "focus": "مرور ساختمان داده + گسسته + تحلیل خطا + زبان تخصصی",
+              "englishMinutes": 20
+            }
+          ]
+        },
+        {
+          "id": "2026-W41",
+          "startDate": "2026-10-05",
+          "endDate": "2026-10-11",
+          "title": "هفته تقویت ساختارهای پایه",
+          "goal": "Tree/Heap + Sorting/Searching + Heuristic/A*",
+          "prioritySubjects": "ساختمان داده، الگوریتم، هوش مصنوعی، گسسته، ریاضی ۱، OS",
+          "targetMinutes": 1855,
+          "days": [
+            {
+              "date": "2026-10-05",
+              "weekday": "دوشنبه",
+              "focus": "DS: Tree/BST/Heap",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-10-06",
+              "weekday": "سه‌شنبه",
+              "focus": "Algo: Sorting/Searching + Theory",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-10-07",
+              "weekday": "چهارشنبه",
+              "focus": "AI: Heuristic/A* + Math 1",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-10-08",
+              "weekday": "پنج‌شنبه",
+              "focus": "DS practice + Discrete + Probability",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-10-09",
+              "weekday": "جمعه",
+              "focus": "Algo practice + OS + Signals",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-10-10",
+              "weekday": "شنبه",
+              "focus": "AI: A* vs UCS/Greedy",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-10-11",
+              "weekday": "یکشنبه",
+              "focus": "DS review + Math/OS review",
+              "englishMinutes": 20
+            }
+          ]
+        },
+        {
+          "id": "2026-W42",
+          "startDate": "2026-10-12",
+          "endDate": "2026-10-18",
+          "title": "هفته عبور از پایه به مباحث رتبه‌ساز",
+          "goal": "Hash + Greedy + Game Playing + CFG + OS Synchronization",
+          "prioritySubjects": "ساختمان داده، الگوریتم، هوش مصنوعی، گسسته، احتمال",
+          "targetMinutes": 1855,
+          "days": [
+            {
+              "date": "2026-10-12",
+              "weekday": "دوشنبه",
+              "focus": "AI: Minimax/Alpha-Beta",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-10-13",
+              "weekday": "سه‌شنبه",
+              "focus": "DS: Hash + Theory/Discrete",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-10-14",
+              "weekday": "چهارشنبه",
+              "focus": "Algo: Greedy + Math/OS",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-10-15",
+              "weekday": "پنج‌شنبه",
+              "focus": "AI practice + Probability + Networks",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-10-16",
+              "weekday": "جمعه",
+              "focus": "DS practice + DB",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-10-17",
+              "weekday": "شنبه",
+              "focus": "Algo: Greedyهای کلاسیک",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-10-18",
+              "weekday": "یکشنبه",
+              "focus": "AI review + Probability/Discrete",
+              "englishMinutes": 20
+            }
+          ]
+        },
+        {
+          "id": "2026-W43",
+          "startDate": "2026-10-19",
+          "endDate": "2026-10-25",
+          "title": "هفته نقطه کنترل اول",
+          "goal": "Graph/BFS/DFS + DP + CSP/Logic",
+          "prioritySubjects": "الگوریتم، ساختمان داده، هوش مصنوعی، گسسته، ریاضی ۱",
+          "targetMinutes": 1855,
+          "days": [
+            {
+              "date": "2026-10-19",
+              "weekday": "دوشنبه",
+              "focus": "Algo: DP state/transition/recurrence",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-10-20",
+              "weekday": "سه‌شنبه",
+              "focus": "DS: Graph/BFS/DFS + Theory",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-10-21",
+              "weekday": "چهارشنبه",
+              "focus": "AI: CSP + Math/OS",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-10-22",
+              "weekday": "پنج‌شنبه",
+              "focus": "DP tests + Networks/DB",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-10-23",
+              "weekday": "جمعه",
+              "focus": "Graph practice + Discrete/DB",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-10-24",
+              "weekday": "شنبه",
+              "focus": "AI CSP/Logic tests + جمع‌بندی",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-10-25",
+              "weekday": "یکشنبه",
+              "focus": "Algo review + DB/OS",
+              "englishMinutes": 20
+            }
+          ]
+        },
+        {
+          "id": "2026-W44",
+          "startDate": "2026-10-26",
+          "endDate": "2026-11-01",
+          "title": "هفته تعمیق مباحث اصلی",
+          "goal": "Graph/Heap/Hash + Classical DP + Knowledge/Logic/Planning",
+          "prioritySubjects": "سه درس اصلی، احتمال، گسسته، OS",
+          "targetMinutes": 1855,
+          "days": [
+            {
+              "date": "2026-10-26",
+              "weekday": "دوشنبه",
+              "focus": "DS: Graph/Heap/Hash review",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-10-27",
+              "weekday": "سه‌شنبه",
+              "focus": "AI: Knowledge Representation/Logic + Theory",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-10-28",
+              "weekday": "چهارشنبه",
+              "focus": "Algo: Classical DP + Math/OS",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-10-29",
+              "weekday": "پنج‌شنبه",
+              "focus": "DS practice + Probability/Signals",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-10-30",
+              "weekday": "جمعه",
+              "focus": "AI practice + Probability/Signals",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-10-31",
+              "weekday": "شنبه",
+              "focus": "Algo: DP",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-11-01",
+              "weekday": "یکشنبه",
+              "focus": "DS review + Probability/Discrete",
+              "englishMinutes": 20
+            }
+          ]
+        },
+        {
+          "id": "2026-W45",
+          "startDate": "2026-11-02",
+          "endDate": "2026-11-08",
+          "title": "هفته تکمیل بلوک اول و ورود به تست ترکیبی",
+          "goal": "Mixed DS + Shortest Path/MST + Bayesian/Uncertainty",
+          "prioritySubjects": "سه درس اصلی، ریاضی ۱، احتمال، شبکه، DB",
+          "targetMinutes": 1855,
+          "days": [
+            {
+              "date": "2026-11-02",
+              "weekday": "دوشنبه",
+              "focus": "Algo: Shortest Path",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-11-03",
+              "weekday": "سه‌شنبه",
+              "focus": "AI: Bayesian + Theory/Discrete",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-11-04",
+              "weekday": "چهارشنبه",
+              "focus": "DS: Mixed Graph/Heap/Hash + Math/OS",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-11-05",
+              "weekday": "پنج‌شنبه",
+              "focus": "Algo: Shortest Path/MST + Networks/DB",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-11-06",
+              "weekday": "جمعه",
+              "focus": "AI: Uncertainty + Discrete/DB",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-11-07",
+              "weekday": "شنبه",
+              "focus": "DS review",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-11-08",
+              "weekday": "یکشنبه",
+              "focus": "Algo review + DB/OS",
+              "englishMinutes": 20
+            }
+          ]
+        },
+        {
+          "id": "2026-W46",
+          "startDate": "2026-11-09",
+          "endDate": "2026-11-15",
+          "title": "هفته افزایش سهم تست",
+          "goal": "تست ترکیبی DS/Algo + AI Search/Logic/Probability + مرور فاصله‌ای فرعی‌ها",
+          "prioritySubjects": "سه درس اصلی، ریاضی، گسسته، احتمال",
+          "targetMinutes": 1855,
+          "days": [
+            {
+              "date": "2026-11-09",
+              "weekday": "دوشنبه",
+              "focus": "DS: mixed test",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-11-10",
+              "weekday": "سه‌شنبه",
+              "focus": "Algo: mixed test + Theory/Discrete",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-11-11",
+              "weekday": "چهارشنبه",
+              "focus": "AI: Search/Logic/Probability test + Math/OS",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-11-12",
+              "weekday": "پنج‌شنبه",
+              "focus": "DS review + Probability/Signals",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-11-13",
+              "weekday": "جمعه",
+              "focus": "Algo test + Networks/Signals",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-11-14",
+              "weekday": "شنبه",
+              "focus": "AI review",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-11-15",
+              "weekday": "یکشنبه",
+              "focus": "DS test + Probability/Discrete",
+              "englishMinutes": 20
+            }
+          ]
+        },
+        {
+          "id": "2026-W47",
+          "startDate": "2026-11-16",
+          "endDate": "2026-11-22",
+          "title": "هفته جمع‌بندی فاز اول",
+          "goal": "تست گسترده سه درس اصلی + مرور گسسته/ریاضی/نظریه/OS + تثبیت فرعی‌ها",
+          "prioritySubjects": "سه درس اصلی، ریاضی، گسسته، احتمال و فرعی‌ها",
+          "targetMinutes": 1855,
+          "days": [
+            {
+              "date": "2026-11-16",
+              "weekday": "دوشنبه",
+              "focus": "DS test",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-11-17",
+              "weekday": "سه‌شنبه",
+              "focus": "Algo test + Theory/Discrete",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-11-18",
+              "weekday": "چهارشنبه",
+              "focus": "AI test + Math/OS",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-11-19",
+              "weekday": "پنج‌شنبه",
+              "focus": "Networks/DB + Math/Probability",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-11-20",
+              "weekday": "جمعه",
+              "focus": "Algo review + Probability/DB",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-11-21",
+              "weekday": "شنبه",
+              "focus": "AI review",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-11-22",
+              "weekday": "یکشنبه",
+              "focus": "DS test + DB/OS review",
+              "englishMinutes": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-2",
+      "name": "فاز ۲ — تکمیل هسته رتبه‌ساز",
+      "startDate": "2026-11-23",
+      "endDate": "2027-01-10",
+      "goal": "تکمیل هسته اصلی، افزایش تست موضوعی، و رساندن دروس فرعی و ریاضی به یک دور تست‌پذیر.",
+      "logic": "درصد و زمان حل وارد ارزیابی می‌شود؛ هر مبحث ضعیف بر اساس داده تستی علامت‌گذاری می‌شود.",
+      "weeks": [
+        {
+          "id": "2026-W48",
+          "startDate": "2026-11-23",
+          "endDate": "2026-11-29",
+          "title": "تکمیل هسته رتبه‌ساز",
+          "goal": "دور دوم Tree/Heap/Hash، Sorting/Searching و Search/Heuristic؛ تثبیت ریاضی و گسسته.",
+          "prioritySubjects": [
+            "ساختمان داده",
+            "الگوریتم",
+            "هوش مصنوعی",
+            "ریاضی مهندسی ۱",
+            "گسسته",
+            "آمار و احتمال"
+          ],
+          "targetMinutes": 1950,
+          "days": [
+            {
+              "date": "2026-11-23",
+              "weekday": "دوشنبه",
+              "focus": "DS: Tree/Heap/Hash – دور دوم",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-11-24",
+              "weekday": "سه‌شنبه",
+              "focus": "Algo: Sorting/Searching + Theory/Discrete",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-11-25",
+              "weekday": "چهارشنبه",
+              "focus": "AI: A*/UCS/Greedy + Math/OS",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-11-26",
+              "weekday": "پنج‌شنبه",
+              "focus": "DS test + Discrete + Probability",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-11-27",
+              "weekday": "جمعه",
+              "focus": "Algo test + Networks/DB/Signals",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-11-28",
+              "weekday": "شنبه",
+              "focus": "AI review",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-11-29",
+              "weekday": "یکشنبه",
+              "focus": "DS review + Math/Probability",
+              "englishMinutes": 20
+            }
+          ]
+        },
+        {
+          "id": "2026-W49",
+          "startDate": "2026-11-30",
+          "endDate": "2026-12-06",
+          "title": "Divide & Conquer و بازگشتی‌ها",
+          "goal": "Divide & Conquer، recurrence، recursion و Logic/Planning در AI؛ تکمیل CFG و Process/Thread.",
+          "prioritySubjects": [
+            "الگوریتم",
+            "ساختمان داده",
+            "هوش مصنوعی",
+            "نظریه زبان‌ها و ماشین‌ها",
+            "گسسته",
+            "سیستم‌عامل"
+          ],
+          "targetMinutes": 1950,
+          "days": [
+            {
+              "date": "2026-11-30",
+              "weekday": "دوشنبه",
+              "focus": "Algo: Divide & Conquer",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-12-01",
+              "weekday": "سه‌شنبه",
+              "focus": "DS: recursion/tree + Theory",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-12-02",
+              "weekday": "چهارشنبه",
+              "focus": "AI: Logic/Planning + Math",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-12-03",
+              "weekday": "پنج‌شنبه",
+              "focus": "Algo recurrence tests + Discrete",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-12-04",
+              "weekday": "جمعه",
+              "focus": "AI practice + OS + DB",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-12-05",
+              "weekday": "شنبه",
+              "focus": "Algo classic patterns",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-12-06",
+              "weekday": "یکشنبه",
+              "focus": "DS review + Theory/OS",
+              "englishMinutes": 20
+            }
+          ]
+        },
+        {
+          "id": "2026-W50",
+          "startDate": "2026-12-07",
+          "endDate": "2026-12-13",
+          "title": "Dynamic Programming",
+          "goal": "DP از پایه تا الگوهای کلاسیک + Graph + CSP/Logic.",
+          "prioritySubjects": [
+            "الگوریتم",
+            "ساختمان داده",
+            "هوش مصنوعی",
+            "گسسته",
+            "ریاضی مهندسی ۱",
+            "آمار و احتمال"
+          ],
+          "targetMinutes": 1950,
+          "days": [
+            {
+              "date": "2026-12-07",
+              "weekday": "دوشنبه",
+              "focus": "Algo: DP state/transition",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-12-08",
+              "weekday": "سه‌شنبه",
+              "focus": "DS: Graph representation + Theory",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-12-09",
+              "weekday": "چهارشنبه",
+              "focus": "AI: CSP/Logic + Math/OS",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-12-10",
+              "weekday": "پنج‌شنبه",
+              "focus": "DP tests + Discrete/Probability",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-12-11",
+              "weekday": "جمعه",
+              "focus": "AI practice + Networks/DB",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-12-12",
+              "weekday": "شنبه",
+              "focus": "Algo: classical DP",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-12-13",
+              "weekday": "یکشنبه",
+              "focus": "DS review + Math/Discrete",
+              "englishMinutes": 20
+            }
+          ]
+        },
+        {
+          "id": "2026-W51",
+          "startDate": "2026-12-14",
+          "endDate": "2026-12-20",
+          "title": "الگوریتم‌های گراف",
+          "goal": "Shortest Path، MST، Union-Find و تست‌های زمان‌دار؛ مرور نظریه و OS.",
+          "prioritySubjects": [
+            "الگوریتم",
+            "ساختمان داده",
+            "هوش مصنوعی",
+            "نظریه زبان‌ها و ماشین‌ها",
+            "سیستم‌عامل",
+            "شبکه"
+          ],
+          "targetMinutes": 1950,
+          "days": [
+            {
+              "date": "2026-12-14",
+              "weekday": "دوشنبه",
+              "focus": "Algo: Shortest Path",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-12-15",
+              "weekday": "سه‌شنبه",
+              "focus": "DS: Union-Find/MST + Theory",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-12-16",
+              "weekday": "چهارشنبه",
+              "focus": "AI graph/search review + Math",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-12-17",
+              "weekday": "پنج‌شنبه",
+              "focus": "Dijkstra/Bellman-Ford tests",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-12-18",
+              "weekday": "جمعه",
+              "focus": "MST tests + Networks/DB",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-12-19",
+              "weekday": "شنبه",
+              "focus": "Graph review",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-12-20",
+              "weekday": "یکشنبه",
+              "focus": "DS/Algo summary",
+              "englishMinutes": 20
+            }
+          ]
+        },
+        {
+          "id": "2026-W52",
+          "startDate": "2026-12-21",
+          "endDate": "2026-12-27",
+          "title": "احتمال و عدم‌قطعیت",
+          "goal": "Probability/Statistics جدی‌تر، Bayes و Uncertainty در AI و تقویت گسسته.",
+          "prioritySubjects": [
+            "آمار و احتمال",
+            "هوش مصنوعی",
+            "گسسته",
+            "الگوریتم",
+            "ریاضی مهندسی ۱"
+          ],
+          "targetMinutes": 1950,
+          "days": [
+            {
+              "date": "2026-12-21",
+              "weekday": "دوشنبه",
+              "focus": "Probability: conditional/independence",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-12-22",
+              "weekday": "سه‌شنبه",
+              "focus": "AI: Bayes",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-12-23",
+              "weekday": "چهارشنبه",
+              "focus": "Algo maintenance + Math",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-12-24",
+              "weekday": "پنج‌شنبه",
+              "focus": "Probability tests + Discrete",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-12-25",
+              "weekday": "جمعه",
+              "focus": "AI Uncertainty + Networks/DB",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-12-26",
+              "weekday": "شنبه",
+              "focus": "Probability review",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-12-27",
+              "weekday": "یکشنبه",
+              "focus": "Discrete test + Core review",
+              "englishMinutes": 20
+            }
+          ]
+        },
+        {
+          "id": "2026-W53",
+          "startDate": "2026-12-28",
+          "endDate": "2027-01-03",
+          "title": "ریاضی ۲ و دروس مهندسی",
+          "goal": "ورود منظم ریاضی ۲ + مدار منطقی + معماری، با حفظ سه درس اصلی.",
+          "prioritySubjects": [
+            "ریاضی مهندسی ۲",
+            "مدار منطقی",
+            "معماری کامپیوتر",
+            "هوش مصنوعی",
+            "الگوریتم",
+            "ساختمان داده"
+          ],
+          "targetMinutes": 1950,
+          "days": [
+            {
+              "date": "2026-12-28",
+              "weekday": "دوشنبه",
+              "focus": "Math 2: foundation",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-12-29",
+              "weekday": "سه‌شنبه",
+              "focus": "Digital Logic: foundation + Discrete",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-12-30",
+              "weekday": "چهارشنبه",
+              "focus": "Architecture + AI",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2026-12-31",
+              "weekday": "پنج‌شنبه",
+              "focus": "Math 2 practice + Probability",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-01-01",
+              "weekday": "جمعه",
+              "focus": "Architecture/Digital tests + Core",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-01-02",
+              "weekday": "شنبه",
+              "focus": "AI review",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-01-03",
+              "weekday": "یکشنبه",
+              "focus": "Math 2 review + Core test",
+              "englishMinutes": 20
+            }
+          ]
+        },
+        {
+          "id": "2027-W54",
+          "startDate": "2027-01-04",
+          "endDate": "2027-01-10",
+          "title": "نقطه کنترل فاز ۲",
+          "goal": "تست‌های موضوعی زمان‌دار در سه درس اصلی، ریاضی/گسسته/احتمال و شناسایی شکاف‌های واقعی.",
+          "prioritySubjects": [
+            "ساختمان داده",
+            "الگوریتم",
+            "هوش مصنوعی",
+            "ریاضی مهندسی ۱",
+            "گسسته",
+            "آمار و احتمال"
+          ],
+          "targetMinutes": 1950,
+          "days": [
+            {
+              "date": "2027-01-04",
+              "weekday": "دوشنبه",
+              "focus": "DS timed test",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-01-05",
+              "weekday": "سه‌شنبه",
+              "focus": "Algo timed test + Theory/Discrete",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-01-06",
+              "weekday": "چهارشنبه",
+              "focus": "AI timed test + Math/OS",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-01-07",
+              "weekday": "پنج‌شنبه",
+              "focus": "Math/Discrete test + analysis",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-01-08",
+              "weekday": "جمعه",
+              "focus": "Core mixed test + Networks/DB",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-01-09",
+              "weekday": "شنبه",
+              "focus": "AI review",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-01-10",
+              "weekday": "یکشنبه",
+              "focus": "DS test + gap list",
+              "englishMinutes": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-3",
+      "name": "فاز ۳ — تکمیل سرفصل‌ها و دور دوم",
+      "startDate": "2027-01-11",
+      "endDate": "2027-03-07",
+      "goal": "تقریباً هیچ مبحث اصلیِ بدون مطالعه باقی نماند و همه دروس وارد چرخه تست و مرور شوند.",
+      "logic": "مطالعه جدید فقط برای شکاف‌های واقعی انجام می‌شود؛ سهم تست زمان‌دار به‌صورت محسوس افزایش می‌یابد.",
+      "weeks": [
+        {
+          "id": "2027-W55",
+          "startDate": "2027-01-11",
+          "endDate": "2027-01-17",
+          "title": "تکمیل DP و گراف",
+          "goal": "DP پیشرفته، graph algorithms، shortest path/MST و دور دوم Search/Logic/Probability.",
+          "prioritySubjects": [
+            "ساختمان داده",
+            "الگوریتم",
+            "هوش مصنوعی",
+            "ریاضی",
+            "گسسته",
+            "آمار و احتمال",
+            "دروس فرعی"
+          ],
+          "targetMinutes": 2050,
+          "days": [
+            {
+              "date": "2027-01-11",
+              "weekday": "دوشنبه",
+              "focus": "Algo: DP/Graph",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-01-12",
+              "weekday": "سه‌شنبه",
+              "focus": "DS: Graph/Heap",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-01-13",
+              "weekday": "چهارشنبه",
+              "focus": "AI: Search/Logic/Probability",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-01-14",
+              "weekday": "پنج‌شنبه",
+              "focus": "Algo timed tests + Discrete",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-01-15",
+              "weekday": "جمعه",
+              "focus": "AI/DS timed tests + Networks/DB",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-01-16",
+              "weekday": "شنبه",
+              "focus": "AI review",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-01-17",
+              "weekday": "یکشنبه",
+              "focus": "Core mixed review",
+              "englishMinutes": 20
+            }
+          ]
+        },
+        {
+          "id": "2027-W56",
+          "startDate": "2027-01-18",
+          "endDate": "2027-01-24",
+          "title": "تکمیل ریاضی",
+          "goal": "تکمیل ریاضی ۱/۲ و گسسته با حل مسئله و تست؛ مرور احتمال.",
+          "prioritySubjects": [
+            "ساختمان داده",
+            "الگوریتم",
+            "هوش مصنوعی",
+            "ریاضی",
+            "گسسته",
+            "آمار و احتمال",
+            "دروس فرعی"
+          ],
+          "targetMinutes": 2050,
+          "days": [
+            {
+              "date": "2027-01-18",
+              "weekday": "دوشنبه",
+              "focus": "Math 1: مسئله و تست",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-01-19",
+              "weekday": "سه‌شنبه",
+              "focus": "Discrete + Algo math",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-01-20",
+              "weekday": "چهارشنبه",
+              "focus": "Math 2 + Probability",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-01-21",
+              "weekday": "پنج‌شنبه",
+              "focus": "Math/Discrete timed tests",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-01-22",
+              "weekday": "جمعه",
+              "focus": "Math review + Signals",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-01-23",
+              "weekday": "شنبه",
+              "focus": "Formula review",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-01-24",
+              "weekday": "یکشنبه",
+              "focus": "Math/Discrete weekly test",
+              "englishMinutes": 20
+            }
+          ]
+        },
+        {
+          "id": "2027-W57",
+          "startDate": "2027-01-25",
+          "endDate": "2027-01-31",
+          "title": "تکمیل نظریه و سیستم‌عامل",
+          "goal": "دور کامل‌تر Theory/OS با تست؛ حفظ روزانه سه درس اصلی.",
+          "prioritySubjects": [
+            "ساختمان داده",
+            "الگوریتم",
+            "هوش مصنوعی",
+            "ریاضی",
+            "گسسته",
+            "آمار و احتمال",
+            "دروس فرعی"
+          ],
+          "targetMinutes": 2050,
+          "days": [
+            {
+              "date": "2027-01-25",
+              "weekday": "دوشنبه",
+              "focus": "Theory",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-01-26",
+              "weekday": "سه‌شنبه",
+              "focus": "Algo maintenance + Theory tests",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-01-27",
+              "weekday": "چهارشنبه",
+              "focus": "AI maintenance + OS",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-01-28",
+              "weekday": "پنج‌شنبه",
+              "focus": "Theory/OS test",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-01-29",
+              "weekday": "جمعه",
+              "focus": "Algo + OS test",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-01-30",
+              "weekday": "شنبه",
+              "focus": "AI review",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-01-31",
+              "weekday": "یکشنبه",
+              "focus": "Theory/OS review",
+              "englishMinutes": 20
+            }
+          ]
+        },
+        {
+          "id": "2027-W58",
+          "startDate": "2027-02-01",
+          "endDate": "2027-02-07",
+          "title": "تکمیل شبکه و پایگاه داده",
+          "goal": "Networks/DB با تست و مرور؛ حفظ هسته رتبه‌ساز.",
+          "prioritySubjects": [
+            "ساختمان داده",
+            "الگوریتم",
+            "هوش مصنوعی",
+            "ریاضی",
+            "گسسته",
+            "آمار و احتمال",
+            "دروس فرعی"
+          ],
+          "targetMinutes": 2050,
+          "days": [
+            {
+              "date": "2027-02-01",
+              "weekday": "دوشنبه",
+              "focus": "Networks",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-02-02",
+              "weekday": "سه‌شنبه",
+              "focus": "DB + Algo maintenance",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-02-03",
+              "weekday": "چهارشنبه",
+              "focus": "AI + Math",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-02-04",
+              "weekday": "پنج‌شنبه",
+              "focus": "Network/DB tests",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-02-05",
+              "weekday": "جمعه",
+              "focus": "Core + DB",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-02-06",
+              "weekday": "شنبه",
+              "focus": "AI review",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-02-07",
+              "weekday": "یکشنبه",
+              "focus": "Network/DB review",
+              "englishMinutes": 20
+            }
+          ]
+        },
+        {
+          "id": "2027-W59",
+          "startDate": "2027-02-08",
+          "endDate": "2027-02-14",
+          "title": "مدار منطقی و معماری",
+          "goal": "تکمیل Digital Logic/Architecture با تست و مرور.",
+          "prioritySubjects": [
+            "ساختمان داده",
+            "الگوریتم",
+            "هوش مصنوعی",
+            "ریاضی",
+            "گسسته",
+            "آمار و احتمال",
+            "دروس فرعی"
+          ],
+          "targetMinutes": 2050,
+          "days": [
+            {
+              "date": "2027-02-08",
+              "weekday": "دوشنبه",
+              "focus": "Digital Logic",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-02-09",
+              "weekday": "سه‌شنبه",
+              "focus": "Architecture + Discrete",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-02-10",
+              "weekday": "چهارشنبه",
+              "focus": "AI + Math",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-02-11",
+              "weekday": "پنج‌شنبه",
+              "focus": "Digital tests",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-02-12",
+              "weekday": "جمعه",
+              "focus": "Architecture tests + Algo",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-02-13",
+              "weekday": "شنبه",
+              "focus": "AI review",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-02-14",
+              "weekday": "یکشنبه",
+              "focus": "Digital/Architecture review",
+              "englishMinutes": 20
+            }
+          ]
+        },
+        {
+          "id": "2027-W60",
+          "startDate": "2027-02-15",
+          "endDate": "2027-02-21",
+          "title": "سیگنال و ریاضی مهندسی",
+          "goal": "تکمیل Signals + مرور ریاضی مهندسی مرتبط.",
+          "prioritySubjects": [
+            "ساختمان داده",
+            "الگوریتم",
+            "هوش مصنوعی",
+            "ریاضی",
+            "گسسته",
+            "آمار و احتمال",
+            "دروس فرعی"
+          ],
+          "targetMinutes": 2050,
+          "days": [
+            {
+              "date": "2027-02-15",
+              "weekday": "دوشنبه",
+              "focus": "Signals",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-02-16",
+              "weekday": "سه‌شنبه",
+              "focus": "Math + Algo",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-02-17",
+              "weekday": "چهارشنبه",
+              "focus": "AI + Math",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-02-18",
+              "weekday": "پنج‌شنبه",
+              "focus": "Signals tests",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-02-19",
+              "weekday": "جمعه",
+              "focus": "Math tests + Core",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-02-20",
+              "weekday": "شنبه",
+              "focus": "AI review",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-02-21",
+              "weekday": "یکشنبه",
+              "focus": "Signals/Math review",
+              "englishMinutes": 20
+            }
+          ]
+        },
+        {
+          "id": "2027-W61",
+          "startDate": "2027-02-22",
+          "endDate": "2027-02-28",
+          "title": "دور دوم سه درس اصلی",
+          "goal": "ساختمان داده، الگوریتم، هوش مصنوعی از ابتدا با تست ترکیبی و دفترچه خطا.",
+          "prioritySubjects": [
+            "ساختمان داده",
+            "الگوریتم",
+            "هوش مصنوعی",
+            "ریاضی",
+            "گسسته",
+            "آمار و احتمال",
+            "دروس فرعی"
+          ],
+          "targetMinutes": 2050,
+          "days": [
+            {
+              "date": "2027-02-22",
+              "weekday": "دوشنبه",
+              "focus": "DS review",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-02-23",
+              "weekday": "سه‌شنبه",
+              "focus": "Algo test",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-02-24",
+              "weekday": "چهارشنبه",
+              "focus": "AI test",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-02-25",
+              "weekday": "پنج‌شنبه",
+              "focus": "Mixed core + Math",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-02-26",
+              "weekday": "جمعه",
+              "focus": "Mixed core + secondary",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-02-27",
+              "weekday": "شنبه",
+              "focus": "AI review",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-02-28",
+              "weekday": "یکشنبه",
+              "focus": "Core weekly test",
+              "englishMinutes": 20
+            }
+          ]
+        },
+        {
+          "id": "2027-W62",
+          "startDate": "2027-03-01",
+          "endDate": "2027-03-07",
+          "title": "کنترل فاز ۳",
+          "goal": "آزمون نیمه‌جامع + تحلیل درصد/زمان/خطا و استخراج اولویت فاز ۴.",
+          "prioritySubjects": [
+            "ساختمان داده",
+            "الگوریتم",
+            "هوش مصنوعی",
+            "ریاضی",
+            "گسسته",
+            "آمار و احتمال",
+            "دروس فرعی"
+          ],
+          "targetMinutes": 2050,
+          "days": [
+            {
+              "date": "2027-03-01",
+              "weekday": "دوشنبه",
+              "focus": "DS test",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-03-02",
+              "weekday": "سه‌شنبه",
+              "focus": "Algo test + Theory",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-03-03",
+              "weekday": "چهارشنبه",
+              "focus": "AI test + Math/OS",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-03-04",
+              "weekday": "پنج‌شنبه",
+              "focus": "Half-mock + analysis",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-03-05",
+              "weekday": "جمعه",
+              "focus": "Secondary gap repair",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-03-06",
+              "weekday": "شنبه",
+              "focus": "AI error review",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-03-07",
+              "weekday": "یکشنبه",
+              "focus": "Gap list + planning",
+              "englishMinutes": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-4",
+      "name": "فاز ۴ — تسلط تستی و آزمون‌های جامع",
+      "startDate": "2027-03-08",
+      "endDate": "2027-04-25",
+      "goal": "تبدیل دانش به عملکرد آزمونی: تست زمان‌دار، آزمون ترکیبی، آزمون جامع و تحلیل خطا.",
+      "logic": "آزمون و تحلیل از مطالعه جدید مهم‌تر است؛ مبحث جدید فقط در صورت ضرورت و شکاف واقعی وارد می‌شود.",
+      "weeks": [
+        {
+          "id": "2027-W63",
+          "startDate": "2027-03-08",
+          "endDate": "2027-03-14",
+          "title": "ورود به تست ترکیبی",
+          "goal": "سه درس اصلی + ریاضی/گسسته/احتمال در چرخه تست زمان‌دار.",
+          "prioritySubjects": [
+            "ساختمان داده",
+            "الگوریتم",
+            "هوش مصنوعی",
+            "ریاضی",
+            "گسسته",
+            "آمار و احتمال"
+          ],
+          "targetMinutes": 2150,
+          "days": [
+            {
+              "date": "2027-03-08",
+              "weekday": "دوشنبه",
+              "focus": "DS mixed test",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-03-09",
+              "weekday": "سه‌شنبه",
+              "focus": "Algo mixed test + Discrete",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-03-10",
+              "weekday": "چهارشنبه",
+              "focus": "AI mixed test + Math/OS",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-03-11",
+              "weekday": "پنج‌شنبه",
+              "focus": "Probability + secondary tests",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-03-12",
+              "weekday": "جمعه",
+              "focus": "Full core block + analysis",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-03-13",
+              "weekday": "شنبه",
+              "focus": "AI error review",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-03-14",
+              "weekday": "یکشنبه",
+              "focus": "DS/Algo review",
+              "englishMinutes": 20
+            }
+          ]
+        },
+        {
+          "id": "2027-W64",
+          "startDate": "2027-03-15",
+          "endDate": "2027-03-21",
+          "title": "تست‌های موضوعی زمان‌دار",
+          "goal": "سرعت، دقت، کنترل زمان و کاهش خطای بی‌دقتی.",
+          "prioritySubjects": [
+            "ساختمان داده",
+            "الگوریتم",
+            "هوش مصنوعی",
+            "ریاضی",
+            "گسسته",
+            "آمار و احتمال"
+          ],
+          "targetMinutes": 2150,
+          "days": [
+            {
+              "date": "2027-03-15",
+              "weekday": "دوشنبه",
+              "focus": "Timed DS",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-03-16",
+              "weekday": "سه‌شنبه",
+              "focus": "Timed Algo + Theory",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-03-17",
+              "weekday": "چهارشنبه",
+              "focus": "Timed AI + Math",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-03-18",
+              "weekday": "پنج‌شنبه",
+              "focus": "Timed Math/Discrete",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-03-19",
+              "weekday": "جمعه",
+              "focus": "Timed secondary + core",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-03-20",
+              "weekday": "شنبه",
+              "focus": "AI review",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-03-21",
+              "weekday": "یکشنبه",
+              "focus": "Weekly timing analysis",
+              "englishMinutes": 20
+            }
+          ]
+        },
+        {
+          "id": "2027-W65",
+          "startDate": "2027-03-22",
+          "endDate": "2027-03-28",
+          "title": "ضعف‌یابی هدفمند",
+          "goal": "دو محور ضعیف واقعی در کنار حفظ سه درس اصلی.",
+          "prioritySubjects": [
+            "ساختمان داده",
+            "الگوریتم",
+            "هوش مصنوعی",
+            "ریاضی",
+            "گسسته",
+            "آمار و احتمال"
+          ],
+          "targetMinutes": 2150,
+          "days": [
+            {
+              "date": "2027-03-22",
+              "weekday": "دوشنبه",
+              "focus": "Weak topic 1",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-03-23",
+              "weekday": "سه‌شنبه",
+              "focus": "Weak topic 2 + Discrete",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-03-24",
+              "weekday": "چهارشنبه",
+              "focus": "AI + Math",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-03-25",
+              "weekday": "پنج‌شنبه",
+              "focus": "Weak topic test + Probability",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-03-26",
+              "weekday": "جمعه",
+              "focus": "Core + weak topic",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-03-27",
+              "weekday": "شنبه",
+              "focus": "AI review",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-03-28",
+              "weekday": "یکشنبه",
+              "focus": "DS + error notebook",
+              "englishMinutes": 20
+            }
+          ]
+        },
+        {
+          "id": "2027-W66",
+          "startDate": "2027-03-29",
+          "endDate": "2027-04-04",
+          "title": "آزمون جامع ۱",
+          "goal": "دو آزمون شبیه‌ساز + تحلیل کامل + ترمیم.",
+          "prioritySubjects": [
+            "ساختمان داده",
+            "الگوریتم",
+            "هوش مصنوعی",
+            "ریاضی",
+            "گسسته",
+            "آمار و احتمال"
+          ],
+          "targetMinutes": 2150,
+          "days": [
+            {
+              "date": "2027-03-29",
+              "weekday": "دوشنبه",
+              "focus": "Full mock + analysis",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-03-30",
+              "weekday": "سه‌شنبه",
+              "focus": "Repair Algo/Math",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-03-31",
+              "weekday": "چهارشنبه",
+              "focus": "Repair DS/Discrete",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-04-01",
+              "weekday": "پنج‌شنبه",
+              "focus": "Secondary mixed",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-04-02",
+              "weekday": "جمعه",
+              "focus": "Second mock + analysis",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-04-03",
+              "weekday": "شنبه",
+              "focus": "AI error review",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-04-04",
+              "weekday": "یکشنبه",
+              "focus": "Weekly analysis",
+              "englishMinutes": 20
+            }
+          ]
+        },
+        {
+          "id": "2027-W67",
+          "startDate": "2027-04-05",
+          "endDate": "2027-04-11",
+          "title": "آزمون جامع ۲",
+          "goal": "دو آزمون شبیه‌ساز + مرور فاصله‌ای دفترچه خطا.",
+          "prioritySubjects": [
+            "ساختمان داده",
+            "الگوریتم",
+            "هوش مصنوعی",
+            "ریاضی",
+            "گسسته",
+            "آمار و احتمال"
+          ],
+          "targetMinutes": 2150,
+          "days": [
+            {
+              "date": "2027-04-05",
+              "weekday": "دوشنبه",
+              "focus": "Full mock + analysis",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-04-06",
+              "weekday": "سه‌شنبه",
+              "focus": "Repair weak areas",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-04-07",
+              "weekday": "چهارشنبه",
+              "focus": "Repair core errors",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-04-08",
+              "weekday": "پنج‌شنبه",
+              "focus": "Math/Probability mixed",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-04-09",
+              "weekday": "جمعه",
+              "focus": "Second timed mock + analysis",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-04-10",
+              "weekday": "شنبه",
+              "focus": "AI review",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-04-11",
+              "weekday": "یکشنبه",
+              "focus": "Error notebook",
+              "englishMinutes": 20
+            }
+          ]
+        },
+        {
+          "id": "2027-W68",
+          "startDate": "2027-04-12",
+          "endDate": "2027-04-18",
+          "title": "جمع‌کردن دروس فرعی",
+          "goal": "مرور نهایی Theory/OS/Networks/DB/Signals/Digital/Architecture.",
+          "prioritySubjects": [
+            "ساختمان داده",
+            "الگوریتم",
+            "هوش مصنوعی",
+            "ریاضی",
+            "گسسته",
+            "آمار و احتمال"
+          ],
+          "targetMinutes": 2150,
+          "days": [
+            {
+              "date": "2027-04-12",
+              "weekday": "دوشنبه",
+              "focus": "Theory/OS",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-04-13",
+              "weekday": "سه‌شنبه",
+              "focus": "Algo + OS",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-04-14",
+              "weekday": "چهارشنبه",
+              "focus": "AI + Math + Digital",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-04-15",
+              "weekday": "پنج‌شنبه",
+              "focus": "Networks/DB/Signals",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-04-16",
+              "weekday": "جمعه",
+              "focus": "Digital/Architecture + core",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-04-17",
+              "weekday": "شنبه",
+              "focus": "AI review",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-04-18",
+              "weekday": "یکشنبه",
+              "focus": "Secondary summary",
+              "englishMinutes": 20
+            }
+          ]
+        },
+        {
+          "id": "2027-W69",
+          "startDate": "2027-04-19",
+          "endDate": "2027-04-25",
+          "title": "آزمون جامع ۳",
+          "goal": "آزمون نزدیک به شرایط جلسه + تحلیل نهایی.",
+          "prioritySubjects": [
+            "ساختمان داده",
+            "الگوریتم",
+            "هوش مصنوعی",
+            "ریاضی",
+            "گسسته",
+            "آمار و احتمال"
+          ],
+          "targetMinutes": 2150,
+          "days": [
+            {
+              "date": "2027-04-19",
+              "weekday": "دوشنبه",
+              "focus": "Full mock + analysis",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-04-20",
+              "weekday": "سه‌شنبه",
+              "focus": "Final repair Algo/Math",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-04-21",
+              "weekday": "چهارشنبه",
+              "focus": "Final repair DS/AI",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-04-22",
+              "weekday": "پنج‌شنبه",
+              "focus": "Probability + secondary quick tests",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-04-23",
+              "weekday": "جمعه",
+              "focus": "Final mock + analysis",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-04-24",
+              "weekday": "شنبه",
+              "focus": "AI error review",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-04-25",
+              "weekday": "یکشنبه",
+              "focus": "Final error notebook",
+              "englishMinutes": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-5",
+      "name": "فاز ۵ — جمع‌بندی نهایی و کاهش فشار",
+      "startDate": "2027-04-26",
+      "endDate": "2027-05-05",
+      "goal": "تثبیت دفترچه خطا، فرمول‌ها و نکات پرتکرار تا اواسط اردیبهشت ۱۴۰۶؛ بدون شروع مبحث جدید.",
+      "logic": "حجم مطالعه کم می‌شود و خواب، آرامش و آمادگی روز آزمون بخشی از برنامه است.",
+      "weeks": [
+        {
+          "id": "2027-W70",
+          "startDate": "2027-04-26",
+          "endDate": "2027-05-02",
+          "title": "هفته نهایی تثبیت و کاهش فشار",
+          "goal": "مرور سه درس اصلی، ریاضی/گسسته/احتمال و دروس فرعی با تست‌های کوتاه؛ توقف مطالعه سنگین.",
+          "targetMinutes": 1500,
+          "days": [
+            {
+              "date": "2027-04-26",
+              "weekday": "دوشنبه",
+              "focus": "ساختمان داده: مرور نهایی + تست کوتاه",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-04-27",
+              "weekday": "سه‌شنبه",
+              "focus": "الگوریتم: DP/Graph/Greedy + گسسته",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-04-28",
+              "weekday": "چهارشنبه",
+              "focus": "هوش مصنوعی: Search/Logic/Probability + ریاضی ۱",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-04-29",
+              "weekday": "پنج‌شنبه",
+              "focus": "آزمون سبک + تحلیل فقط خطاهای پرتکرار",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-04-30",
+              "weekday": "جمعه",
+              "focus": "آمار و احتمال + نظریه + سیستم‌عامل: مرور نهایی",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-05-01",
+              "weekday": "شنبه",
+              "focus": "شبکه + DB + مدار منطقی + معماری: مرور نهایی",
+              "englishMinutes": 20
+            },
+            {
+              "date": "2027-05-02",
+              "weekday": "یکشنبه",
+              "focus": "سه درس اصلی + ریاضی و گسسته: مرور فوق‌فشرده دفترچه خطا",
+              "englishMinutes": 20
+            }
+          ]
+        }
+      ],
+      "finalDays": [
+        {
+          "date": "2027-05-03",
+          "weekday": "دوشنبه",
+          "focus": "مرور بسیار سبک DS/Algo/AI؛ بدون تست سنگین",
+          "englishMinutes": 20
+        },
+        {
+          "date": "2027-05-04",
+          "weekday": "سه‌شنبه",
+          "focus": "مرور بسیار سبک ریاضی ۱، گسسته، آمار و احتمال؛ آماده‌سازی وسایل",
+          "englishMinutes": 20
+        },
+        {
+          "date": "2027-05-05",
+          "weekday": "چهارشنبه",
+          "focus": "فقط دفترچه خطا و نکات علامت‌گذاری‌شده؛ توقف مطالعه سنگین و آمادگی روز آزمون",
+          "englishMinutes": 20
+        }
+      ]
+    }
+  ],
+  "notes": {
+    "phase1Preserved": "W40 تا W47 همان نقشه اصلی قبلی است و فقط در قالب phased master plan قرار گرفته.",
+    "dateNote": "تاریخ دقیق آزمون در فایل قفل نشده و پنجره هدف «اواسط اردیبهشت ۱۴۰۶» است.",
+    "important": "این فایل master roadmap است؛ برنامه روزانه عملیاتی هر هفته می‌تواند بر اساس عملکرد واقعی از همین نقشه مشتق و اصلاح شود."
+  }
+}

@@ -1,0 +1,330 @@
+{
+  "schemaVersion": 5,
+  "app": {
+    "name": "Study Timer",
+    "dataFormat": "study-timer-json",
+    "createdAt": "2026-10-05T10:42:48.780Z",
+    "updatedAt": "2026-10-05T12:16:34.738Z",
+    "timeZone": "Asia/Tehran"
+  },
+  "settings": {
+    "language": "en",
+    "theme": "dark",
+    "clockFormat": "24h",
+    "soundEnabled": true,
+    "reducedMotion": false,
+    "autoStartNextSession": false,
+    "defaultSessionMinutes": 50,
+    "lastSelectedMinutes": 1,
+    "lastSelectedSubject": "ساختمان داده",
+    "lastSelectedPractice": false,
+    "lastSelectedKind": "study"
+  },
+  "studyPlan": {
+    "startDate": null,
+    "examDate": null,
+    "totalWeeks": 0,
+    "dailyGoalMinutes": 240,
+    "weeklyPlanSource": "weekly-plans.json"
+  },
+  "subjects": [
+    {
+      "name": "ساختمان داده"
+    },
+    {
+      "name": "طراحی الگوریتم"
+    },
+    {
+      "name": "هوش مصنوعی"
+    },
+    {
+      "name": "زبان تخصصی"
+    },
+    {
+      "name": "ریاضی فنی ۱"
+    },
+    {
+      "name": "ریاضی فنی ۲"
+    },
+    {
+      "name": "آمار و احتمال مهندسی"
+    },
+    {
+      "name": "نظریه زبان‌ها و ماشین‌ها"
+    },
+    {
+      "name": "شبکه‌های کامپیوتری"
+    },
+    {
+      "name": "سیستم‌عامل"
+    },
+    {
+      "name": "پایگاه داده"
+    },
+    {
+      "name": "سیگنال‌ها و سیستم‌ها"
+    },
+    {
+      "name": "مدار منطقی"
+    },
+    {
+      "name": "معماری کامپیوتر"
+    },
+    {
+      "name": "مدار دیجیتال"
+    },
+    {
+      "name": "آزمون جامع"
+    },
+    {
+      "name": "تحلیل آزمون"
+    },
+    {
+      "name": "دروس سرمایه‌ای"
+    },
+    {
+      "name": "دروس فرعی"
+    },
+    {
+      "name": "سه درس اصلی"
+    },
+    {
+      "name": "ضعف‌یابی"
+    },
+    {
+      "name": "ترمیم"
+    },
+    {
+      "name": "آمادگی"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "2eeab865-8ae4-407b-8ee4-4c459ae3e075",
+      "type": "review",
+      "status": "completed",
+      "subject": null,
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 60
+      },
+      "actual": {
+        "startedAt": "2026-10-05T10:44:25.308Z",
+        "endedAt": "2026-10-05T10:45:25.308Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 60,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-05T10:44:25.308Z",
+      "updatedAt": "2026-10-05T10:45:28.259Z"
+    },
+    {
+      "id": "c619fc2c-373c-40bf-9ad5-9a63099b813e",
+      "type": "analysis",
+      "status": "completed",
+      "subject": null,
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 60
+      },
+      "actual": {
+        "startedAt": "2026-10-05T10:49:11.090Z",
+        "endedAt": "2026-10-05T10:50:11.090Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 60,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": {
+        "testCount": null,
+        "correctPercent": null,
+        "analyzedErrorCount": null,
+        "recordedAt": "2026-10-05T10:50:12.679Z"
+      },
+      "createdAt": "2026-10-05T10:49:11.090Z",
+      "updatedAt": "2026-10-05T10:50:12.679Z"
+    },
+    {
+      "id": "8105b4c8-c65d-4259-8e21-6c4ecdeb5078",
+      "type": "test",
+      "status": "completed",
+      "subject": null,
+      "isPractice": true,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 60
+      },
+      "actual": {
+        "startedAt": "2026-10-05T10:50:19.788Z",
+        "endedAt": "2026-10-05T10:51:19.788Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 60,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-05T10:50:19.788Z",
+      "updatedAt": "2026-10-05T10:51:21.804Z"
+    },
+    {
+      "id": "c0167d53-cac8-4e36-8b3d-7c29668c4ada",
+      "type": "test",
+      "status": "abandoned",
+      "subject": "ریاضی فنی ۱",
+      "isPractice": true,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 60
+      },
+      "actual": {
+        "startedAt": "2026-10-05T10:51:33.439Z",
+        "endedAt": "2026-10-05T10:51:43.765Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 10,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-05T10:51:33.439Z",
+      "updatedAt": "2026-10-05T10:51:45.625Z"
+    },
+    {
+      "id": "59e7bba1-79f9-42ff-a345-5bf82dc56c01",
+      "type": "practice",
+      "status": "abandoned",
+      "subject": "ریاضی فنی ۱",
+      "isPractice": true,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 60
+      },
+      "actual": {
+        "startedAt": "2026-10-05T10:51:50.102Z",
+        "endedAt": "2026-10-05T10:52:00.063Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 10,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-05T10:51:50.102Z",
+      "updatedAt": "2026-10-05T10:52:01.948Z"
+    },
+    {
+      "id": "37392a59-ada4-4021-b4a5-fecdde2ffc30",
+      "type": "study",
+      "status": "abandoned",
+      "subject": "ریاضی فنی ۲",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 60
+      },
+      "actual": {
+        "startedAt": "2026-10-05T10:52:37.313Z",
+        "endedAt": "2026-10-05T10:52:51.502Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [
+        {
+          "startedAt": "2026-10-05T10:52:49.472Z",
+          "endedAt": "2026-10-05T10:52:51.502Z",
+          "durationSeconds": 2
+        }
+      ],
+      "derived": {
+        "activeDurationSeconds": 12,
+        "totalPausedSeconds": 2,
+        "pauseCount": 1
+      },
+      "analysis": null,
+      "createdAt": "2026-10-05T10:52:37.313Z",
+      "updatedAt": "2026-10-05T10:52:52.829Z"
+    },
+    {
+      "id": "6ace3c88-208d-4489-87bd-b248f4bda50a",
+      "type": "study",
+      "status": "completed",
+      "subject": "ساختمان داده",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 60
+      },
+      "actual": {
+        "startedAt": "2026-10-05T11:03:54.649Z",
+        "endedAt": "2026-10-05T11:04:54.649Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 60,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-05T11:03:54.649Z",
+      "updatedAt": "2026-10-05T11:09:00.743Z"
+    }
+  ],
+  "derived": {
+    "note": "Rebuildable from `sessions`. Safe to ignore or delete; regenerated on every save.",
+    "generatedAt": "2026-10-05T12:16:34.738Z",
+    "dailySummaries": {
+      "2026-10-05": {
+        "studySeconds": 272,
+        "sessionCount": 7,
+        "completedSessionCount": 4
+      }
+    },
+    "subjectSummaries": [
+      {
+        "subject": "ساختمان داده",
+        "kind": "study",
+        "isPractice": false,
+        "studySeconds": 60,
+        "sessionCount": 1
+      },
+      {
+        "subject": "ریاضی فنی ۲",
+        "kind": "study",
+        "isPractice": false,
+        "studySeconds": 12,
+        "sessionCount": 1
+      },
+      {
+        "subject": "ریاضی فنی ۱",
+        "kind": "test",
+        "isPractice": true,
+        "studySeconds": 10,
+        "sessionCount": 1
+      },
+      {
+        "subject": "ریاضی فنی ۱",
+        "kind": "practice",
+        "isPractice": true,
+        "studySeconds": 10,
+        "sessionCount": 1
+      }
+    ]
+  }
+}

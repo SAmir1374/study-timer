@@ -1,0 +1,627 @@
+/* ============================================================
+   timer.css — timer card, ring, controls, session kind, subject, duration, window
+   ============================================================ */
+
+/* ---------- Card ---------- */
+
+.timer-card {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  min-height: 590px;
+  padding: 38px 28px 32px;
+
+  background: radial-gradient(circle at 50% 35%, var(--accent-softer), transparent 36%), var(--bg-1);
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+
+  box-shadow: var(--shadow-md);
+}
+
+/* ---------- Ring ---------- */
+
+.timer-ring {
+  position: relative;
+
+  width: min(360px, 72vw);
+  aspect-ratio: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 5px auto 25px;
+}
+
+.timer-ring::before {
+  content: "";
+
+  position: absolute;
+  inset: 7%;
+
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent-softer), transparent 68%);
+
+  filter: blur(12px);
+}
+
+.timer-ring__inner {
+  position: relative;
+  z-index: 1;
+
+  width: 82%;
+  height: 82%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: radial-gradient(circle at 50% 35%, var(--bg-3), var(--bg-1) 70%);
+  border: 1px solid var(--border-light);
+
+  box-shadow:
+    inset 0 0 50px rgba(0, 0, 0, 0.22),
+    0 18px 45px rgba(0, 0, 0, 0.22);
+}
+
+/* Ring SVG (if present) */
+
+.timer-ring svg {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: visible;
+}
+
+.timer-ring circle {
+  fill: none;
+  stroke-linecap: round;
+}
+
+.timer-ring .ring-track {
+  stroke: var(--bg-3);
+}
+
+.timer-ring .ring-progress {
+  stroke: var(--accent);
+}
+
+.ring__status {
+  margin-bottom: 8px;
+
+  color: var(--text-2);
+
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.time-display {
+  color: var(--text-0);
+
+  font-family: var(--font-mono);
+  font-size: clamp(44px, 7vw, 70px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  font-variant-numeric: tabular-nums;
+}
+
+.ring__caption {
+  margin-top: 13px;
+
+  color: var(--text-3);
+
+  font-size: 12px;
+}
+
+.ring__subject {
+  max-width: 220px;
+  margin-top: 14px;
+  padding: 8px 16px;
+
+  color: var(--info-text);
+  background: var(--info-soft);
+
+  border: 1px solid color-mix(in srgb, var(--info) 30%, transparent);
+  border-radius: 999px;
+
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ring__subject[hidden] {
+  display: none;
+}
+
+/* ---------- Elapsed / remaining ---------- */
+
+.timer-info {
+  width: min(600px, 100%);
+
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  align-items: center;
+
+  margin-bottom: 23px;
+  padding: 14px 0;
+
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.timer-info__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  min-width: 0;
+}
+
+.timer-info__label {
+  margin-bottom: 3px;
+
+  color: var(--text-3);
+
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.timer-info__value {
+  color: var(--text-1);
+
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.timer-info__divider {
+  width: 1px;
+  height: 24px;
+
+  background: var(--border);
+}
+
+/* ---------- Session progress ---------- */
+
+.session-progress {
+  width: min(600px, 100%);
+  margin-bottom: 22px;
+}
+
+.session-progress__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 8px;
+}
+
+.session-progress__header span {
+  color: var(--text-3);
+  font-size: 11px;
+}
+
+/* ---------- Controls ---------- */
+
+.timer-controls,
+.secondary-controls {
+  width: min(600px, 100%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timer-controls {
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.secondary-controls {
+  gap: 8px;
+}
+
+/* ---------- Session kind (study / practice / review) ---------- */
+
+.kind-section {
+  width: 100%;
+  margin-top: 28px;
+}
+
+.kind-grid {
+  display: inline-flex;
+  gap: 3px;
+  padding: 3px;
+
+  background: var(--overlay-1);
+  border: 1px solid var(--border-light);
+  border-radius: 999px;
+}
+
+.kind-btn {
+  min-height: 36px;
+  padding: 0 18px;
+
+  color: var(--text-2);
+  background: transparent;
+
+  border-radius: 999px;
+
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  transition:
+    background var(--transition),
+    color var(--transition);
+}
+
+.kind-btn:hover {
+  color: var(--text-0);
+}
+
+.kind-btn.is-active {
+  color: #fff;
+  background: linear-gradient(135deg, var(--info), var(--info-strong));
+}
+
+.kind-btn[data-kind="practice"].is-active {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.kind-btn[data-kind="review"].is-active {
+  background: linear-gradient(135deg, #a855f7, #7e22ce);
+}
+
+/* ---------- Subject picker ---------- */
+
+.subject-section {
+  width: 100%;
+
+  margin-top: 32px;
+  padding: 24px;
+
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+
+  box-shadow: var(--shadow-sm);
+}
+
+.subject-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.subject-chip {
+  position: relative;
+
+  min-height: 42px;
+  padding: 10px 16px;
+
+  color: var(--text-1);
+  background: var(--overlay-1);
+
+  border: 1px solid var(--border-light);
+  border-radius: 999px;
+
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  transition:
+    transform var(--transition),
+    background var(--transition),
+    border-color var(--transition),
+    box-shadow var(--transition);
+}
+
+.subject-chip:hover {
+  transform: translateY(-2px);
+  background: var(--info-soft);
+  border-color: color-mix(in srgb, var(--info) 45%, transparent);
+}
+
+.subject-chip.is-active {
+  color: #fff;
+  background: linear-gradient(135deg, var(--info), var(--info-strong));
+  border-color: transparent;
+  box-shadow: 0 8px 25px color-mix(in srgb, var(--info-strong) 35%, transparent);
+}
+
+/* ---------- Duration ---------- */
+
+.duration-section,
+.study-window {
+  width: 100%;
+
+  margin-top: 20px;
+  padding-top: 24px;
+
+  border-top: 1px solid var(--border);
+}
+
+.preset-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.preset-btn {
+  min-height: 42px;
+
+  color: var(--text-2);
+  background: var(--bg-2);
+
+  border: 1px solid var(--border);
+  border-radius: 9px;
+
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+
+  transition:
+    color var(--transition-fast),
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.preset-btn:hover {
+  color: var(--text-0);
+  background: var(--bg-3);
+  border-color: var(--border-light);
+}
+
+.preset-btn.is-active {
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+.preset-btn:active {
+  transform: scale(0.98);
+}
+
+/* Custom duration */
+
+.custom-duration {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  margin-top: 16px;
+  padding: 14px 16px;
+
+  background: var(--overlay-1);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+
+  animation: fade-in 0.2s ease;
+}
+
+.custom-duration[hidden] {
+  display: none;
+}
+
+.custom-duration span {
+  color: var(--text-2);
+
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+#customMinutes {
+  width: 100px;
+  height: 42px;
+  padding: 0 14px;
+
+  color: var(--text-0);
+  background: var(--overlay-2);
+
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+
+  appearance: textfield;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+#customMinutes:hover {
+  background: var(--overlay-3);
+}
+
+#customMinutes:focus {
+  background: var(--info-soft);
+  border-color: var(--info);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--info) 15%, transparent);
+}
+
+#customMinutes::-webkit-inner-spin-button,
+#customMinutes::-webkit-outer-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+/* ---------- Study window ---------- */
+
+.window-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 1100px) {
+  .timer-card {
+    padding: 30px 22px;
+  }
+
+  .timer-ring {
+    width: min(320px, 60vw);
+  }
+
+  .preset-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 800px) {
+  .timer-card {
+    min-height: auto;
+    padding: 25px 15px 22px;
+    border-radius: 18px;
+  }
+
+  .timer-ring {
+    width: min(310px, 82vw);
+    margin-top: 0;
+  }
+
+  .time-display {
+    font-size: clamp(42px, 14vw, 64px);
+  }
+
+  .timer-info,
+  .timer-controls,
+  .secondary-controls {
+    width: 100%;
+  }
+
+  .duration-section,
+  .study-window {
+    margin-top: 17px;
+  }
+}
+
+@media (max-width: 640px) {
+  .subject-section {
+    padding: 18px;
+    border-radius: 16px;
+  }
+
+  .subject-grid {
+    gap: 8px;
+  }
+
+  .subject-chip {
+    width: 100%;
+  }
+
+  .custom-duration {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #customMinutes {
+    width: 100%;
+  }
+}
+
+@media (max-width: 520px) {
+  .timer-card {
+    padding: 20px 12px;
+  }
+
+  .timer-ring {
+    width: min(280px, 86vw);
+    margin-bottom: 18px;
+  }
+
+  .ring__status {
+    font-size: 9px;
+  }
+
+  .ring__caption {
+    font-size: 10px;
+  }
+
+  .timer-info {
+    padding: 11px 0;
+  }
+
+  .timer-info__label {
+    font-size: 8px;
+  }
+
+  .timer-info__value {
+    font-size: 11px;
+  }
+
+  .timer-info__divider {
+    height: 20px;
+  }
+
+  .timer-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .timer-controls .primary-btn,
+  .timer-controls .secondary-btn {
+    width: 100%;
+  }
+
+  .timer-controls .primary-btn {
+    grid-column: 1 / -1;
+  }
+
+  .secondary-controls {
+    gap: 4px;
+  }
+
+  .secondary-controls .text-btn {
+    padding: 0 6px;
+    font-size: 10px;
+  }
+
+  .preset-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .window-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 370px) {
+  .timer-ring {
+    width: 250px;
+  }
+
+  .time-display {
+    font-size: 38px;
+  }
+
+  .preset-btn {
+    min-height: 38px;
+    font-size: 10px;
+  }
+}

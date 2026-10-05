@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 5,
+  "app": {
+    "name": "Study Timer",
+    "dataFormat": "study-timer-json",
+    "createdAt": "2026-10-05T10:17:29.604Z",
+    "updatedAt": "2026-10-05T10:18:02.969Z",
+    "timeZone": "Asia/Tehran"
+  },
+  "settings": {
+    "language": "en",
+    "theme": "dark",
+    "clockFormat": "24h",
+    "soundEnabled": true,
+    "reducedMotion": false,
+    "autoStartNextSession": false,
+    "defaultSessionMinutes": 50,
+    "lastSelectedMinutes": 50,
+    "lastSelectedSubject": null,
+    "lastSelectedPractice": false,
+    "lastSelectedKind": "study"
+  },
+  "studyPlan": {
+    "startDate": null,
+    "examDate": null,
+    "totalWeeks": 0,
+    "dailyGoalMinutes": 240,
+    "weeklyPlanSource": null
+  },
+  "subjects": [
+    {
+      "name": "ساختمان داده"
+    },
+    {
+      "name": "طراحی الگوریتم"
+    },
+    {
+      "name": "هوش مصنوعی"
+    },
+    {
+      "name": "زبان تخصصی"
+    },
+    {
+      "name": "ریاضی فنی ۱"
+    },
+    {
+      "name": "ریاضی فنی ۲"
+    },
+    {
+      "name": "آمار و احتمال مهندسی"
+    },
+    {
+      "name": "نظریه زبان‌ها و ماشین‌ها"
+    },
+    {
+      "name": "شبکه‌های کامپیوتری"
+    },
+    {
+      "name": "سیستم‌عامل"
+    },
+    {
+      "name": "پایگاه داده"
+    },
+    {
+      "name": "سیگنال‌ها و سیستم‌ها"
+    },
+    {
+      "name": "مدار منطقی"
+    },
+    {
+      "name": "معماری کامپیوتر"
+    },
+    {
+      "name": "مدار دیجیتال"
+    },
+    {
+      "name": "آزمون جامع"
+    },
+    {
+      "name": "تحلیل آزمون"
+    },
+    {
+      "name": "دروس سرمایه‌ای"
+    },
+    {
+      "name": "دروس فرعی"
+    },
+    {
+      "name": "سه درس اصلی"
+    },
+    {
+      "name": "ضعف‌یابی"
+    },
+    {
+      "name": "ترمیم"
+    },
+    {
+      "name": "آمادگی"
+    }
+  ],
+  "sessions": [],
+  "derived": {
+    "note": "Rebuildable from `sessions`. Safe to ignore or delete; regenerated on every save.",
+    "generatedAt": "2026-10-05T10:18:02.969Z",
+    "dailySummaries": {},
+    "subjectSummaries": []
+  }
+}

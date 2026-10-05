@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>تحلیل مطالعه — Study Timer</title>
+    <link rel="stylesheet" href="./style/style.css" />
+  </head>
+
+  <body data-theme="dark" data-lang="fa">
+    <header class="app-header">
+      <div class="header-left">
+        <div class="brand">
+          <span class="brand__dot"></span>
+          <span class="brand__label">تحلیل مطالعه</span>
+        </div>
+        <a class="analytics-back-link" href="./index.html">← بازگشت به تایمر</a>
+      </div>
+      <div class="header-right">
+        <div class="lang-switch" role="group">
+          <button type="button" id="aLangFaBtn" class="lang-btn is-active" data-lang="fa">FA</button>
+          <button type="button" id="aLangEnBtn" class="lang-btn" data-lang="en">EN</button>
+        </div>
+        <button type="button" class="icon-btn" id="aThemeToggle" title="تغییر تم">◐</button>
+      </div>
+    </header>
+
+    <main class="analytics-main">
+      <!-- ===== CONNECT ===== -->
+      <section class="analytics-connect" id="connectSection">
+        <div class="analytics-connect__card">
+          <h2>فایل داده‌های مطالعه را متصل کنید</h2>
+          <p>
+            همان فایل study-data.json که در تایمر استفاده می‌کنید را باز کنید تا آمار اینجا نمایش داده شود.
+          </p>
+          <div class="data-actions">
+            <button type="button" class="primary-btn" id="openFileBtn">باز کردن فایل داده</button>
+            <label class="secondary-btn file-input-btn" for="importFileInput">
+              ورود JSON
+              <input type="file" id="importFileInput" accept=".json,application/json" hidden />
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== CONTENT ===== -->
+      <section class="analytics-content" id="contentSection" hidden>
+        <!-- Toolbar -->
+        <div class="analytics-toolbar">
+          <span class="analytics-toolbar__file" id="fileNameLabel"></span>
+          <div class="analytics-toolbar__actions">
+            <button type="button" class="secondary-btn" id="refreshBtn" hidden>به‌روزرسانی</button>
+            <button type="button" class="secondary-btn" id="changeFileBtn">تغییر فایل</button>
+          </div>
+        </div>
+
+        <!-- ===== 1. HERO ===== -->
+        <section class="analytics-hero" id="analyticsHero"></section>
+
+        <!-- ===== 2. KPI GRID ===== -->
+        <section class="analytics-kpis" id="kpiGrid"></section>
+
+        <!-- ===== 3. HEATMAP ===== -->
+        <section class="analytics-section">
+          <div class="analytics-section__header">
+            <h3>🔥 نقشه‌ی فعالیت</h3>
+            <div class="heatmap-legend" id="heatmapLegend"></div>
+          </div>
+          <div class="analytics-section__body analytics-heatmap" id="activityHeatmap"></div>
+        </section>
+
+        <!-- ===== 4. TREND + INSIGHTS ===== -->
+        <div class="analytics-two-col analytics-two-col--wide">
+          <section class="analytics-section">
+            <div class="analytics-section__header">
+              <h3>📈 روند ۳۰ روز اخیر</h3>
+              <span class="analytics-section__hint">مقایسه با هدف روزانه</span>
+            </div>
+            <div class="analytics-section__body" id="dailyChart"></div>
+          </section>
+
+          <section class="analytics-section analytics-section--insights">
+            <div class="analytics-section__header">
+              <h3>💡 تحلیل‌های هوشمند</h3>
+            </div>
+            <ul class="insights-list" id="insightsList"></ul>
+            <div class="empty-state" id="insightsEmpty">هنوز داده‌ی کافی برای تحلیل وجود ندارد.</div>
+          </section>
+        </div>
+
+        <!-- ===== 5. WEEKLY TREND ===== -->
+        <section class="analytics-section">
+          <div class="analytics-section__header">
+            <h3>📊 روند ۱۲ هفته</h3>
+            <span class="analytics-section__hint" id="weeklyChartHint"></span>
+          </div>
+          <div class="analytics-section__body" id="weeklyChart"></div>
+        </section>
+
+        <!-- ===== 6. SUBJECTS ===== -->
+        <section class="analytics-section">
+          <div class="analytics-section__header">
+            <h3>📚 توزیع دروس</h3>
+            <span class="analytics-section__hint" id="subjectStatsHint"></span>
+          </div>
+          <div class="analytics-subjects">
+            <div class="analytics-subjects__list" id="subjectStats"></div>
+            <div class="analytics-subjects__donut">
+              <div id="subjectDonutChart"></div>
+              <div class="chart-legend" id="subjectDonutLegend"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== 7. TIME PATTERN ===== -->
+        <section class="analytics-section">
+          <div class="analytics-section__header">
+            <h3>⏰ الگوی زمانی مطالعه</h3>
+          </div>
+          <div class="analytics-time-grid">
+            <div class="analytics-time-grid__cell">
+              <h4 class="analytics-mini-title">بازه‌های روز</h4>
+              <div id="daypartChart"></div>
+            </div>
+            <div class="analytics-time-grid__cell">
+              <h4 class="analytics-mini-title">روزهای هفته</h4>
+              <div id="weekdayChart"></div>
+            </div>
+            <div class="analytics-time-grid__cell analytics-time-grid__cell--full">
+              <h4 class="analytics-mini-title">ساعت به ساعت</h4>
+              <div id="hourChart"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== 8. SESSION QUALITY ===== -->
+        <section class="analytics-section">
+          <div class="analytics-section__header">
+            <h3>🎯 کیفیت جلسات</h3>
+          </div>
+          <div class="analytics-quality-grid">
+            <div class="analytics-quality-grid__cell">
+              <h4 class="analytics-mini-title">طول جلسات</h4>
+              <div id="sessionLengthChart"></div>
+            </div>
+            <div class="analytics-quality-grid__cell">
+              <h4 class="analytics-mini-title">نتیجه‌ی جلسات</h4>
+              <div class="chart-card__body--donut">
+                <div id="donutChart"></div>
+                <div class="chart-legend" id="donutLegend"></div>
+              </div>
+            </div>
+            <div class="analytics-quality-grid__cell">
+              <h4 class="analytics-mini-title">مطالعه / استراحت / مکث</h4>
+              <div class="chart-card__body--donut">
+                <div id="pauseDonutChart"></div>
+                <div class="chart-legend" id="pauseDonutLegend"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== 9. EXAM ===== -->
+        <section class="analytics-section">
+          <div class="analytics-section__header">
+            <h3>🎓 شمارش معکوس کنکور</h3>
+          </div>
+          <div class="analytics-exam" id="analyticsExam"></div>
+        </section>
+
+        <!-- ===== 10. WEEKLY PLAN ADHERENCE ===== -->
+        <section class="analytics-section" id="weeklyPlanSection">
+          <div class="analytics-section__header">
+            <h3>📋 رعایت برنامه هفتگی</h3>
+            <div class="analytics-section__actions">
+              <span class="analytics-section__hint" id="weeklyPlanStatusLabel"></span>
+              <button type="button" class="secondary-btn" id="weeklyPlanConnectBtn">
+                باز کردن فایل برنامه
+              </button>
+            </div>
+          </div>
+          <div class="analytics-section__body">
+            <div class="empty-state" id="weeklyPlanEmptyState">
+              فایل weekly-plans.json را باز کنید تا میزان رعایت برنامه اینجا نمایش داده شود.
+            </div>
+            <div id="weeklyPlanContent" hidden>
+              <h4 class="analytics-mini-title">رعایت برنامه به تفکیک هفته</h4>
+              <div id="weeklyPlanAdherenceChart"></div>
+              <h4 class="analytics-mini-title" style="margin-top: 20px">
+                این هفته: برنامه‌ریزی‌شده در مقابل واقعی
+              </h4>
+              <div class="subject-compare-list" id="weeklyPlanCurrentWeekList"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== 11. MONTHLY ===== -->
+        <section class="analytics-section" id="monthlySection" hidden>
+          <div class="analytics-section__header">
+            <h3>📅 نمای ماهانه</h3>
+          </div>
+          <div class="analytics-section__body" id="monthlyChart"></div>
+        </section>
+
+        <!-- Empty state (no sessions yet) -->
+        <div class="empty-state analytics-empty" id="emptyState" hidden>
+          هنوز جلسه‌ی مطالعه‌ی تمام‌شده‌ای ثبت نشده — بعد از اولین جلسه دوباره سر بزنید.
+        </div>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" hidden><span id="toastText"></span></div>
+
+    <script type="module" src="./files/analyticsApp.js"></script>
+  </body>
+</html>

@@ -1,0 +1,302 @@
+/* ============================================================
+   components.css — buttons, fields, language switch, save status, toast
+   ============================================================ */
+
+/* ---------- Buttons ---------- */
+
+.primary-btn,
+.secondary-btn,
+.text-btn,
+.danger-btn {
+  min-height: 42px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: 0 18px;
+
+  border-radius: 10px;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  transition:
+    transform var(--transition-fast),
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.primary-btn:hover,
+.secondary-btn:hover,
+.danger-btn:hover {
+  transform: translateY(-1px);
+}
+
+.primary-btn:active,
+.secondary-btn:active,
+.danger-btn:active {
+  transform: translateY(0);
+}
+
+.primary-btn {
+  color: #fff;
+  background: var(--accent);
+  box-shadow: 0 8px 22px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+.primary-btn:hover {
+  background: var(--accent-hover);
+  box-shadow: 0 10px 28px color-mix(in srgb, var(--accent) 27%, transparent);
+}
+
+.secondary-btn {
+  color: var(--text-1);
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+}
+
+.secondary-btn:hover {
+  color: var(--text-0);
+  background: var(--bg-3);
+  border-color: var(--border-light);
+}
+
+.text-btn {
+  min-height: 32px;
+  padding: 0 9px;
+
+  color: var(--text-3);
+  background: transparent;
+
+  font-size: 12px;
+}
+
+.text-btn:hover {
+  color: var(--text-1);
+}
+
+.danger-btn {
+  color: var(--danger);
+  background: var(--danger-soft);
+  border: 1px solid transparent;
+}
+
+.danger-btn:hover {
+  border-color: color-mix(in srgb, var(--danger) 25%, transparent);
+}
+
+/* Icon button (header) */
+
+.icon-btn {
+  width: 36px;
+  height: 36px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--text-2);
+  background: transparent;
+
+  border: 1px solid transparent;
+  border-radius: 9px;
+
+  transition:
+    color var(--transition-fast),
+    background var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.icon-btn:hover {
+  color: var(--text-0);
+  background: var(--bg-2);
+  border-color: var(--border);
+}
+
+/* ---------- Language switch ---------- */
+
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 3px;
+
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+}
+
+.lang-btn {
+  min-width: 34px;
+  height: 29px;
+
+  padding: 0 9px;
+
+  color: var(--text-3);
+  background: transparent;
+
+  border-radius: 6px;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  transition:
+    color var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.lang-btn:hover {
+  color: var(--text-1);
+}
+
+.lang-btn.is-active {
+  color: var(--text-0);
+  background: var(--bg-3);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ---------- Form fields ---------- */
+
+.field {
+  min-width: 0;
+}
+
+.field__label {
+  display: block;
+  margin-bottom: 7px;
+
+  color: var(--text-3);
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  height: 40px;
+
+  padding: 0 11px;
+
+  color: var(--text-1);
+  background: var(--bg-2);
+
+  border: 1px solid var(--border);
+  border-radius: 9px;
+
+  transition:
+    border-color var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.field input:hover,
+.field select:hover {
+  border-color: var(--border-light);
+}
+
+.field input:focus,
+.field select:focus {
+  border-color: var(--accent);
+  background: var(--bg-3);
+}
+
+.field input::placeholder {
+  color: var(--text-3);
+}
+
+/* ---------- Save status (main file + weekly-plan file) ---------- */
+
+.save-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  color: var(--text-3);
+
+  font-size: 12px;
+  white-space: nowrap;
+
+  cursor: pointer;
+}
+
+.save-status__dot {
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: var(--text-3); /* disconnected / unsupported */
+}
+
+.save-status[data-status="saved"] .save-status__dot {
+  background: var(--success);
+}
+
+.save-status[data-status="saving"] .save-status__dot,
+.save-status[data-status="unsaved"] .save-status__dot {
+  background: var(--warning);
+}
+
+.save-status[data-status="error"] .save-status__dot,
+.save-status[data-status="permission"] .save-status__dot {
+  background: var(--danger);
+}
+
+/* ---------- Toast (JS toggles [hidden] and data-tone) ---------- */
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 25px;
+  z-index: 1000;
+
+  max-width: min(420px, calc(100vw - 30px));
+
+  padding: 11px 15px;
+
+  color: var(--text-0);
+  background: var(--bg-3);
+
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+
+  box-shadow: var(--shadow-md);
+
+  font-size: 12px;
+  font-weight: 600;
+
+  transform: translateX(-50%);
+  pointer-events: none;
+
+  animation: toast-in var(--transition) both;
+}
+
+.toast[hidden] {
+  display: none;
+}
+
+.toast[data-tone="success"] {
+  color: var(--success);
+  border-color: color-mix(in srgb, var(--success) 35%, transparent);
+}
+
+.toast[data-tone="error"] {
+  color: var(--danger);
+  border-color: color-mix(in srgb, var(--danger) 35%, transparent);
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
