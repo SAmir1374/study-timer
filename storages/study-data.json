@@ -4,7 +4,7 @@
     "name": "Study Timer",
     "dataFormat": "study-timer-json",
     "createdAt": "2026-09-26T03:00:01.956Z",
-    "updatedAt": "2026-10-09T10:19:51.430Z",
+    "updatedAt": "2026-10-09T10:35:02.246Z",
     "timeZone": "Asia/Tehran"
   },
   "settings": {
@@ -15,8 +15,8 @@
     "reducedMotion": false,
     "autoStartNextSession": false,
     "defaultSessionMinutes": 50,
-    "lastSelectedMinutes": 25,
-    "lastSelectedSubject": "سیستم‌عامل",
+    "lastSelectedMinutes": 90,
+    "lastSelectedSubject": "ریاضی فنی ۱",
     "lastSelectedPractice": false,
     "lastSelectedKind": "study"
   },
@@ -1545,7 +1545,7 @@
   ],
   "derived": {
     "note": "Rebuildable from `sessions`. Safe to ignore or delete; regenerated on every save.",
-    "generatedAt": "2026-10-09T10:19:51.430Z",
+    "generatedAt": "2026-10-09T10:35:02.246Z",
     "dailySummaries": {
       "2026-09-26": {
         "studySeconds": 4320,

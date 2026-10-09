@@ -545,6 +545,20 @@ export function buildWeeklyPlanAdherence(plans, sessions, today = todayKey()) {
 export function buildCurrentWeekPlanComparison(plans, sessions, today = todayKey()) {
   const { start, end } = saturdayWeekRange(today);
 
+  let weekSeconds = 0;
+  for (let key = start; key <= end && key <= today; key = addDays(key, 1)) {
+    weekSeconds += summaries[key] ? summaries[key].studySeconds : 0;
+  }
+
+  let plannedMinutes = 0;
+  for (const plan of plans) {
+    for (const day of getSortedPlanDays(plan)) {
+      if (day.date < start || day.date > end) continue;
+      for (const s of day.sessions || []) plannedMinutes += Number(s.minutes) || 0;
+    }
+  }
+  const weekGoalSeconds = plannedMinutes > 0 ? plannedMinutes * 60 : goalSeconds * 7;
+
   const dayEntries = [];
   for (const plan of plans) {
     // ✅ v5: از startDate/endDate استفاده می‌کنیم

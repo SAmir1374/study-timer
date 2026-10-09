@@ -10,6 +10,10 @@ const HANDLE_KEY = "study-timer:daily-checkins-backup-handle";
 const LAST_KEY = "study-timer:daily-checkins-backup-last";
 
 let dirHandle = null;
+let backupInFlight = false; // ← این خط را اضافه کن
+
+const d = new Date();
+const today = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 
 export const DailyCheckinBackup = {
   hooks: { onMessage: () => {} },
@@ -30,9 +34,9 @@ export const DailyCheckinBackup = {
   },
 
   async connect() {
-    if (!FileStorage.isSupported()) return false;
+    if (!FileStorage.canPickDirectory()) return false;
     try {
-      const h = await window.showDirectoryPicker({ mode: "readwrite" });
+      const h = await FileStorage.pickDirectory();
       dirHandle = h;
       await FileStorage.saveHandle(h, HANDLE_KEY);
       return true;
