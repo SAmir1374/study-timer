@@ -15,11 +15,11 @@ import {
   setWeeklyPlanSource,
   findSessionById,
   commit,
-} from './state.js';
-import { TimerEngine } from './timer.js';
-import { Persistence } from './persistence.js';
-import { WeeklyPlanStore } from './weeklyPlanStore.js';
-import { WakeLock } from './wakeLock.js';
+} from "./state.js";
+import { TimerEngine } from "./timer.js";
+import { Persistence } from "./persistence.js";
+import { WeeklyPlanStore } from "./weeklyPlanStore.js";
+import { WakeLock } from "./wakeLock.js";
 import {
   el,
   Render,
@@ -45,21 +45,21 @@ import {
   closeCheckinModal,
   readCheckinForm,
   getCheckinDateKey,
-} from './ui.js';
-import { DailyBackup } from './dailyBackup.js';
-import { serializeDocument, setSessionAnalysis, setSessionTopic } from './dataLayer.js';
-import { todayKey } from './state.js';
-import { WeeklyBackup } from './weeklyBackup.js';
-import { serializeWeeklyPlansDocument } from './weeklyPlanData.js';
-import { DailyCheckinStore } from './daliycheck/dailyCheckinStore.js';
-import { DailyCheckinBackup } from './daliycheck/dailyCheckinBackup.js';
+} from "./ui.js";
+import { DailyBackup } from "./dailyBackup.js";
+import { serializeDocument, setSessionAnalysis, setSessionTopic } from "./dataLayer.js";
+import { todayKey } from "./state.js";
+import { WeeklyBackup } from "./weeklyBackup.js";
+import { serializeWeeklyPlansDocument } from "./weeklyPlanData.js";
+import { DailyCheckinStore } from "./daliycheck/dailyCheckinStore.js";
+import { DailyCheckinBackup } from "./daliycheck/dailyCheckinBackup.js";
 
 /* ============================================================
    Wake lock: screen must stay on for the whole "running" duration
    ============================================================ */
 
 function syncWakeLock() {
-  WakeLock.sync(state.session.state === 'running');
+  WakeLock.sync(state.session.state === "running");
 }
 
 /* ============================================================
@@ -73,11 +73,11 @@ function loop() {
   Render.timer();
   Render.stats();
 
-  rafId = state.session.state === 'running' ? requestAnimationFrame(loop) : null;
+  rafId = state.session.state === "running" ? requestAnimationFrame(loop) : null;
 }
 
 function ensureLoop() {
-  if (state.session.state === 'running' && rafId == null) {
+  if (state.session.state === "running" && rafId == null) {
     rafId = requestAnimationFrame(loop);
   }
 }
@@ -85,19 +85,24 @@ function ensureLoop() {
 /* Slow loop: live clock, idle rendering, and completion checks while the
    tab is in the background (requestAnimationFrame is paused there). */
 setInterval(() => {
-  TimerEngine.checkCompletion();
-  Render.clock();
-  if (state.session.state !== 'running') {
-    Render.timer();
-    Render.stats();
+  try {
+    TimerEngine.checkCompletion();
+    Render.clock();
+    if (state.session.state !== "running") {
+      Render.timer();
+      Render.stats();
+    }
+    syncWakeLock();
+
+    DailyBackup.maybeBackup(
+      () => serializeDocument(state.doc),
+      () => todayKey(),
+    );
+    WeeklyBackup.maybeBackup(() => serializeWeeklyPlansDocument(WeeklyPlanStore.getDoc()));
+    DailyCheckinBackup.maybeBackup(() => DailyCheckinStore.getDoc());
+  } catch (err) {
+    console.error("Interval error:", err);
   }
-  syncWakeLock();
-  DailyBackup.maybeBackup(
-    () => serializeDocument(state.doc),
-    () => todayKey()
-  );
-  DailyCheckinBackup.maybeBackup(() => DailyCheckinStore.getDoc());
-  WeeklyBackup.maybeBackup(() => serializeWeeklyPlansDocument(WeeklyPlanStore.getDoc()));
 }, 1000);
 
 TimerEngine.onChange = () => {
@@ -115,7 +120,7 @@ TimerEngine.onChange = () => {
  * they're typed in (see dataLayer.js: setSessionTopic / setSessionAnalysis).
  */
 TimerEngine.onSessionFinished = (rec) => {
-  if (rec.type !== 'break') {
+  if (rec.type !== "break") {
     openAnalysisModal(rec);
   }
 };
@@ -191,17 +196,17 @@ DailyCheckinStore.hooks.onStatus = () => {
   if (!el.checkinSaveStatus) return;
   const f = DailyCheckinStore.status;
   const keys = {
-    unsupported: 'saveUnsupported',
-    disconnected: 'saveNotConnected',
-    permission: 'savePermission',
-    saved: 'saveSaved',
-    saving: 'saveSaving',
-    unsaved: 'saveUnsaved',
-    error: 'saveError',
+    unsupported: "saveUnsupported",
+    disconnected: "saveNotConnected",
+    permission: "savePermission",
+    saved: "saveSaved",
+    saving: "saveSaving",
+    unsaved: "saveUnsaved",
+    error: "saveError",
   };
   const text = tr()[keys[f.state]] || tr().saveNotConnected;
   el.checkinSaveStatus.dataset.status = f.state;
-  el.checkinSaveStatus.title = f.error || '';
+  el.checkinSaveStatus.title = f.error || "";
   if (el.checkinSaveStatusText) el.checkinSaveStatusText.textContent = text;
 };
 
@@ -213,66 +218,66 @@ DailyCheckinStore.hooks.onStatus = () => {
    Daily check-in file: connect / open / save / export / import
    ------------------------------------------------------------ */
 
-el.checkinConnectFileBtn?.addEventListener('click', () => DailyCheckinStore.connect());
-el.checkinOpenFileBtn?.addEventListener('click', () => DailyCheckinStore.openFile());
+el.checkinConnectFileBtn?.addEventListener("click", () => DailyCheckinStore.connect());
+el.checkinOpenFileBtn?.addEventListener("click", () => DailyCheckinStore.openFile());
 
-el.checkinSaveNowBtn?.addEventListener('click', async () => {
+el.checkinSaveNowBtn?.addEventListener("click", async () => {
   if (!DailyCheckinStore.isConnected()) {
-    showToast(tr().toastNoFile, 'error');
+    showToast(tr().toastNoFile, "error");
     return;
   }
-  if (await DailyCheckinStore.saveNow()) showToast(tr().toastSaved, 'success');
+  if (await DailyCheckinStore.saveNow()) showToast(tr().toastSaved, "success");
 });
 
-el.checkinExportBtn?.addEventListener('click', () => DailyCheckinStore.exportData());
+el.checkinExportBtn?.addEventListener("click", () => DailyCheckinStore.exportData());
 
-el.checkinImportFileInput?.addEventListener('change', async () => {
+el.checkinImportFileInput?.addEventListener("change", async () => {
   const file = el.checkinImportFileInput.files && el.checkinImportFileInput.files[0];
   if (!file) return;
   try {
     DailyCheckinStore.importText(await file.text());
   } catch (err) {
     console.error(err);
-    showToast(tr().toastReadFailed, 'error');
+    showToast(tr().toastReadFailed, "error");
   } finally {
-    el.checkinImportFileInput.value = '';
+    el.checkinImportFileInput.value = "";
   }
 });
 
-el.checkinBackupDirConnectBtn?.addEventListener('click', async () => {
+el.checkinBackupDirConnectBtn?.addEventListener("click", async () => {
   const ok = await DailyCheckinBackup.connect();
   if (ok) {
-    showToast(tr().toastBackupConnected || 'پوشه بکاپ متصل شد', 'success');
+    showToast(tr().toastBackupConnected || "پوشه بکاپ متصل شد", "success");
   }
 });
 
-el.primaryBtn.addEventListener('click', () => {
+el.primaryBtn.addEventListener("click", () => {
   TimerEngine.toggle();
   ensureLoop();
   Render.all();
   syncWakeLock();
 });
 
-el.resetBtn.addEventListener('click', () => {
+el.resetBtn.addEventListener("click", () => {
   const s = state.session.state;
-  if ((s === 'running' || s === 'paused') && !confirm(tr().confirmReset)) return;
+  if ((s === "running" || s === "paused") && !confirm(tr().confirmReset)) return;
   TimerEngine.reset();
   Render.all();
   syncWakeLock();
 });
 
-el.finishBtn.addEventListener('click', () => {
+el.finishBtn.addEventListener("click", () => {
   TimerEngine.finish(false);
   Render.all();
   syncWakeLock();
 });
 
-el.breakBtn.addEventListener('click', () => {
-  if (state.session.type === 'break') {
+el.breakBtn.addEventListener("click", () => {
+  if (state.session.type === "break") {
     TimerEngine.reset();
   } else {
-    if (state.session.state === 'running' || state.session.state === 'paused') return;
-    TimerEngine.start(5 * 60 * 1000, 'break');
+    if (state.session.state === "running" || state.session.state === "paused") return;
+    TimerEngine.start(5 * 60 * 1000, "break");
     ensureLoop();
   }
   Render.all();
@@ -283,40 +288,40 @@ el.breakBtn.addEventListener('click', () => {
    Daily check-in modal
    ------------------------------------------------------------ */
 
-el.checkinRoutineDone?.addEventListener('change', () => {
+el.checkinRoutineDone?.addEventListener("change", () => {
   el.checkinRoutineStepsWrap.hidden = !el.checkinRoutineDone.checked;
-  if (!el.checkinRoutineDone.checked) el.checkinRoutineSteps.value = '';
+  if (!el.checkinRoutineDone.checked) el.checkinRoutineSteps.value = "";
 });
 
-el.checkinExerciseDone?.addEventListener('change', () => {
+el.checkinExerciseDone?.addEventListener("change", () => {
   el.checkinExerciseMinutesWrap.hidden = !el.checkinExerciseDone.checked;
-  if (!el.checkinExerciseDone.checked) el.checkinExerciseMinutes.value = '';
+  if (!el.checkinExerciseDone.checked) el.checkinExerciseMinutes.value = "";
 });
 
-el.checkinSleepQuality?.addEventListener('input', () => {
+el.checkinSleepQuality?.addEventListener("input", () => {
   el.checkinSleepQualityValue.textContent = el.checkinSleepQuality.value;
 });
 
-el.checkinYesterdayQuality?.addEventListener('input', () => {
+el.checkinYesterdayQuality?.addEventListener("input", () => {
   el.checkinYesterdayQualityValue.textContent = el.checkinYesterdayQuality.value;
 });
 
-el.checkinSaveBtn?.addEventListener('click', () => {
+el.checkinSaveBtn?.addEventListener("click", () => {
   const dateKey = getCheckinDateKey() || todayKey();
   const values = readCheckinForm();
   if (!values) {
-    showToast(tr().toastInvalid, 'error');
+    showToast(tr().toastInvalid, "error");
     return;
   }
 
   DailyCheckinStore.saveCheckin(dateKey, values);
   closeCheckinModal();
-  showToast(tr().toastCheckinSaved || 'ثبت شد', 'success');
+  showToast(tr().toastCheckinSaved || "ثبت شد", "success");
 });
 
-el.checkinSkipBtn?.addEventListener('click', () => closeCheckinModal());
-el.checkinCloseBtn?.addEventListener('click', () => closeCheckinModal());
-el.checkinModal?.querySelector('[data-close-checkin]')?.addEventListener('click', () => {
+el.checkinSkipBtn?.addEventListener("click", () => closeCheckinModal());
+el.checkinCloseBtn?.addEventListener("click", () => closeCheckinModal());
+el.checkinModal?.querySelector("[data-close-checkin]")?.addEventListener("click", () => {
   closeCheckinModal();
 });
 
@@ -324,15 +329,15 @@ el.checkinModal?.querySelector('[data-close-checkin]')?.addEventListener('click'
    Language / theme / fullscreen
    ============================================================ */
 
-el.langFaBtn.addEventListener('click', () => setLanguage('fa'));
-el.langEnBtn.addEventListener('click', () => setLanguage('en'));
+el.langFaBtn.addEventListener("click", () => setLanguage("fa"));
+el.langEnBtn.addEventListener("click", () => setLanguage("en"));
 
-el.themeToggle.addEventListener('click', () => {
-  updateSettings({ theme: state.doc.settings.theme === 'dark' ? 'light' : 'dark' });
+el.themeToggle.addEventListener("click", () => {
+  updateSettings({ theme: state.doc.settings.theme === "dark" ? "light" : "dark" });
   applyTheme();
 });
 
-el.fullscreenToggle.addEventListener('click', () => toggleFullscreen());
+el.fullscreenToggle.addEventListener("click", () => toggleFullscreen());
 
 /* ============================================================
    Session kind (study / practice test / test analysis) + subject picker
@@ -341,17 +346,17 @@ el.fullscreenToggle.addEventListener('click', () => toggleFullscreen());
 /* Kind is a property of the *session*, not of the subject: the same
    subject can be studied first, practiced (test questions) next, and
    later have its test results analyzed in a 'review' session. */
-el.kindGrid?.addEventListener('click', (event) => {
-  const btn = event.target.closest('.kind-btn');
-  if (!btn || state.session.state !== 'idle') return;
+el.kindGrid?.addEventListener("click", (event) => {
+  const btn = event.target.closest(".kind-btn");
+  if (!btn || state.session.state !== "idle") return;
 
   setSelectedKind(btn.dataset.kind); // 'study' | 'practice' | 'review'
   Render.all();
 });
 
-el.subjectGrid?.addEventListener('click', (event) => {
-  const btn = event.target.closest('.subject-chip');
-  if (!btn || state.session.state !== 'idle') return;
+el.subjectGrid?.addEventListener("click", (event) => {
+  const btn = event.target.closest(".subject-chip");
+  if (!btn || state.session.state !== "idle") return;
 
   setSelectedSubject(btn.dataset.subject || null);
   Render.all();
@@ -362,7 +367,7 @@ el.subjectGrid?.addEventListener('click', (event) => {
    for review) — appears right after any non-break session finishes
    ============================================================ */
 
-el.analysisSaveBtn?.addEventListener('click', () => {
+el.analysisSaveBtn?.addEventListener("click", () => {
   const id = getAnalysisModalSessionId();
   const rec = id ? findSessionById(id) : null;
   if (!rec) {
@@ -372,33 +377,33 @@ el.analysisSaveBtn?.addEventListener('click', () => {
 
   const values = readAnalysisForm();
   if (!values) {
-    showToast(tr().toastInvalid, 'error');
+    showToast(tr().toastInvalid, "error");
     return;
   }
 
   setSessionTopic(rec, values.topic);
-  if (getAnalysisModalSessionType() === 'analysis') {
+  if (getAnalysisModalSessionType() === "analysis") {
     // ← was "review"
     setSessionAnalysis(rec, values);
   }
-  commit('analysisSave', { immediate: true });
+  commit("analysisSave", { immediate: true });
   closeAnalysisModal();
   Render.all();
-  showToast(tr().toastAnalysisSaved, 'success');
+  showToast(tr().toastAnalysisSaved, "success");
 });
 
-el.analysisSkipBtn?.addEventListener('click', () => closeAnalysisModal());
-el.analysisCloseBtn?.addEventListener('click', () => closeAnalysisModal());
+el.analysisSkipBtn?.addEventListener("click", () => closeAnalysisModal());
+el.analysisCloseBtn?.addEventListener("click", () => closeAnalysisModal());
 
 /* ============================================================
    Presets / custom duration / study window
    ============================================================ */
 
-el.presetGroup.addEventListener('click', (event) => {
-  const btn = event.target.closest('.preset-btn');
-  if (!btn || state.session.state !== 'idle') return;
+el.presetGroup.addEventListener("click", (event) => {
+  const btn = event.target.closest(".preset-btn");
+  if (!btn || state.session.state !== "idle") return;
 
-  if (btn.id === 'customPresetBtn') {
+  if (btn.id === "customPresetBtn") {
     el.customDuration.hidden = false;
     el.customMinutes.focus();
     return;
@@ -412,8 +417,8 @@ el.presetGroup.addEventListener('click', (event) => {
   Render.all();
 });
 
-el.customMinutes.addEventListener('change', () => {
-  if (state.session.state !== 'idle') return;
+el.customMinutes.addEventListener("change", () => {
+  if (state.session.state !== "idle") return;
   let minutes = Math.round(Number(el.customMinutes.value));
   if (!minutes || minutes < 1) return;
   minutes = Math.min(600, Math.max(1, minutes));
@@ -421,18 +426,18 @@ el.customMinutes.addEventListener('change', () => {
   Render.all();
 });
 
-el.applyWindowBtn.addEventListener('click', () => {
+el.applyWindowBtn.addEventListener("click", () => {
   if (!el.windowStart.value || !el.windowEnd.value) return;
 
-  const [sh, sm] = el.windowStart.value.split(':').map(Number);
-  const [eh, em] = el.windowEnd.value.split(':').map(Number);
+  const [sh, sm] = el.windowStart.value.split(":").map(Number);
+  const [eh, em] = el.windowEnd.value.split(":").map(Number);
 
   const startMin = sh * 60 + sm;
   let endMin = eh * 60 + em;
   if (endMin <= startMin) endMin += 24 * 60; // window crosses midnight
 
   const minutes = endMin - startMin;
-  if (minutes <= 0 || minutes > 1440 || state.session.state !== 'idle') return;
+  if (minutes <= 0 || minutes > 1440 || state.session.state !== "idle") return;
 
   setSelectedMinutes(minutes);
   Render.all();
@@ -442,13 +447,11 @@ el.applyWindowBtn.addEventListener('click', () => {
    Settings modal
    ============================================================ */
 
-el.settingsToggle.addEventListener('click', () => openSettings());
-el.settingsCloseBtn?.addEventListener('click', () => closeSettings());
-el.settingsModal
-  .querySelector('[data-close-settings]')
-  ?.addEventListener('click', () => closeSettings());
+el.settingsToggle.addEventListener("click", () => openSettings());
+el.settingsCloseBtn?.addEventListener("click", () => closeSettings());
+el.settingsModal.querySelector("[data-close-settings]")?.addEventListener("click", () => closeSettings());
 
-el.saveSettingsBtn?.addEventListener('click', () => {
+el.saveSettingsBtn?.addEventListener("click", () => {
   if (applySettingsFromForm({ showErrors: true })) closeSettings();
 });
 
@@ -460,31 +463,31 @@ el.saveSettingsBtn?.addEventListener('click', () => {
   el.settingReducedMotion,
   el.settingAutoStart,
 ].forEach((input) => {
-  input.addEventListener('change', () => applySettingsFromForm());
+  input.addEventListener("change", () => applySettingsFromForm());
 });
 
 /* Settings -> Subjects (add / remove) */
 
 function submitNewSubject() {
   if (addSubject(el.newSubjectInput.value)) {
-    el.newSubjectInput.value = '';
+    el.newSubjectInput.value = "";
     renderSubjectManageList();
     Render.all(); // refresh the subject picker on the main page too
   }
   el.newSubjectInput.focus();
 }
 
-el.addSubjectBtn?.addEventListener('click', () => submitNewSubject());
+el.addSubjectBtn?.addEventListener("click", () => submitNewSubject());
 
-el.newSubjectInput?.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') {
+el.newSubjectInput?.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
     e.preventDefault();
     submitNewSubject();
   }
 });
 
-el.subjectManageList?.addEventListener('click', (event) => {
-  const btn = event.target.closest('.subject-manage-chip__remove');
+el.subjectManageList?.addEventListener("click", (event) => {
+  const btn = event.target.closest(".subject-manage-chip__remove");
   if (!btn) return;
   removeSubject(btn.dataset.subject);
   renderSubjectManageList();
@@ -494,111 +497,111 @@ el.subjectManageList?.addEventListener('click', (event) => {
 /* ============================================================
    Data file: connect / open / save / export / import / clear
    ============================================================ */
-el.weeklyPlanConnectFileBtn?.addEventListener('click', async () => {
+el.weeklyPlanConnectFileBtn?.addEventListener("click", async () => {
   try {
     await WeeklyPlanStore.connect();
     Render.all();
   } catch (err) {
-    console.error('Weekly plan connect failed:', err);
+    console.error("Weekly plan connect failed:", err);
 
-    showToast(err instanceof Error ? err.message : String(err), 'error');
+    showToast(err instanceof Error ? err.message : String(err), "error");
   }
 });
 
-el.weeklyPlanOpenFileBtn?.addEventListener('click', () => WeeklyPlanStore.openFile());
+el.weeklyPlanOpenFileBtn?.addEventListener("click", () => WeeklyPlanStore.openFile());
 
-el.backupDirConnectBtn?.addEventListener('click', async () => {
+el.backupDirConnectBtn?.addEventListener("click", async () => {
   const ok = await DailyBackup.connect();
-  if (ok) showToast(tr().toastBackupConnected || 'Backup folder connected', 'success');
+  if (ok) showToast(tr().toastBackupConnected || "Backup folder connected", "success");
 });
 
-el.weeklyPlanSaveNowBtn?.addEventListener('click', async () => {
+el.weeklyPlanSaveNowBtn?.addEventListener("click", async () => {
   if (!WeeklyPlanStore.isConnected()) {
-    showToast(tr().toastNoFile, 'error');
+    showToast(tr().toastNoFile, "error");
     return;
   }
-  if (await WeeklyPlanStore.saveNow()) showToast(tr().toastSaved, 'success');
+  if (await WeeklyPlanStore.saveNow()) showToast(tr().toastSaved, "success");
 });
 
-el.weeklyPlanExportBtn?.addEventListener('click', () => WeeklyPlanStore.exportData());
+el.weeklyPlanExportBtn?.addEventListener("click", () => WeeklyPlanStore.exportData());
 
-el.weeklyPlanImportFileInput?.addEventListener('change', async () => {
+el.weeklyPlanImportFileInput?.addEventListener("change", async () => {
   const file = el.weeklyPlanImportFileInput.files && el.weeklyPlanImportFileInput.files[0];
   if (!file) return;
   try {
     WeeklyPlanStore.importText(await file.text());
   } catch (err) {
     console.error(err);
-    showToast(tr().toastReadFailed, 'error');
+    showToast(tr().toastReadFailed, "error");
   } finally {
-    el.weeklyPlanImportFileInput.value = '';
+    el.weeklyPlanImportFileInput.value = "";
   }
 });
 
-el.connectFileBtn?.addEventListener('click', () => Persistence.connect());
-el.openFileBtn?.addEventListener('click', () => Persistence.openFile());
+el.connectFileBtn?.addEventListener("click", () => Persistence.connect());
+el.openFileBtn?.addEventListener("click", () => Persistence.openFile());
 
-el.saveNowBtn?.addEventListener('click', async () => {
+el.saveNowBtn?.addEventListener("click", async () => {
   if (!Persistence.isConnected()) {
-    showToast(tr().toastNoFile, 'error');
+    showToast(tr().toastNoFile, "error");
     return;
   }
-  if (await Persistence.saveNow()) showToast(tr().toastSaved, 'success');
+  if (await Persistence.saveNow()) showToast(tr().toastSaved, "success");
 });
 
-el.exportBtn?.addEventListener('click', () => Persistence.exportData());
+el.exportBtn?.addEventListener("click", () => Persistence.exportData());
 
-el.importFileInput?.addEventListener('change', async () => {
+el.importFileInput?.addEventListener("change", async () => {
   const file = el.importFileInput.files && el.importFileInput.files[0];
   if (!file) return;
   try {
     Persistence.importText(await file.text());
   } catch (err) {
-    console.error('Details:', err?.details);
-    const detail = err?.details?.join(' · ') || err?.message || String(err);
-    showToast(tr().toastReadFailed, 'error');
+    console.error("Details:", err?.details);
+    const detail = err?.details?.join(" · ") || err?.message || String(err);
+    showToast(tr().toastReadFailed, "error");
   } finally {
-    el.importFileInput.value = '';
+    el.importFileInput.value = "";
   }
 });
 
-el.clearDataBtn?.addEventListener('click', () => {
+el.clearDataBtn?.addEventListener("click", () => {
   if (!confirm(tr().confirmClear)) return;
   TimerEngine.reset(); // closes any running session cleanly first
   Persistence.clearAllData();
 });
 
-el.weeklyBackupDirConnectBtn?.addEventListener('click', async () => {
+el.weeklyBackupDirConnectBtn?.addEventListener("click", async () => {
   const ok = await WeeklyBackup.connect();
 
   if (ok) {
-    showToast(tr().toastWeeklyBackupConnected || 'Weekly backup folder connected', 'success');
+    showToast(tr().toastWeeklyBackupConnected || "Weekly backup folder connected", "success");
   }
 });
 
 /* Clickable save-status indicator */
 
 if (el.saveStatus) {
-  el.saveStatus.setAttribute('role', 'button');
+  el.saveStatus.setAttribute("role", "button");
   el.saveStatus.tabIndex = 0;
 
   const onStatusActivate = () => {
     switch (state.file.status) {
-      case 'permission':
+      case "permission":
         Persistence.connect();
         break;
 
-      case 'error':
-      case 'unsaved':
+      case "error":
+      case "unsaved":
         Persistence.saveNow();
         break;
 
-      case 'disconnected':
+      case "disconnected":
         openSettings();
         break;
 
-      case 'unsupported':
-        showToast(tr().toastNoFileApi, 'error');
+      case "unsupported":
+        showToast(tr().toastNoFileApi, "error");
         break;
 
       default:
@@ -606,9 +609,9 @@ if (el.saveStatus) {
     }
   };
 
-  el.saveStatus.addEventListener('click', onStatusActivate);
-  el.saveStatus.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
+  el.saveStatus.addEventListener("click", onStatusActivate);
+  el.saveStatus.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       onStatusActivate();
     }
@@ -619,8 +622,8 @@ if (el.saveStatus) {
    Keyboard shortcuts
    ============================================================ */
 
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') {
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
     if (!el.settingsModal.hidden) {
       return closeSettings();
     }
@@ -631,13 +634,13 @@ document.addEventListener('keydown', (event) => {
   }
 
   const target = event.target;
-  const tag = target && target.tagName ? target.tagName : '';
+  const tag = target && target.tagName ? target.tagName : "";
 
-  const typing = tag === 'INPUT' || tag === 'TEXTAREA' || target?.isContentEditable;
+  const typing = tag === "INPUT" || tag === "TEXTAREA" || target?.isContentEditable;
 
   if (typing || isAnyModalOpen()) return;
 
-  if (event.code === 'Space') {
+  if (event.code === "Space") {
     event.preventDefault();
 
     TimerEngine.toggle();
@@ -648,13 +651,13 @@ document.addEventListener('keydown', (event) => {
     return;
   }
 
-  if (event.key === 'r' || event.key === 'R') {
+  if (event.key === "r" || event.key === "R") {
     event.preventDefault();
     el.resetBtn.click();
     return;
   }
 
-  if (event.key === 'f' || event.key === 'F') {
+  if (event.key === "f" || event.key === "F") {
     event.preventDefault();
     toggleFullscreen();
   }
@@ -664,13 +667,14 @@ document.addEventListener('keydown', (event) => {
    Page lifecycle
    ============================================================ */
 
-document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState === 'visible') {
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible") {
     maybeOpenDailyCheckin();
   }
-  if (document.visibilityState === 'hidden') {
+  if (document.visibilityState === "hidden") {
     Persistence.flush();
     WeeklyPlanStore.flush();
+    DailyCheckinStore.flush();
     return;
   }
   TimerEngine.checkCompletion();
@@ -682,35 +686,50 @@ document.addEventListener('visibilitychange', () => {
   syncWakeLock();
 });
 
-window.addEventListener('pagehide', () => {
+window.addEventListener("pagehide", () => {
   Persistence.flush();
   WeeklyPlanStore.flush();
   DailyCheckinStore.flush();
 });
 
 /* Warn before leaving when data exists only in memory / isn't saved yet. */
-window.addEventListener('beforeunload', (event) => {
+window.addEventListener("beforeunload", (event) => {
   Persistence.flush();
   WeeklyPlanStore.flush();
   DailyCheckinStore.flush(); // ← جدید
-  if (
+
+  const realUnsaved =
     Persistence.hasUnsavedData() ||
     WeeklyPlanStore.hasUnsavedData() ||
-    DailyCheckinStore.hasUnsavedData() // ← جدید
-  ) {
+    (DailyCheckinStore.isConnected() && DailyCheckinStore.hasUnsavedData());
+
+  if (realUnsaved) {
     event.preventDefault();
-    event.returnValue = '';
+    event.returnValue = "";
   }
 });
 
+let checkinRetryTimer = null;
+let checkinRetryCount = 0;
+
 function maybeOpenDailyCheckin() {
+  clearTimeout(checkinRetryTimer);
+
   const today = todayKey();
-  if (DailyCheckinStore.hasEntryForDate(today)) return;
-  // اگر مودال دیگری باز است، صبر کن
-  if (isAnyModalOpen()) {
-    setTimeout(maybeOpenDailyCheckin, 1500);
+
+  if (DailyCheckinStore.hasEntryForDate(today)) {
     return;
   }
+
+  if (isAnyModalOpen()) {
+    checkinRetryCount++;
+    // بعد از ۵ بار، تسلیم شو — کاربر خودش می‌تواند بعداً بازش کند
+    if (checkinRetryCount > 5) return;
+    checkinRetryTimer = setTimeout(maybeOpenDailyCheckin, 2000);
+    return;
+  }
+
+  checkinRetryCount = 0;
   openCheckinModal(today, null);
 }
 
@@ -723,18 +742,15 @@ async function init() {
 
   const result = await Persistence.init();
 
-  if (result === 'unsupported') {
-    showToast(tr().toastNoFileApi, 'info');
+  if (result === "unsupported") {
+    showToast(tr().toastNoFileApi, "info");
     openSettings();
-  } else if (result !== 'loaded') {
+  } else if (result !== "loaded") {
     openSettings();
   }
 
+  // فقط یک‌بار هر کدام:
   await DailyCheckinStore.init();
-  await WeeklyPlanStore.init();
-  await DailyBackup.init();
-  await WeeklyBackup.init();
-
   await WeeklyPlanStore.init();
   await DailyBackup.init();
   await WeeklyBackup.init();
@@ -743,7 +759,6 @@ async function init() {
   Render.all();
   syncWakeLock();
 
-  // ← جدید: اگر امروز چک‌این ثبت نشده، مودال را باز کن
   maybeOpenDailyCheckin();
 }
 

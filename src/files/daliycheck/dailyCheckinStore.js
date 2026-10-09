@@ -291,7 +291,8 @@ export const DailyCheckinStore = {
     if (handle && dirty && status.state !== "permission") void saveNow();
   },
   hasUnsavedData() {
-    return handle ? dirty : doc.entries.length > 0;
+    if (!handle) return false; // ← اگر وصل نیست، «کثیف» حساب نمی‌شود
+    return dirty;
   },
 
   /** ذخیره‌ی چک‌این امروز (یا جایگزینی اگر موجود بود) */

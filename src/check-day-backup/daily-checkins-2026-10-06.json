@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "daily-checkin-json",
+  "version": 1,
+  "app": "Study Timer",
+  "createdAt": "2026-10-06T02:56:36.309Z",
+  "updatedAt": "2026-10-06T02:59:41.869Z",
+  "entries": [
+    {
+      "date": "2026-10-06",
+      "sleep": {
+        "bedTime": "22:30",
+        "wakeTime": "05:45",
+        "hours": 7,
+        "quality": 8
+      },
+      "relaxationRoutine": {
+        "done": true,
+        "steps": 4
+      },
+      "activity1": false,
+      "operation1": false,
+      "yesterdayQuality": 8,
+      "exercise": {
+        "done": true,
+        "minutes": 90
+      },
+      "recordedAt": "2026-10-06T02:59:25.587Z"
+    }
+  ]
+}

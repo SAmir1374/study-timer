@@ -48,10 +48,13 @@ export const DailyCheckinBackup = {
 
   async maybeBackup(getDoc) {
     if (!dirHandle) return false;
+    if (backupInFlight) return false; // ← جدید: قفل
+
     const today = new Date().toISOString().slice(0, 10);
     const last = localStorage.getItem(LAST_KEY);
     if (last === today) return false;
 
+    backupInFlight = true; // ← جدید
     try {
       if (!(await FileStorage.ensurePermission(dirHandle, false))) return false;
       const name = `daily-checkins-${today}.json`;
@@ -60,12 +63,19 @@ export const DailyCheckinBackup = {
       const writable = await fileHandle.createWritable();
       await writable.write(text);
       await writable.close();
+
+      // FIRST set the flag, THEN notify
       localStorage.setItem(LAST_KEY, today);
-      this.hooks.onMessage("toastBackupConnected", "success", name);
+
+      // Don't show toast — the interval is not the place for user-facing messages
       return true;
     } catch (err) {
       console.error("Checkin backup failed:", err);
+      // On failure, wait until tomorrow (don't retry every second)
+      localStorage.setItem(LAST_KEY, today);
       return false;
+    } finally {
+      backupInFlight = false;
     }
   },
 };

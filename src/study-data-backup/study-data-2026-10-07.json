@@ -4,7 +4,7 @@
     "name": "Study Timer",
     "dataFormat": "study-timer-json",
     "createdAt": "2026-09-26T03:00:01.956Z",
-    "updatedAt": "2026-10-09T10:19:51.430Z",
+    "updatedAt": "2026-10-07T03:50:12.398Z",
     "timeZone": "Asia/Tehran"
   },
   "settings": {
@@ -15,8 +15,8 @@
     "reducedMotion": false,
     "autoStartNextSession": false,
     "defaultSessionMinutes": 50,
-    "lastSelectedMinutes": 25,
-    "lastSelectedSubject": "سیستم‌عامل",
+    "lastSelectedMinutes": 30,
+    "lastSelectedSubject": "ساختمان داده",
     "lastSelectedPractice": false,
     "lastSelectedKind": "study"
   },
@@ -1235,317 +1235,11 @@
       "analysis": null,
       "createdAt": "2026-10-06T16:00:15.978Z",
       "updatedAt": "2026-10-06T16:33:40.401Z"
-    },
-    {
-      "id": "6de29cf4-26bd-4a3f-8070-1187a849798e",
-      "type": "study",
-      "status": "completed",
-      "subject": "هوش مصنوعی",
-      "isPractice": false,
-      "topic": null,
-      "planned": {
-        "durationSeconds": 1800
-      },
-      "actual": {
-        "startedAt": "2026-10-07T04:07:21.209Z",
-        "endedAt": "2026-10-07T04:37:21.209Z",
-        "utcOffsetMinutes": 210
-      },
-      "pauses": [],
-      "derived": {
-        "activeDurationSeconds": 1800,
-        "totalPausedSeconds": 0,
-        "pauseCount": 0
-      },
-      "analysis": null,
-      "createdAt": "2026-10-07T04:07:21.209Z",
-      "updatedAt": "2026-10-07T04:37:28.143Z"
-    },
-    {
-      "id": "979b20a5-e525-40af-bd67-5a11fa7daa13",
-      "type": "study",
-      "status": "completed",
-      "subject": "هوش مصنوعی",
-      "isPractice": false,
-      "topic": "DFS",
-      "planned": {
-        "durationSeconds": 3000
-      },
-      "actual": {
-        "startedAt": "2026-10-07T15:42:23.457Z",
-        "endedAt": "2026-10-07T16:32:23.457Z",
-        "utcOffsetMinutes": 210
-      },
-      "pauses": [],
-      "derived": {
-        "activeDurationSeconds": 3000,
-        "totalPausedSeconds": 0,
-        "pauseCount": 0
-      },
-      "analysis": null,
-      "createdAt": "2026-10-07T15:42:23.457Z",
-      "updatedAt": "2026-10-07T16:32:35.570Z"
-    },
-    {
-      "id": "b5837d00-f838-4a8b-85e2-67857c92ed5a",
-      "type": "study",
-      "status": "completed",
-      "subject": "ریاضیات گسسته",
-      "isPractice": false,
-      "topic": "هم‌ارزی و استنتاج",
-      "planned": {
-        "durationSeconds": 3000
-      },
-      "actual": {
-        "startedAt": "2026-10-08T06:32:01.901Z",
-        "endedAt": "2026-10-08T07:22:01.901Z",
-        "utcOffsetMinutes": 210
-      },
-      "pauses": [],
-      "derived": {
-        "activeDurationSeconds": 3000,
-        "totalPausedSeconds": 0,
-        "pauseCount": 0
-      },
-      "analysis": null,
-      "createdAt": "2026-10-08T06:32:01.901Z",
-      "updatedAt": "2026-10-08T07:25:44.948Z"
-    },
-    {
-      "id": "14f16490-9240-417f-96fc-79e719c625e0",
-      "type": "practice",
-      "status": "completed",
-      "subject": "ریاضیات گسسته",
-      "isPractice": true,
-      "topic": "هم‌ارزی و استنتاج",
-      "planned": {
-        "durationSeconds": 3000
-      },
-      "actual": {
-        "startedAt": "2026-10-08T07:31:53.189Z",
-        "endedAt": "2026-10-08T08:21:53.189Z",
-        "utcOffsetMinutes": 210
-      },
-      "pauses": [],
-      "derived": {
-        "activeDurationSeconds": 3000,
-        "totalPausedSeconds": 0,
-        "pauseCount": 0
-      },
-      "analysis": null,
-      "createdAt": "2026-10-08T07:31:53.189Z",
-      "updatedAt": "2026-10-08T08:22:10.368Z"
-    },
-    {
-      "id": "961947d4-6ff4-4964-af86-3a5fc5580bbe",
-      "type": "study",
-      "status": "completed",
-      "subject": "آمار و احتمال مهندسی",
-      "isPractice": false,
-      "topic": "فضای نمونه و پیشامد",
-      "planned": {
-        "durationSeconds": 4860
-      },
-      "actual": {
-        "startedAt": "2026-10-08T09:12:30.852Z",
-        "endedAt": "2026-10-08T10:33:30.852Z",
-        "utcOffsetMinutes": 210
-      },
-      "pauses": [],
-      "derived": {
-        "activeDurationSeconds": 4860,
-        "totalPausedSeconds": 0,
-        "pauseCount": 0
-      },
-      "analysis": null,
-      "createdAt": "2026-10-08T09:12:30.852Z",
-      "updatedAt": "2026-10-08T10:33:46.236Z"
-    },
-    {
-      "id": "edc0ee40-3e6f-4810-8a79-cf9f330c396f",
-      "type": "study",
-      "status": "completed",
-      "subject": "آمار و احتمال مهندسی",
-      "isPractice": false,
-      "topic": null,
-      "planned": {
-        "durationSeconds": 1200
-      },
-      "actual": {
-        "startedAt": "2026-10-08T10:55:09.310Z",
-        "endedAt": "2026-10-08T11:15:09.310Z",
-        "utcOffsetMinutes": 210
-      },
-      "pauses": [],
-      "derived": {
-        "activeDurationSeconds": 1200,
-        "totalPausedSeconds": 0,
-        "pauseCount": 0
-      },
-      "analysis": null,
-      "createdAt": "2026-10-08T10:55:09.310Z",
-      "updatedAt": "2026-10-08T11:15:13.123Z"
-    },
-    {
-      "id": "ac625b28-3dda-4ddb-bd49-1316ff9680bd",
-      "type": "study",
-      "status": "cancelled",
-      "subject": "سیستم‌عامل",
-      "isPractice": false,
-      "topic": null,
-      "planned": {
-        "durationSeconds": 3000
-      },
-      "actual": {
-        "startedAt": "2026-10-08T13:33:38.506Z",
-        "endedAt": "2026-10-08T13:33:42.667Z",
-        "utcOffsetMinutes": 210
-      },
-      "pauses": [],
-      "derived": {
-        "activeDurationSeconds": 4,
-        "totalPausedSeconds": 0,
-        "pauseCount": 0
-      },
-      "analysis": null,
-      "createdAt": "2026-10-08T13:33:38.506Z",
-      "updatedAt": "2026-10-08T13:33:42.667Z"
-    },
-    {
-      "id": "851ffa6b-b30e-46f7-95ce-03eeea92581b",
-      "type": "study",
-      "status": "completed",
-      "subject": "ریاضی فنی ۱",
-      "isPractice": false,
-      "topic": "تابع و دامنه و برد",
-      "planned": {
-        "durationSeconds": 3000
-      },
-      "actual": {
-        "startedAt": "2026-10-08T13:33:49.646Z",
-        "endedAt": "2026-10-08T14:23:49.646Z",
-        "utcOffsetMinutes": 210
-      },
-      "pauses": [],
-      "derived": {
-        "activeDurationSeconds": 3000,
-        "totalPausedSeconds": 0,
-        "pauseCount": 0
-      },
-      "analysis": null,
-      "createdAt": "2026-10-08T13:33:49.646Z",
-      "updatedAt": "2026-10-08T14:23:57.101Z"
-    },
-    {
-      "id": "b7322703-1f86-4da1-b29e-28a5367b7cdf",
-      "type": "study",
-      "status": "completed",
-      "subject": "سیستم‌عامل",
-      "isPractice": false,
-      "topic": "ساختار سیستم‌عامل",
-      "planned": {
-        "durationSeconds": 3000
-      },
-      "actual": {
-        "startedAt": "2026-10-08T14:47:33.588Z",
-        "endedAt": "2026-10-08T15:37:33.588Z",
-        "utcOffsetMinutes": 210
-      },
-      "pauses": [],
-      "derived": {
-        "activeDurationSeconds": 3000,
-        "totalPausedSeconds": 0,
-        "pauseCount": 0
-      },
-      "analysis": null,
-      "createdAt": "2026-10-08T14:47:33.588Z",
-      "updatedAt": "2026-10-08T15:37:44.842Z"
-    },
-    {
-      "id": "30d32ded-7af0-4c2c-998d-1ea1e64a7904",
-      "type": "study",
-      "status": "completed",
-      "subject": "سیستم‌عامل",
-      "isPractice": false,
-      "topic": "Kernel",
-      "planned": {
-        "durationSeconds": 3000
-      },
-      "actual": {
-        "startedAt": "2026-10-09T07:36:59.628Z",
-        "endedAt": "2026-10-09T08:26:59.928Z",
-        "utcOffsetMinutes": 210
-      },
-      "pauses": [
-        {
-          "startedAt": "2026-10-09T07:37:00.379Z",
-          "endedAt": "2026-10-09T07:37:00.679Z",
-          "durationSeconds": 0
-        }
-      ],
-      "derived": {
-        "activeDurationSeconds": 3000,
-        "totalPausedSeconds": 0,
-        "pauseCount": 1
-      },
-      "analysis": null,
-      "createdAt": "2026-10-09T07:36:59.628Z",
-      "updatedAt": "2026-10-09T08:28:02.316Z"
-    },
-    {
-      "id": "f59fc611-920b-4be5-9553-b0b037869757",
-      "type": "study",
-      "status": "completed",
-      "subject": "سیستم‌عامل",
-      "isPractice": false,
-      "topic": "System Call",
-      "planned": {
-        "durationSeconds": 1500
-      },
-      "actual": {
-        "startedAt": "2026-10-09T08:28:16.729Z",
-        "endedAt": "2026-10-09T08:53:16.729Z",
-        "utcOffsetMinutes": 210
-      },
-      "pauses": [],
-      "derived": {
-        "activeDurationSeconds": 1500,
-        "totalPausedSeconds": 0,
-        "pauseCount": 0
-      },
-      "analysis": null,
-      "createdAt": "2026-10-09T08:28:16.729Z",
-      "updatedAt": "2026-10-09T08:54:52.370Z"
-    },
-    {
-      "id": "59237da2-6af8-4922-8794-f8edbe060b02",
-      "type": "study",
-      "status": "completed",
-      "subject": "سیستم‌عامل",
-      "isPractice": false,
-      "topic": null,
-      "planned": {
-        "durationSeconds": 1500
-      },
-      "actual": {
-        "startedAt": "2026-10-09T09:54:46.460Z",
-        "endedAt": "2026-10-09T10:19:46.460Z",
-        "utcOffsetMinutes": 210
-      },
-      "pauses": [],
-      "derived": {
-        "activeDurationSeconds": 1500,
-        "totalPausedSeconds": 0,
-        "pauseCount": 0
-      },
-      "analysis": null,
-      "createdAt": "2026-10-09T09:54:46.460Z",
-      "updatedAt": "2026-10-09T10:19:50.682Z"
     }
   ],
   "derived": {
     "note": "Rebuildable from `sessions`. Safe to ignore or delete; regenerated on every save.",
-    "generatedAt": "2026-10-09T10:19:51.430Z",
+    "generatedAt": "2026-10-07T03:50:12.398Z",
     "dailySummaries": {
       "2026-09-26": {
         "studySeconds": 4320,
@@ -1596,21 +1290,6 @@
         "studySeconds": 11483,
         "sessionCount": 5,
         "completedSessionCount": 4
-      },
-      "2026-10-07": {
-        "studySeconds": 4800,
-        "sessionCount": 2,
-        "completedSessionCount": 2
-      },
-      "2026-10-08": {
-        "studySeconds": 18060,
-        "sessionCount": 6,
-        "completedSessionCount": 6
-      },
-      "2026-10-09": {
-        "studySeconds": 6000,
-        "sessionCount": 3,
-        "completedSessionCount": 3
       }
     },
     "subjectSummaries": [
@@ -1618,14 +1297,7 @@
         "subject": "ریاضی فنی ۱",
         "kind": "study",
         "isPractice": false,
-        "studySeconds": 25475,
-        "sessionCount": 7
-      },
-      {
-        "subject": "هوش مصنوعی",
-        "kind": "study",
-        "isPractice": false,
-        "studySeconds": 16020,
+        "studySeconds": 22475,
         "sessionCount": 6
       },
       {
@@ -1636,20 +1308,6 @@
         "sessionCount": 6
       },
       {
-        "subject": "ریاضیات گسسته",
-        "kind": "study",
-        "isPractice": false,
-        "studySeconds": 14005,
-        "sessionCount": 5
-      },
-      {
-        "subject": "سیستم‌عامل",
-        "kind": "study",
-        "isPractice": false,
-        "studySeconds": 12300,
-        "sessionCount": 5
-      },
-      {
         "subject": "طراحی الگوریتم",
         "kind": "study",
         "isPractice": false,
@@ -1657,17 +1315,24 @@
         "sessionCount": 6
       },
       {
+        "subject": "هوش مصنوعی",
+        "kind": "study",
+        "isPractice": false,
+        "studySeconds": 11220,
+        "sessionCount": 4
+      },
+      {
+        "subject": "ریاضیات گسسته",
+        "kind": "study",
+        "isPractice": false,
+        "studySeconds": 11005,
+        "sessionCount": 4
+      },
+      {
         "subject": "ریاضیات گسسته",
         "kind": "practice",
         "isPractice": true,
-        "studySeconds": 8220,
-        "sessionCount": 3
-      },
-      {
-        "subject": "آمار و احتمال مهندسی",
-        "kind": "study",
-        "isPractice": false,
-        "studySeconds": 6060,
+        "studySeconds": 5220,
         "sessionCount": 2
       },
       {
@@ -1676,6 +1341,13 @@
         "isPractice": true,
         "studySeconds": 4875,
         "sessionCount": 2
+      },
+      {
+        "subject": "سیستم‌عامل",
+        "kind": "study",
+        "isPractice": false,
+        "studySeconds": 3300,
+        "sessionCount": 1
       },
       {
         "subject": "ریاضیات گسسته",
