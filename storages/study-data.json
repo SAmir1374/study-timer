@@ -4,7 +4,7 @@
     "name": "Study Timer",
     "dataFormat": "study-timer-json",
     "createdAt": "2026-09-26T03:00:01.956Z",
-    "updatedAt": "2026-10-11T04:41:21.754Z",
+    "updatedAt": "2026-10-12T04:20:45.491Z",
     "timeZone": "Asia/Tehran"
   },
   "settings": {
@@ -15,8 +15,8 @@
     "reducedMotion": false,
     "autoStartNextSession": false,
     "defaultSessionMinutes": 50,
-    "lastSelectedMinutes": 50,
-    "lastSelectedSubject": "ساختمان داده",
+    "lastSelectedMinutes": 90,
+    "lastSelectedSubject": "هوش مصنوعی",
     "lastSelectedPractice": false,
     "lastSelectedKind": "study"
   },
@@ -1710,7 +1710,7 @@
       "status": "completed",
       "subject": "ساختمان داده",
       "isPractice": false,
-      "topic": null,
+      "topic": "لیست پیوندی",
       "planned": {
         "durationSeconds": 3000
       },
@@ -1733,12 +1733,168 @@
       },
       "analysis": null,
       "createdAt": "2026-10-11T03:45:53.990Z",
-      "updatedAt": "2026-10-11T04:41:21.340Z"
+      "updatedAt": "2026-10-11T04:52:45.360Z"
+    },
+    {
+      "id": "efd1a062-0955-47ce-8307-c3fd44b57a73",
+      "type": "practice",
+      "status": "completed",
+      "subject": "ساختمان داده",
+      "isPractice": true,
+      "topic": "آرایه",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-11T14:51:29.358Z",
+        "endedAt": "2026-10-11T15:41:29.358Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-11T14:51:29.358Z",
+      "updatedAt": "2026-10-11T15:49:42.326Z"
+    },
+    {
+      "id": "e4406a47-46b1-4715-8d24-f7e3dce42083",
+      "type": "study",
+      "status": "completed",
+      "subject": "زبان تخصصی",
+      "isPractice": false,
+      "topic": "واژگان عمومی",
+      "planned": {
+        "durationSeconds": 600
+      },
+      "actual": {
+        "startedAt": "2026-10-11T15:50:01.627Z",
+        "endedAt": "2026-10-11T16:00:01.627Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 600,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-11T15:50:01.627Z",
+      "updatedAt": "2026-10-11T16:04:24.245Z"
+    },
+    {
+      "id": "1080e184-3b93-405d-ad72-9f028eaa3504",
+      "type": "study",
+      "status": "completed",
+      "subject": "ریاضی فنی ۱",
+      "isPractice": false,
+      "topic": "توابع مثلثاتی",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-11T16:05:20.967Z",
+        "endedAt": "2026-10-11T16:55:20.967Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-11T16:05:20.967Z",
+      "updatedAt": "2026-10-11T16:58:35.976Z"
+    },
+    {
+      "id": "3cbc4014-1610-42c5-91d2-f0a203740aec",
+      "type": "study",
+      "status": "completed",
+      "subject": "زبان تخصصی",
+      "isPractice": false,
+      "topic": "واژگان عمومی",
+      "planned": {
+        "durationSeconds": 900
+      },
+      "actual": {
+        "startedAt": "2026-10-11T17:09:26.190Z",
+        "endedAt": "2026-10-11T17:24:26.190Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 900,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-11T17:09:26.190Z",
+      "updatedAt": "2026-10-11T17:25:35.325Z"
+    },
+    {
+      "id": "d223a961-7785-4abb-b1d1-43c5076af4ae",
+      "type": "study",
+      "status": "completed",
+      "subject": "سیستم‌عامل",
+      "isPractice": false,
+      "topic": "ساختار سیستم‌عامل",
+      "planned": {
+        "durationSeconds": 1500
+      },
+      "actual": {
+        "startedAt": "2026-10-11T17:26:26.495Z",
+        "endedAt": "2026-10-11T17:51:26.495Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 1500,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-11T17:26:26.495Z",
+      "updatedAt": "2026-10-11T17:51:31.025Z"
+    },
+    {
+      "id": "797aebc4-cbb9-48a8-8846-658483c99115",
+      "type": "study",
+      "status": "abandoned",
+      "subject": "هوش مصنوعی",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 5400
+      },
+      "actual": {
+        "startedAt": "2026-10-12T03:01:22.040Z",
+        "endedAt": "2026-10-12T04:20:40.646Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [
+        {
+          "startedAt": "2026-10-12T04:14:11.163Z",
+          "endedAt": "2026-10-12T04:19:25.016Z",
+          "durationSeconds": 314
+        }
+      ],
+      "derived": {
+        "activeDurationSeconds": 4445,
+        "totalPausedSeconds": 314,
+        "pauseCount": 1
+      },
+      "analysis": null,
+      "createdAt": "2026-10-12T03:01:22.040Z",
+      "updatedAt": "2026-10-12T04:20:45.118Z"
     }
   ],
   "derived": {
     "note": "Rebuildable from `sessions`. Safe to ignore or delete; regenerated on every save.",
-    "generatedAt": "2026-10-11T04:41:21.754Z",
+    "generatedAt": "2026-10-12T04:20:45.491Z",
     "dailySummaries": {
       "2026-09-26": {
         "studySeconds": 4320,
@@ -1811,9 +1967,14 @@
         "completedSessionCount": 4
       },
       "2026-10-11": {
-        "studySeconds": 3000,
+        "studySeconds": 12000,
+        "sessionCount": 6,
+        "completedSessionCount": 6
+      },
+      "2026-10-12": {
+        "studySeconds": 4445,
         "sessionCount": 1,
-        "completedSessionCount": 1
+        "completedSessionCount": 0
       }
     },
     "subjectSummaries": [
@@ -1821,15 +1982,15 @@
         "subject": "ریاضی فنی ۱",
         "kind": "study",
         "isPractice": false,
-        "studySeconds": 30875,
-        "sessionCount": 8
+        "studySeconds": 33875,
+        "sessionCount": 9
       },
       {
         "subject": "هوش مصنوعی",
         "kind": "study",
         "isPractice": false,
-        "studySeconds": 22020,
-        "sessionCount": 8
+        "studySeconds": 26465,
+        "sessionCount": 9
       },
       {
         "subject": "ساختمان داده",
@@ -1849,8 +2010,8 @@
         "subject": "سیستم‌عامل",
         "kind": "study",
         "isPractice": false,
-        "studySeconds": 12300,
-        "sessionCount": 5
+        "studySeconds": 13800,
+        "sessionCount": 6
       },
       {
         "subject": "طراحی الگوریتم",
@@ -1877,8 +2038,8 @@
         "subject": "ساختمان داده",
         "kind": "practice",
         "isPractice": true,
-        "studySeconds": 4875,
-        "sessionCount": 2
+        "studySeconds": 7875,
+        "sessionCount": 3
       },
       {
         "subject": "ریاضیات گسسته",
@@ -1886,6 +2047,13 @@
         "isPractice": false,
         "studySeconds": 3000,
         "sessionCount": 1
+      },
+      {
+        "subject": "زبان تخصصی",
+        "kind": "study",
+        "isPractice": false,
+        "studySeconds": 3000,
+        "sessionCount": 3
       },
       {
         "subject": "نظریه زبان‌ها و ماشین‌ها",
@@ -1899,13 +2067,6 @@
         "kind": "practice",
         "isPractice": true,
         "studySeconds": 1800,
-        "sessionCount": 1
-      },
-      {
-        "subject": "زبان تخصصی",
-        "kind": "study",
-        "isPractice": false,
-        "studySeconds": 1500,
         "sessionCount": 1
       },
       {
