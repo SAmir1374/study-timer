@@ -89,6 +89,7 @@ export {
   closeCheckinModal,
   getCheckinDateKey,
   readCheckinForm,
+  recalcSleepHours, 
 } from "./modals/checkinModal.js";
 export {
   populateSettingsForm,

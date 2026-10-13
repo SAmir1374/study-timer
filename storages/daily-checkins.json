@@ -1,51 +1,52 @@
 {
   "schemaVersion": "daily-checkin-json",
-  "version": 1,
+  "version": 2,
   "app": "Study Timer",
-  "createdAt": "2026-10-05T11:55:58.882Z",
-  "updatedAt": "2026-10-11T05:17:39.459Z",
+  "createdAt": "2026-10-10T04:35:24.730Z",
+  "updatedAt": "2026-10-13T15:38:51.606Z",
   "entries": [
     {
-      "date": "2026-10-11",
+      "date": "2026-10-13",
       "sleep": {
-        "bedTime": "10:15",
-        "wakeTime": "06:45",
-        "hours": 8,
+        "bedTime": "22:31",
+        "wakeTime": "08:10",
+        "hours": 9.7,
         "quality": 5
       },
       "relaxationRoutine": {
         "done": false,
-        "steps": null
+        "steps": null,
+        "effectiveness": 5
+      },
+      "mood": {
+        "rating": 7,
+        "stress": 5,
+        "energy": 4
       },
       "activity1": false,
       "operation1": false,
-      "yesterdayQuality": 8,
+      "masturbation": {
+        "positive": {
+          "done": false,
+          "count": null
+        },
+        "negative": {
+          "done": false,
+          "count": null
+        }
+      },
+      "food": {
+        "meals": 3,
+        "quality": 6,
+        "water": true
+      },
+      "yesterdayQuality": 4,
       "exercise": {
-        "done": true,
-        "minutes": 90
-      },
-      "recordedAt": "2026-10-11T05:17:39.432Z"
-    },
-    {
-      "date": "2026-10-05",
-      "sleep": {
-        "bedTime": "22:05",
-        "wakeTime": "05:06",
-        "hours": 7,
-        "quality": 7
-      },
-      "relaxationRoutine": {
-        "done": true,
-        "steps": 4
-      },
-      "activity1": false,
-      "operation1": false,
-      "yesterdayQuality": 7,
-      "exercise": {
-        "done": true,
+        "done": false,
         "minutes": null
       },
-      "recordedAt": "2026-10-05T11:57:45.450Z"
+      "notes": null,
+      "recordedAt": "2026-10-13T15:38:51.558Z"
     }
   ]
 }

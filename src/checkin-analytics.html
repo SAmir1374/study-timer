@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>تحلیل چک‌این روزانه</title>
+    <link rel="stylesheet" href="./style/checkin-analytics.css" />
+  </head>
+
+  <body data-theme="dark">
+    <header class="ca-header">
+      <div class="ca-header__left">
+        <a href="./index.html" class="ca-back" title="بازگشت">←</a>
+        <h1>تحلیل چک‌این روزانه</h1>
+        <span class="ca-count" id="caCount">—</span>
+      </div>
+      <div class="ca-header__right">
+        <button type="button" class="ca-btn" id="caConnectBtn">اتصال فایل</button>
+        <label class="ca-btn ca-btn--ghost" for="caImportInput">
+          ایمپورت JSON
+          <input type="file" id="caImportInput" accept=".json,application/json" hidden />
+        </label>
+        <select id="caRangeSelect" class="ca-select" title="بازه">
+          <option value="14">۱۴ روز اخیر</option>
+          <option value="30" selected>۳۰ روز اخیر</option>
+          <option value="90">۹۰ روز اخیر</option>
+          <option value="0">همه</option>
+        </select>
+      </div>
+    </header>
+
+    <main class="ca-main" id="caMain">
+      <div class="ca-empty" id="caEmpty">
+        <p>برای شروع، فایل چک‌این روزانه را متصل کن یا ایمپورت کن.</p>
+      </div>
+
+      <div id="caContent" hidden>
+
+        <!-- ============ کارت‌های خلاصه ============ -->
+        <section class="ca-summary" id="caSummary"></section>
+
+        <!-- ============ گیج وضعیت روانی ============ -->
+        <section class="ca-panel ca-panel--state">
+          <h2 class="ca-panel__title">وضعیت روانی فعلی</h2>
+          <div class="ca-state">
+            <div class="ca-gauge" id="caGauge"></div>
+            <div class="ca-state__info">
+              <div class="ca-state__label" id="caStateLabel">—</div>
+              <div class="ca-state__trend" id="caStateTrend">—</div>
+              <div class="ca-state__hint" id="caStateHint">—</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ هشدارها ============ -->
+        <section class="ca-panel" id="caWarningsPanel" hidden>
+          <h2 class="ca-panel__title">هشدارها و الگوهای نگران‌کننده</h2>
+          <div class="ca-warnings" id="caWarnings"></div>
+        </section>
+
+        <!-- ============ نمودار خواب ============ -->
+        <section class="ca-panel">
+          <h2 class="ca-panel__title">خواب</h2>
+          <div class="ca-chart" id="caSleepChart"></div>
+          <div class="ca-legend">
+            <span><i class="dot" style="background:#6ea8ff"></i>ساعت خواب</span>
+            <span><i class="dot" style="background:#a78bfa"></i>کیفیت (۱–۱۰)</span>
+            <span><i class="dot" style="background:#f59e0b"></i>ساعت بیداری</span>
+          </div>
+        </section>
+
+        <!-- ============ نمودار خلق/استرس/انرژی ============ -->
+        <section class="ca-panel">
+          <h2 class="ca-panel__title">خلق، استرس، انرژی</h2>
+          <div class="ca-chart" id="caMoodChart"></div>
+          <div class="ca-legend">
+            <span><i class="dot" style="background:#34d399"></i>خلق</span>
+            <span><i class="dot" style="background:#f87171"></i>استرس</span>
+            <span><i class="dot" style="background:#fbbf24"></i>انرژی</span>
+          </div>
+        </section>
+
+        <!-- ============ رفتارها ============ -->
+        <section class="ca-panel">
+          <h2 class="ca-panel__title">رفتارها و عادت‌ها</h2>
+          <div class="ca-behaviors" id="caBehaviors"></div>
+        </section>
+
+        <!-- ============ همبستگی‌ها ============ -->
+        <section class="ca-panel">
+          <h2 class="ca-panel__title">همبستگی‌ها — چه چیزی با خلق و استرس مرتبطه؟</h2>
+          <div class="ca-corr" id="caCorr"></div>
+          <p class="ca-hint">
+            عدد بین ۱- و ۱+: نزدیک به ۱ یعنی «هرچه این بیشتر، آن هم بیشتر».
+            نزدیک به ۱- یعنی «هرچه این بیشتر، آن کمتر». کمتر از ۳/۰ معمولاً معنی‌دار نیست.
+          </p>
+        </section>
+
+        <!-- ============ نقشه‌ی حرارتی ============ -->
+        <section class="ca-panel">
+          <h2 class="ca-panel__title">نقشه‌ی حرارتی وضعیت روانی</h2>
+          <div class="ca-heatmap" id="caHeatmap"></div>
+          <div class="ca-heatmap-legend">
+            <span>بد</span>
+            <div class="ca-heatmap-legend__gradient"></div>
+            <span>خوب</span>
+          </div>
+        </section>
+
+        <!-- ============ جدول ============ -->
+        <section class="ca-panel">
+          <h2 class="ca-panel__title">داده‌های روزانه</h2>
+          <div class="ca-table-wrap">
+            <table class="ca-table" id="caTable"></table>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <script type="module" src="./files/daliycheck/checkin-analytics.js"></script>
+  </body>
+</html>

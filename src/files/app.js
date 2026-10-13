@@ -45,6 +45,7 @@ import {
   closeCheckinModal,
   readCheckinForm,
   getCheckinDateKey,
+  recalcSleepHours,
 } from "./ui.js";
 import { DailyBackup } from "./dailyBackup.js";
 import { serializeDocument, setSessionAnalysis, setSessionTopic } from "./dataLayer.js";
@@ -288,6 +289,11 @@ el.breakBtn.addEventListener("click", () => {
    Daily check-in modal
    ------------------------------------------------------------ */
 
+// Auto-calc sleep hours from bed/wake times
+el.checkinBedTime?.addEventListener("input", recalcSleepHours);
+el.checkinWakeTime?.addEventListener("input", recalcSleepHours);
+
+// show / hide sub-fields
 el.checkinRoutineDone?.addEventListener("change", () => {
   el.checkinRoutineStepsWrap.hidden = !el.checkinRoutineDone.checked;
   if (!el.checkinRoutineDone.checked) el.checkinRoutineSteps.value = "";
@@ -298,14 +304,36 @@ el.checkinExerciseDone?.addEventListener("change", () => {
   if (!el.checkinExerciseDone.checked) el.checkinExerciseMinutes.value = "";
 });
 
-el.checkinSleepQuality?.addEventListener("input", () => {
-  el.checkinSleepQualityValue.textContent = el.checkinSleepQuality.value;
+el.checkinMasturbationPos?.addEventListener("change", () => {
+  el.checkinMasturbationPosCountWrap.hidden = !el.checkinMasturbationPos.checked;
+  if (!el.checkinMasturbationPos.checked) el.checkinMasturbationPosCount.value = "";
 });
 
-el.checkinYesterdayQuality?.addEventListener("input", () => {
-  el.checkinYesterdayQualityValue.textContent = el.checkinYesterdayQuality.value;
+el.checkinMasturbationNeg?.addEventListener("change", () => {
+  el.checkinMasturbationNegCountWrap.hidden = !el.checkinMasturbationNeg.checked;
+  if (!el.checkinMasturbationNeg.checked) el.checkinMasturbationNegCount.value = "";
 });
 
+// range → output
+const rangePairs = [
+  ["checkinSleepQuality", "checkinSleepQualityValue"],
+  ["checkinRoutineEffectiveness", "checkinRoutineEffectivenessValue"],
+  ["checkinMood", "checkinMoodValue"],
+  ["checkinStress", "checkinStressValue"],
+  ["checkinEnergy", "checkinEnergyValue"],
+  ["checkinFoodQuality", "checkinFoodQualityValue"],
+  ["checkinYesterdayQuality", "checkinYesterdayQualityValue"],
+];
+rangePairs.forEach(([id, outId]) => {
+  const input = el[id],
+    out = el[outId];
+  if (!input || !out) return;
+  input.addEventListener("input", () => {
+    out.textContent = input.value;
+  });
+});
+
+// save
 el.checkinSaveBtn?.addEventListener("click", () => {
   const dateKey = getCheckinDateKey() || todayKey();
   const values = readCheckinForm();
@@ -314,7 +342,11 @@ el.checkinSaveBtn?.addEventListener("click", () => {
     return;
   }
 
-  DailyCheckinStore.saveCheckin(dateKey, values);
+  // If an entry for today already exists, load it first so we don't wipe fields
+  const existing = DailyCheckinStore.getEntryForDate(dateKey);
+  const merged = existing ? { ...existing, ...values } : values;
+
+  DailyCheckinStore.saveCheckin(dateKey, merged);
   closeCheckinModal();
   showToast(tr().toastCheckinSaved || "ثبت شد", "success");
 });
@@ -716,19 +748,18 @@ function maybeOpenDailyCheckin() {
   clearTimeout(checkinRetryTimer);
 
   const today = todayKey();
+  const existing = DailyCheckinStore.getEntryForDate(today);
 
-  if (DailyCheckinStore.hasEntryForDate(today)) {
-    return;
-  }
+  // اگر entry امروز هست و کاربر قبلاً ثبت کرده → باز نکن (رفتار قبلی)
+  // ولی اگر می‌خوای بشه ویرایشش کرد، این شرط را حذف کن:
+  if (existing) return;
 
   if (isAnyModalOpen()) {
     checkinRetryCount++;
-    // بعد از ۵ بار، تسلیم شو — کاربر خودش می‌تواند بعداً بازش کند
     if (checkinRetryCount > 5) return;
     checkinRetryTimer = setTimeout(maybeOpenDailyCheckin, 2000);
     return;
   }
-
   checkinRetryCount = 0;
   openCheckinModal(today, null);
 }
