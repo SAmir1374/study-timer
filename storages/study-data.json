@@ -4,7 +4,7 @@
     "name": "Study Timer",
     "dataFormat": "study-timer-json",
     "createdAt": "2026-09-26T03:00:01.956Z",
-    "updatedAt": "2026-10-13T17:21:16.093Z",
+    "updatedAt": "2026-10-14T05:25:58.201Z",
     "timeZone": "Asia/Tehran"
   },
   "settings": {
@@ -15,8 +15,8 @@
     "reducedMotion": false,
     "autoStartNextSession": false,
     "defaultSessionMinutes": 50,
-    "lastSelectedMinutes": 25,
-    "lastSelectedSubject": "زبان تخصصی",
+    "lastSelectedMinutes": 40,
+    "lastSelectedSubject": "ریاضی فنی ۱",
     "lastSelectedPractice": false,
     "lastSelectedKind": "study"
   },
@@ -2027,11 +2027,61 @@
       "analysis": null,
       "createdAt": "2026-10-13T16:55:06.148Z",
       "updatedAt": "2026-10-13T17:21:15.523Z"
+    },
+    {
+      "id": "3c185b93-1abf-48b7-b225-d6de534ecf9f",
+      "type": "study",
+      "status": "completed",
+      "subject": "طراحی الگوریتم",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-14T03:58:00.063Z",
+        "endedAt": "2026-10-14T04:48:00.063Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-14T03:58:00.063Z",
+      "updatedAt": "2026-10-14T04:52:48.611Z"
+    },
+    {
+      "id": "03be5760-fda0-4f7c-be83-45dc291d2e6d",
+      "type": "study",
+      "status": "abandoned",
+      "subject": "ریاضی فنی ۱",
+      "isPractice": false,
+      "topic": "توابع مثلثاتی",
+      "planned": {
+        "durationSeconds": 2400
+      },
+      "actual": {
+        "startedAt": "2026-10-14T04:53:50.868Z",
+        "endedAt": "2026-10-14T05:25:51.791Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 1921,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-14T04:53:50.868Z",
+      "updatedAt": "2026-10-14T05:25:57.799Z"
     }
   ],
   "derived": {
     "note": "Rebuildable from `sessions`. Safe to ignore or delete; regenerated on every save.",
-    "generatedAt": "2026-10-13T17:21:16.093Z",
+    "generatedAt": "2026-10-14T05:25:58.201Z",
     "dailySummaries": {
       "2026-09-26": {
         "studySeconds": 4320,
@@ -2117,6 +2167,11 @@
         "studySeconds": 4500,
         "sessionCount": 2,
         "completedSessionCount": 2
+      },
+      "2026-10-14": {
+        "studySeconds": 4921,
+        "sessionCount": 2,
+        "completedSessionCount": 1
       }
     },
     "subjectSummaries": [
@@ -2124,8 +2179,8 @@
         "subject": "ریاضی فنی ۱",
         "kind": "study",
         "isPractice": false,
-        "studySeconds": 33875,
-        "sessionCount": 9
+        "studySeconds": 35796,
+        "sessionCount": 10
       },
       {
         "subject": "هوش مصنوعی",
@@ -2142,18 +2197,18 @@
         "sessionCount": 8
       },
       {
+        "subject": "طراحی الگوریتم",
+        "kind": "study",
+        "isPractice": false,
+        "studySeconds": 17700,
+        "sessionCount": 8
+      },
+      {
         "subject": "ریاضیات گسسته",
         "kind": "study",
         "isPractice": false,
         "studySeconds": 17005,
         "sessionCount": 6
-      },
-      {
-        "subject": "طراحی الگوریتم",
-        "kind": "study",
-        "isPractice": false,
-        "studySeconds": 14700,
-        "sessionCount": 7
       },
       {
         "subject": "سیستم‌عامل",
