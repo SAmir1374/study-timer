@@ -743,177 +743,20 @@
     </div>
 
     <!-- =========================
-         DAILY CHECK-IN MODAL (جدید)
+         DAILY CHECK-IN MODAL (صبح / شب — بدنه از checkinModal.js ساخته می‌شود)
     ========================== -->
     <div class="modal" id="checkinModal" hidden aria-hidden="true">
       <div class="modal__backdrop" data-close-checkin></div>
 
       <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="checkinModalTitle">
         <div class="modal__header">
-          <h2 id="checkinModalTitle" data-i18n="checkinTitle">Daily check-in</h2>
+          <h2 id="checkinModalTitle">چک‌این</h2>
           <button type="button" class="modal-close" id="checkinCloseBtn" aria-label="Close" title="Close">
             ×
           </button>
         </div>
 
-        <div class="modal__body">
-          <!-- ============== ۱. خواب دیشب ============== -->
-          <div class="settings-divider" data-i18n="checkinSleepSection">خواب دیشب</div>
-          <div class="settings-grid">
-            <label class="field">
-              <span class="field__label" data-i18n="checkinBedTime">ساعت خواب</span>
-              <input type="time" id="checkinBedTime" />
-            </label>
-            <label class="field">
-              <span class="field__label" data-i18n="checkinWakeTime">ساعت بیداری</span>
-              <input type="time" id="checkinWakeTime" />
-            </label>
-            <label class="field">
-              <span class="field__label" data-i18n="checkinSleepHours">مدت خواب (ساعت — خودکار)</span>
-              <input type="number" id="checkinSleepHours" min="0" max="24" step="0.1" inputmode="decimal" />
-            </label>
-            <label class="field">
-              <span class="field__label" data-i18n="checkinSleepQuality">کیفیت خواب (۱–۱۰)</span>
-              <div class="range-row">
-                <input type="range" id="checkinSleepQuality" min="1" max="10" step="1" value="5" />
-                <output id="checkinSleepQualityValue" for="checkinSleepQuality">5</output>
-              </div>
-            </label>
-          </div>
-
-          <!-- ============== ۲. روتین آرام‌سازی ============== -->
-          <div class="settings-divider" data-i18n="checkinRoutineSection">روتین آرام‌سازی دیشب</div>
-          <div class="settings-options">
-            <label class="setting-toggle">
-              <input type="checkbox" id="checkinRoutineDone" />
-              <span data-i18n="checkinRoutineDone">روتین را انجام دادی؟</span>
-            </label>
-            <label class="field" id="checkinRoutineStepsWrap" hidden>
-              <span class="field__label" data-i18n="checkinRoutineSteps">چند مرحله؟</span>
-              <input type="number" id="checkinRoutineSteps" min="0" max="100" inputmode="numeric" />
-            </label>
-            <label class="field">
-              <span class="field__label" data-i18n="checkinRoutineEffectiveness">چقدر اثر داشت؟ (۱–۱۰)</span>
-              <div class="range-row">
-                <input type="range" id="checkinRoutineEffectiveness" min="1" max="10" step="1" value="5" />
-                <output id="checkinRoutineEffectivenessValue" for="checkinRoutineEffectiveness">5</output>
-              </div>
-            </label>
-          </div>
-
-          <!-- ============== ۳. وضعیت روانی امروز ============== -->
-          <div class="settings-divider" data-i18n="checkinMoodSection">وضعیت روانی امروز</div>
-          <div class="settings-grid">
-            <label class="field">
-              <span class="field__label" data-i18n="checkinMood">خلق‌وخو (۱–۱۰)</span>
-              <div class="range-row">
-                <input type="range" id="checkinMood" min="1" max="10" step="1" value="5" />
-                <output id="checkinMoodValue" for="checkinMood">5</output>
-              </div>
-            </label>
-            <label class="field">
-              <span class="field__label" data-i18n="checkinStress">استرس / فشار روانی (۱–۱۰)</span>
-              <div class="range-row">
-                <input type="range" id="checkinStress" min="1" max="10" step="1" value="5" />
-                <output id="checkinStressValue" for="checkinStress">5</output>
-              </div>
-            </label>
-            <label class="field">
-              <span class="field__label" data-i18n="checkinEnergy">انرژی (۱–۱۰)</span>
-              <div class="range-row">
-                <input type="range" id="checkinEnergy" min="1" max="10" step="1" value="5" />
-                <output id="checkinEnergyValue" for="checkinEnergy">5</output>
-              </div>
-            </label>
-          </div>
-
-          <!-- ============== ۴. فعالیت‌ها ============== -->
-          <div class="settings-divider" data-i18n="checkinActivitiesSection">فعالیت‌ها</div>
-          <div class="settings-options">
-            <label class="setting-toggle">
-              <input type="checkbox" id="checkinActivity1" />
-              <span data-i18n="checkinActivity1">فعالیت شماره ۱</span>
-            </label>
-            <label class="setting-toggle">
-              <input type="checkbox" id="checkinOperation1" />
-              <span data-i18n="checkinOperation1">عملیات د۱</span>
-            </label>
-            <label class="setting-toggle">
-              <input type="checkbox" id="checkinExerciseDone" />
-              <span data-i18n="checkinExerciseDone">ورزش کردی؟</span>
-            </label>
-            <label class="field" id="checkinExerciseMinutesWrap" hidden>
-              <span class="field__label" data-i18n="checkinExerciseMinutes">چند دقیقه؟</span>
-              <input type="number" id="checkinExerciseMinutes" min="0" max="600" inputmode="numeric" />
-            </label>
-          </div>
-
-          <!-- ============== ۵. خودارضایی ============== -->
-          <div class="settings-divider" data-i18n="checkinMastSection">خودارضایی</div>
-          <div class="settings-options">
-            <label class="setting-toggle">
-              <input type="checkbox" id="checkinMasturbationPos" />
-              <span data-i18n="checkinMasturbationPos">مثبت — از روی میل و لذت</span>
-            </label>
-            <label class="field" id="checkinMasturbationPosCountWrap" hidden>
-              <span class="field__label" data-i18n="checkinCount">تعداد</span>
-              <input type="number" id="checkinMasturbationPosCount" min="0" max="20" inputmode="numeric" />
-            </label>
-
-            <label class="setting-toggle">
-              <input type="checkbox" id="checkinMasturbationNeg" />
-              <span data-i18n="checkinMasturbationNeg">منفی — از روی فشار روانی / اجبار</span>
-            </label>
-            <label class="field" id="checkinMasturbationNegCountWrap" hidden>
-              <span class="field__label" data-i18n="checkinCount">تعداد</span>
-              <input type="number" id="checkinMasturbationNegCount" min="0" max="20" inputmode="numeric" />
-            </label>
-          </div>
-
-          <!-- ============== ۶. تغذیه ============== -->
-          <div class="settings-divider" data-i18n="checkinFoodSection">تغذیه</div>
-          <div class="settings-grid">
-            <label class="field">
-              <span class="field__label" data-i18n="checkinFoodMeals">تعداد وعده‌ها</span>
-              <input type="number" id="checkinFoodMeals" min="0" max="10" inputmode="numeric" />
-            </label>
-            <label class="field">
-              <span class="field__label" data-i18n="checkinFoodQuality">کیفیت تغذیه (۱–۱۰)</span>
-              <div class="range-row">
-                <input type="range" id="checkinFoodQuality" min="1" max="10" step="1" value="5" />
-                <output id="checkinFoodQualityValue" for="checkinFoodQuality">5</output>
-              </div>
-            </label>
-          </div>
-          <div class="settings-options">
-            <label class="setting-toggle">
-              <input type="checkbox" id="checkinFoodWater" />
-              <span data-i18n="checkinFoodWater">آب کافی خوردی؟</span>
-            </label>
-          </div>
-
-          <!-- ============== ۷. دیروز ============== -->
-          <div class="settings-divider" data-i18n="checkinYesterdaySection">دیروز</div>
-          <label class="field">
-            <span class="field__label" data-i18n="checkinYesterdayQuality">دیروز روز خوبی بود؟ (۱–۱۰)</span>
-            <div class="range-row">
-              <input type="range" id="checkinYesterdayQuality" min="1" max="10" step="1" value="5" />
-              <output id="checkinYesterdayQualityValue" for="checkinYesterdayQuality">5</output>
-            </div>
-          </label>
-
-          <!-- ============== ۸. یادداشت ============== -->
-          <div class="settings-divider" data-i18n="checkinNotesSection">یادداشت (اختیاری)</div>
-          <label class="field">
-            <textarea
-              id="checkinNotes"
-              rows="2"
-              maxlength="500"
-              data-i18n-placeholder="checkinNotesPlaceholder"
-              placeholder="اتفاق مهم، احساس، یا چیز خاصی که می‌خوای یادت بمونه…"
-            ></textarea>
-          </label>
-        </div>
+        <div class="modal__body" id="checkinModalBody"></div>
 
         <div class="modal__footer">
           <button type="button" class="secondary-btn" id="checkinSkipBtn">
@@ -925,7 +768,6 @@
         </div>
       </div>
     </div>
-
     <!-- =========================
          POST-SESSION MODAL
          (topic for study/practice; topic + full analysis for review)

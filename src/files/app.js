@@ -45,7 +45,6 @@ import {
   closeCheckinModal,
   readCheckinForm,
   getCheckinDateKey,
-  recalcSleepHours,
 } from "./ui.js";
 import { DailyBackup } from "./dailyBackup.js";
 import { serializeDocument, setSessionAnalysis, setSessionTopic } from "./dataLayer.js";
@@ -54,6 +53,7 @@ import { WeeklyBackup } from "./weeklyBackup.js";
 import { serializeWeeklyPlansDocument } from "./weeklyPlanData.js";
 import { DailyCheckinStore } from "./daliycheck/dailyCheckinStore.js";
 import { DailyCheckinBackup } from "./daliycheck/dailyCheckinBackup.js";
+import { getDueSlot } from "./daliycheck/dailyCheckinData.js";
 
 /* ============================================================
    Wake lock: screen must stay on for the whole "running" duration
@@ -286,67 +286,17 @@ el.breakBtn.addEventListener("click", () => {
 });
 
 /* ------------------------------------------------------------
-   Daily check-in modal
+   Daily check-in modal (صبح / شب)
+   فیلدها، اسلایدرها و نمایش/پنهان‌شدن زیرفیلدها داخل checkinModal.js
+   هندل می‌شوند؛ اینجا فقط ذخیره و بستن است.
    ------------------------------------------------------------ */
 
-// Auto-calc sleep hours from bed/wake times
-el.checkinBedTime?.addEventListener("input", recalcSleepHours);
-el.checkinWakeTime?.addEventListener("input", recalcSleepHours);
-
-// show / hide sub-fields
-el.checkinRoutineDone?.addEventListener("change", () => {
-  el.checkinRoutineStepsWrap.hidden = !el.checkinRoutineDone.checked;
-  if (!el.checkinRoutineDone.checked) el.checkinRoutineSteps.value = "";
-});
-
-el.checkinExerciseDone?.addEventListener("change", () => {
-  el.checkinExerciseMinutesWrap.hidden = !el.checkinExerciseDone.checked;
-  if (!el.checkinExerciseDone.checked) el.checkinExerciseMinutes.value = "";
-});
-
-el.checkinMasturbationPos?.addEventListener("change", () => {
-  el.checkinMasturbationPosCountWrap.hidden = !el.checkinMasturbationPos.checked;
-  if (!el.checkinMasturbationPos.checked) el.checkinMasturbationPosCount.value = "";
-});
-
-el.checkinMasturbationNeg?.addEventListener("change", () => {
-  el.checkinMasturbationNegCountWrap.hidden = !el.checkinMasturbationNeg.checked;
-  if (!el.checkinMasturbationNeg.checked) el.checkinMasturbationNegCount.value = "";
-});
-
-// range → output
-const rangePairs = [
-  ["checkinSleepQuality", "checkinSleepQualityValue"],
-  ["checkinRoutineEffectiveness", "checkinRoutineEffectivenessValue"],
-  ["checkinMood", "checkinMoodValue"],
-  ["checkinStress", "checkinStressValue"],
-  ["checkinEnergy", "checkinEnergyValue"],
-  ["checkinFoodQuality", "checkinFoodQualityValue"],
-  ["checkinYesterdayQuality", "checkinYesterdayQualityValue"],
-];
-rangePairs.forEach(([id, outId]) => {
-  const input = el[id],
-    out = el[outId];
-  if (!input || !out) return;
-  input.addEventListener("input", () => {
-    out.textContent = input.value;
-  });
-});
-
-// save
 el.checkinSaveBtn?.addEventListener("click", () => {
-  const dateKey = getCheckinDateKey() || todayKey();
-  const values = readCheckinForm();
-  if (!values) {
-    showToast(tr().toastInvalid, "error");
-    return;
-  }
+  const dateKey = getCheckinDateKey();
+  const entry = readCheckinForm(); // entry کامل (موجود + این اسلات)؛ null = پیام داخل مودال
+  if (!dateKey || !entry) return;
 
-  // If an entry for today already exists, load it first so we don't wipe fields
-  const existing = DailyCheckinStore.getEntryForDate(dateKey);
-  const merged = existing ? { ...existing, ...values } : values;
-
-  DailyCheckinStore.saveCheckin(dateKey, merged);
+  DailyCheckinStore.saveCheckin(dateKey, entry);
   closeCheckinModal();
   showToast(tr().toastCheckinSaved || "ثبت شد", "success");
 });
@@ -728,7 +678,7 @@ window.addEventListener("pagehide", () => {
 window.addEventListener("beforeunload", (event) => {
   Persistence.flush();
   WeeklyPlanStore.flush();
-  DailyCheckinStore.flush(); // ← جدید
+  DailyCheckinStore.flush();
 
   const realUnsaved =
     Persistence.hasUnsavedData() ||
@@ -741,18 +691,23 @@ window.addEventListener("beforeunload", (event) => {
   }
 });
 
+/* ------------------------------------------------------------
+   Daily check-in scheduling
+   ۰۴:۰۰–۱۸:۰۰ → چک‌این صبح ؛ ۱۸:۰۰–۰۴:۰۰ → چک‌این شب
+   (بعد از نیمه‌شب برای روز قبل). فقط اگر آن اسلات ثبت نشده باشد.
+   ------------------------------------------------------------ */
+
 let checkinRetryTimer = null;
 let checkinRetryCount = 0;
 
 function maybeOpenDailyCheckin() {
   clearTimeout(checkinRetryTimer);
 
-  const today = todayKey();
-  const existing = DailyCheckinStore.getEntryForDate(today);
+  // وسط جلسه‌ی مطالعه مزاحم نشو؛ بررسی دوره‌ای بعداً دوباره امتحان می‌کند
+  if (state.session.state === "running") return;
 
-  // اگر entry امروز هست و کاربر قبلاً ثبت کرده → باز نکن (رفتار قبلی)
-  // ولی اگر می‌خوای بشه ویرایشش کرد، این شرط را حذف کن:
-  if (existing) return;
+  const due = getDueSlot(DailyCheckinStore.getDoc());
+  if (!due) return;
 
   if (isAnyModalOpen()) {
     checkinRetryCount++;
@@ -761,8 +716,11 @@ function maybeOpenDailyCheckin() {
     return;
   }
   checkinRetryCount = 0;
-  openCheckinModal(today, null);
+  openCheckinModal(due.dateKey, due.entry, due.slot);
 }
+
+// اگر برنامه ساعت‌ها باز بماند، رسیدن به ۱۸:۰۰ / ۰۴:۰۰ هم دیده شود
+setInterval(maybeOpenDailyCheckin, 10 * 60 * 1000);
 
 /* ============================================================
    Init

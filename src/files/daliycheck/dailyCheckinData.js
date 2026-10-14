@@ -1,8 +1,10 @@
 /* =============================================================
    dailyCheckinData.js — pure data model for daily-checkins.json
+   Schema v3: two slots per day (morning / evening), multi-item
+   questionnaires reduced to 1–10 composites.
    ============================================================= */
 
-export const CHECKIN_SCHEMA_VERSION = 2;
+export const CHECKIN_SCHEMA_VERSION = 3;
 export const CHECKIN_DATA_FORMAT = "daily-checkin-json";
 export const DEFAULT_CHECKIN_FILE_NAME = "daily-checkins.json";
 export const INVALID_CHECKIN_MESSAGE = "Invalid daily-checkin file";
@@ -11,10 +13,12 @@ const DATE_KEY_RE = /^\d{4}-\d{2}-\d{2}$/;
 const TIME_RE = /^([01]\d|2[0-3]):[0-5]\d$/;
 const MAX_ENTRIES = 10000;
 const MAX_NOTES_LEN = 500;
+const MAX_ITEMS = 80;
 
 const isObj = (v) => v !== null && typeof v === "object" && !Array.isArray(v);
 const isInt = (v) => Number.isInteger(v);
 const isNum = (v) => typeof v === "number" && Number.isFinite(v);
+const isScore = (v) => isNum(v) && v >= 1 && v <= 10;
 
 export class CheckinDataError extends Error {
   constructor(message, details = []) {
@@ -26,14 +30,31 @@ export class CheckinDataError extends Error {
 
 /* ---------- default factories ---------- */
 
-const emptySleep = () => ({ bedTime: null, wakeTime: null, hours: null, quality: null });
+const emptySlots = () => ({ morning: null, evening: null });
+const emptySleep = () => ({
+  bedTime: null,
+  wakeTime: null,
+  hours: null,
+  latencyMin: null,
+  awakenings: null,
+  quality: null,
+  restedness: null,
+});
 const emptyRoutine = () => ({ done: false, steps: null, effectiveness: null });
-const emptyMood = () => ({ rating: null, stress: null, energy: null });
+const emptyMorningState = () => ({ mood: null, energy: null, tension: null });
+const emptyMood = () => ({ rating: null, stress: null, energy: null, focus: null, anxiety: null });
 const emptyMast = () => ({
   positive: { done: false, count: null },
   negative: { done: false, count: null },
 });
-const emptyFood = () => ({ meals: null, quality: null, water: false });
+const emptyFood = () => ({ meals: null, quality: null, water: false, caffeine: null });
+
+/* ---------- date helper (محلی) ---------- */
+
+export function localDateKey(d = new Date()) {
+  const p = (n) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
+}
 
 /* ---------- document / entry factories ---------- */
 
@@ -52,18 +73,38 @@ export function createEmptyCheckinDocument(nowMs = Date.now()) {
 export function createCheckinEntry(dateKey, nowMs = Date.now()) {
   return {
     date: dateKey,
+    slots: emptySlots(),
     sleep: emptySleep(),
     relaxationRoutine: emptyRoutine(),
+    morningState: emptyMorningState(),
     mood: emptyMood(),
+    items: {},
     activity1: null,
     operation1: null,
     masturbation: emptyMast(),
     food: emptyFood(),
-    yesterdayQuality: null,
+    dayRating: null,
+    yesterdayQuality: null, // legacy (v1/v2)
     exercise: { done: false, minutes: null },
     notes: null,
     recordedAt: new Date(nowMs).toISOString(),
   };
+}
+
+/* ---------- کدام چک‌این الان نوبتش است؟ ----------
+   ۰۴:۰۰–۱۸:۰۰ → صبح (برای امروز)
+   ۱۸:۰۰–۰۴:۰۰ → شب (بعد از نیمه‌شب برای دیروز)
+   اگر آن اسلات قبلاً ثبت شده باشد → null */
+export function getDueSlot(doc, now = new Date()) {
+  const h = now.getHours();
+  const eveningWindow = h >= 18 || h < 4;
+  const d = new Date(now);
+  if (h < 4) d.setDate(d.getDate() - 1);
+  const dateKey = localDateKey(d);
+  const entry = findEntryByDate(doc, dateKey) || createCheckinEntry(dateKey);
+  const slot = eveningWindow ? "evening" : "morning";
+  if (entry.slots?.[slot]) return null;
+  return { slot, dateKey, entry };
 }
 
 /* ------------------------------------------------------------ */
@@ -72,12 +113,33 @@ function validateEntry(entry, index, seenDates, err) {
   const p = `entries[${index}]`;
   if (!isObj(entry)) return err(`${p} must be an object`);
 
+  const score = (path, v) => {
+    if (v !== null && !isScore(v)) err(`${path} must be null or a number between 1 and 10`);
+  };
+  const intIn = (path, v, lo, hi) => {
+    if (v !== null && (!isInt(v) || v < lo || v > hi)) {
+      err(`${path} must be null or an integer between ${lo} and ${hi}`);
+    }
+  };
+
   if (typeof entry.date !== "string" || !DATE_KEY_RE.test(entry.date)) {
     err(`${p}.date must be a "YYYY-MM-DD" date`);
   } else if (seenDates.has(entry.date)) {
     err(`${p}.date "${entry.date}" is duplicated`);
   } else {
     seenDates.add(entry.date);
+  }
+
+  // slots
+  if (!isObj(entry.slots)) {
+    err(`${p}.slots must be an object`);
+  } else {
+    for (const k of ["morning", "evening"]) {
+      const v = entry.slots[k];
+      if (v !== null && (typeof v !== "string" || Number.isNaN(Date.parse(v)))) {
+        err(`${p}.slots.${k} must be null or an ISO 8601 timestamp`);
+      }
+    }
   }
 
   // sleep
@@ -90,9 +152,10 @@ function validateEntry(entry, index, seenDates, err) {
     if (s.hours !== null && (!isNum(s.hours) || s.hours < 0 || s.hours > 24)) {
       err(`${p}.sleep.hours must be null or a number between 0 and 24`);
     }
-    if (s.quality !== null && (!isInt(s.quality) || s.quality < 1 || s.quality > 10)) {
-      err(`${p}.sleep.quality must be null or an integer between 1 and 10`);
-    }
+    intIn(`${p}.sleep.latencyMin`, s.latencyMin, 0, 600);
+    intIn(`${p}.sleep.awakenings`, s.awakenings, 0, 20);
+    score(`${p}.sleep.quality`, s.quality);
+    score(`${p}.sleep.restedness`, s.restedness);
   }
 
   // relaxation routine
@@ -101,22 +164,34 @@ function validateEntry(entry, index, seenDates, err) {
   } else {
     const r = entry.relaxationRoutine;
     if (typeof r.done !== "boolean") err(`${p}.relaxationRoutine.done must be a boolean`);
-    if (r.steps !== null && (!isInt(r.steps) || r.steps < 0 || r.steps > 100)) {
-      err(`${p}.relaxationRoutine.steps must be null or an integer between 0 and 100`);
-    }
-    if (r.effectiveness !== null && (!isInt(r.effectiveness) || r.effectiveness < 1 || r.effectiveness > 10)) {
-      err(`${p}.relaxationRoutine.effectiveness must be null or an integer between 1 and 10`);
-    }
+    intIn(`${p}.relaxationRoutine.steps`, r.steps, 0, 100);
+    score(`${p}.relaxationRoutine.effectiveness`, r.effectiveness);
   }
 
-  // mood
+  // morning "right now" state
+  if (!isObj(entry.morningState)) {
+    err(`${p}.morningState must be an object`);
+  } else {
+    for (const k of ["mood", "energy", "tension"]) score(`${p}.morningState.${k}`, entry.morningState[k]);
+  }
+
+  // evening composites
   if (!isObj(entry.mood)) {
     err(`${p}.mood must be an object`);
   } else {
-    const m = entry.mood;
-    for (const k of ["rating", "stress", "energy"]) {
-      if (m[k] !== null && (!isInt(m[k]) || m[k] < 1 || m[k] > 10)) {
-        err(`${p}.mood.${k} must be null or an integer between 1 and 10`);
+    for (const k of ["rating", "stress", "energy", "focus", "anxiety"]) score(`${p}.mood.${k}`, entry.mood[k]);
+  }
+
+  // raw item answers (1–5)
+  if (!isObj(entry.items)) {
+    err(`${p}.items must be an object`);
+  } else {
+    const keys = Object.keys(entry.items);
+    if (keys.length > MAX_ITEMS) err(`${p}.items must have at most ${MAX_ITEMS} keys`);
+    for (const k of keys) {
+      const v = entry.items[k];
+      if (v !== null && (!isInt(v) || v < 1 || v > 5)) {
+        err(`${p}.items.${k} must be null or an integer between 1 and 5`);
       }
     }
   }
@@ -136,9 +211,7 @@ function validateEntry(entry, index, seenDates, err) {
       const m = entry.masturbation[k];
       if (!isObj(m)) { err(`${p}.masturbation.${k} must be an object`); continue; }
       if (typeof m.done !== "boolean") err(`${p}.masturbation.${k}.done must be a boolean`);
-      if (m.count !== null && (!isInt(m.count) || m.count < 0 || m.count > 20)) {
-        err(`${p}.masturbation.${k}.count must be null or an integer between 0 and 20`);
-      }
+      intIn(`${p}.masturbation.${k}.count`, m.count, 0, 20);
     }
   }
 
@@ -147,21 +220,14 @@ function validateEntry(entry, index, seenDates, err) {
     err(`${p}.food must be an object`);
   } else {
     const f = entry.food;
-    if (f.meals !== null && (!isInt(f.meals) || f.meals < 0 || f.meals > 10)) {
-      err(`${p}.food.meals must be null or an integer between 0 and 10`);
-    }
-    if (f.quality !== null && (!isInt(f.quality) || f.quality < 1 || f.quality > 10)) {
-      err(`${p}.food.quality must be null or an integer between 1 and 10`);
-    }
+    intIn(`${p}.food.meals`, f.meals, 0, 10);
+    score(`${p}.food.quality`, f.quality);
     if (typeof f.water !== "boolean") err(`${p}.food.water must be a boolean`);
+    intIn(`${p}.food.caffeine`, f.caffeine, 0, 20);
   }
 
-  if (
-    entry.yesterdayQuality !== null &&
-    (!isInt(entry.yesterdayQuality) || entry.yesterdayQuality < 1 || entry.yesterdayQuality > 10)
-  ) {
-    err(`${p}.yesterdayQuality must be null or an integer between 1 and 10`);
-  }
+  score(`${p}.dayRating`, entry.dayRating);
+  score(`${p}.yesterdayQuality`, entry.yesterdayQuality);
 
   // exercise
   if (!isObj(entry.exercise)) {
@@ -169,9 +235,7 @@ function validateEntry(entry, index, seenDates, err) {
   } else {
     const e = entry.exercise;
     if (typeof e.done !== "boolean") err(`${p}.exercise.done must be a boolean`);
-    if (e.minutes !== null && (!isInt(e.minutes) || e.minutes < 0 || e.minutes > 600)) {
-      err(`${p}.exercise.minutes must be null or an integer between 0 and 600`);
-    }
+    intIn(`${p}.exercise.minutes`, e.minutes, 0, 600);
   }
 
   if (entry.notes !== null && typeof entry.notes !== "string") {
@@ -203,7 +267,7 @@ export function validateCheckinDocument(doc) {
   return errors;
 }
 
-/* ---------- migration v1 → v2 ---------- */
+/* ---------- migrations ---------- */
 
 function migrateEntryV1toV2(e) {
   const dateKey = isObj(e) && typeof e.date === "string" && DATE_KEY_RE.test(e.date)
@@ -231,6 +295,32 @@ function migrateV1toV2(raw) {
   return { ...raw, version: 2, entries };
 }
 
+function migrateEntryV2toV3(e) {
+  const dateKey = isObj(e) && typeof e.date === "string" && DATE_KEY_RE.test(e.date)
+    ? e.date
+    : "1970-01-01";
+  const base = createCheckinEntry(dateKey);
+  const stamp = typeof e?.recordedAt === "string" ? e.recordedAt : base.recordedAt;
+  return {
+    ...base,
+    ...e,
+    // ورودی‌های قدیمی تک‌مرحله‌ای بودند → هر دو اسلات «ثبت‌شده»
+    slots: { morning: stamp, evening: stamp },
+    sleep: { ...base.sleep, ...(isObj(e?.sleep) ? e.sleep : {}) },
+    relaxationRoutine: { ...base.relaxationRoutine, ...(isObj(e?.relaxationRoutine) ? e.relaxationRoutine : {}) },
+    morningState: emptyMorningState(),
+    mood: { ...base.mood, ...(isObj(e?.mood) ? e.mood : {}) },
+    items: {},
+    food: { ...base.food, ...(isObj(e?.food) ? e.food : {}) },
+    dayRating: null,
+  };
+}
+
+function migrateV2toV3(raw) {
+  const entries = Array.isArray(raw.entries) ? raw.entries.map(migrateEntryV2toV3) : [];
+  return { ...raw, version: 3, entries };
+}
+
 /* ---------- serialization ---------- */
 
 export function serializeCheckinDocument(doc, nowMs = Date.now()) {
@@ -244,8 +334,10 @@ export function parseCheckinDocument(text) {
   catch { throw new CheckinDataError(INVALID_CHECKIN_MESSAGE, ["File is not valid JSON"]); }
   if (!isObj(raw)) throw new CheckinDataError(INVALID_CHECKIN_MESSAGE, ["Root must be a JSON object"]);
 
-  // migrate if needed
-  if (Number(raw.version) === 1) raw = migrateV1toV2(raw);
+  // migrate if needed (v1 → v2 → v3)
+  let v = Number(raw.version);
+  if (v === 1) { raw = migrateV1toV2(raw); v = 2; }
+  if (v === 2) raw = migrateV2toV3(raw);
 
   const doc = {
     ...createEmptyCheckinDocument(),

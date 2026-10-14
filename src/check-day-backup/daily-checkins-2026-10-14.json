@@ -2,7 +2,51 @@
   "schemaVersion": "daily-checkin-json",
   "version": 2,
   "app": "Study Timer",
-  "createdAt": "2026-10-14T03:55:04.216Z",
-  "updatedAt": "2026-10-14T03:55:18.308Z",
-  "entries": []
+  "createdAt": "2026-10-10T04:35:24.730Z",
+  "updatedAt": "2026-10-14T11:53:16.696Z",
+  "entries": [
+    {
+      "date": "2026-10-13",
+      "sleep": {
+        "bedTime": "22:31",
+        "wakeTime": "08:10",
+        "hours": 9.7,
+        "quality": 5
+      },
+      "relaxationRoutine": {
+        "done": false,
+        "steps": null,
+        "effectiveness": 5
+      },
+      "mood": {
+        "rating": 7,
+        "stress": 5,
+        "energy": 4
+      },
+      "activity1": false,
+      "operation1": false,
+      "masturbation": {
+        "positive": {
+          "done": false,
+          "count": null
+        },
+        "negative": {
+          "done": false,
+          "count": null
+        }
+      },
+      "food": {
+        "meals": 3,
+        "quality": 6,
+        "water": true
+      },
+      "yesterdayQuality": 4,
+      "exercise": {
+        "done": false,
+        "minutes": null
+      },
+      "notes": null,
+      "recordedAt": "2026-10-13T15:38:51.558Z"
+    }
+  ]
 }
