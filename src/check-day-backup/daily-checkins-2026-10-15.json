@@ -1,0 +1,153 @@
+{
+  "schemaVersion": "daily-checkin-json",
+  "version": 3,
+  "app": "Study Timer",
+  "createdAt": "2026-10-10T04:35:24.730Z",
+  "updatedAt": "2026-10-15T05:58:52.327Z",
+  "entries": [
+    {
+      "date": "2026-10-14",
+      "slots": {
+        "morning": "2026-10-14T12:12:36.038Z",
+        "evening": "2026-10-14T14:51:32.371Z"
+      },
+      "sleep": {
+        "bedTime": "23:10",
+        "wakeTime": "07:00",
+        "hours": 7.8,
+        "latencyMin": null,
+        "awakenings": 1,
+        "quality": 5.5,
+        "restedness": 5.5
+      },
+      "relaxationRoutine": {
+        "done": false,
+        "steps": null,
+        "effectiveness": null
+      },
+      "morningState": {
+        "mood": 5.5,
+        "energy": 5.5,
+        "tension": 3.3
+      },
+      "mood": {
+        "rating": 5.5,
+        "stress": 3.3,
+        "energy": 7,
+        "focus": 6.6,
+        "anxiety": 2.5
+      },
+      "items": {
+        "s_quality": 3,
+        "s_rested": 3,
+        "n_mood": 3,
+        "n_energy": 3,
+        "n_tension": 2,
+        "m1": 4,
+        "m2": 3,
+        "m3": 4,
+        "m4": 3,
+        "s1": 2,
+        "s2": 2,
+        "s3": 2,
+        "s4": 4,
+        "e1": 4,
+        "e2": 3,
+        "e3": 2,
+        "f1": 4,
+        "f2": 3,
+        "a1": 2,
+        "a2": 1,
+        "a3": 2,
+        "f_quality": 4,
+        "d_day": 3
+      },
+      "activity1": false,
+      "operation1": false,
+      "masturbation": {
+        "positive": {
+          "done": false,
+          "count": null
+        },
+        "negative": {
+          "done": false,
+          "count": null
+        }
+      },
+      "food": {
+        "meals": 3,
+        "quality": 7.8,
+        "water": true,
+        "caffeine": 2
+      },
+      "dayRating": 5.5,
+      "yesterdayQuality": null,
+      "exercise": {
+        "done": false,
+        "minutes": null
+      },
+      "notes": null,
+      "recordedAt": "2026-10-14T14:51:32.373Z"
+    },
+    {
+      "date": "2026-10-13",
+      "slots": {
+        "morning": "2026-10-13T15:38:51.558Z",
+        "evening": "2026-10-13T15:38:51.558Z"
+      },
+      "sleep": {
+        "bedTime": "22:31",
+        "wakeTime": "08:10",
+        "hours": 9.7,
+        "latencyMin": null,
+        "awakenings": null,
+        "quality": 5,
+        "restedness": null
+      },
+      "relaxationRoutine": {
+        "done": false,
+        "steps": null,
+        "effectiveness": 5
+      },
+      "morningState": {
+        "mood": null,
+        "energy": null,
+        "tension": null
+      },
+      "mood": {
+        "rating": 7,
+        "stress": 5,
+        "energy": 4,
+        "focus": null,
+        "anxiety": null
+      },
+      "items": {},
+      "activity1": false,
+      "operation1": false,
+      "masturbation": {
+        "positive": {
+          "done": false,
+          "count": null
+        },
+        "negative": {
+          "done": false,
+          "count": null
+        }
+      },
+      "food": {
+        "meals": 3,
+        "quality": 6,
+        "water": true,
+        "caffeine": null
+      },
+      "dayRating": null,
+      "yesterdayQuality": 4,
+      "exercise": {
+        "done": false,
+        "minutes": null
+      },
+      "notes": null,
+      "recordedAt": "2026-10-13T15:38:51.558Z"
+    }
+  ]
+}
