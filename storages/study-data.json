@@ -4,7 +4,7 @@
     "name": "Study Timer",
     "dataFormat": "study-timer-json",
     "createdAt": "2026-09-26T03:00:01.956Z",
-    "updatedAt": "2026-10-16T08:55:30.834Z",
+    "updatedAt": "2026-10-16T16:26:58.991Z",
     "timeZone": "Asia/Tehran"
   },
   "settings": {
@@ -15,8 +15,8 @@
     "reducedMotion": false,
     "autoStartNextSession": false,
     "defaultSessionMinutes": 50,
-    "lastSelectedMinutes": 50,
-    "lastSelectedSubject": "طراحی الگوریتم",
+    "lastSelectedMinutes": 15,
+    "lastSelectedSubject": "زبان تخصصی",
     "lastSelectedPractice": false,
     "lastSelectedKind": "study"
   },
@@ -2533,11 +2533,111 @@
       "analysis": null,
       "createdAt": "2026-10-16T07:25:36.496Z",
       "updatedAt": "2026-10-16T08:27:14.611Z"
+    },
+    {
+      "id": "b96beefb-f6ff-4e62-a519-05c068800e8f",
+      "type": "study",
+      "status": "completed",
+      "subject": "طراحی الگوریتم",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-16T13:56:52.196Z",
+        "endedAt": "2026-10-16T14:46:52.196Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-16T13:56:52.196Z",
+      "updatedAt": "2026-10-16T14:47:17.975Z"
+    },
+    {
+      "id": "bd2eb068-72e4-4991-9ad9-abcc0b9663d7",
+      "type": "study",
+      "status": "completed",
+      "subject": "طراحی الگوریتم",
+      "isPractice": false,
+      "topic": "روابط بازگشتی",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-16T14:49:33.618Z",
+        "endedAt": "2026-10-16T15:39:33.618Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-16T14:49:33.618Z",
+      "updatedAt": "2026-10-16T15:40:36.336Z"
+    },
+    {
+      "id": "a0e30450-f6f7-41d8-8540-84c455bab20d",
+      "type": "study",
+      "status": "completed",
+      "subject": "طراحی الگوریتم",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 1200
+      },
+      "actual": {
+        "startedAt": "2026-10-16T15:41:33.277Z",
+        "endedAt": "2026-10-16T16:01:33.277Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 1200,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-16T15:41:33.277Z",
+      "updatedAt": "2026-10-16T16:01:36.251Z"
+    },
+    {
+      "id": "58a5bc60-39b2-42d7-84b9-9f249037605c",
+      "type": "study",
+      "status": "abandoned",
+      "subject": "زبان تخصصی",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 900
+      },
+      "actual": {
+        "startedAt": "2026-10-16T16:12:52.873Z",
+        "endedAt": "2026-10-16T16:26:55.080Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 842,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-16T16:12:52.873Z",
+      "updatedAt": "2026-10-16T16:26:58.630Z"
     }
   ],
   "derived": {
     "note": "Rebuildable from `sessions`. Safe to ignore or delete; regenerated on every save.",
-    "generatedAt": "2026-10-16T08:55:30.834Z",
+    "generatedAt": "2026-10-16T16:26:58.991Z",
     "dailySummaries": {
       "2026-09-26": {
         "studySeconds": 4320,
@@ -2635,9 +2735,9 @@
         "completedSessionCount": 11
       },
       "2026-10-16": {
-        "studySeconds": 6000,
-        "sessionCount": 2,
-        "completedSessionCount": 2
+        "studySeconds": 14042,
+        "sessionCount": 6,
+        "completedSessionCount": 5
       }
     },
     "subjectSummaries": [
@@ -2663,18 +2763,18 @@
         "sessionCount": 11
       },
       {
+        "subject": "طراحی الگوریتم",
+        "kind": "study",
+        "isPractice": false,
+        "studySeconds": 26700,
+        "sessionCount": 12
+      },
+      {
         "subject": "ریاضیات گسسته",
         "kind": "study",
         "isPractice": false,
         "studySeconds": 20005,
         "sessionCount": 7
-      },
-      {
-        "subject": "طراحی الگوریتم",
-        "kind": "study",
-        "isPractice": false,
-        "studySeconds": 19500,
-        "sessionCount": 9
       },
       {
         "subject": "سیستم‌عامل",
@@ -2694,8 +2794,8 @@
         "subject": "زبان تخصصی",
         "kind": "study",
         "isPractice": false,
-        "studySeconds": 10140,
-        "sessionCount": 8
+        "studySeconds": 10982,
+        "sessionCount": 9
       },
       {
         "subject": "ریاضیات گسسته",

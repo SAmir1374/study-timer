@@ -1,15 +1,15 @@
 {
   "schemaVersion": "daily-checkin-json",
-  "version": 3,
+  "version": 4,
   "app": "Study Timer",
   "createdAt": "2026-10-10T04:35:24.730Z",
-  "updatedAt": "2026-10-16T06:28:09.605Z",
+  "updatedAt": "2026-10-16T16:05:34.404Z",
   "entries": [
     {
       "date": "2026-10-16",
       "slots": {
         "morning": "2026-10-16T06:28:09.549Z",
-        "evening": null
+        "evening": "2026-10-16T14:49:26.989Z"
       },
       "sleep": {
         "bedTime": "23:40",
@@ -25,51 +25,96 @@
         "steps": null,
         "effectiveness": null
       },
+      "medication": {
+        "recorded": false,
+        "morning": {
+          "taken": false,
+          "amount": null,
+          "time": null
+        },
+        "afternoon": {
+          "taken": false,
+          "amount": null,
+          "time": null
+        }
+      },
       "morningState": {
         "mood": 7.8,
         "energy": 7.8,
         "tension": 3.3
       },
       "mood": {
-        "rating": null,
-        "stress": null,
-        "energy": null,
-        "focus": null,
-        "anxiety": null
+        "rating": 4.4,
+        "stress": 3.3,
+        "energy": 4.8,
+        "focus": 5.5,
+        "anxiety": 4
       },
       "items": {
         "s_quality": 4,
         "s_rested": 3,
         "n_mood": 4,
         "n_energy": 4,
-        "n_tension": 2
+        "n_tension": 2,
+        "m1": 2,
+        "m2": 2,
+        "m3": 3,
+        "m4": 3,
+        "s1": 2,
+        "s2": 2,
+        "s3": 1,
+        "s4": 3,
+        "e1": 3,
+        "e2": 2,
+        "e3": 3,
+        "f1": 3,
+        "f2": 3,
+        "a1": 2,
+        "a2": 2,
+        "a3": 3,
+        "f_quality": 4,
+        "d_day": 3
       },
-      "activity1": null,
-      "operation1": null,
+      "activity1": true,
+      "operation1": false,
       "masturbation": {
         "positive": {
           "done": false,
           "count": null
         },
         "negative": {
-          "done": false,
-          "count": null
+          "done": true,
+          "count": 1
         }
       },
-      "food": {
-        "meals": null,
-        "quality": null,
-        "water": false,
-        "caffeine": null
+      "explicit": {
+        "recorded": false,
+        "viewed": false,
+        "minutes": null,
+        "driver": null
       },
-      "dayRating": null,
+      "food": {
+        "meals": 3,
+        "quality": 7.8,
+        "water": true,
+        "caffeine": 1,
+        "log": {
+          "breakfast": [],
+          "lunch": [],
+          "dinner": [],
+          "snack": []
+        },
+        "other": null,
+        "logged": false
+      },
+      "dayRating": 5.5,
       "yesterdayQuality": null,
       "exercise": {
         "done": false,
         "minutes": null
       },
       "notes": null,
-      "recordedAt": "2026-10-16T06:28:09.549Z"
+      "recordedAt": "2026-10-16T14:49:26.990Z"
     },
     {
       "date": "2026-10-15",
@@ -90,6 +135,19 @@
         "done": false,
         "steps": null,
         "effectiveness": null
+      },
+      "medication": {
+        "recorded": false,
+        "morning": {
+          "taken": false,
+          "amount": null,
+          "time": null
+        },
+        "afternoon": {
+          "taken": false,
+          "amount": null,
+          "time": null
+        }
       },
       "morningState": {
         "mood": 7.8,
@@ -140,11 +198,25 @@
           "count": null
         }
       },
+      "explicit": {
+        "recorded": false,
+        "viewed": false,
+        "minutes": null,
+        "driver": null
+      },
       "food": {
         "meals": 3,
         "quality": 7.8,
         "water": true,
-        "caffeine": 1
+        "caffeine": 1,
+        "log": {
+          "breakfast": [],
+          "lunch": [],
+          "dinner": [],
+          "snack": []
+        },
+        "other": null,
+        "logged": false
       },
       "dayRating": 5.5,
       "yesterdayQuality": null,
@@ -174,6 +246,19 @@
         "done": false,
         "steps": null,
         "effectiveness": null
+      },
+      "medication": {
+        "recorded": false,
+        "morning": {
+          "taken": false,
+          "amount": null,
+          "time": null
+        },
+        "afternoon": {
+          "taken": false,
+          "amount": null,
+          "time": null
+        }
       },
       "morningState": {
         "mood": 5.5,
@@ -224,11 +309,25 @@
           "count": null
         }
       },
+      "explicit": {
+        "recorded": false,
+        "viewed": false,
+        "minutes": null,
+        "driver": null
+      },
       "food": {
         "meals": 3,
         "quality": 7.8,
         "water": true,
-        "caffeine": 2
+        "caffeine": 2,
+        "log": {
+          "breakfast": [],
+          "lunch": [],
+          "dinner": [],
+          "snack": []
+        },
+        "other": null,
+        "logged": false
       },
       "dayRating": 5.5,
       "yesterdayQuality": null,
@@ -259,6 +358,19 @@
         "steps": null,
         "effectiveness": 5
       },
+      "medication": {
+        "recorded": false,
+        "morning": {
+          "taken": false,
+          "amount": null,
+          "time": null
+        },
+        "afternoon": {
+          "taken": false,
+          "amount": null,
+          "time": null
+        }
+      },
       "morningState": {
         "mood": null,
         "energy": null,
@@ -284,11 +396,25 @@
           "count": null
         }
       },
+      "explicit": {
+        "recorded": false,
+        "viewed": false,
+        "minutes": null,
+        "driver": null
+      },
       "food": {
         "meals": 3,
         "quality": 6,
         "water": true,
-        "caffeine": null
+        "caffeine": null,
+        "log": {
+          "breakfast": [],
+          "lunch": [],
+          "dinner": [],
+          "snack": []
+        },
+        "other": null,
+        "logged": false
       },
       "dayRating": null,
       "yesterdayQuality": 4,

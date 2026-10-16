@@ -1,19 +1,23 @@
 /* =============================================================
    dailyCheckinData.js — pure data model for daily-checkins.json
-   Schema v3: two slots per day (morning / evening), multi-item
-   questionnaires reduced to 1–10 composites.
+   Schema v4: two slots per day, multi-item questionnaires,
+   ADHD-medication doses, explicit-content log, meal log.
    ============================================================= */
 
-export const CHECKIN_SCHEMA_VERSION = 3;
+export const CHECKIN_SCHEMA_VERSION = 4;
 export const CHECKIN_DATA_FORMAT = "daily-checkin-json";
 export const DEFAULT_CHECKIN_FILE_NAME = "daily-checkins.json";
 export const INVALID_CHECKIN_MESSAGE = "Invalid daily-checkin file";
 
 const DATE_KEY_RE = /^\d{4}-\d{2}-\d{2}$/;
 const TIME_RE = /^([01]\d|2[0-3]):[0-5]\d$/;
+const FOOD_ID_RE = /^[a-z0-9-]{1,40}$/;
+const MEAL_KEYS = ["breakfast", "lunch", "dinner", "snack"];
 const MAX_ENTRIES = 10000;
 const MAX_NOTES_LEN = 500;
+const MAX_OTHER_FOOD_LEN = 200;
 const MAX_ITEMS = 80;
+const MAX_FOOD_PER_MEAL = 40;
 
 const isObj = (v) => v !== null && typeof v === "object" && !Array.isArray(v);
 const isInt = (v) => Number.isInteger(v);
@@ -47,7 +51,20 @@ const emptyMast = () => ({
   positive: { done: false, count: null },
   negative: { done: false, count: null },
 });
-const emptyFood = () => ({ meals: null, quality: null, water: false, caffeine: null });
+const emptyFoodLog = () => ({ breakfast: [], lunch: [], dinner: [], snack: [] });
+const emptyFood = () => ({
+  meals: null,
+  quality: null,
+  water: false,
+  caffeine: null,
+  log: emptyFoodLog(),
+  other: null,
+  logged: false, // false = «ثبت نشده»، نه «چیزی نخورد»
+});
+const emptyDose = () => ({ taken: false, amount: null, time: null });
+// recorded=false → سؤال هنوز پرسیده/ثبت نشده (روزهای قدیمی)؛ taken=false آنجا یعنی «نامشخص»
+const emptyMedication = () => ({ recorded: false, morning: emptyDose(), afternoon: emptyDose() });
+const emptyExplicit = () => ({ recorded: false, viewed: false, minutes: null, driver: null });
 
 /* ---------- date helper (محلی) ---------- */
 
@@ -76,12 +93,14 @@ export function createCheckinEntry(dateKey, nowMs = Date.now()) {
     slots: emptySlots(),
     sleep: emptySleep(),
     relaxationRoutine: emptyRoutine(),
+    medication: emptyMedication(),
     morningState: emptyMorningState(),
     mood: emptyMood(),
     items: {},
     activity1: null,
     operation1: null,
     masturbation: emptyMast(),
+    explicit: emptyExplicit(),
     food: emptyFood(),
     dayRating: null,
     yesterdayQuality: null, // legacy (v1/v2)
@@ -168,6 +187,23 @@ function validateEntry(entry, index, seenDates, err) {
     score(`${p}.relaxationRoutine.effectiveness`, r.effectiveness);
   }
 
+  // medication (ADHD)
+  if (!isObj(entry.medication)) {
+    err(`${p}.medication must be an object`);
+  } else {
+    const md = entry.medication;
+    if (typeof md.recorded !== "boolean") err(`${p}.medication.recorded must be a boolean`);
+    for (const k of ["morning", "afternoon"]) {
+      const d = md[k];
+      if (!isObj(d)) { err(`${p}.medication.${k} must be an object`); continue; }
+      if (typeof d.taken !== "boolean") err(`${p}.medication.${k}.taken must be a boolean`);
+      if (d.amount !== null && (!isNum(d.amount) || d.amount <= 0 || d.amount > 4)) {
+        err(`${p}.medication.${k}.amount must be null or a number in (0, 4]`);
+      }
+      if (d.time !== null && !TIME_RE.test(d.time)) err(`${p}.medication.${k}.time must be null or "HH:MM"`);
+    }
+  }
+
   // morning "right now" state
   if (!isObj(entry.morningState)) {
     err(`${p}.morningState must be an object`);
@@ -215,6 +251,19 @@ function validateEntry(entry, index, seenDates, err) {
     }
   }
 
+  // explicit content
+  if (!isObj(entry.explicit)) {
+    err(`${p}.explicit must be an object`);
+  } else {
+    const x = entry.explicit;
+    if (typeof x.recorded !== "boolean") err(`${p}.explicit.recorded must be a boolean`);
+    if (typeof x.viewed !== "boolean") err(`${p}.explicit.viewed must be a boolean`);
+    intIn(`${p}.explicit.minutes`, x.minutes, 0, 1440);
+    if (x.driver !== null && x.driver !== "choice" && x.driver !== "urge") {
+      err(`${p}.explicit.driver must be null, "choice" or "urge"`);
+    }
+  }
+
   // food
   if (!isObj(entry.food)) {
     err(`${p}.food must be an object`);
@@ -224,6 +273,22 @@ function validateEntry(entry, index, seenDates, err) {
     score(`${p}.food.quality`, f.quality);
     if (typeof f.water !== "boolean") err(`${p}.food.water must be a boolean`);
     intIn(`${p}.food.caffeine`, f.caffeine, 0, 20);
+    if (typeof f.logged !== "boolean") err(`${p}.food.logged must be a boolean`);
+    if (f.other !== null && (typeof f.other !== "string" || f.other.length > MAX_OTHER_FOOD_LEN)) {
+      err(`${p}.food.other must be null or a string of at most ${MAX_OTHER_FOOD_LEN} characters`);
+    }
+    if (!isObj(f.log)) {
+      err(`${p}.food.log must be an object`);
+    } else {
+      for (const m of MEAL_KEYS) {
+        const arr = f.log[m];
+        if (!Array.isArray(arr) || arr.length > MAX_FOOD_PER_MEAL) {
+          err(`${p}.food.log.${m} must be an array of at most ${MAX_FOOD_PER_MEAL} ids`);
+        } else if (arr.some((id) => typeof id !== "string" || !FOOD_ID_RE.test(id))) {
+          err(`${p}.food.log.${m} contains an invalid food id`);
+        }
+      }
+    }
   }
 
   score(`${p}.dayRating`, entry.dayRating);
@@ -321,6 +386,33 @@ function migrateV2toV3(raw) {
   return { ...raw, version: 3, entries };
 }
 
+/* v3 → v4: قرص، محتوای تحریک‌آمیز و لاگ غذا اضافه می‌شوند (همه «ثبت‌نشده») */
+function migrateEntryV3toV4(e) {
+  const dateKey = isObj(e) && typeof e.date === "string" && DATE_KEY_RE.test(e.date)
+    ? e.date
+    : "1970-01-01";
+  const base = createCheckinEntry(dateKey);
+  const food = isObj(e?.food) ? e.food : {};
+  return {
+    ...base,
+    ...e,
+    medication: isObj(e?.medication) ? e.medication : emptyMedication(),
+    explicit: isObj(e?.explicit) ? e.explicit : emptyExplicit(),
+    food: {
+      ...base.food,
+      ...food,
+      log: isObj(food.log) ? food.log : emptyFoodLog(),
+      other: typeof food.other === "string" ? food.other : null,
+      logged: typeof food.logged === "boolean" ? food.logged : false,
+    },
+  };
+}
+
+function migrateV3toV4(raw) {
+  const entries = Array.isArray(raw.entries) ? raw.entries.map(migrateEntryV3toV4) : [];
+  return { ...raw, version: 4, entries };
+}
+
 /* ---------- serialization ---------- */
 
 export function serializeCheckinDocument(doc, nowMs = Date.now()) {
@@ -334,10 +426,11 @@ export function parseCheckinDocument(text) {
   catch { throw new CheckinDataError(INVALID_CHECKIN_MESSAGE, ["File is not valid JSON"]); }
   if (!isObj(raw)) throw new CheckinDataError(INVALID_CHECKIN_MESSAGE, ["Root must be a JSON object"]);
 
-  // migrate if needed (v1 → v2 → v3)
+  // migrate if needed (v1 → v2 → v3 → v4)
   let v = Number(raw.version);
   if (v === 1) { raw = migrateV1toV2(raw); v = 2; }
-  if (v === 2) raw = migrateV2toV3(raw);
+  if (v === 2) { raw = migrateV2toV3(raw); v = 3; }
+  if (v === 3) raw = migrateV3toV4(raw);
 
   const doc = {
     ...createEmptyCheckinDocument(),
