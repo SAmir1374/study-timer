@@ -4,7 +4,7 @@
     "name": "Study Timer",
     "dataFormat": "study-timer-json",
     "createdAt": "2026-09-26T03:00:01.956Z",
-    "updatedAt": "2026-10-15T16:05:08.586Z",
+    "updatedAt": "2026-10-16T08:55:30.834Z",
     "timeZone": "Asia/Tehran"
   },
   "settings": {
@@ -15,7 +15,7 @@
     "reducedMotion": false,
     "autoStartNextSession": false,
     "defaultSessionMinutes": 50,
-    "lastSelectedMinutes": 30,
+    "lastSelectedMinutes": 50,
     "lastSelectedSubject": "طراحی الگوریتم",
     "lastSelectedPractice": false,
     "lastSelectedKind": "study"
@@ -2483,11 +2483,61 @@
       "analysis": null,
       "createdAt": "2026-10-15T15:35:03.524Z",
       "updatedAt": "2026-10-15T16:05:08.055Z"
+    },
+    {
+      "id": "e1ed0662-3ce5-483d-bc9c-fc681984e674",
+      "type": "study",
+      "status": "completed",
+      "subject": "ساختمان داده",
+      "isPractice": false,
+      "topic": "صف",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-16T06:34:48.620Z",
+        "endedAt": "2026-10-16T07:24:48.620Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-16T06:34:48.620Z",
+      "updatedAt": "2026-10-16T07:25:30.574Z"
+    },
+    {
+      "id": "e22fb255-3dae-4207-887f-8128107bb883",
+      "type": "study",
+      "status": "completed",
+      "subject": "ساختمان داده",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-16T07:25:36.496Z",
+        "endedAt": "2026-10-16T08:15:36.496Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-16T07:25:36.496Z",
+      "updatedAt": "2026-10-16T08:27:14.611Z"
     }
   ],
   "derived": {
     "note": "Rebuildable from `sessions`. Safe to ignore or delete; regenerated on every save.",
-    "generatedAt": "2026-10-15T16:05:08.586Z",
+    "generatedAt": "2026-10-16T08:55:30.834Z",
     "dailySummaries": {
       "2026-09-26": {
         "studySeconds": 4320,
@@ -2583,6 +2633,11 @@
         "studySeconds": 25200,
         "sessionCount": 11,
         "completedSessionCount": 11
+      },
+      "2026-10-16": {
+        "studySeconds": 6000,
+        "sessionCount": 2,
+        "completedSessionCount": 2
       }
     },
     "subjectSummaries": [
@@ -2604,8 +2659,8 @@
         "subject": "ساختمان داده",
         "kind": "study",
         "isPractice": false,
-        "studySeconds": 23337,
-        "sessionCount": 9
+        "studySeconds": 29337,
+        "sessionCount": 11
       },
       {
         "subject": "ریاضیات گسسته",

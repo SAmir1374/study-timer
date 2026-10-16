@@ -3,8 +3,74 @@
   "version": 3,
   "app": "Study Timer",
   "createdAt": "2026-10-10T04:35:24.730Z",
-  "updatedAt": "2026-10-15T14:39:48.973Z",
+  "updatedAt": "2026-10-16T06:28:09.605Z",
   "entries": [
+    {
+      "date": "2026-10-16",
+      "slots": {
+        "morning": "2026-10-16T06:28:09.549Z",
+        "evening": null
+      },
+      "sleep": {
+        "bedTime": "23:40",
+        "wakeTime": "07:00",
+        "hours": 7.3,
+        "latencyMin": 10,
+        "awakenings": null,
+        "quality": 7.8,
+        "restedness": 5.5
+      },
+      "relaxationRoutine": {
+        "done": false,
+        "steps": null,
+        "effectiveness": null
+      },
+      "morningState": {
+        "mood": 7.8,
+        "energy": 7.8,
+        "tension": 3.3
+      },
+      "mood": {
+        "rating": null,
+        "stress": null,
+        "energy": null,
+        "focus": null,
+        "anxiety": null
+      },
+      "items": {
+        "s_quality": 4,
+        "s_rested": 3,
+        "n_mood": 4,
+        "n_energy": 4,
+        "n_tension": 2
+      },
+      "activity1": null,
+      "operation1": null,
+      "masturbation": {
+        "positive": {
+          "done": false,
+          "count": null
+        },
+        "negative": {
+          "done": false,
+          "count": null
+        }
+      },
+      "food": {
+        "meals": null,
+        "quality": null,
+        "water": false,
+        "caffeine": null
+      },
+      "dayRating": null,
+      "yesterdayQuality": null,
+      "exercise": {
+        "done": false,
+        "minutes": null
+      },
+      "notes": null,
+      "recordedAt": "2026-10-16T06:28:09.549Z"
+    },
     {
       "date": "2026-10-15",
       "slots": {
