@@ -4,7 +4,7 @@
     "name": "Study Timer",
     "dataFormat": "study-timer-json",
     "createdAt": "2026-09-26T03:00:01.956Z",
-    "updatedAt": "2026-10-16T16:26:58.991Z",
+    "updatedAt": "2026-10-17T04:42:09.480Z",
     "timeZone": "Asia/Tehran"
   },
   "settings": {
@@ -15,8 +15,8 @@
     "reducedMotion": false,
     "autoStartNextSession": false,
     "defaultSessionMinutes": 50,
-    "lastSelectedMinutes": 15,
-    "lastSelectedSubject": "زبان تخصصی",
+    "lastSelectedMinutes": 90,
+    "lastSelectedSubject": "طراحی الگوریتم",
     "lastSelectedPractice": false,
     "lastSelectedKind": "study"
   },
@@ -2633,11 +2633,36 @@
       "analysis": null,
       "createdAt": "2026-10-16T16:12:52.873Z",
       "updatedAt": "2026-10-16T16:26:58.630Z"
+    },
+    {
+      "id": "4c33a5a3-5dfc-4c24-9d37-9ae25cf3e114",
+      "type": "study",
+      "status": "completed",
+      "subject": "طراحی الگوریتم",
+      "isPractice": false,
+      "topic": "روابط بازگشتی",
+      "planned": {
+        "durationSeconds": 5400
+      },
+      "actual": {
+        "startedAt": "2026-10-17T03:11:58.862Z",
+        "endedAt": "2026-10-17T04:41:58.862Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 5400,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-17T03:11:58.862Z",
+      "updatedAt": "2026-10-17T04:42:09.074Z"
     }
   ],
   "derived": {
     "note": "Rebuildable from `sessions`. Safe to ignore or delete; regenerated on every save.",
-    "generatedAt": "2026-10-16T16:26:58.991Z",
+    "generatedAt": "2026-10-17T04:42:09.480Z",
     "dailySummaries": {
       "2026-09-26": {
         "studySeconds": 4320,
@@ -2738,6 +2763,11 @@
         "studySeconds": 14042,
         "sessionCount": 6,
         "completedSessionCount": 5
+      },
+      "2026-10-17": {
+        "studySeconds": 5400,
+        "sessionCount": 1,
+        "completedSessionCount": 1
       }
     },
     "subjectSummaries": [
@@ -2756,18 +2786,18 @@
         "sessionCount": 13
       },
       {
+        "subject": "طراحی الگوریتم",
+        "kind": "study",
+        "isPractice": false,
+        "studySeconds": 32100,
+        "sessionCount": 13
+      },
+      {
         "subject": "ساختمان داده",
         "kind": "study",
         "isPractice": false,
         "studySeconds": 29337,
         "sessionCount": 11
-      },
-      {
-        "subject": "طراحی الگوریتم",
-        "kind": "study",
-        "isPractice": false,
-        "studySeconds": 26700,
-        "sessionCount": 12
       },
       {
         "subject": "ریاضیات گسسته",
