@@ -4,7 +4,7 @@
     "name": "Study Timer",
     "dataFormat": "study-timer-json",
     "createdAt": "2026-09-26T03:00:01.956Z",
-    "updatedAt": "2026-10-18T04:53:39.323Z",
+    "updatedAt": "2026-10-18T07:39:04.274Z",
     "timeZone": "Asia/Tehran"
   },
   "settings": {
@@ -15,8 +15,8 @@
     "reducedMotion": false,
     "autoStartNextSession": false,
     "defaultSessionMinutes": 50,
-    "lastSelectedMinutes": 10,
-    "lastSelectedSubject": "ریاضیات گسسته",
+    "lastSelectedMinutes": 25,
+    "lastSelectedSubject": "زبان تخصصی",
     "lastSelectedPractice": false,
     "lastSelectedKind": "study"
   },
@@ -2808,11 +2808,36 @@
       "analysis": null,
       "createdAt": "2026-10-18T04:43:00.728Z",
       "updatedAt": "2026-10-18T04:53:38.892Z"
+    },
+    {
+      "id": "ce8fbde9-986e-421a-b525-ea8f66318a12",
+      "type": "study",
+      "status": "completed",
+      "subject": "زبان تخصصی",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 1500
+      },
+      "actual": {
+        "startedAt": "2026-10-18T07:02:56.085Z",
+        "endedAt": "2026-10-18T07:27:56.085Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 1500,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-18T07:02:56.085Z",
+      "updatedAt": "2026-10-18T07:39:03.636Z"
     }
   ],
   "derived": {
     "note": "Rebuildable from `sessions`. Safe to ignore or delete; regenerated on every save.",
-    "generatedAt": "2026-10-18T04:53:39.323Z",
+    "generatedAt": "2026-10-18T07:39:04.274Z",
     "dailySummaries": {
       "2026-09-26": {
         "studySeconds": 4320,
@@ -2920,9 +2945,9 @@
         "completedSessionCount": 5
       },
       "2026-10-18": {
-        "studySeconds": 3600,
-        "sessionCount": 2,
-        "completedSessionCount": 2
+        "studySeconds": 5100,
+        "sessionCount": 3,
+        "completedSessionCount": 3
       }
     },
     "subjectSummaries": [
@@ -2969,18 +2994,18 @@
         "sessionCount": 7
       },
       {
+        "subject": "زبان تخصصی",
+        "kind": "study",
+        "isPractice": false,
+        "studySeconds": 14282,
+        "sessionCount": 12
+      },
+      {
         "subject": "آمار و احتمال مهندسی",
         "kind": "study",
         "isPractice": false,
         "studySeconds": 13860,
         "sessionCount": 5
-      },
-      {
-        "subject": "زبان تخصصی",
-        "kind": "study",
-        "isPractice": false,
-        "studySeconds": 12782,
-        "sessionCount": 11
       },
       {
         "subject": "ریاضیات گسسته",
