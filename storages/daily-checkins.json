@@ -3,8 +3,101 @@
   "version": 4,
   "app": "Study Timer",
   "createdAt": "2026-10-10T04:35:24.730Z",
-  "updatedAt": "2026-10-17T14:36:37.202Z",
+  "updatedAt": "2026-10-18T03:51:31.508Z",
   "entries": [
+    {
+      "date": "2026-10-18",
+      "slots": {
+        "morning": "2026-10-18T03:51:31.452Z",
+        "evening": null
+      },
+      "sleep": {
+        "bedTime": "22:35",
+        "wakeTime": "07:00",
+        "hours": 8.4,
+        "latencyMin": null,
+        "awakenings": 5,
+        "quality": 7.8,
+        "restedness": 3.3
+      },
+      "relaxationRoutine": {
+        "done": false,
+        "steps": null,
+        "effectiveness": null
+      },
+      "medication": {
+        "recorded": true,
+        "morning": {
+          "taken": false,
+          "amount": null,
+          "time": null
+        },
+        "afternoon": {
+          "taken": false,
+          "amount": null,
+          "time": null
+        }
+      },
+      "morningState": {
+        "mood": 7.8,
+        "energy": 7.8,
+        "tension": 5.5
+      },
+      "mood": {
+        "rating": null,
+        "stress": null,
+        "energy": null,
+        "focus": null,
+        "anxiety": null
+      },
+      "items": {
+        "s_quality": 4,
+        "s_rested": 2,
+        "n_mood": 4,
+        "n_energy": 4,
+        "n_tension": 3
+      },
+      "activity1": null,
+      "operation1": null,
+      "masturbation": {
+        "positive": {
+          "done": false,
+          "count": null
+        },
+        "negative": {
+          "done": false,
+          "count": null
+        }
+      },
+      "explicit": {
+        "recorded": false,
+        "viewed": false,
+        "minutes": null,
+        "driver": null
+      },
+      "food": {
+        "meals": null,
+        "quality": null,
+        "water": false,
+        "caffeine": null,
+        "log": {
+          "breakfast": [],
+          "lunch": [],
+          "dinner": [],
+          "snack": []
+        },
+        "other": null,
+        "logged": false
+      },
+      "dayRating": null,
+      "yesterdayQuality": null,
+      "exercise": {
+        "done": false,
+        "minutes": null
+      },
+      "notes": null,
+      "recordedAt": "2026-10-18T03:51:31.453Z"
+    },
     {
       "date": "2026-10-17",
       "slots": {

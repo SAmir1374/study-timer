@@ -4,7 +4,7 @@
     "name": "Study Timer",
     "dataFormat": "study-timer-json",
     "createdAt": "2026-09-26T03:00:01.956Z",
-    "updatedAt": "2026-10-17T15:14:24.948Z",
+    "updatedAt": "2026-10-18T04:53:39.323Z",
     "timeZone": "Asia/Tehran"
   },
   "settings": {
@@ -15,8 +15,8 @@
     "reducedMotion": false,
     "autoStartNextSession": false,
     "defaultSessionMinutes": 50,
-    "lastSelectedMinutes": 20,
-    "lastSelectedSubject": "ساختمان داده",
+    "lastSelectedMinutes": 10,
+    "lastSelectedSubject": "ریاضیات گسسته",
     "lastSelectedPractice": false,
     "lastSelectedKind": "study"
   },
@@ -2758,11 +2758,61 @@
       "analysis": null,
       "createdAt": "2026-10-17T14:54:17.382Z",
       "updatedAt": "2026-10-17T15:14:24.394Z"
+    },
+    {
+      "id": "f24340b2-46cb-48c8-afea-a89464d5422d",
+      "type": "study",
+      "status": "completed",
+      "subject": "ریاضیات گسسته",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-18T03:52:40.043Z",
+        "endedAt": "2026-10-18T04:42:40.043Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-18T03:52:40.043Z",
+      "updatedAt": "2026-10-18T04:42:48.057Z"
+    },
+    {
+      "id": "566a825f-a0b1-4130-b59a-ea4f4545deab",
+      "type": "study",
+      "status": "completed",
+      "subject": "ریاضیات گسسته",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 600
+      },
+      "actual": {
+        "startedAt": "2026-10-18T04:43:00.728Z",
+        "endedAt": "2026-10-18T04:53:00.728Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 600,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-18T04:43:00.728Z",
+      "updatedAt": "2026-10-18T04:53:38.892Z"
     }
   ],
   "derived": {
     "note": "Rebuildable from `sessions`. Safe to ignore or delete; regenerated on every save.",
-    "generatedAt": "2026-10-17T15:14:24.948Z",
+    "generatedAt": "2026-10-18T04:53:39.323Z",
     "dailySummaries": {
       "2026-09-26": {
         "studySeconds": 4320,
@@ -2868,6 +2918,11 @@
         "studySeconds": 10800,
         "sessionCount": 5,
         "completedSessionCount": 5
+      },
+      "2026-10-18": {
+        "studySeconds": 3600,
+        "sessionCount": 2,
+        "completedSessionCount": 2
       }
     },
     "subjectSummaries": [
@@ -2903,8 +2958,8 @@
         "subject": "ریاضیات گسسته",
         "kind": "study",
         "isPractice": false,
-        "studySeconds": 20005,
-        "sessionCount": 7
+        "studySeconds": 23605,
+        "sessionCount": 9
       },
       {
         "subject": "سیستم‌عامل",
