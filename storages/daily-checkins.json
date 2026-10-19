@@ -3,13 +3,13 @@
   "version": 4,
   "app": "Study Timer",
   "createdAt": "2026-10-10T04:35:24.730Z",
-  "updatedAt": "2026-10-19T04:03:07.317Z",
+  "updatedAt": "2026-10-19T14:49:24.439Z",
   "entries": [
     {
       "date": "2026-10-19",
       "slots": {
         "morning": "2026-10-19T04:03:07.262Z",
-        "evening": null
+        "evening": "2026-10-19T14:49:24.409Z"
       },
       "sleep": {
         "bedTime": "23:00",
@@ -44,21 +44,39 @@
         "tension": 3.3
       },
       "mood": {
-        "rating": null,
-        "stress": null,
-        "energy": null,
-        "focus": null,
-        "anxiety": null
+        "rating": 7.2,
+        "stress": 3.8,
+        "energy": 4.8,
+        "focus": 6.6,
+        "anxiety": 1.7
       },
       "items": {
         "s_quality": 3,
         "s_rested": 5,
         "n_mood": 3,
         "n_energy": 3,
-        "n_tension": 2
+        "n_tension": 2,
+        "m1": 3,
+        "m2": 3,
+        "m3": 2,
+        "m4": 1,
+        "s1": 1,
+        "s2": 1,
+        "s3": 3,
+        "s4": 2,
+        "e1": 2,
+        "e2": 3,
+        "e3": 3,
+        "f1": 3,
+        "f2": 2,
+        "a1": 1,
+        "a2": 2,
+        "a3": 1,
+        "f_quality": 4,
+        "d_day": 3
       },
-      "activity1": null,
-      "operation1": null,
+      "activity1": false,
+      "operation1": false,
       "masturbation": {
         "positive": {
           "done": false,
@@ -70,33 +88,43 @@
         }
       },
       "explicit": {
-        "recorded": false,
+        "recorded": true,
         "viewed": false,
         "minutes": null,
         "driver": null
       },
       "food": {
-        "meals": null,
-        "quality": null,
-        "water": false,
-        "caffeine": null,
+        "meals": 3,
+        "quality": 7.8,
+        "water": true,
+        "caffeine": 2,
         "log": {
-          "breakfast": [],
-          "lunch": [],
-          "dinner": [],
+          "breakfast": [
+            "bread-cheese",
+            "egg-boiled"
+          ],
+          "lunch": [
+            "karafs",
+            "rice"
+          ],
+          "dinner": [
+            "egg-boiled",
+            "apple",
+            "tangerine"
+          ],
           "snack": []
         },
         "other": null,
-        "logged": false
+        "logged": true
       },
-      "dayRating": null,
+      "dayRating": 5.5,
       "yesterdayQuality": null,
       "exercise": {
-        "done": false,
-        "minutes": null
+        "done": true,
+        "minutes": 90
       },
       "notes": null,
-      "recordedAt": "2026-10-19T04:03:07.263Z"
+      "recordedAt": "2026-10-19T14:49:24.410Z"
     },
     {
       "date": "2026-10-18",
