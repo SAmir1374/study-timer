@@ -1,10 +1,11 @@
 /* =============================================================
    dailyCheckinData.js — pure data model for daily-checkins.json
-   Schema v4: two slots per day, multi-item questionnaires,
-   ADHD-medication doses, explicit-content log, meal log.
+   Schema v5: two slots per day, multi-item questionnaires,
+   ADHD-medication doses, explicit-content log, meal log,
+   travel flag, exercise logged next morning (exercise.recorded).
    ============================================================= */
 
-export const CHECKIN_SCHEMA_VERSION = 4;
+export const CHECKIN_SCHEMA_VERSION = 5;
 export const CHECKIN_DATA_FORMAT = "daily-checkin-json";
 export const DEFAULT_CHECKIN_FILE_NAME = "daily-checkins.json";
 export const INVALID_CHECKIN_MESSAGE = "Invalid daily-checkin file";
@@ -65,12 +66,20 @@ const emptyDose = () => ({ taken: false, amount: null, time: null });
 // recorded=false → سؤال هنوز پرسیده/ثبت نشده (روزهای قدیمی)؛ taken=false آنجا یعنی «نامشخص»
 const emptyMedication = () => ({ recorded: false, morning: emptyDose(), afternoon: emptyDose() });
 const emptyExplicit = () => ({ recorded: false, viewed: false, minutes: null, driver: null });
+// recorded=false → ورزش آن روز هنوز ثبت نشده (صبح روز بعد ثبت می‌شود)
+const emptyExercise = () => ({ done: false, minutes: null, recorded: false });
 
-/* ---------- date helper (محلی) ---------- */
+/* ---------- date helpers (محلی) ---------- */
 
 export function localDateKey(d = new Date()) {
   const p = (n) => String(n).padStart(2, "0");
   return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
+}
+
+/* روز قبلِ یک dateKey (ساعت ۱۲ ظهر تا DST مشکل نسازد) */
+export function prevDateKey(dateKey) {
+  const [y, m, d] = dateKey.split("-").map(Number);
+  return localDateKey(new Date(y, m - 1, d - 1, 12));
 }
 
 /* ---------- document / entry factories ---------- */
@@ -91,6 +100,7 @@ export function createCheckinEntry(dateKey, nowMs = Date.now()) {
   return {
     date: dateKey,
     slots: emptySlots(),
+    travel: null, // null = ثبت نشده، true/false = در سفر / نه
     sleep: emptySleep(),
     relaxationRoutine: emptyRoutine(),
     medication: emptyMedication(),
@@ -104,7 +114,7 @@ export function createCheckinEntry(dateKey, nowMs = Date.now()) {
     food: emptyFood(),
     dayRating: null,
     yesterdayQuality: null, // legacy (v1/v2)
-    exercise: { done: false, minutes: null },
+    exercise: emptyExercise(),
     notes: null,
     recordedAt: new Date(nowMs).toISOString(),
   };
@@ -159,6 +169,11 @@ function validateEntry(entry, index, seenDates, err) {
         err(`${p}.slots.${k} must be null or an ISO 8601 timestamp`);
       }
     }
+  }
+
+  // travel
+  if (entry.travel !== null && typeof entry.travel !== "boolean") {
+    err(`${p}.travel must be null or a boolean`);
   }
 
   // sleep
@@ -300,6 +315,7 @@ function validateEntry(entry, index, seenDates, err) {
   } else {
     const e = entry.exercise;
     if (typeof e.done !== "boolean") err(`${p}.exercise.done must be a boolean`);
+    if (typeof e.recorded !== "boolean") err(`${p}.exercise.recorded must be a boolean`);
     intIn(`${p}.exercise.minutes`, e.minutes, 0, 600);
   }
 
@@ -413,6 +429,31 @@ function migrateV3toV4(raw) {
   return { ...raw, version: 4, entries };
 }
 
+/* v4 → v5: سفر (نامشخص) و پرچم recorded برای ورزش.
+   ورزش قبلاً در چک‌این شب پرسیده می‌شد → فقط اگر شب ثبت شده، «ثبت‌شده» حساب می‌شود. */
+function migrateEntryV4toV5(e) {
+  const dateKey = isObj(e) && typeof e.date === "string" && DATE_KEY_RE.test(e.date)
+    ? e.date
+    : "1970-01-01";
+  const base = createCheckinEntry(dateKey);
+  const ex = isObj(e?.exercise) ? e.exercise : {};
+  return {
+    ...base,
+    ...e,
+    travel: typeof e?.travel === "boolean" ? e.travel : null,
+    exercise: {
+      done: typeof ex.done === "boolean" ? ex.done : false,
+      minutes: ex.minutes ?? null,
+      recorded: typeof ex.recorded === "boolean" ? ex.recorded : !!e?.slots?.evening,
+    },
+  };
+}
+
+function migrateV4toV5(raw) {
+  const entries = Array.isArray(raw.entries) ? raw.entries.map(migrateEntryV4toV5) : [];
+  return { ...raw, version: 5, entries };
+}
+
 /* ---------- serialization ---------- */
 
 export function serializeCheckinDocument(doc, nowMs = Date.now()) {
@@ -426,11 +467,12 @@ export function parseCheckinDocument(text) {
   catch { throw new CheckinDataError(INVALID_CHECKIN_MESSAGE, ["File is not valid JSON"]); }
   if (!isObj(raw)) throw new CheckinDataError(INVALID_CHECKIN_MESSAGE, ["Root must be a JSON object"]);
 
-  // migrate if needed (v1 → v2 → v3 → v4)
+  // migrate if needed (v1 → v2 → v3 → v4 → v5)
   let v = Number(raw.version);
   if (v === 1) { raw = migrateV1toV2(raw); v = 2; }
   if (v === 2) { raw = migrateV2toV3(raw); v = 3; }
-  if (v === 3) raw = migrateV3toV4(raw);
+  if (v === 3) { raw = migrateV3toV4(raw); v = 4; }
+  if (v === 4) raw = migrateV4toV5(raw);
 
   const doc = {
     ...createEmptyCheckinDocument(),

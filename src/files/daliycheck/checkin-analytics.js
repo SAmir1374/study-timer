@@ -1,5 +1,5 @@
 /* =============================================================
-   checkin-analytics.js — صفحه‌ی تحلیل چک‌این روزانه (اسکیمای v4)
+   checkin-analytics.js — صفحه‌ی تحلیل چک‌این روزانه (اسکیمای v5)
    ============================================================= */
 
 import { parseCheckinDocument, CheckinDataError } from "./dailyCheckinData.js";
@@ -19,6 +19,7 @@ const SD_FLOOR = 0.7;         // حداقل نوسان مبنا (مقیاس ۱�
 const DEV_WARN = 0.8;         // انحراف (به واحد SD روزانه) برای هشدار زرد
 const DEV_DANGER = 1.3;       // انحراف برای هشدار قرمز
 const MIN_COVERAGE_7 = 5;     // حداقل روزِ کامل از ۷ روز برای قاعده‌های هفتگی
+const TRAVEL_NOTE_DAYS = 3;   // اگر ≥ این تعداد از ۷ روز اخیر سفر بوده، هشدارهای انحراف نرم می‌شوند
 const MIN_CORR_N = 20;        // حداقل جفت‌داده برای همبستگی
 const CORR_SIG_K = 2.5;       // آستانه‌ی محافظه‌کارانه: |r| ≥ K/√n
 const CORR_SHOW = 14;         // حداکثر ردیف همبستگی نمایش‌داده‌شده
@@ -53,6 +54,13 @@ const M_NIGHT = [
   { key: "sleepQuality", label: "کیفیت خواب شب بعد",                higherBetter: true,  lag: 1 },
   { key: "restedness",   label: "احساس استراحت صبح بعد",            higherBetter: true,  lag: 1 },
   { key: "sleepHours",   label: "ساعت خواب شب بعد",                 higherBetter: true,  lag: 1 },
+];
+/* خوابِ ثبت‌شده در ورودیِ همان روز (شب قبل) */
+const M_SLEEP = [
+  { key: "sleepQuality", label: "کیفیت خواب",               higherBetter: true },
+  { key: "sleepLatency", label: "زمان به خواب رفتن (دقیقه)", higherBetter: false },
+  { key: "sleepHours",   label: "ساعت خواب",                higherBetter: true },
+  { key: "restedness",   label: "احساس استراحت",            higherBetter: true },
 ];
 const pickMetrics = (list, keys) => list.filter((m) => keys.includes(m.key));
 
@@ -207,7 +215,7 @@ async function importFile(file) {
 /* ============================================================
    Normalize
    مقدار فیلدهای «شب» وقتی چک‌این شب ثبت نشده، null (نامشخص) است،
-   نه false/۰.
+   نه false/۰. ورزش جدا است: وقتی صبح روز بعد ثبت شود (exercise.recorded).
    ============================================================ */
 
 function numOr(v) {
@@ -252,7 +260,10 @@ function normalizeEntries(raw) {
       const foodIds = foodLogged ? MEALS.flatMap((m) => log[m.id] || []) : [];
       const countTags = (tags) => foodIds.filter((id) => foodTags(id).some((t) => tags.includes(t))).length;
 
-      const exerciseDone = eve ? !!e.exercise?.done : null;
+      // ورزش: صبح روز بعد ثبت می‌شود
+      const exRec = !!e.exercise?.recorded;
+      const exerciseDone = exRec ? !!e.exercise?.done : null;
+
       const mastPos = eve ? !!e.masturbation?.positive?.done : null;
       const mastNeg = eve ? !!e.masturbation?.negative?.done : null;
 
@@ -261,6 +272,9 @@ function normalizeEntries(raw) {
         dayNum: keyToNum(e.date),
         mor,
         eve,
+
+        // سفر: true / false / null (ثبت‌نشده)
+        travel: e.travel === true ? true : e.travel === false ? false : null,
 
         // خواب
         bedTime,
@@ -304,9 +318,9 @@ function normalizeEntries(raw) {
         activity1: eve ? e.activity1 : null,
         operation1: eve ? e.operation1 : null,
 
-        // روز بدون ورزش/خودارضایی = ۰ (نه «نامشخص»)، به شرط ثبت شب
+        // روز بدون ورزش/خودارضایی = ۰ (نه «نامشخص»)، به شرط ثبت
         exerciseDone,
-        exerciseMin: eve ? (exerciseDone ? numOr(e.exercise?.minutes) : 0) : null,
+        exerciseMin: exRec ? (exerciseDone ? numOr(e.exercise?.minutes) : 0) : null,
         mastPos,
         mastPosCount: eve ? (mastPos ? numOr(e.masturbation?.positive?.count) ?? 1 : 0) : null,
         mastNeg,
@@ -481,12 +495,12 @@ function stateHint(score) {
   return "سیستم روانی زیر فشار است. یک روز استراحت واقعی، خواب کافی، و قطع فشارهای غیرضروری توصیه می‌شود.";
 }
 
-/* ---------- مقایسه با خط پایه‌ی شخصی ---------- */
+/* ---------- مقایسه با خط پایه‌ی شخصی (روزهای سفر کنار گذاشته می‌شوند) ---------- */
 
 function computeDeviations(entries, anchor) {
   const recent = inWindow(entries, anchor, RECENT_DAYS);
   const base = entries.filter(
-    (d) => d.dayNum <= anchor - RECENT_DAYS && d.dayNum > anchor - RECENT_DAYS - BASELINE_DAYS
+    (d) => d.dayNum <= anchor - RECENT_DAYS && d.dayNum > anchor - RECENT_DAYS - BASELINE_DAYS && !d.travel
   );
   const out = [];
   for (const m of BASELINE_METRICS) {
@@ -516,6 +530,8 @@ function detectWarnings(entries) {
   const w7e = w7.filter((d) => d.eve);
   const w7m = w7.filter((d) => d.mor);
   const w14e = inWindow(entries, anchor, 14).filter((d) => d.eve);
+  const travel7 = w7.filter((d) => d.travel).length;
+  const inTravel = travel7 >= TRAVEL_NOTE_DAYS;
 
   // همه‌ی n روز آخر ثبت شده و شرط برقرار است
   const streak = (n, pred) => {
@@ -562,9 +578,6 @@ function detectWarnings(entries) {
       );
     }
 
-    const exDays = w7e.filter((d) => d.exerciseDone).length;
-    if (exDays <= 1) push(`ورزش فقط ${exDays} بار در ${w7e.length} روز ثبت‌شده‌ی هفته‌ی اخیر.`, "warn");
-
     const foodDays = w7e.filter((d) => d.foodQuality != null);
     const foodAvg = average(foodDays, "foodQuality");
     if (foodAvg != null && foodDays.length >= 4 && foodAvg < 5) {
@@ -575,14 +588,21 @@ function detectWarnings(entries) {
     if (waterDays <= 2) push("آب کافی در بیشتر روزهای هفته‌ی اخیر مصرف نشده.", "warn");
   }
 
+  /* --- ورزش (صبح روز بعد ثبت می‌شود؛ فقط روزهای دارای پاسخ) --- */
+  const exKnown = w7.filter((d) => d.exerciseDone !== null);
+  if (exKnown.length >= 4) {
+    const exDays = exKnown.filter((d) => d.exerciseDone).length;
+    if (exDays <= 1) push(`ورزش فقط ${exDays} بار در ${exKnown.length} روز ثبت‌شده‌ی هفته‌ی اخیر.`, "warn");
+  }
+
   if (w7m.length >= MIN_COVERAGE_7) {
     const routineDays = w7m.filter((d) => d.routineDone).length;
     if (routineDays <= 2) push("روتین آرام‌سازی در بیشتر روزهای اخیر انجام نشده.", "warn");
   }
 
-  /* --- نظم خواب --- */
+  /* --- نظم خواب (در سفر ریتم طبیعی است که به هم بخورد) --- */
   const beds = w7.map((d) => d.bedNum).filter((v) => v != null);
-  if (beds.length >= 4) {
+  if (beds.length >= 4 && !inTravel) {
     const spread = Math.round(sd(beds) * 60);
     if (spread > 90) push(`ساعت خواب بین شب‌ها نامنظم است (نوسان حدود ${spread} دقیقه).`, "warn");
   }
@@ -592,8 +612,9 @@ function detectWarnings(entries) {
     if (x.worse < DEV_WARN) continue;
     const u = x.unit || "";
     push(
-      `${x.label} نسبت به الگوی معمول خودت بدتر شده: میانگین ۷ روز اخیر ${x.mr.toFixed(1)}${u} در برابر معمول ${x.mb.toFixed(1)}${u}.`,
-      x.worse >= DEV_DANGER ? "danger" : "warn"
+      `${x.label} نسبت به الگوی معمول خودت بدتر شده: میانگین ۷ روز اخیر ${x.mr.toFixed(1)}${u} در برابر معمول ${x.mb.toFixed(1)}${u}.` +
+        (inTravel ? " (بخشی از هفته در سفر بوده‌ای؛ تغییر ریتم در سفر طبیعی است.)" : ""),
+      x.worse >= DEV_DANGER && !inTravel ? "danger" : "warn"
     );
   }
 
@@ -618,8 +639,10 @@ const CORR_DEFS = [
   { label: "اضطراب امروز × کیفیت خواب شب بعد",        x: "anxiety",        y: "sleepQuality", lag: 1 },
   { label: "کافئین امروز × زمان به خواب رفتن شب بعد", x: "caffeine",       y: "sleepLatency", lag: 1 },
   { label: "کافئین × اضطراب همان روز",                x: "caffeine",       y: "anxiety",      lag: 0 },
-  { label: "ورزش × خلق همان روز",                     x: "exerciseMin",    y: "mood",         lag: 0 },
+  // ورزش شبانه است → اثرش روی خواب همان شب و خلق فردا دیده می‌شود
+  { label: "ورزش امروز × خلق فردا",                   x: "exerciseMin",    y: "mood",         lag: 1 },
   { label: "ورزش امروز × کیفیت خواب شب بعد",          x: "exerciseMin",    y: "sleepQuality", lag: 1 },
+  { label: "ورزش امروز × زمان به خواب رفتن شب بعد",   x: "exerciseMin",    y: "sleepLatency", lag: 1 },
   { label: "ساعت قرص عصر × زمان به خواب رفتن شب بعد", x: "medPmTime",      y: "sleepLatency", lag: 1 },
   { label: "ساعت قرص عصر × کیفیت خواب شب بعد",        x: "medPmTime",      y: "sleepQuality", lag: 1 },
   // رفتارها
@@ -686,6 +709,7 @@ function render() {
   renderMedication();
   renderExplicit();
   renderFood();
+  renderTravel();
   renderBehaviors();
   renderCorrelations();
   renderHeatmap();
@@ -839,6 +863,9 @@ function renderState() {
 
   let hint = stateHint(cur);
   if (recent.length < MIN_COVERAGE_7) hint += ` (اعتبار پایین: فقط ${recent.length} از ۷ روز کامل ثبت شده)`;
+  if (inWindow(allEntries, anchor, 7).filter((d) => d.travel).length >= TRAVEL_NOTE_DAYS) {
+    hint += " (هفته‌ی اخیر در سفر بوده‌ای؛ مقایسه‌ها را با احتیاط بخوان)";
+  }
   $("caStateHint").textContent = hint;
 
   // gauge svg
@@ -1213,29 +1240,77 @@ function renderFood() {
   );
 }
 
+/* ---------- سفر ---------- */
+
+function renderTravel() {
+  const known = allEntries.filter((d) => d.travel !== null);
+  const days = allEntries.filter((d) => d.travel === true);
+  if (!days.length) {
+    setPanel(
+      "caTravelPanel",
+      "سفر",
+      `<p class="ca-hint">هنوز روز سفری ثبت نشده — در چک‌این صبح یا شب تیک «در سفر» را بزن.</p>`
+    );
+    return;
+  }
+
+  // تعداد سفرها = دسته‌های متوالیِ روزهای سفر
+  let trips = 0;
+  let prev = null;
+  for (const d of days) {
+    if (prev == null || d.dayNum - prev > 1) trips++;
+    prev = d.dayNum;
+  }
+
+  const cards = cardsGrid([
+    behaviorCard("روز سفر", days.length, `/ ${known.length} روز`),
+    behaviorCard("تعداد سفر", trips, "سفر"),
+  ]);
+
+  const cmp = compareGroups(
+    allEntries,
+    (d) => d.travel === true,
+    (d) => d.travel === false,
+    [...M_DAY, ...M_SLEEP]
+  );
+
+  setPanel(
+    "caTravelPanel",
+    "سفر",
+    cards +
+      renderCompare("روز سفر در برابر روز عادی", cmp, "سفر", "عادی") +
+      COMPARE_HINT +
+      `<p class="ca-hint">روزهای سفر از «خط پایه‌ی» هشدارها کنار گذاشته می‌شوند تا تغییر ریتم سفر به‌عنوان افت حساب نشود. اگر ۳ روز یا بیشتر از هفته‌ی اخیر سفر بوده، هشدارهای انحراف از الگو هم نرم‌تر می‌شوند.</p>`
+  );
+}
+
 /* ---------- behaviors ---------- */
 
 function renderBehaviors() {
   const eves = visibleEntries.filter((d) => d.eve);
   const mors = visibleEntries.filter((d) => d.mor);
-  if (!eves.length && !mors.length) { $("caBehaviors").innerHTML = ""; return; }
+  const exK = visibleEntries.filter((d) => d.exerciseDone !== null);
+  const trK = visibleEntries.filter((d) => d.travel !== null);
+  if (!eves.length && !mors.length && !exK.length) { $("caBehaviors").innerHTML = ""; return; }
 
   const nE = eves.length;
   const nM = mors.length;
+  const nX = exK.length;
   const pct = (count, n) => (n ? Math.round((count / n) * 100) : 0);
 
   const routineCount = mors.filter((d) => d.routineDone).length;
-  const exerciseCount = eves.filter((d) => d.exerciseDone).length;
-  const exerciseMinutes = eves.reduce((a, d) => a + (d.exerciseMin || 0), 0);
+  const exerciseCount = exK.filter((d) => d.exerciseDone).length;
+  const exerciseMinutes = exK.reduce((a, d) => a + (d.exerciseMin || 0), 0);
   const mastPosDays = eves.filter((d) => d.mastPos).length;
   const mastNegDays = eves.filter((d) => d.mastNeg).length;
   const act1Count = eves.filter((d) => d.activity1 === true).length;
   const op1Count = eves.filter((d) => d.operation1 === true).length;
   const waterCount = eves.filter((d) => d.water).length;
+  const travelCount = trK.filter((d) => d.travel).length;
 
   const items = [
     { label: "روتین آرام‌سازی", value: routineCount, unit: `/ ${nM} روز`, pct: pct(routineCount, nM) },
-    { label: "ورزش", value: exerciseCount, unit: `/ ${nE} روز`, pct: pct(exerciseCount, nE) },
+    { label: "ورزش", value: exerciseCount, unit: `/ ${nX} روز`, pct: pct(exerciseCount, nX) },
     { label: "دقایق ورزش (کل)", value: exerciseMinutes, unit: "دقیقه", pct: null },
     { label: "خودارضایی مثبت", value: mastPosDays, unit: `/ ${nE} روز`, pct: pct(mastPosDays, nE) },
     { label: "خودارضایی منفی", value: mastNegDays, unit: `/ ${nE} روز`, pct: pct(mastNegDays, nE), danger: nE > 0 && mastNegDays / nE > 0.3 },
@@ -1243,6 +1318,9 @@ function renderBehaviors() {
     { label: "عملیات د۱", value: op1Count, unit: `/ ${nE} روز`, pct: pct(op1Count, nE) },
     { label: "آب کافی", value: waterCount, unit: `/ ${nE} روز`, pct: pct(waterCount, nE) },
   ];
+  if (trK.length) {
+    items.push({ label: "روز در سفر", value: travelCount, unit: `/ ${trK.length} روز`, pct: pct(travelCount, trK.length) });
+  }
 
   $("caBehaviors").innerHTML = items
     .map(
@@ -1299,13 +1377,17 @@ function renderCorrelations() {
     `<p class="ca-hint">ضریب اسپیرمن؛ ${shown.length} مورد برتر از ${corr.length} جفتِ دارای داده‌ی کافی. همبستگی به معنی علت نیست. ردیف‌های کم‌رنگ هنوز از نوسان تصادفی قابل‌تشخیص نیستند؛ با بیشتر شدن داده، آستانه‌ی معناداری پایین‌تر می‌آید.</p>`;
 }
 
-/* ---------- heatmap ---------- */
+/* ---------- heatmap (روزهای سفر: حاشیه‌ی رنگی + ✈ در راهنما) ---------- */
 
 function renderHeatmap() {
   if (!visibleEntries.length) { $("caHeatmap").innerHTML = ""; return; }
 
   const scoreByNum = new Map();
-  for (const d of visibleEntries) if (d.score != null) scoreByNum.set(d.dayNum, d.score);
+  const travelDays = new Set();
+  for (const d of visibleEntries) {
+    if (d.score != null) scoreByNum.set(d.dayNum, d.score);
+    if (d.travel) travelDays.add(d.dayNum);
+  }
 
   const first = visibleEntries[0].dayNum;
   const last = visibleEntries[visibleEntries.length - 1].dayNum;
@@ -1314,9 +1396,11 @@ function renderHeatmap() {
   for (let n = first; n <= last; n++) {
     const key = numToKey(n);
     const s = scoreByNum.get(n);
+    const trav = travelDays.has(n);
     const color = s == null ? "var(--ca-panel-2)" : scoreToColor(s);
-    const tip = s == null ? `${key} — بدون داده` : `${key} — ${s.toFixed(1)}/۱۰`;
-    html += `<div class="ca-heat-cell" style="background:${color}" data-tip="${tip}"></div>`;
+    const tip = (s == null ? `${key} — بدون داده` : `${key} — ${s.toFixed(1)}/۱۰`) + (trav ? " ✈ سفر" : "");
+    const ring = trav ? ";box-shadow:inset 0 0 0 2px var(--ca-accent)" : "";
+    html += `<div class="ca-heat-cell" style="background:${color}${ring}" data-tip="${tip}"></div>`;
   }
   $("caHeatmap").innerHTML = html;
 }
@@ -1332,6 +1416,7 @@ function scoreToColor(s) {
 
 const TABLE_COLS = [
   { key: "date",         label: "تاریخ" },
+  { key: "travel",       label: "سفر" },
   { key: "score",        label: "امتیاز روانی" },
   { key: "sleepHours",   label: "خواب (س)" },
   { key: "sleepQuality", label: "کیفیت خواب" },
@@ -1359,6 +1444,7 @@ function cellFor(c, d) {
   const raw = d[c.key];
 
   if (c.key === "date") return { v: formatDate(raw), cls: "date" };
+  if (c.key === "travel") return raw ? { v: "✈", cls: "" } : dash;
   if (c.key === "routineDone" || c.key === "water") return raw ? { v: "✓", cls: "ca-cell-good" } : dash;
   if (raw === null || raw === undefined || raw === "") return dash;
   if (c.key === "medText") return { v: raw, cls: "ca-cell-good" };

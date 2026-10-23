@@ -5,6 +5,7 @@
 
 import { MEALS, FOOD_GROUPS, foodLabel } from "../../daliycheck/foodCatalog.js";
 import { DailyCheckinStore } from "../../daliycheck/dailyCheckinStore.js";
+import { createCheckinEntry, prevDateKey } from "../../daliycheck/dailyCheckinData.js";
 
 const $ = (id) => document.getElementById(id);
 const bodyEl = () => $("checkinModalBody");
@@ -75,6 +76,11 @@ const DRIVERS = [
   ["urge", "از روی فشار / اجبار"],
 ];
 
+const YES_NO = [
+  ["yes", "بله"],
+  ["no", "نه"],
+];
+
 /* ---------- نمره‌گذاری ---------- */
 
 const round1 = (n) => Math.round(n * 10) / 10;
@@ -104,10 +110,13 @@ function construct(name) {
 
 const divider = (t) => `<div class="settings-divider">${t}</div>`;
 const hint = (t) => `<p class="settings-hint">${t}</p>`;
-const showIfAttr = (id) => (id ? ` data-showif="${id}" hidden` : "");
+
+/* showIf = id یک چک‌باکس ؛ showChoice = "id:value" برای دکمه‌های انتخابی */
+const showAttr = (showIf, showChoice) =>
+  showIf ? ` data-showif="${showIf}" hidden` : showChoice ? ` data-showchoice="${showChoice}" hidden` : "";
 
 const likertRow = (id, text, showIf = "") => `
-  <div class="field"${showIfAttr(showIf)}>
+  <div class="field"${showAttr(showIf)}>
     <span class="field__label">${text}</span>
     <div class="preset-grid" data-likert="${id}" style="grid-template-columns:repeat(5,1fr)">
       ${[1, 2, 3, 4, 5]
@@ -117,7 +126,7 @@ const likertRow = (id, text, showIf = "") => `
   </div>`;
 
 const choiceRow = (id, text, options, showIf = "") => `
-  <div class="field"${showIfAttr(showIf)}>
+  <div class="field"${showAttr(showIf)}>
     <span class="field__label">${text}</span>
     <div class="preset-grid" data-choice="${id}" style="grid-template-columns:repeat(${options.length},1fr)">
       ${options
@@ -127,13 +136,13 @@ const choiceRow = (id, text, options, showIf = "") => `
   </div>`;
 
 const timeField = (id, label, showIf = "") => `
-  <label class="field"${showIfAttr(showIf)}>
+  <label class="field"${showAttr(showIf)}>
     <span class="field__label">${label}</span>
     <input type="time" id="ck_${id}" />
   </label>`;
 
-const numField = (id, label, attrs = "", showIf = "") => `
-  <label class="field"${showIfAttr(showIf)}>
+const numField = (id, label, attrs = "", showIf = "", showChoice = "") => `
+  <label class="field"${showAttr(showIf, showChoice)}>
     <span class="field__label">${label}</span>
     <input type="number" id="ck_${id}" ${attrs} />
   </label>`;
@@ -152,6 +161,11 @@ const toggle = (id, label) => `
 
 const constructHtml = (name) =>
   divider(CONSTRUCTS[name].title) + CONSTRUCTS[name].items.map((it) => likertRow(it.id, it.text)).join("");
+
+/* سفر: تیک + یادداشت «از دیروز ادامه داده شد» */
+const travelBlock = () =>
+  toggle("travel", "امروز در سفر هستم / بودم") +
+  `<p class="settings-hint" id="ck_travelNote" hidden>از دیروز ادامه داده شد — اگر برگشته‌ای تیک را بردار.</p>`;
 
 /* قرص: key = Morning | Afternoon */
 const medRow = (key, toggleLabel) =>
@@ -182,6 +196,14 @@ const mealTabs = () => `
   </div>`;
 
 const SECTIONS = {
+  travel: () => divider("سفر") + `<div class="settings-options">` + travelBlock() + `</div>`,
+
+  /* ورزش «دیروز» — جواب روی ورودی دیروز ذخیره می‌شود */
+  exYesterday: () =>
+    divider("ورزش دیروز") +
+    choiceRow("exY", `دیروز (${prevDateKey(ctx.dateKey)}) ورزش کردی؟`, YES_NO) +
+    numField("exYMin", "چند دقیقه؟", `min="0" max="600" inputmode="numeric"`, "", "exY:yes"),
+
   sleep: () =>
     divider("خواب دیشب") +
     `<div class="settings-grid">` +
@@ -228,11 +250,11 @@ const SECTIONS = {
 
   activities: () =>
     divider("فعالیت‌ها") +
+    hint("ورزش را فردا صبح (برای دیروز) ثبت می‌کنی.") +
     `<div class="settings-options">` +
     toggle("activity1", "فعالیت شماره ۱") +
     toggle("operation1", "عملیات د۱") +
-    toggle("exerciseDone", "امروز ورزش کردی؟") +
-    numField("exerciseMin", "چند دقیقه؟", `min="0" max="600" inputmode="numeric"`, "exerciseDone") +
+    travelBlock() +
     `</div>`,
 
   mast: () =>
@@ -334,11 +356,15 @@ function paint(id) {
 }
 
 function syncShowIf() {
-  bodyEl()
-    ?.querySelectorAll("[data-showif]")
-    .forEach((w) => {
-      w.hidden = !$("ck_" + w.dataset.showif)?.checked;
-    });
+  const root = bodyEl();
+  if (!root || !ctx) return;
+  root.querySelectorAll("[data-showif]").forEach((w) => {
+    w.hidden = !$("ck_" + w.dataset.showif)?.checked;
+  });
+  root.querySelectorAll("[data-showchoice]").forEach((w) => {
+    const [id, val] = w.dataset.showchoice.split(":");
+    w.hidden = ctx.choices[id] !== val;
+  });
 }
 
 /* وقتی یک تیک برداشته شد، فیلدهای وابسته‌اش خالی شوند */
@@ -451,6 +477,8 @@ function fill(e) {
     if (n) n.checked = !!v;
   };
 
+  chk("travel", e.travel === true);
+
   set("bedTime", e.sleep?.bedTime);
   set("wakeTime", e.sleep?.wakeTime);
   set("hours", e.sleep?.hours);
@@ -472,8 +500,6 @@ function fill(e) {
 
   chk("activity1", e.activity1 === true);
   chk("operation1", e.operation1 === true);
-  chk("exerciseDone", e.exercise?.done);
-  set("exerciseMin", e.exercise?.minutes);
 
   chk("mastPos", e.masturbation?.positive?.done);
   set("mastPosCount", e.masturbation?.positive?.count);
@@ -516,6 +542,10 @@ function bind() {
     if (store[id] === v) delete store[id]; // دوباره‌زدن = پاک‌کردن
     else store[id] = v;
     paint(id);
+
+    // فیلدهای وابسته به انتخاب («چند دقیقه؟») نمایش/پاک شوند
+    syncShowIf();
+    root.querySelectorAll("[data-showchoice][hidden] input").forEach((i) => (i.value = ""));
     hideMsg();
   });
 
@@ -524,6 +554,10 @@ function bind() {
     if (!ctx || t.type !== "checkbox") return;
     if (!t.checked) clearDependents(t.id.replace(/^ck_/, ""));
     syncShowIf();
+    if (t.id === "ck_travel") {
+      const note = $("ck_travelNote");
+      if (note) note.hidden = true;
+    }
   });
 
   root.addEventListener("input", (ev) => {
@@ -550,9 +584,9 @@ export function openCheckinModal(dateKey, existingEntry, slotOverride) {
 
   const sections =
     slot === "morning"
-      ? ["sleep", "routine", "medMorning", "now"]
+      ? ["travel", "exYesterday", "sleep", "routine", "medMorning", "now"]
       : [
-          ...(catchUp ? ["sleep", "routine"] : []),
+          ...(catchUp ? ["exYesterday", "sleep", "routine"] : []),
           "medDay",
           "mood", "stress", "energy", "focus", "anxiety",
           "activities", "mast", "explicit", "food", "day", "notes",
@@ -580,14 +614,36 @@ export function openCheckinModal(dateKey, existingEntry, slotOverride) {
 
   const intro =
     slot === "morning"
-      ? "حدود ۱ دقیقه — خواب دیشب، قرص صبح و حال همین الان."
+      ? "حدود ۱ دقیقه — ورزش دیروز، خواب دیشب، قرص صبح و حال همین الان."
       : "حدود ۲ تا ۳ دقیقه — هر جمله را برای کل امروز (تا همین لحظه) نمره بده: ۱ = اصلاً · ۵ = خیلی زیاد." +
-        (catchUp ? " چون چک‌این صبح ثبت نشده، بخش خواب و روتین هم اینجا آمده است." : "");
+        (catchUp ? " چون چک‌این صبح ثبت نشده، ورزش دیروز و بخش خواب و روتین هم اینجا آمده است." : "");
 
   root.innerHTML =
     hint(intro) + sections.map((s) => SECTIONS[s]()).join("") + `<p class="settings-hint" id="ck_msg" hidden></p>`;
 
   fill(entry);
+
+  // سفر: اگر برای این روز هنوز ثبت نشده و دیروز در سفر بود، ادامه‌ی سفر پیش‌فرض است
+  const travelEl = $("ck_travel");
+  if (travelEl && entry.travel == null) {
+    const prev = DailyCheckinStore.getEntryForDate(prevDateKey(dateKey));
+    if (prev?.travel === true) {
+      travelEl.checked = true;
+      const note = $("ck_travelNote");
+      if (note) note.hidden = false;
+    }
+  }
+
+  // ورزش دیروز: اگر قبلاً ثبت شده، پر نشان بده
+  if (sections.includes("exYesterday")) {
+    const ex = DailyCheckinStore.getEntryForDate(prevDateKey(dateKey))?.exercise;
+    if (ex?.recorded) {
+      ctx.choices.exY = ex.done ? "yes" : "no";
+      const m = $("ck_exYMin");
+      if (m) m.value = ex.minutes == null ? "" : String(ex.minutes);
+    }
+  }
+
   syncShowIf();
   root.querySelectorAll("[data-likert],[data-choice]").forEach((g) => paint(g.dataset.likert || g.dataset.choice));
   renderFrequent();
@@ -615,6 +671,16 @@ export function closeCheckinModal() {
 
 export function getCheckinDateKey() {
   return ctx ? ctx.dateKey : null;
+}
+
+/* ورزش دیروز روی «ورودی دیروز» نوشته می‌شود (اگر ورودی‌اش نبود، ساخته می‌شود)
+   تا تحلیل ورزش را روی روز درست ببیند. فقط بعد از موفق‌بودن همه‌ی اعتبارسنجی‌ها صدا زده می‌شود. */
+function writeYesterdayExercise({ done, minutes }) {
+  const yKey = prevDateKey(ctx.dateKey);
+  const existing = DailyCheckinStore.getEntryForDate(yKey);
+  const y = existing ? JSON.parse(JSON.stringify(existing)) : createCheckinEntry(yKey);
+  y.exercise = { done, minutes: done ? minutes : null, recorded: true };
+  DailyCheckinStore.saveCheckin(yKey, y);
 }
 
 /* ============================================================
@@ -659,6 +725,19 @@ export function readCheckinForm() {
 
   const e = JSON.parse(JSON.stringify(ctx.base));
   const now = new Date().toISOString();
+
+  // سفر (در هر دو چک‌این وجود دارد)
+  const travelEl = $("ck_travel");
+  if (travelEl) e.travel = travelEl.checked;
+
+  // ورزش دیروز (بعد از موفق‌شدن اعتبارسنجی نوشته می‌شود)
+  let yesterday = null;
+  if (has("exYesterday")) {
+    const v = choiceVal("exY");
+    if (v === "yes" || v === "no") {
+      yesterday = { done: v === "yes", minutes: v === "yes" ? int("exYMin", 0, 600) : null };
+    }
+  }
 
   if (has("sleep")) {
     const bedTime = str("bedTime");
@@ -724,9 +803,7 @@ export function readCheckinForm() {
 
     e.activity1 = checked("activity1");
     e.operation1 = checked("operation1");
-
-    const exDone = checked("exerciseDone");
-    e.exercise = { done: exDone, minutes: exDone ? int("exerciseMin", 0, 600) : null };
+    // ورزش امروز اینجا لمس نمی‌شود؛ فردا صبح ثبت می‌شود.
 
     const posDone = checked("mastPos");
     const negDone = checked("mastNeg");
@@ -743,7 +820,7 @@ export function readCheckinForm() {
       driver: viewed ? choiceVal("explicitDriver") : null,
     };
 
-    // لاگ غذا: تعداد وعده‌ی اصلی خودکار؛ اگر هیچ‌چیز ثبت نشده → «ثبت‌نشده» (null)
+    // لاگ غذا: تعداد وعده‌ی اصلی خودکار؛ اگر هیچ‌چیز ثبت نشده → «ثبت‌نشده»
     const log = {};
     let anyFood = false;
     let mainMeals = 0;
@@ -774,6 +851,8 @@ export function readCheckinForm() {
   e.items = { ...e.items, ...answers };
   e.slots = { ...e.slots, [slot]: now };
   if (ctx.catchUp) e.slots.morning = now;
+
+  if (yesterday) writeYesterdayExercise(yesterday);
 
   return e;
 }

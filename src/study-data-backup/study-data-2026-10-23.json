@@ -1,0 +1,3377 @@
+{
+  "schemaVersion": 5,
+  "app": {
+    "name": "Study Timer",
+    "dataFormat": "study-timer-json",
+    "createdAt": "2026-09-26T03:00:01.956Z",
+    "updatedAt": "2026-10-23T17:24:12.448Z",
+    "timeZone": "Asia/Tehran"
+  },
+  "settings": {
+    "language": "en",
+    "theme": "dark",
+    "clockFormat": "24h",
+    "soundEnabled": true,
+    "reducedMotion": false,
+    "autoStartNextSession": false,
+    "defaultSessionMinutes": 50,
+    "lastSelectedMinutes": 25,
+    "lastSelectedSubject": "مدار منطقی",
+    "lastSelectedPractice": false,
+    "lastSelectedKind": "study"
+  },
+  "studyPlan": {
+    "startDate": "2026-09-19",
+    "examDate": "2027-05-06",
+    "totalWeeks": 32,
+    "dailyGoalMinutes": 240,
+    "weeklyPlanSource": "weekly-plans.json"
+  },
+  "subjects": [
+    {
+      "name": "ساختمان داده"
+    },
+    {
+      "name": "طراحی الگوریتم"
+    },
+    {
+      "name": "هوش مصنوعی"
+    },
+    {
+      "name": "زبان تخصصی"
+    },
+    {
+      "name": "ریاضی فنی ۱"
+    },
+    {
+      "name": "ریاضی فنی ۲"
+    },
+    {
+      "name": "آمار و احتمال مهندسی"
+    },
+    {
+      "name": "ریاضیات گسسته"
+    },
+    {
+      "name": "شبکه‌های کامپیوتری"
+    },
+    {
+      "name": "سیستم‌عامل"
+    },
+    {
+      "name": "پایگاه داده"
+    },
+    {
+      "name": "نظریه زبان‌ها و ماشین‌ها"
+    },
+    {
+      "name": "سیگنال‌ها و سیستم‌ها"
+    },
+    {
+      "name": "مدار منطقی"
+    },
+    {
+      "name": "معماری کامپیوتر"
+    },
+    {
+      "name": "مدار دیجیتال"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "4b25551c-b38b-4389-a763-a548fc2e09d7",
+      "type": "study",
+      "status": "completed",
+      "subject": "هوش مصنوعی",
+      "isPractice": false,
+      "planned": {
+        "durationSeconds": 4320
+      },
+      "actual": {
+        "startedAt": "2026-09-26T03:24:45.030Z",
+        "endedAt": "2026-09-26T04:43:33.267Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [
+        {
+          "startedAt": "2026-09-26T03:36:10.604Z",
+          "endedAt": "2026-09-26T03:36:14.402Z",
+          "durationSeconds": 4
+        },
+        {
+          "startedAt": "2026-09-26T03:36:16.101Z",
+          "endedAt": "2026-09-26T03:36:17.663Z",
+          "durationSeconds": 2
+        },
+        {
+          "startedAt": "2026-09-26T04:23:07.378Z",
+          "endedAt": "2026-09-26T04:29:50.255Z",
+          "durationSeconds": 403
+        }
+      ],
+      "derived": {
+        "activeDurationSeconds": 4320,
+        "totalPausedSeconds": 408,
+        "pauseCount": 3
+      },
+      "createdAt": "2026-09-26T03:24:45.030Z",
+      "updatedAt": "2026-09-26T04:43:33.278Z",
+      "analysis": null,
+      "topic": null
+    },
+    {
+      "id": "0daa611a-d08f-4243-acb2-7de18aa32b21",
+      "type": "study",
+      "status": "abandoned",
+      "subject": "ساختمان داده",
+      "isPractice": false,
+      "planned": {
+        "durationSeconds": 5400
+      },
+      "actual": {
+        "startedAt": "2026-09-27T03:05:29.707Z",
+        "endedAt": "2026-09-27T03:49:28.977Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [
+        {
+          "startedAt": "2026-09-27T03:49:26.422Z",
+          "endedAt": "2026-09-27T03:49:28.977Z",
+          "durationSeconds": 3
+        }
+      ],
+      "derived": {
+        "activeDurationSeconds": 2637,
+        "totalPausedSeconds": 3,
+        "pauseCount": 1
+      },
+      "analysis": null,
+      "createdAt": "2026-09-27T03:05:29.707Z",
+      "updatedAt": "2026-09-27T03:49:28.977Z",
+      "topic": null
+    },
+    {
+      "id": "35d46a9e-5947-4da3-979c-5682f5c81f7f",
+      "type": "study",
+      "status": "completed",
+      "subject": "ریاضیات گسسته",
+      "isPractice": false,
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-09-27T14:39:14.889Z",
+        "endedAt": "2026-09-27T15:29:14.889Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-09-27T14:39:14.889Z",
+      "updatedAt": "2026-09-27T15:29:14.906Z",
+      "topic": null
+    },
+    {
+      "id": "98c5a0e0-37cd-4cd4-b4b8-92e9ba90cf35",
+      "type": "study",
+      "status": "completed",
+      "subject": "ریاضیات گسسته",
+      "isPractice": false,
+      "planned": {
+        "durationSeconds": 300
+      },
+      "actual": {
+        "startedAt": "2026-09-27T15:30:37.937Z",
+        "endedAt": "2026-09-27T15:35:37.937Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 300,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-09-27T15:30:37.937Z",
+      "updatedAt": "2026-09-27T15:35:37.952Z",
+      "topic": null
+    },
+    {
+      "id": "7b2dd719-f438-4fd5-848b-4053c5f4b937",
+      "type": "study",
+      "status": "abandoned",
+      "subject": "ریاضی فنی ۱",
+      "isPractice": false,
+      "planned": {
+        "durationSeconds": 5400
+      },
+      "actual": {
+        "startedAt": "2026-09-27T16:02:57.588Z",
+        "endedAt": "2026-09-27T17:30:12.017Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [
+        {
+          "startedAt": "2026-09-27T16:28:54.940Z",
+          "endedAt": "2026-09-27T16:31:34.141Z",
+          "durationSeconds": 159
+        }
+      ],
+      "derived": {
+        "activeDurationSeconds": 5075,
+        "totalPausedSeconds": 159,
+        "pauseCount": 1
+      },
+      "analysis": null,
+      "createdAt": "2026-09-27T16:02:57.588Z",
+      "updatedAt": "2026-09-27T17:30:12.017Z",
+      "topic": null
+    },
+    {
+      "id": "67302ff3-316b-4bfc-af4d-fbce0671e549",
+      "type": "study",
+      "status": "cancelled",
+      "subject": "ریاضی فنی ۱",
+      "isPractice": false,
+      "planned": {
+        "durationSeconds": 4080
+      },
+      "actual": {
+        "startedAt": "2026-09-28T03:22:50.304Z",
+        "endedAt": "2026-09-28T03:22:58.337Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 8,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-09-28T03:22:50.304Z",
+      "updatedAt": "2026-09-28T03:22:58.337Z",
+      "topic": null
+    },
+    {
+      "id": "290cde05-b230-4a47-ae7f-27fd05ae904e",
+      "type": "study",
+      "status": "completed",
+      "subject": "طراحی الگوریتم",
+      "isPractice": false,
+      "planned": {
+        "durationSeconds": 4080
+      },
+      "actual": {
+        "startedAt": "2026-09-28T03:23:05.590Z",
+        "endedAt": "2026-09-28T04:31:05.590Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 4080,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-09-28T03:23:05.590Z",
+      "updatedAt": "2026-09-28T04:32:00.642Z",
+      "topic": null
+    },
+    {
+      "id": "4f9f576b-bfa2-4b6f-b503-4b36363532bc",
+      "type": "study",
+      "status": "completed",
+      "subject": "طراحی الگوریتم",
+      "isPractice": false,
+      "topic": "تحلیل پیچیدگی",
+      "planned": {
+        "durationSeconds": 60
+      },
+      "actual": {
+        "startedAt": "2026-09-30T04:39:26.924Z",
+        "endedAt": "2026-09-30T04:40:26.924Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 60,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-09-30T04:39:26.924Z",
+      "updatedAt": "2026-09-30T04:40:35.722Z"
+    },
+    {
+      "id": "488e86b5-d6ec-4515-8045-893e6f70e0f7",
+      "type": "study",
+      "status": "completed",
+      "subject": "طراحی الگوریتم",
+      "isPractice": false,
+      "topic": "تحلیل پیچیدگی",
+      "planned": {
+        "durationSeconds": 60
+      },
+      "actual": {
+        "startedAt": "2026-09-30T14:18:56.611Z",
+        "endedAt": "2026-09-30T14:19:56.611Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 60,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-09-30T14:18:56.611Z",
+      "updatedAt": "2026-09-30T14:20:17.298Z"
+    },
+    {
+      "id": "6c3fbf45-b6f7-4ffe-b044-75c2b8e32694",
+      "type": "practice",
+      "status": "completed",
+      "subject": "طراحی الگوریتم",
+      "isPractice": true,
+      "topic": "O و Ω و Θ",
+      "planned": {
+        "durationSeconds": 60
+      },
+      "actual": {
+        "startedAt": "2026-09-30T14:20:22.902Z",
+        "endedAt": "2026-09-30T14:21:22.902Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 60,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-09-30T14:20:22.902Z",
+      "updatedAt": "2026-09-30T14:21:59.903Z"
+    },
+    {
+      "id": "301ad70a-450c-4127-a1c0-e460d93f4f23",
+      "type": "analysis",
+      "status": "completed",
+      "subject": "طراحی الگوریتم",
+      "isPractice": false,
+      "topic": "o و ω",
+      "planned": {
+        "durationSeconds": 60
+      },
+      "actual": {
+        "startedAt": "2026-09-30T14:22:04.552Z",
+        "endedAt": "2026-09-30T14:23:04.552Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 60,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": {
+        "testCount": 10,
+        "correctPercent": 70,
+        "analyzedErrorCount": 5,
+        "recordedAt": "2026-09-30T14:23:24.008Z"
+      },
+      "createdAt": "2026-09-30T14:22:04.552Z",
+      "updatedAt": "2026-09-30T14:23:24.008Z"
+    },
+    {
+      "id": "a77e0af8-9657-485c-b3f7-9226d31a753f",
+      "type": "study",
+      "status": "completed",
+      "subject": "ریاضی فنی ۱",
+      "isPractice": false,
+      "topic": "تابع و دامنه و برد",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-09-30T14:25:19.954Z",
+        "endedAt": "2026-09-30T15:31:39.533Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [
+        {
+          "startedAt": "2026-09-30T14:57:56.658Z",
+          "endedAt": "2026-09-30T15:14:16.237Z",
+          "durationSeconds": 980
+        }
+      ],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 980,
+        "pauseCount": 1
+      },
+      "analysis": null,
+      "createdAt": "2026-09-30T14:25:19.954Z",
+      "updatedAt": "2026-09-30T15:31:57.308Z"
+    },
+    {
+      "id": "42f73281-ca28-4ec7-9680-b897be9752e8",
+      "type": "study",
+      "status": "completed",
+      "subject": "ریاضی فنی ۱",
+      "isPractice": false,
+      "topic": "توابع نمایی و لگاریتمی",
+      "planned": {
+        "durationSeconds": 2400
+      },
+      "actual": {
+        "startedAt": "2026-09-30T15:32:25.229Z",
+        "endedAt": "2026-09-30T16:17:05.508Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [
+        {
+          "startedAt": "2026-09-30T15:53:41.652Z",
+          "endedAt": "2026-09-30T15:58:21.931Z",
+          "durationSeconds": 280
+        }
+      ],
+      "derived": {
+        "activeDurationSeconds": 2400,
+        "totalPausedSeconds": 280,
+        "pauseCount": 1
+      },
+      "analysis": null,
+      "createdAt": "2026-09-30T15:32:25.229Z",
+      "updatedAt": "2026-09-30T16:17:16.065Z"
+    },
+    {
+      "id": "c7ecb71b-00ae-4f58-909d-5dbacb7f5ca7",
+      "type": "study",
+      "status": "completed",
+      "subject": "سیستم‌عامل",
+      "isPractice": false,
+      "topic": "ساختار سیستم‌عامل",
+      "planned": {
+        "durationSeconds": 3300
+      },
+      "actual": {
+        "startedAt": "2026-09-30T16:42:02.416Z",
+        "endedAt": "2026-09-30T17:37:02.456Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [
+        {
+          "startedAt": "2026-09-30T16:42:03.197Z",
+          "endedAt": "2026-09-30T16:42:03.237Z",
+          "durationSeconds": 0
+        }
+      ],
+      "derived": {
+        "activeDurationSeconds": 3300,
+        "totalPausedSeconds": 0,
+        "pauseCount": 1
+      },
+      "analysis": null,
+      "createdAt": "2026-09-30T16:42:02.416Z",
+      "updatedAt": "2026-09-30T17:37:25.562Z"
+    },
+    {
+      "id": "fdada087-5a54-4cad-bf3a-13115ed0e0e3",
+      "type": "study",
+      "status": "completed",
+      "subject": "ساختمان داده",
+      "isPractice": false,
+      "topic": "تحلیل عملیات",
+      "planned": {
+        "durationSeconds": 3600
+      },
+      "actual": {
+        "startedAt": "2026-10-01T03:49:20.764Z",
+        "endedAt": "2026-10-01T04:54:49.654Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [
+        {
+          "startedAt": "2026-10-01T04:07:59.357Z",
+          "endedAt": "2026-10-01T04:13:28.247Z",
+          "durationSeconds": 329
+        }
+      ],
+      "derived": {
+        "activeDurationSeconds": 3600,
+        "totalPausedSeconds": 329,
+        "pauseCount": 1
+      },
+      "analysis": null,
+      "createdAt": "2026-10-01T03:49:20.764Z",
+      "updatedAt": "2026-10-01T04:56:10.991Z"
+    },
+    {
+      "id": "9a633efa-db10-49d9-acc6-57bc269e454f",
+      "type": "study",
+      "status": "cancelled",
+      "subject": "ساختمان داده",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 3600
+      },
+      "actual": {
+        "startedAt": "2026-10-01T04:56:16.271Z",
+        "endedAt": "2026-10-01T04:56:33.123Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 17,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-01T04:56:16.271Z",
+      "updatedAt": "2026-10-01T04:56:33.123Z"
+    },
+    {
+      "id": "96299164-e9d5-4c22-90be-d208bcc8f74b",
+      "type": "practice",
+      "status": "completed",
+      "subject": "ساختمان داده",
+      "isPractice": true,
+      "topic": "تحلیل عملیات",
+      "planned": {
+        "durationSeconds": 3600
+      },
+      "actual": {
+        "startedAt": "2026-10-01T04:56:42.391Z",
+        "endedAt": "2026-10-01T05:56:42.391Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3600,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-01T04:56:42.391Z",
+      "updatedAt": "2026-10-01T05:58:44.152Z"
+    },
+    {
+      "id": "ad7d2301-530e-4be6-93fa-8aa244a45496",
+      "type": "practice",
+      "status": "cancelled",
+      "subject": "ساختمان داده",
+      "isPractice": true,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 3600
+      },
+      "actual": {
+        "startedAt": "2026-10-01T06:21:49.161Z",
+        "endedAt": "2026-10-01T06:21:55.361Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [
+        {
+          "startedAt": "2026-10-01T06:21:49.905Z",
+          "endedAt": "2026-10-01T06:21:49.935Z",
+          "durationSeconds": 0
+        },
+        {
+          "startedAt": "2026-10-01T06:21:51.458Z",
+          "endedAt": "2026-10-01T06:21:55.361Z",
+          "durationSeconds": 4
+        }
+      ],
+      "derived": {
+        "activeDurationSeconds": 2,
+        "totalPausedSeconds": 4,
+        "pauseCount": 2
+      },
+      "analysis": null,
+      "createdAt": "2026-10-01T06:21:49.161Z",
+      "updatedAt": "2026-10-01T06:21:55.361Z"
+    },
+    {
+      "id": "023c7aaa-b8f7-442b-b45d-a301041f2ae0",
+      "type": "study",
+      "status": "completed",
+      "subject": "ریاضیات گسسته",
+      "isPractice": false,
+      "topic": "هم‌ارزی و استنتاج",
+      "planned": {
+        "durationSeconds": 5400
+      },
+      "actual": {
+        "startedAt": "2026-10-01T06:22:59.818Z",
+        "endedAt": "2026-10-01T07:52:59.818Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 5400,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-01T06:22:59.818Z",
+      "updatedAt": "2026-10-01T07:53:06.270Z"
+    },
+    {
+      "id": "349a8c39-f4e4-4a4a-a3f8-03b3922c1f79",
+      "type": "practice",
+      "status": "completed",
+      "subject": "ریاضیات گسسته",
+      "isPractice": true,
+      "topic": "هم‌ارزی و استنتاج",
+      "planned": {
+        "durationSeconds": 2220
+      },
+      "actual": {
+        "startedAt": "2026-10-01T07:54:14.895Z",
+        "endedAt": "2026-10-01T08:31:14.895Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 2220,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-01T07:54:14.895Z",
+      "updatedAt": "2026-10-01T08:31:24.341Z"
+    },
+    {
+      "id": "59ed7b85-0200-48ab-af13-61e683a9f210",
+      "type": "study",
+      "status": "completed",
+      "subject": "ریاضی فنی ۱",
+      "isPractice": false,
+      "topic": "توابع مثلثاتی",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-01T09:34:23.619Z",
+        "endedAt": "2026-10-01T10:24:23.619Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-01T09:34:23.619Z",
+      "updatedAt": "2026-10-01T10:28:39.272Z"
+    },
+    {
+      "id": "29d25d71-8706-4549-935e-e4d831d1bd64",
+      "type": "study",
+      "status": "completed",
+      "subject": "ریاضی فنی ۱",
+      "isPractice": false,
+      "topic": "توابع مثلثاتی",
+      "planned": {
+        "durationSeconds": 5400
+      },
+      "actual": {
+        "startedAt": "2026-10-02T11:33:34.821Z",
+        "endedAt": "2026-10-02T13:03:34.821Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 5400,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-02T11:33:34.821Z",
+      "updatedAt": "2026-10-02T13:05:18.820Z"
+    },
+    {
+      "id": "10c2bafa-9a51-4332-acd7-04425d1fe4b5",
+      "type": "study",
+      "status": "completed",
+      "subject": "ریاضی فنی ۱",
+      "isPractice": false,
+      "topic": "توابع مثلثاتی",
+      "planned": {
+        "durationSeconds": 3600
+      },
+      "actual": {
+        "startedAt": "2026-10-02T13:21:47.751Z",
+        "endedAt": "2026-10-02T14:21:47.751Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3600,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-02T13:21:47.751Z",
+      "updatedAt": "2026-10-02T14:33:45.297Z"
+    },
+    {
+      "id": "31a5028c-3e02-4d6d-90d8-b97c6c93e930",
+      "type": "study",
+      "status": "completed",
+      "subject": "هوش مصنوعی",
+      "isPractice": false,
+      "topic": "عامل هوشمند",
+      "planned": {
+        "durationSeconds": 3600
+      },
+      "actual": {
+        "startedAt": "2026-10-03T03:32:58.931Z",
+        "endedAt": "2026-10-03T04:38:57.757Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [
+        {
+          "startedAt": "2026-10-03T04:06:37.354Z",
+          "endedAt": "2026-10-03T04:12:36.180Z",
+          "durationSeconds": 359
+        }
+      ],
+      "derived": {
+        "activeDurationSeconds": 3600,
+        "totalPausedSeconds": 359,
+        "pauseCount": 1
+      },
+      "analysis": null,
+      "createdAt": "2026-10-03T03:32:58.931Z",
+      "updatedAt": "2026-10-03T04:39:07.099Z"
+    },
+    {
+      "id": "8d8f223d-6832-40ca-8b11-ab51b7cab0a5",
+      "type": "study",
+      "status": "completed",
+      "subject": "هوش مصنوعی",
+      "isPractice": false,
+      "topic": "عامل هوشمند",
+      "planned": {
+        "durationSeconds": 900
+      },
+      "actual": {
+        "startedAt": "2026-10-03T13:43:13.910Z",
+        "endedAt": "2026-10-03T13:58:13.910Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 900,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-03T13:43:13.910Z",
+      "updatedAt": "2026-10-03T13:58:20.963Z"
+    },
+    {
+      "id": "92d3ec6c-ba7f-49c4-9289-a4167dea1632",
+      "type": "practice",
+      "status": "completed",
+      "subject": "هوش مصنوعی",
+      "isPractice": true,
+      "topic": "عامل هوشمند",
+      "planned": {
+        "durationSeconds": 1800
+      },
+      "actual": {
+        "startedAt": "2026-10-03T13:59:26.041Z",
+        "endedAt": "2026-10-03T14:29:26.041Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 1800,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-03T13:59:26.041Z",
+      "updatedAt": "2026-10-03T14:29:46.842Z"
+    },
+    {
+      "id": "8f72aafa-789a-43b9-abf7-8a9eb25e5283",
+      "type": "practice",
+      "status": "cancelled",
+      "subject": "هوش مصنوعی",
+      "isPractice": true,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 1800
+      },
+      "actual": {
+        "startedAt": "2026-10-03T14:48:28.152Z",
+        "endedAt": "2026-10-03T14:48:34.174Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [
+        {
+          "startedAt": "2026-10-03T14:48:28.894Z",
+          "endedAt": "2026-10-03T14:48:29.194Z",
+          "durationSeconds": 0
+        },
+        {
+          "startedAt": "2026-10-03T14:48:29.476Z",
+          "endedAt": "2026-10-03T14:48:34.174Z",
+          "durationSeconds": 5
+        }
+      ],
+      "derived": {
+        "activeDurationSeconds": 1,
+        "totalPausedSeconds": 5,
+        "pauseCount": 2
+      },
+      "analysis": null,
+      "createdAt": "2026-10-03T14:48:28.152Z",
+      "updatedAt": "2026-10-03T14:48:34.174Z"
+    },
+    {
+      "id": "c9f57ed8-2b05-4335-9fc1-7617bfccc6a1",
+      "type": "practice",
+      "status": "abandoned",
+      "subject": "زبان تخصصی",
+      "isPractice": true,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 1200
+      },
+      "actual": {
+        "startedAt": "2026-10-03T14:49:07.556Z",
+        "endedAt": "2026-10-03T15:03:07.639Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 840,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-03T14:49:07.556Z",
+      "updatedAt": "2026-10-03T15:03:15.869Z"
+    },
+    {
+      "id": "a69ad792-193b-4175-a36c-415cb8c738db",
+      "type": "study",
+      "status": "completed",
+      "subject": "ساختمان داده",
+      "isPractice": false,
+      "topic": "تحلیل عملیات",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-04T03:05:24.839Z",
+        "endedAt": "2026-10-04T03:55:24.839Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-04T03:05:24.839Z",
+      "updatedAt": "2026-10-04T03:55:49.822Z"
+    },
+    {
+      "id": "1bae5e24-5aca-4a44-86d7-97091738502e",
+      "type": "study",
+      "status": "abandoned",
+      "subject": "ریاضیات گسسته",
+      "isPractice": false,
+      "topic": "منطق محمولات",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-04T04:02:41.024Z",
+        "endedAt": "2026-10-04T04:41:06.677Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [
+        {
+          "startedAt": "2026-10-04T04:02:41.700Z",
+          "endedAt": "2026-10-04T04:02:41.961Z",
+          "durationSeconds": 0
+        }
+      ],
+      "derived": {
+        "activeDurationSeconds": 2305,
+        "totalPausedSeconds": 0,
+        "pauseCount": 1
+      },
+      "analysis": null,
+      "createdAt": "2026-10-04T04:02:41.024Z",
+      "updatedAt": "2026-10-04T04:41:17.855Z"
+    },
+    {
+      "id": "7e82ee11-9308-4f00-abcc-ba6e877b049d",
+      "type": "study",
+      "status": "completed",
+      "subject": "ساختمان داده",
+      "isPractice": false,
+      "topic": "تحلیل عملیات",
+      "planned": {
+        "durationSeconds": 1800
+      },
+      "actual": {
+        "startedAt": "2026-10-04T15:04:41.725Z",
+        "endedAt": "2026-10-04T15:34:41.725Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 1800,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-04T15:04:41.725Z",
+      "updatedAt": "2026-10-04T15:36:20.347Z"
+    },
+    {
+      "id": "85906583-ff2a-44fe-8549-4e521f086d7b",
+      "type": "study",
+      "status": "cancelled",
+      "subject": "ریاضیات گسسته",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-04T15:47:05.337Z",
+        "endedAt": "2026-10-04T15:53:27.370Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [
+        {
+          "startedAt": "2026-10-04T15:47:43.674Z",
+          "endedAt": "2026-10-04T15:53:27.370Z",
+          "durationSeconds": 344
+        }
+      ],
+      "derived": {
+        "activeDurationSeconds": 38,
+        "totalPausedSeconds": 344,
+        "pauseCount": 1
+      },
+      "analysis": null,
+      "createdAt": "2026-10-04T15:47:05.337Z",
+      "updatedAt": "2026-10-04T15:53:27.370Z"
+    },
+    {
+      "id": "56d13218-d927-486d-803c-8b770289dd1b",
+      "type": "practice",
+      "status": "completed",
+      "subject": "ریاضیات گسسته",
+      "isPractice": true,
+      "topic": "منطق گزاره‌ها",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-04T15:53:33.555Z",
+        "endedAt": "2026-10-04T16:43:33.555Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-04T15:53:33.555Z",
+      "updatedAt": "2026-10-04T16:50:12.140Z"
+    },
+    {
+      "id": "f19973b4-a677-4881-b5ea-e6006f883fb2",
+      "type": "study",
+      "status": "completed",
+      "subject": "هوش مصنوعی",
+      "isPractice": false,
+      "topic": "عامل هوشمند",
+      "planned": {
+        "durationSeconds": 2400
+      },
+      "actual": {
+        "startedAt": "2026-10-04T16:51:06.661Z",
+        "endedAt": "2026-10-04T17:31:06.661Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 2400,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-04T16:51:06.661Z",
+      "updatedAt": "2026-10-04T17:31:19.267Z"
+    },
+    {
+      "id": "908556c5-ba7b-42d8-b504-6dd3098c4832",
+      "type": "analysis",
+      "status": "completed",
+      "subject": "ریاضیات گسسته",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-05T03:20:14.524Z",
+        "endedAt": "2026-10-05T04:10:14.524Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": {
+        "testCount": null,
+        "correctPercent": null,
+        "analyzedErrorCount": null,
+        "recordedAt": "2026-10-05T04:11:51.834Z"
+      },
+      "createdAt": "2026-10-05T03:20:14.524Z",
+      "updatedAt": "2026-10-05T04:11:51.834Z"
+    },
+    {
+      "id": "da40e91c-783f-4303-a6c2-aa1c365fb3c2",
+      "type": "study",
+      "status": "completed",
+      "subject": "ساختمان داده",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-05T13:37:42.093Z",
+        "endedAt": "2026-10-05T14:27:42.093Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-05T13:37:42.093Z",
+      "updatedAt": "2026-10-05T14:28:05.242Z"
+    },
+    {
+      "id": "9c3d70af-79cc-455f-9fef-222fbe59c621",
+      "type": "practice",
+      "status": "abandoned",
+      "subject": "ساختمان داده",
+      "isPractice": true,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 2400
+      },
+      "actual": {
+        "startedAt": "2026-10-05T14:46:21.691Z",
+        "endedAt": "2026-10-05T15:07:37.318Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [
+        {
+          "startedAt": "2026-10-05T14:46:22.463Z",
+          "endedAt": "2026-10-05T14:46:22.750Z",
+          "durationSeconds": 0
+        }
+      ],
+      "derived": {
+        "activeDurationSeconds": 1275,
+        "totalPausedSeconds": 0,
+        "pauseCount": 1
+      },
+      "analysis": null,
+      "createdAt": "2026-10-05T14:46:21.691Z",
+      "updatedAt": "2026-10-05T15:07:39.387Z"
+    },
+    {
+      "id": "fc9a3719-c28f-4faf-adf7-1956f246897a",
+      "type": "study",
+      "status": "completed",
+      "subject": "طراحی الگوریتم",
+      "isPractice": false,
+      "topic": "روابط بازگشتی",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-06T03:01:37.981Z",
+        "endedAt": "2026-10-06T03:51:37.981Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-06T03:01:37.981Z",
+      "updatedAt": "2026-10-06T03:52:47.635Z"
+    },
+    {
+      "id": "76ad946f-0ed3-4626-8599-263c0ade925c",
+      "type": "study",
+      "status": "abandoned",
+      "subject": "نظریه زبان‌ها و ماشین‌ها",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-06T04:04:02.482Z",
+        "endedAt": "2026-10-06T04:40:25.095Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 2183,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-06T04:04:02.482Z",
+      "updatedAt": "2026-10-06T04:40:28.586Z"
+    },
+    {
+      "id": "75bf5d9a-18b1-4b60-b2ac-13528ac8ef68",
+      "type": "study",
+      "status": "completed",
+      "subject": "طراحی الگوریتم",
+      "isPractice": false,
+      "topic": "روابط بازگشتی",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-06T14:20:34.083Z",
+        "endedAt": "2026-10-06T15:10:34.083Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-06T14:20:34.083Z",
+      "updatedAt": "2026-10-06T15:16:51.121Z"
+    },
+    {
+      "id": "c8b70e8f-e184-4271-86ce-b63b37a12052",
+      "type": "study",
+      "status": "completed",
+      "subject": "طراحی الگوریتم",
+      "isPractice": false,
+      "topic": "روابط بازگشتی",
+      "planned": {
+        "durationSeconds": 1500
+      },
+      "actual": {
+        "startedAt": "2026-10-06T15:33:45.989Z",
+        "endedAt": "2026-10-06T15:58:45.989Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 1500,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-06T15:33:45.989Z",
+      "updatedAt": "2026-10-06T15:59:00.871Z"
+    },
+    {
+      "id": "20b9bdb9-0f9e-46f5-9767-a8c3cf77f518",
+      "type": "study",
+      "status": "completed",
+      "subject": "ساختمان داده",
+      "isPractice": false,
+      "topic": "آرایه",
+      "planned": {
+        "durationSeconds": 1800
+      },
+      "actual": {
+        "startedAt": "2026-10-06T16:00:15.978Z",
+        "endedAt": "2026-10-06T16:30:15.978Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 1800,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-06T16:00:15.978Z",
+      "updatedAt": "2026-10-06T16:33:40.401Z"
+    },
+    {
+      "id": "6de29cf4-26bd-4a3f-8070-1187a849798e",
+      "type": "study",
+      "status": "completed",
+      "subject": "هوش مصنوعی",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 1800
+      },
+      "actual": {
+        "startedAt": "2026-10-07T04:07:21.209Z",
+        "endedAt": "2026-10-07T04:37:21.209Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 1800,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-07T04:07:21.209Z",
+      "updatedAt": "2026-10-07T04:37:28.143Z"
+    },
+    {
+      "id": "979b20a5-e525-40af-bd67-5a11fa7daa13",
+      "type": "study",
+      "status": "completed",
+      "subject": "هوش مصنوعی",
+      "isPractice": false,
+      "topic": "DFS",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-07T15:42:23.457Z",
+        "endedAt": "2026-10-07T16:32:23.457Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-07T15:42:23.457Z",
+      "updatedAt": "2026-10-07T16:32:35.570Z"
+    },
+    {
+      "id": "b5837d00-f838-4a8b-85e2-67857c92ed5a",
+      "type": "study",
+      "status": "completed",
+      "subject": "ریاضیات گسسته",
+      "isPractice": false,
+      "topic": "هم‌ارزی و استنتاج",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-08T06:32:01.901Z",
+        "endedAt": "2026-10-08T07:22:01.901Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-08T06:32:01.901Z",
+      "updatedAt": "2026-10-08T07:25:44.948Z"
+    },
+    {
+      "id": "14f16490-9240-417f-96fc-79e719c625e0",
+      "type": "practice",
+      "status": "completed",
+      "subject": "ریاضیات گسسته",
+      "isPractice": true,
+      "topic": "هم‌ارزی و استنتاج",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-08T07:31:53.189Z",
+        "endedAt": "2026-10-08T08:21:53.189Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-08T07:31:53.189Z",
+      "updatedAt": "2026-10-08T08:22:10.368Z"
+    },
+    {
+      "id": "961947d4-6ff4-4964-af86-3a5fc5580bbe",
+      "type": "study",
+      "status": "completed",
+      "subject": "آمار و احتمال مهندسی",
+      "isPractice": false,
+      "topic": "فضای نمونه و پیشامد",
+      "planned": {
+        "durationSeconds": 4860
+      },
+      "actual": {
+        "startedAt": "2026-10-08T09:12:30.852Z",
+        "endedAt": "2026-10-08T10:33:30.852Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 4860,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-08T09:12:30.852Z",
+      "updatedAt": "2026-10-08T10:33:46.236Z"
+    },
+    {
+      "id": "edc0ee40-3e6f-4810-8a79-cf9f330c396f",
+      "type": "study",
+      "status": "completed",
+      "subject": "آمار و احتمال مهندسی",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 1200
+      },
+      "actual": {
+        "startedAt": "2026-10-08T10:55:09.310Z",
+        "endedAt": "2026-10-08T11:15:09.310Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 1200,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-08T10:55:09.310Z",
+      "updatedAt": "2026-10-08T11:15:13.123Z"
+    },
+    {
+      "id": "ac625b28-3dda-4ddb-bd49-1316ff9680bd",
+      "type": "study",
+      "status": "cancelled",
+      "subject": "سیستم‌عامل",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-08T13:33:38.506Z",
+        "endedAt": "2026-10-08T13:33:42.667Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 4,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-08T13:33:38.506Z",
+      "updatedAt": "2026-10-08T13:33:42.667Z"
+    },
+    {
+      "id": "851ffa6b-b30e-46f7-95ce-03eeea92581b",
+      "type": "study",
+      "status": "completed",
+      "subject": "ریاضی فنی ۱",
+      "isPractice": false,
+      "topic": "تابع و دامنه و برد",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-08T13:33:49.646Z",
+        "endedAt": "2026-10-08T14:23:49.646Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-08T13:33:49.646Z",
+      "updatedAt": "2026-10-08T14:23:57.101Z"
+    },
+    {
+      "id": "b7322703-1f86-4da1-b29e-28a5367b7cdf",
+      "type": "study",
+      "status": "completed",
+      "subject": "سیستم‌عامل",
+      "isPractice": false,
+      "topic": "ساختار سیستم‌عامل",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-08T14:47:33.588Z",
+        "endedAt": "2026-10-08T15:37:33.588Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-08T14:47:33.588Z",
+      "updatedAt": "2026-10-08T15:37:44.842Z"
+    },
+    {
+      "id": "30d32ded-7af0-4c2c-998d-1ea1e64a7904",
+      "type": "study",
+      "status": "completed",
+      "subject": "سیستم‌عامل",
+      "isPractice": false,
+      "topic": "Kernel",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-09T07:36:59.628Z",
+        "endedAt": "2026-10-09T08:26:59.928Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [
+        {
+          "startedAt": "2026-10-09T07:37:00.379Z",
+          "endedAt": "2026-10-09T07:37:00.679Z",
+          "durationSeconds": 0
+        }
+      ],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 1
+      },
+      "analysis": null,
+      "createdAt": "2026-10-09T07:36:59.628Z",
+      "updatedAt": "2026-10-09T08:28:02.316Z"
+    },
+    {
+      "id": "f59fc611-920b-4be5-9553-b0b037869757",
+      "type": "study",
+      "status": "completed",
+      "subject": "سیستم‌عامل",
+      "isPractice": false,
+      "topic": "System Call",
+      "planned": {
+        "durationSeconds": 1500
+      },
+      "actual": {
+        "startedAt": "2026-10-09T08:28:16.729Z",
+        "endedAt": "2026-10-09T08:53:16.729Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 1500,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-09T08:28:16.729Z",
+      "updatedAt": "2026-10-09T08:54:52.370Z"
+    },
+    {
+      "id": "59237da2-6af8-4922-8794-f8edbe060b02",
+      "type": "study",
+      "status": "completed",
+      "subject": "سیستم‌عامل",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 1500
+      },
+      "actual": {
+        "startedAt": "2026-10-09T09:54:46.460Z",
+        "endedAt": "2026-10-09T10:19:46.460Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 1500,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-09T09:54:46.460Z",
+      "updatedAt": "2026-10-09T10:19:50.682Z"
+    },
+    {
+      "id": "234b5bfe-ffb4-4402-943f-0a1fea32566f",
+      "type": "study",
+      "status": "completed",
+      "subject": "ریاضی فنی ۱",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 5400
+      },
+      "actual": {
+        "startedAt": "2026-10-09T11:35:31.031Z",
+        "endedAt": "2026-10-09T13:16:46.772Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [
+        {
+          "startedAt": "2026-10-09T12:46:52.090Z",
+          "endedAt": "2026-10-09T12:58:07.831Z",
+          "durationSeconds": 676
+        }
+      ],
+      "derived": {
+        "activeDurationSeconds": 5400,
+        "totalPausedSeconds": 676,
+        "pauseCount": 1
+      },
+      "analysis": null,
+      "createdAt": "2026-10-09T11:35:31.031Z",
+      "updatedAt": "2026-10-09T13:16:55.276Z"
+    },
+    {
+      "id": "8a3c5198-37b7-434d-aefb-ff8294fbab43",
+      "type": "study",
+      "status": "completed",
+      "subject": "آمار و احتمال مهندسی",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-09T13:45:42.319Z",
+        "endedAt": "2026-10-09T14:35:42.319Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-09T13:45:42.319Z",
+      "updatedAt": "2026-10-09T14:36:45.074Z"
+    },
+    {
+      "id": "cde36d90-9d03-4a0e-84cb-7e5e7f6bfc31",
+      "type": "study",
+      "status": "completed",
+      "subject": "هوش مصنوعی",
+      "isPractice": false,
+      "topic": "DFS",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-10T02:51:30.494Z",
+        "endedAt": "2026-10-10T03:46:56.792Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [
+        {
+          "startedAt": "2026-10-10T03:33:01.934Z",
+          "endedAt": "2026-10-10T03:38:28.232Z",
+          "durationSeconds": 326
+        }
+      ],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 326,
+        "pauseCount": 1
+      },
+      "analysis": null,
+      "createdAt": "2026-10-10T02:51:30.494Z",
+      "updatedAt": "2026-10-10T03:47:05.409Z"
+    },
+    {
+      "id": "b4b20f9e-b8a9-474c-bade-65ed9cf03881",
+      "type": "study",
+      "status": "completed",
+      "subject": "هوش مصنوعی",
+      "isPractice": false,
+      "topic": "Iterative Deepening",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-10T03:47:14.836Z",
+        "endedAt": "2026-10-10T04:37:14.836Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-10T03:47:14.836Z",
+      "updatedAt": "2026-10-10T04:37:30.228Z"
+    },
+    {
+      "id": "f8358a37-aaa9-44a8-9059-61a5f472dd8a",
+      "type": "study",
+      "status": "completed",
+      "subject": "زبان تخصصی",
+      "isPractice": false,
+      "topic": "واژگان عمومی",
+      "planned": {
+        "durationSeconds": 1500
+      },
+      "actual": {
+        "startedAt": "2026-10-10T14:00:34.955Z",
+        "endedAt": "2026-10-10T14:25:34.955Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 1500,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-10T14:00:34.955Z",
+      "updatedAt": "2026-10-10T14:27:07.731Z"
+    },
+    {
+      "id": "be29b334-f4db-4a9f-ae34-d75b2ff87011",
+      "type": "study",
+      "status": "completed",
+      "subject": "ساختمان داده",
+      "isPractice": false,
+      "topic": "آرایه",
+      "planned": {
+        "durationSeconds": 1500
+      },
+      "actual": {
+        "startedAt": "2026-10-10T14:41:34.857Z",
+        "endedAt": "2026-10-10T15:06:34.857Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 1500,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-10T14:41:34.857Z",
+      "updatedAt": "2026-10-10T15:06:39.121Z"
+    },
+    {
+      "id": "53197e07-db6f-4795-8f24-972f58dd43fb",
+      "type": "study",
+      "status": "completed",
+      "subject": "ساختمان داده",
+      "isPractice": false,
+      "topic": "لیست پیوندی",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-11T03:45:53.990Z",
+        "endedAt": "2026-10-11T04:41:21.047Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [
+        {
+          "startedAt": "2026-10-11T04:26:02.933Z",
+          "endedAt": "2026-10-11T04:31:29.990Z",
+          "durationSeconds": 327
+        }
+      ],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 327,
+        "pauseCount": 1
+      },
+      "analysis": null,
+      "createdAt": "2026-10-11T03:45:53.990Z",
+      "updatedAt": "2026-10-11T04:52:45.360Z"
+    },
+    {
+      "id": "efd1a062-0955-47ce-8307-c3fd44b57a73",
+      "type": "practice",
+      "status": "completed",
+      "subject": "ساختمان داده",
+      "isPractice": true,
+      "topic": "آرایه",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-11T14:51:29.358Z",
+        "endedAt": "2026-10-11T15:41:29.358Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-11T14:51:29.358Z",
+      "updatedAt": "2026-10-11T15:49:42.326Z"
+    },
+    {
+      "id": "e4406a47-46b1-4715-8d24-f7e3dce42083",
+      "type": "study",
+      "status": "completed",
+      "subject": "زبان تخصصی",
+      "isPractice": false,
+      "topic": "واژگان عمومی",
+      "planned": {
+        "durationSeconds": 600
+      },
+      "actual": {
+        "startedAt": "2026-10-11T15:50:01.627Z",
+        "endedAt": "2026-10-11T16:00:01.627Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 600,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-11T15:50:01.627Z",
+      "updatedAt": "2026-10-11T16:04:24.245Z"
+    },
+    {
+      "id": "1080e184-3b93-405d-ad72-9f028eaa3504",
+      "type": "study",
+      "status": "completed",
+      "subject": "ریاضی فنی ۱",
+      "isPractice": false,
+      "topic": "توابع مثلثاتی",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-11T16:05:20.967Z",
+        "endedAt": "2026-10-11T16:55:20.967Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-11T16:05:20.967Z",
+      "updatedAt": "2026-10-11T16:58:35.976Z"
+    },
+    {
+      "id": "3cbc4014-1610-42c5-91d2-f0a203740aec",
+      "type": "study",
+      "status": "completed",
+      "subject": "زبان تخصصی",
+      "isPractice": false,
+      "topic": "واژگان عمومی",
+      "planned": {
+        "durationSeconds": 900
+      },
+      "actual": {
+        "startedAt": "2026-10-11T17:09:26.190Z",
+        "endedAt": "2026-10-11T17:24:26.190Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 900,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-11T17:09:26.190Z",
+      "updatedAt": "2026-10-11T17:25:35.325Z"
+    },
+    {
+      "id": "d223a961-7785-4abb-b1d1-43c5076af4ae",
+      "type": "study",
+      "status": "completed",
+      "subject": "سیستم‌عامل",
+      "isPractice": false,
+      "topic": "ساختار سیستم‌عامل",
+      "planned": {
+        "durationSeconds": 1500
+      },
+      "actual": {
+        "startedAt": "2026-10-11T17:26:26.495Z",
+        "endedAt": "2026-10-11T17:51:26.495Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 1500,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-11T17:26:26.495Z",
+      "updatedAt": "2026-10-11T17:51:31.025Z"
+    },
+    {
+      "id": "797aebc4-cbb9-48a8-8846-658483c99115",
+      "type": "study",
+      "status": "abandoned",
+      "subject": "هوش مصنوعی",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 5400
+      },
+      "actual": {
+        "startedAt": "2026-10-12T03:01:22.040Z",
+        "endedAt": "2026-10-12T04:20:40.646Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [
+        {
+          "startedAt": "2026-10-12T04:14:11.163Z",
+          "endedAt": "2026-10-12T04:19:25.016Z",
+          "durationSeconds": 314
+        }
+      ],
+      "derived": {
+        "activeDurationSeconds": 4445,
+        "totalPausedSeconds": 314,
+        "pauseCount": 1
+      },
+      "analysis": null,
+      "createdAt": "2026-10-12T03:01:22.040Z",
+      "updatedAt": "2026-10-12T04:20:45.118Z"
+    },
+    {
+      "id": "371af9bb-4b0b-4840-9030-fd75d12e502a",
+      "type": "study",
+      "status": "completed",
+      "subject": "هوش مصنوعی",
+      "isPractice": false,
+      "topic": "BFS",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-12T13:39:21.922Z",
+        "endedAt": "2026-10-12T14:41:22.437Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [
+        {
+          "startedAt": "2026-10-12T14:06:13.778Z",
+          "endedAt": "2026-10-12T14:18:14.293Z",
+          "durationSeconds": 721
+        }
+      ],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 721,
+        "pauseCount": 1
+      },
+      "analysis": null,
+      "createdAt": "2026-10-12T13:39:21.922Z",
+      "updatedAt": "2026-10-12T14:42:14.258Z"
+    },
+    {
+      "id": "b0e41284-361a-42e4-96b1-446a5f3c5557",
+      "type": "study",
+      "status": "completed",
+      "subject": "طراحی الگوریتم",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-12T15:07:20.337Z",
+        "endedAt": "2026-10-12T16:01:47.001Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [
+        {
+          "startedAt": "2026-10-12T15:08:58.772Z",
+          "endedAt": "2026-10-12T15:13:25.436Z",
+          "durationSeconds": 267
+        }
+      ],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 267,
+        "pauseCount": 1
+      },
+      "analysis": null,
+      "createdAt": "2026-10-12T15:07:20.337Z",
+      "updatedAt": "2026-10-12T16:01:51.304Z"
+    },
+    {
+      "id": "520e4b7f-57ef-40f8-9f85-dc5091ac4775",
+      "type": "study",
+      "status": "completed",
+      "subject": "زبان تخصصی",
+      "isPractice": false,
+      "topic": "واژگان عمومی",
+      "planned": {
+        "durationSeconds": 2160
+      },
+      "actual": {
+        "startedAt": "2026-10-12T16:30:19.385Z",
+        "endedAt": "2026-10-12T17:06:19.385Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 2160,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-12T16:30:19.385Z",
+      "updatedAt": "2026-10-12T17:07:06.172Z"
+    },
+    {
+      "id": "df6defe0-176c-413a-b893-bcc83e053b02",
+      "type": "study",
+      "status": "completed",
+      "subject": "ریاضیات گسسته",
+      "isPractice": false,
+      "topic": "هم‌ارزی و استنتاج",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-13T15:48:51.346Z",
+        "endedAt": "2026-10-13T16:38:51.346Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-13T15:48:51.346Z",
+      "updatedAt": "2026-10-13T16:49:04.927Z"
+    },
+    {
+      "id": "9c55b283-a598-4bb3-9437-182fa348f093",
+      "type": "study",
+      "status": "completed",
+      "subject": "زبان تخصصی",
+      "isPractice": false,
+      "topic": "واژگان عمومی",
+      "planned": {
+        "durationSeconds": 1500
+      },
+      "actual": {
+        "startedAt": "2026-10-13T16:55:06.148Z",
+        "endedAt": "2026-10-13T17:20:06.148Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 1500,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-13T16:55:06.148Z",
+      "updatedAt": "2026-10-13T17:21:15.523Z"
+    },
+    {
+      "id": "3c185b93-1abf-48b7-b225-d6de534ecf9f",
+      "type": "study",
+      "status": "completed",
+      "subject": "طراحی الگوریتم",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-14T03:58:00.063Z",
+        "endedAt": "2026-10-14T04:48:00.063Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-14T03:58:00.063Z",
+      "updatedAt": "2026-10-14T04:52:48.611Z"
+    },
+    {
+      "id": "03be5760-fda0-4f7c-be83-45dc291d2e6d",
+      "type": "study",
+      "status": "abandoned",
+      "subject": "ریاضی فنی ۱",
+      "isPractice": false,
+      "topic": "توابع مثلثاتی",
+      "planned": {
+        "durationSeconds": 2400
+      },
+      "actual": {
+        "startedAt": "2026-10-14T04:53:50.868Z",
+        "endedAt": "2026-10-14T05:25:51.791Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 1921,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-14T04:53:50.868Z",
+      "updatedAt": "2026-10-14T05:25:57.799Z"
+    },
+    {
+      "id": "c7770092-8fdf-4b4b-aa20-f79bde2fb254",
+      "type": "study",
+      "status": "abandoned",
+      "subject": "زبان تخصصی",
+      "isPractice": false,
+      "topic": "واژگان عمومی",
+      "planned": {
+        "durationSeconds": 1500
+      },
+      "actual": {
+        "startedAt": "2026-10-14T14:08:15.192Z",
+        "endedAt": "2026-10-14T14:31:15.431Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 1380,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-14T14:08:15.192Z",
+      "updatedAt": "2026-10-14T14:31:20.039Z"
+    },
+    {
+      "id": "d22e27e0-0d5d-4add-811c-96d90ba3c6d8",
+      "type": "study",
+      "status": "completed",
+      "subject": "سیستم‌عامل",
+      "isPractice": false,
+      "topic": "ساختار سیستم‌عامل",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-14T14:51:37.481Z",
+        "endedAt": "2026-10-14T15:41:37.481Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-14T14:51:37.481Z",
+      "updatedAt": "2026-10-14T15:41:50.874Z"
+    },
+    {
+      "id": "2b8180d1-732e-4e77-af11-5b2dd5b45c6b",
+      "type": "study",
+      "status": "completed",
+      "subject": "ریاضی فنی ۱",
+      "isPractice": false,
+      "topic": "توابع مثلثاتی",
+      "planned": {
+        "durationSeconds": 2400
+      },
+      "actual": {
+        "startedAt": "2026-10-14T16:04:49.603Z",
+        "endedAt": "2026-10-14T16:44:49.603Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 2400,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-14T16:04:49.603Z",
+      "updatedAt": "2026-10-14T16:52:39.189Z"
+    },
+    {
+      "id": "7b41eae9-1c80-46b3-bac1-1500eaef73b7",
+      "type": "practice",
+      "status": "abandoned",
+      "subject": "طراحی الگوریتم",
+      "isPractice": true,
+      "topic": "روابط بازگشتی",
+      "planned": {
+        "durationSeconds": 2400
+      },
+      "actual": {
+        "startedAt": "2026-10-14T17:21:11.321Z",
+        "endedAt": "2026-10-14T17:45:41.233Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 1470,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-14T17:21:11.321Z",
+      "updatedAt": "2026-10-14T17:45:47.674Z"
+    },
+    {
+      "id": "7942a672-ac61-4f10-967f-b8b5708e97e1",
+      "type": "study",
+      "status": "completed",
+      "subject": "هوش مصنوعی",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-15T06:01:33.061Z",
+        "endedAt": "2026-10-15T06:51:33.061Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-15T06:01:33.061Z",
+      "updatedAt": "2026-10-15T06:51:52.591Z"
+    },
+    {
+      "id": "0500bd4b-9d02-48e2-856e-1c04295d7748",
+      "type": "study",
+      "status": "completed",
+      "subject": "آمار و احتمال مهندسی",
+      "isPractice": false,
+      "topic": "قوانین احتمال",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-15T07:09:11.100Z",
+        "endedAt": "2026-10-15T08:01:00.725Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [
+        {
+          "startedAt": "2026-10-15T07:11:50.278Z",
+          "endedAt": "2026-10-15T07:13:39.903Z",
+          "durationSeconds": 110
+        }
+      ],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 110,
+        "pauseCount": 1
+      },
+      "analysis": null,
+      "createdAt": "2026-10-15T07:09:11.100Z",
+      "updatedAt": "2026-10-15T08:01:20.052Z"
+    },
+    {
+      "id": "217dd258-cb45-4b4b-b1af-ec73087a07a7",
+      "type": "study",
+      "status": "completed",
+      "subject": "آمار و احتمال مهندسی",
+      "isPractice": false,
+      "topic": "احتمال شرطی",
+      "planned": {
+        "durationSeconds": 1800
+      },
+      "actual": {
+        "startedAt": "2026-10-15T08:01:39.709Z",
+        "endedAt": "2026-10-15T08:31:39.709Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 1800,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-15T08:01:39.709Z",
+      "updatedAt": "2026-10-15T08:31:48.248Z"
+    },
+    {
+      "id": "747d3310-2573-49d8-a3b9-86d8e98ab7e0",
+      "type": "study",
+      "status": "completed",
+      "subject": "هوش مصنوعی",
+      "isPractice": false,
+      "topic": "Greedy Best-First",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-15T09:08:43.343Z",
+        "endedAt": "2026-10-15T09:58:43.343Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-15T09:08:43.343Z",
+      "updatedAt": "2026-10-15T09:59:31.865Z"
+    },
+    {
+      "id": "f25a080a-ff51-4059-aae3-b0f6f40e6412",
+      "type": "study",
+      "status": "completed",
+      "subject": "هوش مصنوعی",
+      "isPractice": false,
+      "topic": "A*",
+      "planned": {
+        "durationSeconds": 1500
+      },
+      "actual": {
+        "startedAt": "2026-10-15T09:59:55.336Z",
+        "endedAt": "2026-10-15T10:24:55.336Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 1500,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-15T09:59:55.336Z",
+      "updatedAt": "2026-10-15T10:25:03.604Z"
+    },
+    {
+      "id": "e76aa41f-f33b-4179-add5-ca976a0c479a",
+      "type": "study",
+      "status": "cancelled",
+      "subject": "شبکه‌های کامپیوتری",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-15T11:01:22.620Z",
+        "endedAt": "2026-10-15T11:01:57.976Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 35,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-15T11:01:22.620Z",
+      "updatedAt": "2026-10-15T11:01:57.976Z"
+    },
+    {
+      "id": "b84fa511-3ed9-41b4-a153-7eda0a39e2ba",
+      "type": "study",
+      "status": "completed",
+      "subject": "نظریه زبان‌ها و ماشین‌ها",
+      "isPractice": false,
+      "topic": "الفبا و رشته",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-15T11:02:10.740Z",
+        "endedAt": "2026-10-15T11:52:10.740Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-15T11:02:10.740Z",
+      "updatedAt": "2026-10-15T11:52:33.138Z"
+    },
+    {
+      "id": "adeaeac3-9c91-4126-b0b0-ee5defd6fa5b",
+      "type": "study",
+      "status": "completed",
+      "subject": "ریاضیات گسسته",
+      "isPractice": false,
+      "topic": "منطق گزاره‌ها",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-15T12:17:18.140Z",
+        "endedAt": "2026-10-15T13:07:18.140Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-15T12:17:18.140Z",
+      "updatedAt": "2026-10-15T13:08:08.988Z"
+    },
+    {
+      "id": "06e15e4c-d9f8-4a34-8d1e-13ceac2a3273",
+      "type": "study",
+      "status": "completed",
+      "subject": "ساختمان داده",
+      "isPractice": false,
+      "topic": "پشته",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-15T13:27:00.500Z",
+        "endedAt": "2026-10-15T14:17:00.500Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-15T13:27:00.500Z",
+      "updatedAt": "2026-10-15T14:19:25.103Z"
+    },
+    {
+      "id": "c4e75803-b186-40d0-bbd4-141e1f06bbce",
+      "type": "study",
+      "status": "completed",
+      "subject": "زبان تخصصی",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 1500
+      },
+      "actual": {
+        "startedAt": "2026-10-15T14:41:21.646Z",
+        "endedAt": "2026-10-15T15:06:21.646Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 1500,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-15T14:41:21.646Z",
+      "updatedAt": "2026-10-15T15:06:27.361Z"
+    },
+    {
+      "id": "18141be3-9e17-492f-b7e0-1299338cce37",
+      "type": "study",
+      "status": "completed",
+      "subject": "زبان تخصصی",
+      "isPractice": false,
+      "topic": "واژگان عمومی",
+      "planned": {
+        "durationSeconds": 600
+      },
+      "actual": {
+        "startedAt": "2026-10-15T15:06:40.759Z",
+        "endedAt": "2026-10-15T15:16:40.759Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 600,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-15T15:06:40.759Z",
+      "updatedAt": "2026-10-15T15:21:45.997Z"
+    },
+    {
+      "id": "68d69e82-4b94-42d2-8549-ae5d5737c7de",
+      "type": "study",
+      "status": "completed",
+      "subject": "طراحی الگوریتم",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 1800
+      },
+      "actual": {
+        "startedAt": "2026-10-15T15:35:03.524Z",
+        "endedAt": "2026-10-15T16:05:03.524Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 1800,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-15T15:35:03.524Z",
+      "updatedAt": "2026-10-15T16:05:08.055Z"
+    },
+    {
+      "id": "e1ed0662-3ce5-483d-bc9c-fc681984e674",
+      "type": "study",
+      "status": "completed",
+      "subject": "ساختمان داده",
+      "isPractice": false,
+      "topic": "صف",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-16T06:34:48.620Z",
+        "endedAt": "2026-10-16T07:24:48.620Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-16T06:34:48.620Z",
+      "updatedAt": "2026-10-16T07:25:30.574Z"
+    },
+    {
+      "id": "e22fb255-3dae-4207-887f-8128107bb883",
+      "type": "study",
+      "status": "completed",
+      "subject": "ساختمان داده",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-16T07:25:36.496Z",
+        "endedAt": "2026-10-16T08:15:36.496Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-16T07:25:36.496Z",
+      "updatedAt": "2026-10-16T08:27:14.611Z"
+    },
+    {
+      "id": "b96beefb-f6ff-4e62-a519-05c068800e8f",
+      "type": "study",
+      "status": "completed",
+      "subject": "طراحی الگوریتم",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-16T13:56:52.196Z",
+        "endedAt": "2026-10-16T14:46:52.196Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-16T13:56:52.196Z",
+      "updatedAt": "2026-10-16T14:47:17.975Z"
+    },
+    {
+      "id": "bd2eb068-72e4-4991-9ad9-abcc0b9663d7",
+      "type": "study",
+      "status": "completed",
+      "subject": "طراحی الگوریتم",
+      "isPractice": false,
+      "topic": "روابط بازگشتی",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-16T14:49:33.618Z",
+        "endedAt": "2026-10-16T15:39:33.618Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-16T14:49:33.618Z",
+      "updatedAt": "2026-10-16T15:40:36.336Z"
+    },
+    {
+      "id": "a0e30450-f6f7-41d8-8540-84c455bab20d",
+      "type": "study",
+      "status": "completed",
+      "subject": "طراحی الگوریتم",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 1200
+      },
+      "actual": {
+        "startedAt": "2026-10-16T15:41:33.277Z",
+        "endedAt": "2026-10-16T16:01:33.277Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 1200,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-16T15:41:33.277Z",
+      "updatedAt": "2026-10-16T16:01:36.251Z"
+    },
+    {
+      "id": "58a5bc60-39b2-42d7-84b9-9f249037605c",
+      "type": "study",
+      "status": "abandoned",
+      "subject": "زبان تخصصی",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 900
+      },
+      "actual": {
+        "startedAt": "2026-10-16T16:12:52.873Z",
+        "endedAt": "2026-10-16T16:26:55.080Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 842,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-16T16:12:52.873Z",
+      "updatedAt": "2026-10-16T16:26:58.630Z"
+    },
+    {
+      "id": "4c33a5a3-5dfc-4c24-9d37-9ae25cf3e114",
+      "type": "study",
+      "status": "completed",
+      "subject": "طراحی الگوریتم",
+      "isPractice": false,
+      "topic": "روابط بازگشتی",
+      "planned": {
+        "durationSeconds": 5400
+      },
+      "actual": {
+        "startedAt": "2026-10-17T03:11:58.862Z",
+        "endedAt": "2026-10-17T04:41:58.862Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 5400,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-17T03:11:58.862Z",
+      "updatedAt": "2026-10-17T04:42:09.074Z"
+    },
+    {
+      "id": "ffed3b40-c943-45d6-94f7-383b9d98c8b5",
+      "type": "study",
+      "status": "completed",
+      "subject": "زبان تخصصی",
+      "isPractice": false,
+      "topic": "واژگان عمومی",
+      "planned": {
+        "durationSeconds": 1500
+      },
+      "actual": {
+        "startedAt": "2026-10-17T05:20:04.040Z",
+        "endedAt": "2026-10-17T05:45:04.040Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 1500,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-17T05:20:04.040Z",
+      "updatedAt": "2026-10-17T05:45:07.289Z"
+    },
+    {
+      "id": "ac4e7680-abd1-4ab4-a582-f8f6045ffd49",
+      "type": "study",
+      "status": "completed",
+      "subject": "زبان تخصصی",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 300
+      },
+      "actual": {
+        "startedAt": "2026-10-17T05:45:41.803Z",
+        "endedAt": "2026-10-17T05:50:41.803Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 300,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-17T05:45:41.803Z",
+      "updatedAt": "2026-10-17T05:50:45.685Z"
+    },
+    {
+      "id": "eae0b8e0-4e32-4476-8406-6bd26fc5cfb3",
+      "type": "study",
+      "status": "completed",
+      "subject": "ساختمان داده",
+      "isPractice": false,
+      "topic": "صف",
+      "planned": {
+        "durationSeconds": 2400
+      },
+      "actual": {
+        "startedAt": "2026-10-17T13:53:09.230Z",
+        "endedAt": "2026-10-17T14:33:09.230Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 2400,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-17T13:53:09.230Z",
+      "updatedAt": "2026-10-17T14:33:37.837Z"
+    },
+    {
+      "id": "7a8f05b4-fcef-405e-9770-3ccc91bd207e",
+      "type": "study",
+      "status": "completed",
+      "subject": "ساختمان داده",
+      "isPractice": false,
+      "topic": "لیست پیوندی",
+      "planned": {
+        "durationSeconds": 1200
+      },
+      "actual": {
+        "startedAt": "2026-10-17T14:54:17.382Z",
+        "endedAt": "2026-10-17T15:14:17.382Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 1200,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-17T14:54:17.382Z",
+      "updatedAt": "2026-10-17T15:14:24.394Z"
+    },
+    {
+      "id": "f24340b2-46cb-48c8-afea-a89464d5422d",
+      "type": "study",
+      "status": "completed",
+      "subject": "ریاضیات گسسته",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-18T03:52:40.043Z",
+        "endedAt": "2026-10-18T04:42:40.043Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-18T03:52:40.043Z",
+      "updatedAt": "2026-10-18T04:42:48.057Z"
+    },
+    {
+      "id": "566a825f-a0b1-4130-b59a-ea4f4545deab",
+      "type": "study",
+      "status": "completed",
+      "subject": "ریاضیات گسسته",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 600
+      },
+      "actual": {
+        "startedAt": "2026-10-18T04:43:00.728Z",
+        "endedAt": "2026-10-18T04:53:00.728Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 600,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-18T04:43:00.728Z",
+      "updatedAt": "2026-10-18T04:53:38.892Z"
+    },
+    {
+      "id": "ce8fbde9-986e-421a-b525-ea8f66318a12",
+      "type": "study",
+      "status": "completed",
+      "subject": "زبان تخصصی",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 1500
+      },
+      "actual": {
+        "startedAt": "2026-10-18T07:02:56.085Z",
+        "endedAt": "2026-10-18T07:27:56.085Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 1500,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-18T07:02:56.085Z",
+      "updatedAt": "2026-10-18T07:39:03.636Z"
+    },
+    {
+      "id": "e7b00e8e-1c4a-4cd8-8e0c-3db703f00151",
+      "type": "study",
+      "status": "completed",
+      "subject": "آمار و احتمال مهندسی",
+      "isPractice": false,
+      "topic": "جایگشت و ترکیب",
+      "planned": {
+        "durationSeconds": 1500
+      },
+      "actual": {
+        "startedAt": "2026-10-18T12:05:07.814Z",
+        "endedAt": "2026-10-18T12:30:07.814Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 1500,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-18T12:05:07.814Z",
+      "updatedAt": "2026-10-18T12:30:30.427Z"
+    },
+    {
+      "id": "cd0c240e-aa9f-41b0-a906-a521460b89d1",
+      "type": "study",
+      "status": "completed",
+      "subject": "آمار و احتمال مهندسی",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 1500
+      },
+      "actual": {
+        "startedAt": "2026-10-18T12:30:32.628Z",
+        "endedAt": "2026-10-18T12:55:32.628Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 1500,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-18T12:30:32.628Z",
+      "updatedAt": "2026-10-18T13:03:34.726Z"
+    },
+    {
+      "id": "0a1aae64-990d-4a31-8442-01af3bc7732d",
+      "type": "study",
+      "status": "completed",
+      "subject": "هوش مصنوعی",
+      "isPractice": false,
+      "topic": "Heuristic",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-18T14:38:22.750Z",
+        "endedAt": "2026-10-18T15:28:22.750Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-18T14:38:22.750Z",
+      "updatedAt": "2026-10-18T15:28:42.109Z"
+    },
+    {
+      "id": "e765862d-8c97-4c52-a96e-071f0b9ae247",
+      "type": "study",
+      "status": "abandoned",
+      "subject": "هوش مصنوعی",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-18T15:29:29.923Z",
+        "endedAt": "2026-10-18T16:06:30.839Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 2221,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-18T15:29:29.923Z",
+      "updatedAt": "2026-10-18T16:06:33.209Z"
+    },
+    {
+      "id": "ffa4b769-aef5-4234-a556-97bbbd3a938b",
+      "type": "study",
+      "status": "abandoned",
+      "subject": "ساختمان داده",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-18T16:16:51.433Z",
+        "endedAt": "2026-10-18T16:50:00.574Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 1989,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-18T16:16:51.433Z",
+      "updatedAt": "2026-10-18T16:50:05.127Z"
+    },
+    {
+      "id": "1bf70892-7798-4db6-928a-f89db2d5ffdf",
+      "type": "study",
+      "status": "completed",
+      "subject": "مدار منطقی",
+      "isPractice": false,
+      "topic": "سیستم‌های عددی",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-19T04:03:15.900Z",
+        "endedAt": "2026-10-19T04:53:15.900Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-19T04:03:15.900Z",
+      "updatedAt": "2026-10-19T04:53:23.008Z"
+    },
+    {
+      "id": "55b561a6-32e8-46e5-9e8d-6576387ba80c",
+      "type": "study",
+      "status": "completed",
+      "subject": "مدار منطقی",
+      "isPractice": false,
+      "topic": "تبدیل مبنا",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-19T13:56:12.394Z",
+        "endedAt": "2026-10-19T14:46:12.394Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-19T13:56:12.394Z",
+      "updatedAt": "2026-10-19T14:47:32.735Z"
+    },
+    {
+      "id": "f9767483-b941-4a32-84d7-7e540b4a668e",
+      "type": "study",
+      "status": "completed",
+      "subject": "مدار منطقی",
+      "isPractice": false,
+      "topic": "جبر بول",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-20T07:20:31.604Z",
+        "endedAt": "2026-10-20T08:11:09.093Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [
+        {
+          "startedAt": "2026-10-20T08:06:42.141Z",
+          "endedAt": "2026-10-20T08:07:19.630Z",
+          "durationSeconds": 37
+        }
+      ],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 37,
+        "pauseCount": 1
+      },
+      "analysis": null,
+      "createdAt": "2026-10-20T07:20:31.604Z",
+      "updatedAt": "2026-10-20T08:16:19.295Z"
+    },
+    {
+      "id": "799133e7-00ce-417f-a783-d26cf92742cb",
+      "type": "study",
+      "status": "abandoned",
+      "subject": "مدار منطقی",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 4200
+      },
+      "actual": {
+        "startedAt": "2026-10-20T09:55:00.907Z",
+        "endedAt": "2026-10-20T10:31:29.768Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [
+        {
+          "startedAt": "2026-10-20T10:00:58.974Z",
+          "endedAt": "2026-10-20T10:31:29.768Z",
+          "durationSeconds": 1831
+        }
+      ],
+      "derived": {
+        "activeDurationSeconds": 358,
+        "totalPausedSeconds": 1831,
+        "pauseCount": 1
+      },
+      "analysis": null,
+      "createdAt": "2026-10-20T09:55:00.907Z",
+      "updatedAt": "2026-10-20T10:31:31.441Z"
+    },
+    {
+      "id": "23514ede-e746-40b1-9ec0-4774e4d69419",
+      "type": "study",
+      "status": "completed",
+      "subject": "مدار منطقی",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 4200
+      },
+      "actual": {
+        "startedAt": "2026-10-20T13:14:31.761Z",
+        "endedAt": "2026-10-20T14:24:31.761Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 4200,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-20T13:14:31.761Z",
+      "updatedAt": "2026-10-20T21:48:03.649Z"
+    },
+    {
+      "id": "7260bd1c-a7b0-4025-b276-b0f8570e146b",
+      "type": "study",
+      "status": "abandoned",
+      "subject": "مدار منطقی",
+      "isPractice": false,
+      "topic": null,
+      "planned": {
+        "durationSeconds": 1500
+      },
+      "actual": {
+        "startedAt": "2026-10-21T13:35:32.542Z",
+        "endedAt": "2026-10-21T13:48:35.115Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 783,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-21T13:35:32.542Z",
+      "updatedAt": "2026-10-21T13:48:37.735Z"
+    }
+  ],
+  "derived": {
+    "note": "Rebuildable from `sessions`. Safe to ignore or delete; regenerated on every save.",
+    "generatedAt": "2026-10-23T17:24:12.448Z",
+    "dailySummaries": {
+      "2026-09-26": {
+        "studySeconds": 4320,
+        "sessionCount": 1,
+        "completedSessionCount": 1
+      },
+      "2026-09-27": {
+        "studySeconds": 11012,
+        "sessionCount": 4,
+        "completedSessionCount": 2
+      },
+      "2026-09-28": {
+        "studySeconds": 4080,
+        "sessionCount": 1,
+        "completedSessionCount": 1
+      },
+      "2026-09-30": {
+        "studySeconds": 8940,
+        "sessionCount": 7,
+        "completedSessionCount": 7
+      },
+      "2026-10-01": {
+        "studySeconds": 17820,
+        "sessionCount": 5,
+        "completedSessionCount": 5
+      },
+      "2026-10-02": {
+        "studySeconds": 9000,
+        "sessionCount": 2,
+        "completedSessionCount": 2
+      },
+      "2026-10-03": {
+        "studySeconds": 7140,
+        "sessionCount": 4,
+        "completedSessionCount": 3
+      },
+      "2026-10-04": {
+        "studySeconds": 12505,
+        "sessionCount": 5,
+        "completedSessionCount": 4
+      },
+      "2026-10-05": {
+        "studySeconds": 7275,
+        "sessionCount": 3,
+        "completedSessionCount": 2
+      },
+      "2026-10-06": {
+        "studySeconds": 11483,
+        "sessionCount": 5,
+        "completedSessionCount": 4
+      },
+      "2026-10-07": {
+        "studySeconds": 4800,
+        "sessionCount": 2,
+        "completedSessionCount": 2
+      },
+      "2026-10-08": {
+        "studySeconds": 18060,
+        "sessionCount": 6,
+        "completedSessionCount": 6
+      },
+      "2026-10-09": {
+        "studySeconds": 14400,
+        "sessionCount": 5,
+        "completedSessionCount": 5
+      },
+      "2026-10-10": {
+        "studySeconds": 9000,
+        "sessionCount": 4,
+        "completedSessionCount": 4
+      },
+      "2026-10-11": {
+        "studySeconds": 12000,
+        "sessionCount": 6,
+        "completedSessionCount": 6
+      },
+      "2026-10-12": {
+        "studySeconds": 12605,
+        "sessionCount": 4,
+        "completedSessionCount": 3
+      },
+      "2026-10-13": {
+        "studySeconds": 4500,
+        "sessionCount": 2,
+        "completedSessionCount": 2
+      },
+      "2026-10-14": {
+        "studySeconds": 13171,
+        "sessionCount": 6,
+        "completedSessionCount": 3
+      },
+      "2026-10-15": {
+        "studySeconds": 25200,
+        "sessionCount": 11,
+        "completedSessionCount": 11
+      },
+      "2026-10-16": {
+        "studySeconds": 14042,
+        "sessionCount": 6,
+        "completedSessionCount": 5
+      },
+      "2026-10-17": {
+        "studySeconds": 10800,
+        "sessionCount": 5,
+        "completedSessionCount": 5
+      },
+      "2026-10-18": {
+        "studySeconds": 15310,
+        "sessionCount": 8,
+        "completedSessionCount": 6
+      },
+      "2026-10-19": {
+        "studySeconds": 6000,
+        "sessionCount": 2,
+        "completedSessionCount": 2
+      },
+      "2026-10-20": {
+        "studySeconds": 7558,
+        "sessionCount": 3,
+        "completedSessionCount": 2
+      },
+      "2026-10-21": {
+        "studySeconds": 783,
+        "sessionCount": 1,
+        "completedSessionCount": 0
+      }
+    },
+    "subjectSummaries": [
+      {
+        "subject": "هوش مصنوعی",
+        "kind": "study",
+        "isPractice": false,
+        "studySeconds": 42186,
+        "sessionCount": 15
+      },
+      {
+        "subject": "ریاضی فنی ۱",
+        "kind": "study",
+        "isPractice": false,
+        "studySeconds": 38196,
+        "sessionCount": 11
+      },
+      {
+        "subject": "ساختمان داده",
+        "kind": "study",
+        "isPractice": false,
+        "studySeconds": 34926,
+        "sessionCount": 14
+      },
+      {
+        "subject": "طراحی الگوریتم",
+        "kind": "study",
+        "isPractice": false,
+        "studySeconds": 32100,
+        "sessionCount": 13
+      },
+      {
+        "subject": "ریاضیات گسسته",
+        "kind": "study",
+        "isPractice": false,
+        "studySeconds": 23605,
+        "sessionCount": 9
+      },
+      {
+        "subject": "آمار و احتمال مهندسی",
+        "kind": "study",
+        "isPractice": false,
+        "studySeconds": 16860,
+        "sessionCount": 7
+      },
+      {
+        "subject": "سیستم‌عامل",
+        "kind": "study",
+        "isPractice": false,
+        "studySeconds": 16800,
+        "sessionCount": 7
+      },
+      {
+        "subject": "مدار منطقی",
+        "kind": "study",
+        "isPractice": false,
+        "studySeconds": 14341,
+        "sessionCount": 6
+      },
+      {
+        "subject": "زبان تخصصی",
+        "kind": "study",
+        "isPractice": false,
+        "studySeconds": 14282,
+        "sessionCount": 12
+      },
+      {
+        "subject": "ریاضیات گسسته",
+        "kind": "practice",
+        "isPractice": true,
+        "studySeconds": 8220,
+        "sessionCount": 3
+      },
+      {
+        "subject": "ساختمان داده",
+        "kind": "practice",
+        "isPractice": true,
+        "studySeconds": 7875,
+        "sessionCount": 3
+      },
+      {
+        "subject": "نظریه زبان‌ها و ماشین‌ها",
+        "kind": "study",
+        "isPractice": false,
+        "studySeconds": 5183,
+        "sessionCount": 2
+      },
+      {
+        "subject": "ریاضیات گسسته",
+        "kind": "analysis",
+        "isPractice": false,
+        "studySeconds": 3000,
+        "sessionCount": 1
+      },
+      {
+        "subject": "هوش مصنوعی",
+        "kind": "practice",
+        "isPractice": true,
+        "studySeconds": 1800,
+        "sessionCount": 1
+      },
+      {
+        "subject": "طراحی الگوریتم",
+        "kind": "practice",
+        "isPractice": true,
+        "studySeconds": 1530,
+        "sessionCount": 2
+      },
+      {
+        "subject": "زبان تخصصی",
+        "kind": "practice",
+        "isPractice": true,
+        "studySeconds": 840,
+        "sessionCount": 1
+      },
+      {
+        "subject": "طراحی الگوریتم",
+        "kind": "analysis",
+        "isPractice": false,
+        "studySeconds": 60,
+        "sessionCount": 1
+      }
+    ]
+  }
+}
