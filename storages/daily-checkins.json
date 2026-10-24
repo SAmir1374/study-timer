@@ -1,15 +1,25 @@
 {
   "schemaVersion": "daily-checkin-json",
-  "version": 5,
+  "version": 6,
   "app": "Study Timer",
   "createdAt": "2026-10-10T04:35:24.730Z",
-  "updatedAt": "2026-10-24T04:21:09.121Z",
+  "updatedAt": "2026-10-24T14:36:56.183Z",
   "entries": [
     {
       "date": "2026-10-24",
       "slots": {
         "morning": "2026-10-24T04:21:09.069Z",
-        "evening": null
+        "evening": "2026-10-24T14:36:56.158Z"
+      },
+      "responseMeta": {
+        "morning": null,
+        "evening": {
+          "startedAt": "2026-10-24T14:33:23.881Z",
+          "completedAt": "2026-10-24T14:36:56.159Z",
+          "durationMs": 212278,
+          "itemsAnswered": 31,
+          "itemsSkipped": 0
+        }
       },
       "travel": false,
       "sleep": {
@@ -19,7 +29,10 @@
         "latencyMin": 15,
         "awakenings": 1,
         "quality": 7.8,
-        "restedness": 3.3
+        "restedness": 3.3,
+        "napsMin": null,
+        "lastCaffeineTime": null,
+        "screenBeforeBedMin": null
       },
       "relaxationRoutine": {
         "done": false,
@@ -31,12 +44,16 @@
         "morning": {
           "taken": false,
           "amount": null,
-          "time": null
+          "time": null,
+          "effect": null,
+          "sideEffects": []
         },
         "afternoon": {
           "taken": false,
           "amount": null,
-          "time": null
+          "time": null,
+          "effect": null,
+          "sideEffects": []
         }
       },
       "morningState": {
@@ -45,66 +62,146 @@
         "tension": 5.5
       },
       "mood": {
-        "rating": null,
-        "stress": null,
-        "energy": null,
-        "focus": null,
-        "anxiety": null
+        "rating": 7.2,
+        "stress": 4.9,
+        "energy": 7.8,
+        "focus": 6.6,
+        "anxiety": 2.5
+      },
+      "physical": {
+        "headache": 0,
+        "bodyPain": 2,
+        "fatigueBeyond": 1,
+        "digestive": 0
+      },
+      "social": {
+        "meaningfulContact": false,
+        "loneliness": 4
+      },
+      "events": {
+        "stressorCount": 1,
+        "tags": [
+          "work",
+          "romantic"
+        ]
+      },
+      "circadian": {
+        "morningOutdoorLight": null,
+        "eveningBrightLight": false
       },
       "items": {
         "s_quality": 4,
         "s_rested": 2,
         "n_mood": 4,
         "n_energy": 4,
-        "n_tension": 3
+        "n_tension": 3,
+        "m1": 4,
+        "m2": 3,
+        "m3": 2,
+        "m4": 2,
+        "s1": 2,
+        "s2": 1,
+        "s3": 5,
+        "s4": 3,
+        "e1": 4,
+        "e2": 4,
+        "e3": 2,
+        "f1": 3,
+        "f2": 2,
+        "a1": 2,
+        "a2": 2,
+        "a3": 1,
+        "irritability": 2,
+        "anhedonia": 1,
+        "rumination": 1,
+        "meaningfulness": 2,
+        "focusQuality": 3,
+        "taskProcrastination": 2,
+        "emotionalDysregulation": 1,
+        "socialLonely": 4,
+        "f_quality": 4,
+        "d_day": 3
       },
-      "activity1": null,
-      "operation1": null,
+      "activity1": false,
+      "operation1": false,
       "masturbation": {
-        "positive": {
-          "done": false,
-          "count": null
-        },
-        "negative": {
-          "done": false,
-          "count": null
-        }
+        "recorded": true,
+        "done": false,
+        "count": null,
+        "urgeIntensity": null,
+        "guilt": null,
+        "context": null
       },
       "explicit": {
-        "recorded": false,
+        "recorded": true,
         "viewed": false,
         "minutes": null,
-        "driver": null
+        "driver": null,
+        "regret": null,
+        "context": null
       },
       "food": {
-        "meals": null,
-        "quality": null,
-        "water": false,
+        "meals": 3,
+        "quality": 7.8,
+        "water": true,
         "caffeine": null,
         "log": {
-          "breakfast": [],
-          "lunch": [],
-          "dinner": [],
+          "breakfast": [
+            "bread-cheese"
+          ],
+          "lunch": [
+            "ghormeh-sabzi",
+            "rice"
+          ],
+          "dinner": [
+            "egg-boiled",
+            "yogurt",
+            "milk"
+          ],
           "snack": []
         },
         "other": null,
-        "logged": false
+        "logged": true,
+        "waterGlasses": 8,
+        "caffeineCups": 2,
+        "caffeineLastTime": "12:15",
+        "sugarEpisodes": 2,
+        "firstMealTime": "09:00",
+        "lastMealTime": "21:30"
       },
-      "dayRating": null,
+      "dayRating": 5.5,
       "yesterdayQuality": null,
       "exercise": {
         "done": false,
         "minutes": null,
-        "recorded": false
+        "recorded": false,
+        "type": null,
+        "intensity": null,
+        "timeOfDay": null
+      },
+      "scores": {
+        "sleepHealth": 77,
+        "moodIndex": 69,
+        "anxietyIndex": 83,
+        "energyIndex": 76,
+        "focusIndex": 56,
+        "adherenceScore": 0,
+        "nutritionScore": 73,
+        "recoveryScore": 67,
+        "adhdIndex": 75
       },
       "notes": null,
-      "recordedAt": "2026-10-24T04:21:09.072Z"
+      "recordedAt": "2026-10-24T14:36:56.159Z"
     },
     {
       "date": "2026-10-23",
       "slots": {
         "morning": "2026-10-23T17:26:17.424Z",
         "evening": "2026-10-23T17:26:17.424Z"
+      },
+      "responseMeta": {
+        "morning": null,
+        "evening": null
       },
       "travel": true,
       "sleep": {
@@ -114,7 +211,10 @@
         "latencyMin": 5,
         "awakenings": null,
         "quality": 5.5,
-        "restedness": 5.5
+        "restedness": 5.5,
+        "napsMin": null,
+        "lastCaffeineTime": null,
+        "screenBeforeBedMin": null
       },
       "relaxationRoutine": {
         "done": false,
@@ -126,12 +226,16 @@
         "morning": {
           "taken": false,
           "amount": null,
-          "time": null
+          "time": null,
+          "effect": null,
+          "sideEffects": []
         },
         "afternoon": {
           "taken": false,
           "amount": null,
-          "time": null
+          "time": null,
+          "effect": null,
+          "sideEffects": []
         }
       },
       "morningState": {
@@ -145,6 +249,24 @@
         "energy": 4.8,
         "focus": 6.6,
         "anxiety": 4
+      },
+      "physical": {
+        "headache": null,
+        "bodyPain": null,
+        "fatigueBeyond": null,
+        "digestive": null
+      },
+      "social": {
+        "meaningfulContact": null,
+        "loneliness": null
+      },
+      "events": {
+        "stressorCount": null,
+        "tags": []
+      },
+      "circadian": {
+        "morningOutdoorLight": null,
+        "eveningBrightLight": null
       },
       "items": {
         "s_quality": 3,
@@ -171,20 +293,20 @@
       "activity1": false,
       "operation1": false,
       "masturbation": {
-        "positive": {
-          "done": false,
-          "count": null
-        },
-        "negative": {
-          "done": true,
-          "count": 1
-        }
+        "recorded": true,
+        "done": true,
+        "count": 1,
+        "urgeIntensity": null,
+        "guilt": null,
+        "context": "stress"
       },
       "explicit": {
         "recorded": true,
         "viewed": true,
         "minutes": 30,
-        "driver": "urge"
+        "driver": "urge",
+        "regret": null,
+        "context": null
       },
       "food": {
         "meals": 3,
@@ -206,14 +328,34 @@
           "snack": []
         },
         "other": null,
-        "logged": true
+        "logged": true,
+        "waterGlasses": null,
+        "caffeineCups": null,
+        "caffeineLastTime": null,
+        "sugarEpisodes": null,
+        "firstMealTime": null,
+        "lastMealTime": null
       },
       "dayRating": 3.3,
       "yesterdayQuality": null,
       "exercise": {
         "done": false,
         "minutes": null,
-        "recorded": true
+        "recorded": true,
+        "type": null,
+        "intensity": null,
+        "timeOfDay": null
+      },
+      "scores": {
+        "sleepHealth": 75,
+        "moodIndex": 50,
+        "anxietyIndex": 67,
+        "energyIndex": 42,
+        "focusIndex": 62,
+        "adherenceScore": 0,
+        "nutritionScore": 50,
+        "recoveryScore": 66,
+        "adhdIndex": null
       },
       "notes": null,
       "recordedAt": "2026-10-24T04:21:09.071Z"
@@ -224,6 +366,10 @@
         "morning": "2026-10-22T06:39:06.030Z",
         "evening": null
       },
+      "responseMeta": {
+        "morning": null,
+        "evening": null
+      },
       "travel": true,
       "sleep": {
         "bedTime": "02:00",
@@ -232,7 +378,10 @@
         "latencyMin": 10,
         "awakenings": null,
         "quality": 5.5,
-        "restedness": 3.3
+        "restedness": 3.3,
+        "napsMin": null,
+        "lastCaffeineTime": null,
+        "screenBeforeBedMin": null
       },
       "relaxationRoutine": {
         "done": false,
@@ -244,12 +393,16 @@
         "morning": {
           "taken": false,
           "amount": null,
-          "time": null
+          "time": null,
+          "effect": null,
+          "sideEffects": []
         },
         "afternoon": {
           "taken": false,
           "amount": null,
-          "time": null
+          "time": null,
+          "effect": null,
+          "sideEffects": []
         }
       },
       "morningState": {
@@ -264,6 +417,24 @@
         "focus": null,
         "anxiety": null
       },
+      "physical": {
+        "headache": null,
+        "bodyPain": null,
+        "fatigueBeyond": null,
+        "digestive": null
+      },
+      "social": {
+        "meaningfulContact": null,
+        "loneliness": null
+      },
+      "events": {
+        "stressorCount": null,
+        "tags": []
+      },
+      "circadian": {
+        "morningOutdoorLight": null,
+        "eveningBrightLight": null
+      },
       "items": {
         "s_quality": 3,
         "s_rested": 2,
@@ -274,20 +445,20 @@
       "activity1": null,
       "operation1": null,
       "masturbation": {
-        "positive": {
-          "done": false,
-          "count": null
-        },
-        "negative": {
-          "done": false,
-          "count": null
-        }
+        "recorded": false,
+        "done": false,
+        "count": null,
+        "urgeIntensity": null,
+        "guilt": null,
+        "context": null
       },
       "explicit": {
         "recorded": false,
         "viewed": false,
         "minutes": null,
-        "driver": null
+        "driver": null,
+        "regret": null,
+        "context": null
       },
       "food": {
         "meals": null,
@@ -301,14 +472,34 @@
           "snack": []
         },
         "other": null,
-        "logged": false
+        "logged": false,
+        "waterGlasses": null,
+        "caffeineCups": null,
+        "caffeineLastTime": null,
+        "sugarEpisodes": null,
+        "firstMealTime": null,
+        "lastMealTime": null
       },
       "dayRating": null,
       "yesterdayQuality": null,
       "exercise": {
         "done": false,
         "minutes": null,
-        "recorded": true
+        "recorded": true,
+        "type": null,
+        "intensity": null,
+        "timeOfDay": null
+      },
+      "scores": {
+        "sleepHealth": 66,
+        "moodIndex": null,
+        "anxietyIndex": null,
+        "energyIndex": null,
+        "focusIndex": null,
+        "adherenceScore": 0,
+        "nutritionScore": null,
+        "recoveryScore": 66,
+        "adhdIndex": null
       },
       "notes": null,
       "recordedAt": "2026-10-23T17:26:17.424Z"
@@ -319,6 +510,10 @@
         "morning": "2026-10-21T13:35:16.248Z",
         "evening": "2026-10-21T14:34:22.319Z"
       },
+      "responseMeta": {
+        "morning": null,
+        "evening": null
+      },
       "travel": true,
       "sleep": {
         "bedTime": "01:30",
@@ -327,7 +522,10 @@
         "latencyMin": 15,
         "awakenings": 0,
         "quality": 5.5,
-        "restedness": 7.8
+        "restedness": 7.8,
+        "napsMin": null,
+        "lastCaffeineTime": null,
+        "screenBeforeBedMin": null
       },
       "relaxationRoutine": {
         "done": false,
@@ -339,12 +537,16 @@
         "morning": {
           "taken": false,
           "amount": null,
-          "time": null
+          "time": null,
+          "effect": null,
+          "sideEffects": []
         },
         "afternoon": {
           "taken": false,
           "amount": null,
-          "time": null
+          "time": null,
+          "effect": null,
+          "sideEffects": []
         }
       },
       "morningState": {
@@ -358,6 +560,24 @@
         "energy": 8.5,
         "focus": 6.6,
         "anxiety": 2.5
+      },
+      "physical": {
+        "headache": null,
+        "bodyPain": null,
+        "fatigueBeyond": null,
+        "digestive": null
+      },
+      "social": {
+        "meaningfulContact": null,
+        "loneliness": null
+      },
+      "events": {
+        "stressorCount": null,
+        "tags": []
+      },
+      "circadian": {
+        "morningOutdoorLight": null,
+        "eveningBrightLight": null
       },
       "items": {
         "s_quality": 3,
@@ -387,20 +607,20 @@
       "activity1": false,
       "operation1": false,
       "masturbation": {
-        "positive": {
-          "done": false,
-          "count": null
-        },
-        "negative": {
-          "done": false,
-          "count": null
-        }
+        "recorded": false,
+        "done": false,
+        "count": null,
+        "urgeIntensity": null,
+        "guilt": null,
+        "context": null
       },
       "explicit": {
         "recorded": true,
         "viewed": false,
         "minutes": null,
-        "driver": null
+        "driver": null,
+        "regret": null,
+        "context": null
       },
       "food": {
         "meals": 2,
@@ -419,14 +639,34 @@
           "snack": []
         },
         "other": null,
-        "logged": true
+        "logged": true,
+        "waterGlasses": 8,
+        "caffeineCups": null,
+        "caffeineLastTime": null,
+        "sugarEpisodes": null,
+        "firstMealTime": null,
+        "lastMealTime": null
       },
       "dayRating": 7.8,
       "yesterdayQuality": null,
       "exercise": {
         "done": false,
         "minutes": null,
-        "recorded": true
+        "recorded": true,
+        "type": null,
+        "intensity": null,
+        "timeOfDay": null
+      },
+      "scores": {
+        "sleepHealth": 82,
+        "moodIndex": 81,
+        "anxietyIndex": 83,
+        "energyIndex": 83,
+        "focusIndex": 62,
+        "adherenceScore": 0,
+        "nutritionScore": 76,
+        "recoveryScore": 75,
+        "adhdIndex": null
       },
       "notes": null,
       "recordedAt": "2026-10-22T06:39:06.030Z"
@@ -437,6 +677,10 @@
         "morning": "2026-10-20T06:48:36.830Z",
         "evening": "2026-10-20T21:50:43.236Z"
       },
+      "responseMeta": {
+        "morning": null,
+        "evening": null
+      },
       "travel": true,
       "sleep": {
         "bedTime": "00:15",
@@ -445,7 +689,10 @@
         "latencyMin": null,
         "awakenings": 2,
         "quality": 3.3,
-        "restedness": 5.5
+        "restedness": 5.5,
+        "napsMin": null,
+        "lastCaffeineTime": null,
+        "screenBeforeBedMin": null
       },
       "relaxationRoutine": {
         "done": false,
@@ -457,12 +704,16 @@
         "morning": {
           "taken": true,
           "amount": 1,
-          "time": "10:00"
+          "time": "10:00",
+          "effect": null,
+          "sideEffects": []
         },
         "afternoon": {
           "taken": false,
           "amount": null,
-          "time": null
+          "time": null,
+          "effect": null,
+          "sideEffects": []
         }
       },
       "morningState": {
@@ -476,6 +727,24 @@
         "energy": 6.3,
         "focus": 6.6,
         "anxiety": 4.8
+      },
+      "physical": {
+        "headache": null,
+        "bodyPain": null,
+        "fatigueBeyond": null,
+        "digestive": null
+      },
+      "social": {
+        "meaningfulContact": null,
+        "loneliness": null
+      },
+      "events": {
+        "stressorCount": null,
+        "tags": []
+      },
+      "circadian": {
+        "morningOutdoorLight": null,
+        "eveningBrightLight": null
       },
       "items": {
         "s_quality": 2,
@@ -504,20 +773,20 @@
       "activity1": false,
       "operation1": false,
       "masturbation": {
-        "positive": {
-          "done": false,
-          "count": null
-        },
-        "negative": {
-          "done": false,
-          "count": null
-        }
+        "recorded": false,
+        "done": false,
+        "count": null,
+        "urgeIntensity": null,
+        "guilt": null,
+        "context": null
       },
       "explicit": {
         "recorded": true,
         "viewed": false,
         "minutes": null,
-        "driver": null
+        "driver": null,
+        "regret": null,
+        "context": null
       },
       "food": {
         "meals": null,
@@ -531,14 +800,34 @@
           "snack": []
         },
         "other": null,
-        "logged": false
+        "logged": false,
+        "waterGlasses": 8,
+        "caffeineCups": null,
+        "caffeineLastTime": null,
+        "sugarEpisodes": null,
+        "firstMealTime": null,
+        "lastMealTime": null
       },
       "dayRating": 7.8,
       "yesterdayQuality": null,
       "exercise": {
         "done": false,
         "minutes": null,
-        "recorded": true
+        "recorded": true,
+        "type": null,
+        "intensity": null,
+        "timeOfDay": null
+      },
+      "scores": {
+        "sleepHealth": 61,
+        "moodIndex": 62,
+        "anxietyIndex": 58,
+        "energyIndex": 59,
+        "focusIndex": 62,
+        "adherenceScore": 50,
+        "nutritionScore": null,
+        "recoveryScore": 68,
+        "adhdIndex": null
       },
       "notes": null,
       "recordedAt": "2026-10-21T13:35:16.249Z"
@@ -549,6 +838,10 @@
         "morning": "2026-10-19T04:03:07.262Z",
         "evening": "2026-10-19T14:49:24.409Z"
       },
+      "responseMeta": {
+        "morning": null,
+        "evening": null
+      },
       "travel": null,
       "sleep": {
         "bedTime": "23:00",
@@ -557,7 +850,10 @@
         "latencyMin": 10,
         "awakenings": 1,
         "quality": 5.5,
-        "restedness": 10
+        "restedness": 10,
+        "napsMin": null,
+        "lastCaffeineTime": null,
+        "screenBeforeBedMin": null
       },
       "relaxationRoutine": {
         "done": false,
@@ -569,12 +865,16 @@
         "morning": {
           "taken": false,
           "amount": null,
-          "time": null
+          "time": null,
+          "effect": null,
+          "sideEffects": []
         },
         "afternoon": {
           "taken": false,
           "amount": null,
-          "time": null
+          "time": null,
+          "effect": null,
+          "sideEffects": []
         }
       },
       "morningState": {
@@ -588,6 +888,24 @@
         "energy": 4.8,
         "focus": 6.6,
         "anxiety": 1.7
+      },
+      "physical": {
+        "headache": null,
+        "bodyPain": null,
+        "fatigueBeyond": null,
+        "digestive": null
+      },
+      "social": {
+        "meaningfulContact": null,
+        "loneliness": null
+      },
+      "events": {
+        "stressorCount": null,
+        "tags": []
+      },
+      "circadian": {
+        "morningOutdoorLight": null,
+        "eveningBrightLight": null
       },
       "items": {
         "s_quality": 3,
@@ -617,20 +935,20 @@
       "activity1": false,
       "operation1": false,
       "masturbation": {
-        "positive": {
-          "done": false,
-          "count": null
-        },
-        "negative": {
-          "done": false,
-          "count": null
-        }
+        "recorded": false,
+        "done": false,
+        "count": null,
+        "urgeIntensity": null,
+        "guilt": null,
+        "context": null
       },
       "explicit": {
         "recorded": true,
         "viewed": false,
         "minutes": null,
-        "driver": null
+        "driver": null,
+        "regret": null,
+        "context": null
       },
       "food": {
         "meals": 3,
@@ -654,14 +972,34 @@
           "snack": []
         },
         "other": null,
-        "logged": true
+        "logged": true,
+        "waterGlasses": 8,
+        "caffeineCups": 2,
+        "caffeineLastTime": null,
+        "sugarEpisodes": null,
+        "firstMealTime": null,
+        "lastMealTime": null
       },
       "dayRating": 5.5,
       "yesterdayQuality": null,
       "exercise": {
         "done": true,
         "minutes": 88,
-        "recorded": true
+        "recorded": true,
+        "type": null,
+        "intensity": null,
+        "timeOfDay": null
+      },
+      "scores": {
+        "sleepHealth": 87,
+        "moodIndex": 69,
+        "anxietyIndex": 92,
+        "energyIndex": 42,
+        "focusIndex": 62,
+        "adherenceScore": 0,
+        "nutritionScore": 76,
+        "recoveryScore": 78,
+        "adhdIndex": null
       },
       "notes": null,
       "recordedAt": "2026-10-20T06:48:36.831Z"
@@ -672,6 +1010,10 @@
         "morning": "2026-10-18T03:51:31.452Z",
         "evening": "2026-10-18T14:37:54.286Z"
       },
+      "responseMeta": {
+        "morning": null,
+        "evening": null
+      },
       "travel": null,
       "sleep": {
         "bedTime": "22:35",
@@ -680,7 +1022,10 @@
         "latencyMin": null,
         "awakenings": 5,
         "quality": 7.8,
-        "restedness": 3.3
+        "restedness": 3.3,
+        "napsMin": null,
+        "lastCaffeineTime": null,
+        "screenBeforeBedMin": null
       },
       "relaxationRoutine": {
         "done": false,
@@ -692,12 +1037,16 @@
         "morning": {
           "taken": false,
           "amount": null,
-          "time": null
+          "time": null,
+          "effect": null,
+          "sideEffects": []
         },
         "afternoon": {
           "taken": false,
           "amount": null,
-          "time": null
+          "time": null,
+          "effect": null,
+          "sideEffects": []
         }
       },
       "morningState": {
@@ -711,6 +1060,24 @@
         "energy": 2.5,
         "focus": 5.5,
         "anxiety": 1.7
+      },
+      "physical": {
+        "headache": null,
+        "bodyPain": null,
+        "fatigueBeyond": null,
+        "digestive": null
+      },
+      "social": {
+        "meaningfulContact": null,
+        "loneliness": null
+      },
+      "events": {
+        "stressorCount": null,
+        "tags": []
+      },
+      "circadian": {
+        "morningOutdoorLight": null,
+        "eveningBrightLight": null
       },
       "items": {
         "s_quality": 4,
@@ -740,20 +1107,20 @@
       "activity1": false,
       "operation1": false,
       "masturbation": {
-        "positive": {
-          "done": false,
-          "count": null
-        },
-        "negative": {
-          "done": false,
-          "count": null
-        }
+        "recorded": false,
+        "done": false,
+        "count": null,
+        "urgeIntensity": null,
+        "guilt": null,
+        "context": null
       },
       "explicit": {
         "recorded": true,
         "viewed": false,
         "minutes": null,
-        "driver": null
+        "driver": null,
+        "regret": null,
+        "context": null
       },
       "food": {
         "meals": 2,
@@ -773,14 +1140,34 @@
           "snack": []
         },
         "other": null,
-        "logged": true
+        "logged": true,
+        "waterGlasses": null,
+        "caffeineCups": 1,
+        "caffeineLastTime": null,
+        "sugarEpisodes": null,
+        "firstMealTime": null,
+        "lastMealTime": null
       },
       "dayRating": 5.5,
       "yesterdayQuality": null,
       "exercise": {
         "done": false,
         "minutes": null,
-        "recorded": true
+        "recorded": true,
+        "type": null,
+        "intensity": null,
+        "timeOfDay": null
+      },
+      "scores": {
+        "sleepHealth": 57,
+        "moodIndex": 43,
+        "anxietyIndex": 92,
+        "energyIndex": 17,
+        "focusIndex": 50,
+        "adherenceScore": 0,
+        "nutritionScore": 76,
+        "recoveryScore": 57,
+        "adhdIndex": null
       },
       "notes": null,
       "recordedAt": "2026-10-18T14:37:54.287Z"
@@ -791,6 +1178,10 @@
         "morning": "2026-10-17T03:11:34.540Z",
         "evening": "2026-10-17T14:36:37.174Z"
       },
+      "responseMeta": {
+        "morning": null,
+        "evening": null
+      },
       "travel": null,
       "sleep": {
         "bedTime": "22:45",
@@ -799,7 +1190,10 @@
         "latencyMin": 15,
         "awakenings": 0,
         "quality": 5.5,
-        "restedness": 7.8
+        "restedness": 7.8,
+        "napsMin": null,
+        "lastCaffeineTime": null,
+        "screenBeforeBedMin": null
       },
       "relaxationRoutine": {
         "done": false,
@@ -811,12 +1205,16 @@
         "morning": {
           "taken": false,
           "amount": null,
-          "time": null
+          "time": null,
+          "effect": null,
+          "sideEffects": []
         },
         "afternoon": {
           "taken": false,
           "amount": null,
-          "time": null
+          "time": null,
+          "effect": null,
+          "sideEffects": []
         }
       },
       "morningState": {
@@ -830,6 +1228,24 @@
         "energy": 5.5,
         "focus": 7.8,
         "anxiety": 4.8
+      },
+      "physical": {
+        "headache": null,
+        "bodyPain": null,
+        "fatigueBeyond": null,
+        "digestive": null
+      },
+      "social": {
+        "meaningfulContact": null,
+        "loneliness": null
+      },
+      "events": {
+        "stressorCount": null,
+        "tags": []
+      },
+      "circadian": {
+        "morningOutdoorLight": null,
+        "eveningBrightLight": null
       },
       "items": {
         "s_quality": 3,
@@ -858,20 +1274,20 @@
       "activity1": false,
       "operation1": false,
       "masturbation": {
-        "positive": {
-          "done": false,
-          "count": null
-        },
-        "negative": {
-          "done": false,
-          "count": null
-        }
+        "recorded": false,
+        "done": false,
+        "count": null,
+        "urgeIntensity": null,
+        "guilt": null,
+        "context": null
       },
       "explicit": {
         "recorded": true,
         "viewed": false,
         "minutes": null,
-        "driver": null
+        "driver": null,
+        "regret": null,
+        "context": null
       },
       "food": {
         "meals": 2,
@@ -889,14 +1305,34 @@
           "snack": []
         },
         "other": "حبوبات و عدسی و لوبیا چیتی",
-        "logged": true
+        "logged": true,
+        "waterGlasses": 8,
+        "caffeineCups": 2,
+        "caffeineLastTime": null,
+        "sugarEpisodes": null,
+        "firstMealTime": null,
+        "lastMealTime": null
       },
       "dayRating": null,
       "yesterdayQuality": null,
       "exercise": {
         "done": false,
         "minutes": null,
-        "recorded": true
+        "recorded": true,
+        "type": null,
+        "intensity": null,
+        "timeOfDay": null
+      },
+      "scores": {
+        "sleepHealth": 85,
+        "moodIndex": 57,
+        "anxietyIndex": 58,
+        "energyIndex": 50,
+        "focusIndex": 76,
+        "adherenceScore": 0,
+        "nutritionScore": 76,
+        "recoveryScore": 71,
+        "adhdIndex": null
       },
       "notes": null,
       "recordedAt": "2026-10-17T14:36:37.175Z"
@@ -907,6 +1343,10 @@
         "morning": "2026-10-16T06:28:09.549Z",
         "evening": "2026-10-16T14:49:26.989Z"
       },
+      "responseMeta": {
+        "morning": null,
+        "evening": null
+      },
       "travel": null,
       "sleep": {
         "bedTime": "23:40",
@@ -915,7 +1355,10 @@
         "latencyMin": 10,
         "awakenings": null,
         "quality": 7.8,
-        "restedness": 5.5
+        "restedness": 5.5,
+        "napsMin": null,
+        "lastCaffeineTime": null,
+        "screenBeforeBedMin": null
       },
       "relaxationRoutine": {
         "done": false,
@@ -927,12 +1370,16 @@
         "morning": {
           "taken": false,
           "amount": null,
-          "time": null
+          "time": null,
+          "effect": null,
+          "sideEffects": []
         },
         "afternoon": {
           "taken": false,
           "amount": null,
-          "time": null
+          "time": null,
+          "effect": null,
+          "sideEffects": []
         }
       },
       "morningState": {
@@ -946,6 +1393,24 @@
         "energy": 4.8,
         "focus": 5.5,
         "anxiety": 4
+      },
+      "physical": {
+        "headache": null,
+        "bodyPain": null,
+        "fatigueBeyond": null,
+        "digestive": null
+      },
+      "social": {
+        "meaningfulContact": null,
+        "loneliness": null
+      },
+      "events": {
+        "stressorCount": null,
+        "tags": []
+      },
+      "circadian": {
+        "morningOutdoorLight": null,
+        "eveningBrightLight": null
       },
       "items": {
         "s_quality": 4,
@@ -975,20 +1440,20 @@
       "activity1": true,
       "operation1": false,
       "masturbation": {
-        "positive": {
-          "done": false,
-          "count": null
-        },
-        "negative": {
-          "done": true,
-          "count": 1
-        }
+        "recorded": true,
+        "done": true,
+        "count": 1,
+        "urgeIntensity": null,
+        "guilt": null,
+        "context": "stress"
       },
       "explicit": {
         "recorded": false,
         "viewed": false,
         "minutes": null,
-        "driver": null
+        "driver": null,
+        "regret": null,
+        "context": null
       },
       "food": {
         "meals": 3,
@@ -1002,14 +1467,34 @@
           "snack": []
         },
         "other": null,
-        "logged": false
+        "logged": false,
+        "waterGlasses": 8,
+        "caffeineCups": 1,
+        "caffeineLastTime": null,
+        "sugarEpisodes": null,
+        "firstMealTime": null,
+        "lastMealTime": null
       },
       "dayRating": 5.5,
       "yesterdayQuality": null,
       "exercise": {
         "done": false,
         "minutes": null,
-        "recorded": true
+        "recorded": true,
+        "type": null,
+        "intensity": null,
+        "timeOfDay": null
+      },
+      "scores": {
+        "sleepHealth": 81,
+        "moodIndex": 38,
+        "anxietyIndex": 67,
+        "energyIndex": 42,
+        "focusIndex": 50,
+        "adherenceScore": 0,
+        "nutritionScore": 76,
+        "recoveryScore": 78,
+        "adhdIndex": null
       },
       "notes": null,
       "recordedAt": "2026-10-16T14:49:26.990Z"
@@ -1020,6 +1505,10 @@
         "morning": "2026-10-15T06:01:28.087Z",
         "evening": "2026-10-15T14:39:48.934Z"
       },
+      "responseMeta": {
+        "morning": null,
+        "evening": null
+      },
       "travel": null,
       "sleep": {
         "bedTime": "22:45",
@@ -1028,7 +1517,10 @@
         "latencyMin": 10,
         "awakenings": null,
         "quality": 7.8,
-        "restedness": 7.8
+        "restedness": 7.8,
+        "napsMin": null,
+        "lastCaffeineTime": null,
+        "screenBeforeBedMin": null
       },
       "relaxationRoutine": {
         "done": false,
@@ -1040,12 +1532,16 @@
         "morning": {
           "taken": false,
           "amount": null,
-          "time": null
+          "time": null,
+          "effect": null,
+          "sideEffects": []
         },
         "afternoon": {
           "taken": false,
           "amount": null,
-          "time": null
+          "time": null,
+          "effect": null,
+          "sideEffects": []
         }
       },
       "morningState": {
@@ -1059,6 +1555,24 @@
         "energy": 7.8,
         "focus": 5.5,
         "anxiety": 7.8
+      },
+      "physical": {
+        "headache": null,
+        "bodyPain": null,
+        "fatigueBeyond": null,
+        "digestive": null
+      },
+      "social": {
+        "meaningfulContact": null,
+        "loneliness": null
+      },
+      "events": {
+        "stressorCount": null,
+        "tags": []
+      },
+      "circadian": {
+        "morningOutdoorLight": null,
+        "eveningBrightLight": null
       },
       "items": {
         "s_quality": 4,
@@ -1088,20 +1602,20 @@
       "activity1": false,
       "operation1": false,
       "masturbation": {
-        "positive": {
-          "done": false,
-          "count": null
-        },
-        "negative": {
-          "done": false,
-          "count": null
-        }
+        "recorded": false,
+        "done": false,
+        "count": null,
+        "urgeIntensity": null,
+        "guilt": null,
+        "context": null
       },
       "explicit": {
         "recorded": false,
         "viewed": false,
         "minutes": null,
-        "driver": null
+        "driver": null,
+        "regret": null,
+        "context": null
       },
       "food": {
         "meals": 3,
@@ -1115,14 +1629,34 @@
           "snack": []
         },
         "other": null,
-        "logged": false
+        "logged": false,
+        "waterGlasses": 8,
+        "caffeineCups": 1,
+        "caffeineLastTime": null,
+        "sugarEpisodes": null,
+        "firstMealTime": null,
+        "lastMealTime": null
       },
       "dayRating": 5.5,
       "yesterdayQuality": null,
       "exercise": {
         "done": false,
         "minutes": null,
-        "recorded": true
+        "recorded": true,
+        "type": null,
+        "intensity": null,
+        "timeOfDay": null
+      },
+      "scores": {
+        "sleepHealth": 87,
+        "moodIndex": 62,
+        "anxietyIndex": 24,
+        "energyIndex": 76,
+        "focusIndex": 50,
+        "adherenceScore": 0,
+        "nutritionScore": 76,
+        "recoveryScore": 65,
+        "adhdIndex": null
       },
       "notes": null,
       "recordedAt": "2026-10-15T14:39:48.935Z"
@@ -1133,6 +1667,10 @@
         "morning": "2026-10-14T12:12:36.038Z",
         "evening": "2026-10-14T14:51:32.371Z"
       },
+      "responseMeta": {
+        "morning": null,
+        "evening": null
+      },
       "travel": null,
       "sleep": {
         "bedTime": "23:10",
@@ -1141,7 +1679,10 @@
         "latencyMin": null,
         "awakenings": 1,
         "quality": 5.5,
-        "restedness": 5.5
+        "restedness": 5.5,
+        "napsMin": null,
+        "lastCaffeineTime": null,
+        "screenBeforeBedMin": null
       },
       "relaxationRoutine": {
         "done": false,
@@ -1153,12 +1694,16 @@
         "morning": {
           "taken": false,
           "amount": null,
-          "time": null
+          "time": null,
+          "effect": null,
+          "sideEffects": []
         },
         "afternoon": {
           "taken": false,
           "amount": null,
-          "time": null
+          "time": null,
+          "effect": null,
+          "sideEffects": []
         }
       },
       "morningState": {
@@ -1172,6 +1717,24 @@
         "energy": 7,
         "focus": 6.6,
         "anxiety": 2.5
+      },
+      "physical": {
+        "headache": null,
+        "bodyPain": null,
+        "fatigueBeyond": null,
+        "digestive": null
+      },
+      "social": {
+        "meaningfulContact": null,
+        "loneliness": null
+      },
+      "events": {
+        "stressorCount": null,
+        "tags": []
+      },
+      "circadian": {
+        "morningOutdoorLight": null,
+        "eveningBrightLight": null
       },
       "items": {
         "s_quality": 3,
@@ -1201,20 +1764,20 @@
       "activity1": false,
       "operation1": false,
       "masturbation": {
-        "positive": {
-          "done": false,
-          "count": null
-        },
-        "negative": {
-          "done": false,
-          "count": null
-        }
+        "recorded": false,
+        "done": false,
+        "count": null,
+        "urgeIntensity": null,
+        "guilt": null,
+        "context": null
       },
       "explicit": {
         "recorded": false,
         "viewed": false,
         "minutes": null,
-        "driver": null
+        "driver": null,
+        "regret": null,
+        "context": null
       },
       "food": {
         "meals": 3,
@@ -1228,14 +1791,34 @@
           "snack": []
         },
         "other": null,
-        "logged": false
+        "logged": false,
+        "waterGlasses": 8,
+        "caffeineCups": 2,
+        "caffeineLastTime": null,
+        "sugarEpisodes": null,
+        "firstMealTime": null,
+        "lastMealTime": null
       },
       "dayRating": 5.5,
       "yesterdayQuality": null,
       "exercise": {
         "done": false,
         "minutes": null,
-        "recorded": true
+        "recorded": true,
+        "type": null,
+        "intensity": null,
+        "timeOfDay": null
+      },
+      "scores": {
+        "sleepHealth": 71,
+        "moodIndex": 50,
+        "anxietyIndex": 83,
+        "energyIndex": 67,
+        "focusIndex": 62,
+        "adherenceScore": 0,
+        "nutritionScore": 76,
+        "recoveryScore": 73,
+        "adhdIndex": null
       },
       "notes": null,
       "recordedAt": "2026-10-14T14:51:32.373Z"
@@ -1246,6 +1829,10 @@
         "morning": "2026-10-13T15:38:51.558Z",
         "evening": "2026-10-13T15:38:51.558Z"
       },
+      "responseMeta": {
+        "morning": null,
+        "evening": null
+      },
       "travel": null,
       "sleep": {
         "bedTime": "22:31",
@@ -1254,7 +1841,10 @@
         "latencyMin": null,
         "awakenings": null,
         "quality": 5,
-        "restedness": null
+        "restedness": null,
+        "napsMin": null,
+        "lastCaffeineTime": null,
+        "screenBeforeBedMin": null
       },
       "relaxationRoutine": {
         "done": false,
@@ -1266,12 +1856,16 @@
         "morning": {
           "taken": false,
           "amount": null,
-          "time": null
+          "time": null,
+          "effect": null,
+          "sideEffects": []
         },
         "afternoon": {
           "taken": false,
           "amount": null,
-          "time": null
+          "time": null,
+          "effect": null,
+          "sideEffects": []
         }
       },
       "morningState": {
@@ -1286,24 +1880,42 @@
         "focus": null,
         "anxiety": null
       },
+      "physical": {
+        "headache": null,
+        "bodyPain": null,
+        "fatigueBeyond": null,
+        "digestive": null
+      },
+      "social": {
+        "meaningfulContact": null,
+        "loneliness": null
+      },
+      "events": {
+        "stressorCount": null,
+        "tags": []
+      },
+      "circadian": {
+        "morningOutdoorLight": null,
+        "eveningBrightLight": null
+      },
       "items": {},
       "activity1": false,
       "operation1": false,
       "masturbation": {
-        "positive": {
-          "done": false,
-          "count": null
-        },
-        "negative": {
-          "done": false,
-          "count": null
-        }
+        "recorded": false,
+        "done": false,
+        "count": null,
+        "urgeIntensity": null,
+        "guilt": null,
+        "context": null
       },
       "explicit": {
         "recorded": false,
         "viewed": false,
         "minutes": null,
-        "driver": null
+        "driver": null,
+        "regret": null,
+        "context": null
       },
       "food": {
         "meals": 3,
@@ -1317,17 +1929,40 @@
           "snack": []
         },
         "other": null,
-        "logged": false
+        "logged": false,
+        "waterGlasses": 8,
+        "caffeineCups": null,
+        "caffeineLastTime": null,
+        "sugarEpisodes": null,
+        "firstMealTime": null,
+        "lastMealTime": null
       },
       "dayRating": null,
       "yesterdayQuality": 4,
       "exercise": {
         "done": false,
         "minutes": null,
-        "recorded": true
+        "recorded": true,
+        "type": null,
+        "intensity": null,
+        "timeOfDay": null
+      },
+      "scores": {
+        "sleepHealth": 68,
+        "moodIndex": 67,
+        "anxietyIndex": null,
+        "energyIndex": 33,
+        "focusIndex": null,
+        "adherenceScore": 0,
+        "nutritionScore": 56,
+        "recoveryScore": 62,
+        "adhdIndex": null
       },
       "notes": null,
       "recordedAt": "2026-10-13T15:38:51.558Z"
     }
-  ]
+  ],
+  "interventions": [],
+  "phases": [],
+  "itemRegistry": {}
 }
