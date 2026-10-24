@@ -1,8 +1,8 @@
 /* =============================================================
-   insights.js — تحلیل یکپارچه‌ی سه منبع داده
+   insights.js — تحلیل یکپارچه‌ی سه منبع داده (v6)
      ۱) study-data.json      → جلسه‌های مطالعه‌ی واقعی
      ۲) weekly-plans.json    → برنامه (هدف)
-     ۳) daily-checkins.json  → چک‌این صبح/شب (اسکیمای v5)
+     ۳) daily-checkins.json  → چک‌این صبح/شب (اسکیمای v6)
    هر سه فقط خوانده می‌شوند؛ این صفحه چیزی در فایل‌ها یا بکاپ‌ها نمی‌نویسد.
    ============================================================= */
 
@@ -14,19 +14,19 @@ import { FileStorage, WEEKLY_PLANS_HANDLE_KEY } from "./fileStorage.js";
 
 /* ---------- تنظیمات ---------- */
 const DAY_MS = 86400000;
-const MIN_GROUP_N = 5;     // حداقل روز در هر گروه برای نمایش مقایسه
-const SIG_T = 2.5;         // آستانه‌ی |t| (Welch) برای «قابل‌اتکا»
-const SIG_MIN_N = 8;       // حداقل نمونه در هر گروه برای «قابل‌اتکا»
-const MIN_CORR_N = 20;     // حداقل جفت‌داده برای همبستگی
-const CORR_SIG_K = 2.5;    // |r| ≥ K/√n
-const LATE_FROM = 22;      // «مطالعه‌ی دیروقت» = بعد از این ساعت
-const CAPACITY_DAYS = 28;  // پنجره‌ی ظرفیت اخیر برای پیش‌بینی سرعت
+const MIN_GROUP_N = 5;
+const SIG_T = 2.5;
+const SIG_MIN_N = 8;
+const MIN_CORR_N = 20;
+const CORR_SIG_K = 2.5;
+const LATE_FROM = 22;
+const CAPACITY_DAYS = 28;
 
 const SRC = {
   study: {
     label: "داده‌های مطالعه (study-data.json)",
     backupKey: "study-timer:local-backup",
-    handleKey: undefined, // کلید پیش‌فرض FileStorage
+    handleKey: undefined,
   },
   plan: {
     label: "برنامه‌ی هفتگی (weekly-plans.json)",
@@ -45,7 +45,7 @@ const PARSE = { study: parseDocument, plan: parseWeeklyPlansDocument, checkin: p
 const DAYTYPE_NAMES = { A: "تکواندو", B: "کاری", C: "آزاد" };
 const TYPE_NAMES = { study: "مطالعه", practice: "تمرین", test: "تست", analysis: "تحلیل تست", review: "مرور" };
 const TYPE_KEYS = Object.keys(TYPE_NAMES);
-const WEEK_ORDER = [6, 0, 1, 2, 3, 4, 5]; // شنبه اول (۰ = یکشنبه)
+const WEEK_ORDER = [6, 0, 1, 2, 3, 4, 5];
 const DAYPARTS = [
   { id: "morning", label: "صبح (۰۵–۱۲)" },
   { id: "afternoon", label: "بعدازظهر (۱۲–۱۷)" },
@@ -56,7 +56,7 @@ const DAYPARTS = [
 /* ---------- state ---------- */
 const data = { study: null, plan: null, checkin: null };
 const meta = { study: { state: "none" }, plan: { state: "none" }, checkin: { state: "none" } };
-const pending = {}; // kind → handle که فقط اجازه‌ی دسترسی لازم دارد
+const pending = {};
 let view = null;
 
 const $ = (id) => document.getElementById(id);
@@ -72,6 +72,8 @@ const isNum = (v) => typeof v === "number" && Number.isFinite(v);
 const num = (v) => (isNum(v) ? v : null);
 const sum = (a) => a.reduce((x, y) => x + y, 0);
 const mean = (a) => sum(a) / a.length;
+const l5to10 = (v) => (v == null ? null : Math.round((1 + ((v - 1) * 9) / 4) * 10) / 10);
+const num10 = (v) => (v == null ? null : Math.round((v / 10) * 10) / 10);
 
 function sd(a) {
   if (a.length < 2) return null;
@@ -130,7 +132,7 @@ function welch(a, b) {
   return se ? (mean(a) - mean(b)) / se : null;
 }
 
-/* ---------- تاریخ (محلی؛ بدون toISOString) ---------- */
+/* ---------- تاریخ ---------- */
 function todayKey() {
   const d = new Date();
   return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
@@ -143,7 +145,7 @@ function numToKey(n) {
   const t = new Date(n * DAY_MS);
   return `${t.getUTCFullYear()}-${pad2(t.getUTCMonth() + 1)}-${pad2(t.getUTCDate())}`;
 }
-const wdOf = (n) => (n + 4) % 7; // ۰ = یکشنبه (۱۹۷۰-۰۱-۰۱ پنجشنبه بود)
+const wdOf = (n) => (n + 4) % 7;
 const shortDate = (n) => numToKey(n).slice(5);
 
 function hourToNum(t) {
@@ -157,7 +159,7 @@ function fmtHour(h) {
 }
 const fmtH = (min) => (min / 60).toFixed(1);
 
-/* ---------- نام درس (تطبیق با ZWNJ/ي/ك) ---------- */
+/* ---------- نام درس ---------- */
 const normFa = (s) =>
   String(s).replace(/[\u200c\u200d\s]/g, "").replace(/\u064a/g, "\u06cc").replace(/\u0643/g, "\u06a9");
 const SUBJ_NAME = new Map();
@@ -168,7 +170,7 @@ function subjKey(name) {
 }
 const subjLabel = (k) => esc(SUBJ_NAME.get(k) || k);
 
-/* ---------- قالب‌بندی مقدارها ---------- */
+/* ---------- قالب‌بندی ---------- */
 function fmtVal(kind, v) {
   switch (kind) {
     case "min": return `${Math.round(v)} دق`;
@@ -193,7 +195,7 @@ function fmtDiff(kind, diff) {
 }
 
 /* ============================================================
-   Load (فقط خواندن)
+   Load
    ============================================================ */
 
 const stampOf = {
@@ -326,12 +328,11 @@ function renderSources() {
 }
 
 /* ============================================================
-   Build: روزِ یکپارچه (مطالعه + برنامه + چک‌این)
+   Study + Plan indexes
    ============================================================ */
 
 const zeroTypes = () => ({ study: 0, practice: 0, test: 0, analysis: 0, review: 0 });
 
-/* ---------- مطالعه ---------- */
 function buildStudyIndex(doc) {
   const map = new Map();
   let first = Infinity;
@@ -343,9 +344,9 @@ function buildStudyIndex(doc) {
     const off = (rec.actual.utcOffsetMinutes || 0) * 60000;
     const sLocal = fromIso(rec.actual.startedAt) + off;
     const eLocal = fromIso(rec.actual.endedAt) + off;
-    const start = (((sLocal % DAY_MS) + DAY_MS) % DAY_MS) / 3600000; // ساعت محلی شروع
+    const start = (((sLocal % DAY_MS) + DAY_MS) % DAY_MS) / 3600000;
     const wall = Math.max(0, (eLocal - sLocal) / 3600000);
-    const end = start + wall; // ممکن است از ۲۴ بگذرد
+    const end = start + wall;
     const active = rec.derived.activeDurationSeconds / 60;
 
     let d = map.get(dayNum);
@@ -379,7 +380,6 @@ function buildStudyIndex(doc) {
   return { map, first };
 }
 
-/* ---------- برنامه ---------- */
 function buildPlanIndex(doc) {
   const byDate = new Map();
   const weeks = [];
@@ -414,7 +414,10 @@ function planInfo(day) {
   return { total, byType, bySubj, first };
 }
 
-/* ---------- چک‌این (نسخه‌ی فشرده؛ فرمول امتیاز = checkin-analytics.js) ---------- */
+/* ============================================================
+   Checkin — score + normalize v6
+   ============================================================ */
+
 function computeMentalScore(d) {
   if (!d.eve) return null;
   const parts = [];
@@ -455,41 +458,119 @@ function normalizeCheckin(e) {
   const ids = foodLogged ? ["breakfast", "lunch", "dinner", "snack"].flatMap((m) => log[m] || []) : [];
   const cnt = (tags) => ids.filter((id) => foodTags(id).some((t) => tags.includes(t))).length;
   const exRec = !!e.exercise?.recorded;
+  const exDone = exRec ? !!e.exercise?.done : null;
+
+  const items = e.items || {};
+  const phys = e.physical || {};
+  const soc = e.social || {};
+  const evt = e.events || {};
+  const circ = e.circadian || {};
+  const sc = e.scores || {};
+
+  const exType = exRec && exDone ? (e.exercise?.type ?? null) : null;
+  const exIntensity = exRec && exDone ? (e.exercise?.intensity ?? null) : null;
+  const isType = (t) => (exRec ? (exDone && exType === t ? 1 : 0) : null);
 
   const o = {
-    mor,
-    eve,
+    mor, eve,
     travel: e.travel === true ? true : e.travel === false ? false : null,
+
     bedNum: bedH == null ? null : bedH < 12 ? bedH + 24 : bedH,
     sleepHours: num(e.sleep?.hours),
     sleepQuality: num(e.sleep?.quality),
     sleepLatency: num(e.sleep?.latencyMin),
     awakenings: num(e.sleep?.awakenings),
     restedness: num(e.sleep?.restedness),
+    napsMin: num(e.sleep?.napsMin),
+    screenBeforeBedMin: num(e.sleep?.screenBeforeBedMin),
+
     morningMood: num(e.morningState?.mood),
     morningEnergy: num(e.morningState?.energy),
     morningTension: num(e.morningState?.tension),
+
     mood: num(e.mood?.rating),
     stress: num(e.mood?.stress),
     energy: num(e.mood?.energy),
     focus: num(e.mood?.focus),
     anxiety: num(e.mood?.anxiety),
     dayRating: num(e.dayRating),
+
     medAm: medKnown ? !!am.taken : null,
     medPm: medKnown && eve ? !!pm.taken : null,
     medDay: medKnown && eve ? !!am.taken || !!pm.taken : null,
+    medAmEffect: medKnown && am.taken ? num(am.effect) : null,
+    medPmEffect: medKnown && pm.taken ? num(pm.effect) : null,
+    medAmSideCount: medKnown && am.taken && Array.isArray(am.sideEffects) ? am.sideEffects.length : null,
+    medPmSideCount: medKnown && pm.taken && Array.isArray(pm.sideEffects) ? pm.sideEffects.length : null,
+
     explicitViewed: eve && !!x.recorded ? !!x.viewed : null,
-    exerciseDone: exRec ? !!e.exercise?.done : null,
+    explicitMin: eve && x.viewed ? num(x.minutes) : null,
+    explicitRegret: eve && x.viewed ? num(x.regret) : null,
+
+    mastDone: eve && e.masturbation?.recorded ? !!e.masturbation?.done : null,
+    mastUrge: eve && e.masturbation?.done ? num(e.masturbation?.urgeIntensity) : null,
+    mastGuilt: eve && e.masturbation?.done ? num(e.masturbation?.guilt) : null,
+
+    exerciseDone: exDone,
+    exerciseMinutes: exRec && exDone ? num(e.exercise?.minutes) : null,
+    exerciseType: exType,
+    exerciseIntensity: exIntensity,
+    exerciseTime: exRec && exDone ? (e.exercise?.timeOfDay ?? null) : null,
+    exerciseTaekwondo: isType("taekwondo"),
+    exerciseBJJ: isType("bjj"),
+    exerciseWalking: isType("walking"),
+    exerciseIntensityVigorous: exRec ? (exDone && exIntensity === "vigorous" ? 1 : 0) : null,
+
     caffeine: eve ? num(food.caffeine) : null,
+    caffeineCups: eve ? num(food.caffeineCups) : null,
+    caffeineLastTime: eve ? hourToNum(food.caffeineLastTime) : null,
+    waterGlasses: eve ? num(food.waterGlasses) : null,
+    sugarEpisodes: eve ? num(food.sugarEpisodes) : null,
+    firstMealTime: eve ? hourToNum(food.firstMealTime) : null,
+    lastMealTime: eve ? hourToNum(food.lastMealTime) : null,
     foodQuality: num(food.quality),
     fruitCount: foodLogged ? cnt(["fruit"]) : null,
+    vegCount: foodLogged ? cnt(["veg"]) : null,
     unhealthyCount: foodLogged ? cnt(["fried", "fastfood", "junk", "sweet"]) : null,
+
+    irritability: l5to10(num(items.irritability)),
+    anhedonia: l5to10(num(items.anhedonia)),
+    rumination: l5to10(num(items.rumination)),
+    meaningfulness: l5to10(num(items.meaningfulness)),
+    focusQuality: l5to10(num(items.focusQuality)),
+    taskProcrastination: l5to10(num(items.taskProcrastination)),
+    emotionalDysregulation: l5to10(num(items.emotionalDysregulation)),
+
+    headache: num(phys.headache),
+    bodyPain: num(phys.bodyPain),
+    fatigueBeyond: num(phys.fatigueBeyond),
+    digestive: num(phys.digestive),
+
+    socialContact: eve ? (soc.meaningfulContact === true ? true : soc.meaningfulContact === false ? false : null) : null,
+    loneliness: l5to10(num(soc.loneliness)),
+
+    stressorCount: num(evt.stressorCount),
+    eventTags: Array.isArray(evt.tags) ? evt.tags : [],
+
+    morningLightMin: num(circ.morningOutdoorLight),
+    eveningBrightLight: eve ? (circ.eveningBrightLight === true ? true : circ.eveningBrightLight === false ? false : null) : null,
+
+    focusIndex: num10(num(sc.focusIndex)),
+    adhdIndex: num10(num(sc.adhdIndex)),
+    recoveryScore: num10(num(sc.recoveryScore)),
+    sleepHealth: num10(num(sc.sleepHealth)),
+    nutritionScore: num10(num(sc.nutritionScore)),
+
+    eveDurationMs: e.responseMeta?.evening?.durationMs ?? null,
   };
   o.score = computeMentalScore(o);
   return o;
 }
 
-/* ---------- Join ---------- */
+/* ============================================================
+   Join
+   ============================================================ */
+
 function joinDays() {
   const sIdx = data.study ? buildStudyIndex(data.study) : null;
   const pIdx = data.plan ? buildPlanIndex(data.plan) : null;
@@ -518,7 +599,6 @@ function joinDays() {
       wd: wdOf(n),
       hasCheckin: !!c,
       hasStudy,
-      // مطالعه
       sMin: hasStudy ? s?.min ?? 0 : null,
       sSess: s?.sessions ?? 0,
       sDone: s?.done ?? 0,
@@ -530,7 +610,6 @@ function joinDays() {
       sByType: s?.byType ?? zeroTypes(),
       sBySubj: s?.bySubj ?? new Map(),
       sList: s?.list ?? [],
-      // برنامه (null = برای این روز برنامه‌ای نیست)
       pMin: pi ? pi.total : null,
       pByType: pi?.byType ?? zeroTypes(),
       pBySubj: pi?.bySubj ?? new Map(),
@@ -541,7 +620,6 @@ function joinDays() {
     days.push(d);
   }
 
-  // میانگین متحرک ۷ روزه‌ی امتیاز روانی
   for (let i = 0; i < days.length; i++) {
     const vals = [];
     for (let j = Math.max(0, i - 6); j <= i; j++) if (isNum(days[j].score)) vals.push(days[j].score);
@@ -551,7 +629,7 @@ function joinDays() {
 }
 
 /* ============================================================
-   Metrics + مقایسه‌ی گروه‌ها
+   Metrics
    ============================================================ */
 
 function makeMetrics(byNum, todayNum) {
@@ -572,7 +650,7 @@ function makeMetrics(byNum, todayNum) {
   });
 
   return {
-    // مطالعه
+    /* ==== مطالعه ==== */
     sMin: same("sMin", "مطالعه‌ی همان روز", "min", true),
     sMinNx: { label: "مطالعه‌ی فردا", get: (d) => num(nxFull(d)?.sMin), kind: "min", up: true },
     adh: same("adh", "پایبندی به برنامه‌ی همان روز", "pct", true),
@@ -589,16 +667,23 @@ function makeMetrics(byNum, todayNum) {
       up: null,
     },
     prevStudy: { label: "مطالعه‌ی روز قبل", get: (d) => num(pv(d)?.sMin), kind: "min", up: null },
-    // شرایط قبل از روز
+
+    /* ==== خواب ==== */
     sleepHours: same("sleepHours", "ساعت خواب دیشب", "hr", true),
     sleepQuality: same("sleepQuality", "کیفیت خواب دیشب", "score", true),
     sleepLatency: same("sleepLatency", "زمان به خواب رفتن دیشب", "min", false),
     awakenings: same("awakenings", "بیداری شبانه‌ی دیشب", "num", false),
     restedness: same("restedness", "احساس استراحت صبح", "score", true),
     bedNum: same("bedNum", "ساعت رفتن به رختخواب دیشب", "clock", null),
+    napsMin: same("napsMin", "چرت روزانه (دقیقه)", "min", false),
+    screenBeforeBedMin: same("screenBeforeBedMin", "صفحه‌نمایش قبل خواب", "min", false),
+
+    /* ==== morning ==== */
     morningMood: same("morningMood", "حال صبح", "score", true),
     morningEnergy: same("morningEnergy", "انرژی صبح", "score", true),
     morningTension: same("morningTension", "تنش صبح", "score", false),
+
+    /* ==== شرایط روز قبل ==== */
     medDayShare: share("medDay", "روز با قرص ADHD"),
     travelShare: share("travel", "روز سفر"),
     prevExercise: {
@@ -612,14 +697,16 @@ function makeMetrics(byNum, todayNum) {
     },
     prevScore: { label: "امتیاز روانی روز قبل", get: (d) => num(pv(d)?.score), kind: "score", up: true },
     caffeine: same("caffeine", "کافئین (تعداد)", "num", null),
-    // حال همان روز (همزمان با مطالعه؛ از چک‌این شب)
+
+    /* ==== حال همان روز ==== */
     mood: same("mood", "خلق", "score", true),
     stress: same("stress", "استرس", "score", false),
     anxiety: same("anxiety", "اضطراب", "score", false),
     focus: same("focus", "تمرکز", "score", true),
     energy: same("energy", "انرژی", "score", true),
     score: same("score", "امتیاز روانی", "score", true),
-    // شب بعد / فردا
+
+    /* ==== شب بعد / فردا ==== */
     sleepHoursNx: next("sleepHours", "ساعت خواب شب بعد", "hr", true),
     sleepQualityNx: next("sleepQuality", "کیفیت خواب شب بعد", "score", true),
     sleepLatencyNx: next("sleepLatency", "زمان به خواب رفتن شب بعد", "min", false),
@@ -628,6 +715,67 @@ function makeMetrics(byNum, todayNum) {
     stressNx: next("stress", "استرس فردا", "score", false),
     energyNx: next("energy", "انرژی فردا", "score", true),
     scoreNx: next("score", "امتیاز روانی فردا", "score", true),
+
+    /* ==== v6: ADHD ==== */
+    focusQuality: same("focusQuality", "کیفیت تمرکز (ADHD)", "score", true),
+    taskProcrastination: same("taskProcrastination", "به تعویق انداختن کارها", "score", false),
+    emotionalDysregulation: same("emotionalDysregulation", "بی‌نظمی هیجانی", "score", false),
+    focusIndex: same("focusIndex", "شاخص تمرکز (composite)", "score", true),
+    adhdIndex: same("adhdIndex", "شاخص ADHD (composite)", "score", true),
+    recoveryScore: same("recoveryScore", "امتیاز بازیابی (composite)", "score", true),
+    sleepHealth: same("sleepHealth", "امتیاز سلامت خواب (composite)", "score", true),
+    nutritionScore: same("nutritionScore", "امتیاز تغذیه (composite)", "score", true),
+
+    /* ==== v6: wellbeing ==== */
+    irritability: same("irritability", "تحریک‌پذیری", "score", false),
+    anhedonia: same("anhedonia", "بی‌لذتی", "score", false),
+    rumination: same("rumination", "نشخوار فکری", "score", false),
+    meaningfulness: same("meaningfulness", "معناداری", "score", true),
+
+    /* ==== v6: physical ==== */
+    headache: same("headache", "سردرد (۰–۳)", "num", false),
+    bodyPain: same("bodyPain", "درد بدن (۰–۳)", "num", false),
+    fatigueBeyond: same("fatigueBeyond", "خستگی غیرمعمول (۰–۳)", "num", false),
+    digestive: same("digestive", "مشکل گوارشی (۰–۳)", "num", false),
+
+    /* ==== v6: social ==== */
+    loneliness: same("loneliness", "تنهایی", "score", false),
+    socialContactShare: share("socialContact", "روز با ارتباط معنادار"),
+
+    /* ==== v6: events ==== */
+    stressorCount: same("stressorCount", "تعداد رویداد استرس‌زا", "num", false),
+
+    /* ==== v6: circadian ==== */
+    morningLightMin: same("morningLightMin", "نور صبح (دقیقه)", "min", true),
+    eveningBrightLightShare: share("eveningBrightLight", "نور شدید شب"),
+
+    /* ==== v6: meds effect + side effects ==== */
+    medAmEffect: same("medAmEffect", "اثر قرص صبح (۰–۱۰)", "score", true),
+    medPmEffect: same("medPmEffect", "اثر قرص عصر (۰–۱۰)", "score", true),
+    medAmSideCount: same("medAmSideCount", "تعداد عوارض صبح", "num", false),
+    medPmSideCount: same("medPmSideCount", "تعداد عوارض عصر", "num", false),
+
+    /* ==== v6: exercise types ==== */
+    exerciseTaekwondo: share("exerciseTaekwondo", "روز تکواندو"),
+    exerciseBJJ: share("exerciseBJJ", "روز بندسازی"),
+    exerciseWalking: share("exerciseWalking", "روز پیاده‌روی"),
+    exerciseIntensityVigorous: share("exerciseIntensityVigorous", "ورزش شدید"),
+    exerciseMin: same("exerciseMinutes", "دقایق ورزش", "min", true),
+
+    /* ==== v6: caffeine timing + nutrition ==== */
+    caffeineCups: same("caffeineCups", "لیوان کافئین", "num", null),
+    caffeineLastTime: same("caffeineLastTime", "ساعت آخرین کافئین", "clock", null),
+    waterGlasses: same("waterGlasses", "لیوان آب", "num", true),
+    sugarEpisodes: same("sugarEpisodes", "دفعات قند/شیرینی", "num", false),
+    firstMealTime: same("firstMealTime", "ساعت اولین وعده", "clock", null),
+    lastMealTime: same("lastMealTime", "ساعت آخرین وعده", "clock", null),
+
+    /* ==== v6: masturbation ==== */
+    mastUrge: same("mastUrge", "شدت میل خودارضایی", "num", false),
+    mastGuilt: same("mastGuilt", "احساس گناه خودارضایی", "num", false),
+
+    /* ==== v6: explicit ==== */
+    explicitRegret: same("explicitRegret", "پشیمانی از محتوا", "num", false),
   };
 }
 
@@ -642,13 +790,7 @@ function compare(pool, inA, inB, metrics) {
     const diff = mean(a) - mean(b);
     const t = welch(a, b);
     rows.push({
-      m,
-      ma: mean(a),
-      mb: mean(b),
-      na: a.length,
-      nb: b.length,
-      diff,
-      t,
+      m, ma: mean(a), mb: mean(b), na: a.length, nb: b.length, diff, t,
       sig: t != null && Math.abs(t) >= SIG_T && a.length >= SIG_MIN_N && b.length >= SIG_MIN_N,
       better: m.up == null ? null : diff > 0 === m.up,
     });
@@ -656,7 +798,10 @@ function compare(pool, inA, inB, metrics) {
   return { rows, na: A.length, nb: B.length };
 }
 
-/* ---------- عامل‌ها ---------- */
+/* ============================================================
+   Factors (v6)
+   ============================================================ */
+
 function computeFactors() {
   const { hist, MET } = view;
   const sVals = hist.filter((d) => d.sMin != null).map((d) => d.sMin);
@@ -665,13 +810,14 @@ function computeFactors() {
   const testsOf = (d) => d.sByType.practice + d.sByType.test;
 
   const F = [
+    /* ---------- خواب ---------- */
     {
       id: "sleepShort",
       title: "خواب دیشب: کمتر از ۶ ساعت در برابر ۷ ساعت یا بیشتر",
       la: "خواب کم", lb: "خواب کافی",
       inA: (d) => d.sleepHours != null && d.sleepHours < 6,
       inB: (d) => d.sleepHours != null && d.sleepHours >= 7,
-      outs: ["sMin", "adh", "sessLen", "focus", "anxiety", "mood"],
+      outs: ["sMin", "adh", "sessLen", "focusQuality", "focus", "anxiety", "mood"],
     },
     {
       id: "lateBed",
@@ -681,13 +827,15 @@ function computeFactors() {
       inB: (d) => d.bedNum != null && d.bedNum <= 24,
       outs: ["sMin", "adh", "sFirst", "morningEnergy", "focus"],
     },
+
+    /* ---------- حال روانی ---------- */
     {
       id: "stressHigh",
       title: "استرس بالای امروز (۷+) در برابر پایین (۴ یا کمتر)",
       la: "استرس بالا", lb: "استرس پایین",
       inA: (d) => d.stress != null && d.stress >= 7,
       inB: (d) => d.stress != null && d.stress <= 4,
-      outs: ["sMinNx", "adhNx", "sleepLatencyNx", "sleepQualityNx", "moodNx"],
+      outs: ["sMinNx", "adhNx", "sleepLatencyNx", "sleepQualityNx", "moodNx", "focusQuality"],
     },
     {
       id: "anxietyHigh",
@@ -697,13 +845,15 @@ function computeFactors() {
       inB: (d) => d.anxiety != null && d.anxiety <= 4,
       outs: ["sleepLatencyNx", "sleepQualityNx", "sleepHoursNx", "sMinNx"],
     },
+
+    /* ---------- قرص ADHD (v6) ---------- */
     {
       id: "med",
       title: "روز با قرص ADHD در برابر روز بدون قرص",
       la: "با قرص", lb: "بدون قرص",
       inA: (d) => d.medDay === true,
       inB: (d) => d.medDay === false,
-      outs: ["sMin", "adh", "sessLen", "focus", "anxiety", "mood", "sleepLatencyNx", "sleepHoursNx"],
+      outs: ["sMin", "adh", "sessLen", "focusQuality", "focus", "anxiety", "mood", "sleepLatencyNx", "sleepHoursNx"],
     },
     {
       id: "medPm",
@@ -714,13 +864,67 @@ function computeFactors() {
       outs: ["sLate", "sleepLatencyNx", "sleepQualityNx", "sleepHoursNx", "bedNx"],
     },
     {
-      id: "exercise",
-      title: "ورزش امروز در برابر بدون ورزش (اثر روی فردا)",
-      la: "ورزش", lb: "بدون ورزش",
-      inA: (d) => d.exerciseDone === true,
-      inB: (d) => d.exerciseDone === false,
-      outs: ["sMinNx", "adhNx", "moodNx", "sleepQualityNx", "sleepLatencyNx"],
+      id: "medEffectHigh",
+      title: "اثر قرص صبح بالا (۷+) در برابر پایین (۴ یا کمتر)",
+      la: "اثر بالا", lb: "اثر پایین",
+      inA: (d) => d.medAmEffect != null && d.medAmEffect >= 7,
+      inB: (d) => d.medAmEffect != null && d.medAmEffect <= 4,
+      outs: ["sMin", "focusQuality", "adh", "sessLen", "mood"],
     },
+    {
+      id: "medSideEffects",
+      title: "روز با عوارض قرص در برابر بدون عوارض",
+      la: "با عوارض", lb: "بدون عوارض",
+      inA: (d) => (d.medAmSideCount ?? 0) + (d.medPmSideCount ?? 0) >= 1,
+      inB: (d) => d.medAmSideCount === 0 && d.medPmSideCount === 0,
+      outs: ["sMin", "focusQuality", "sleepQualityNx", "sleepLatencyNx", "stress"],
+    },
+
+    /* ---------- ورزش (v6: نوع + شدت) ---------- */
+    {
+      id: "taekwondo",
+      title: "روز تکواندو در برابر روز بدون ورزش (اثر همان روز و فردا)",
+      la: "تکواندو", lb: "بدون ورزش",
+      inA: (d) => d.exerciseTaekwondo === 1,
+      inB: (d) => d.exerciseDone === false,
+      outs: ["sMin", "focusQuality", "mood", "stress", "sleepQualityNx", "sleepLatencyNx", "sMinNx"],
+    },
+    {
+      id: "walking",
+      title: "روز پیاده‌روی در برابر روز بدون ورزش",
+      la: "پیاده‌روی", lb: "بدون ورزش",
+      inA: (d) => d.exerciseWalking === 1,
+      inB: (d) => d.exerciseDone === false,
+      outs: ["sMin", "focusQuality", "mood", "stress", "sleepQualityNx", "sMinNx"],
+    },
+    {
+      id: "bjj",
+      title: "روز بندسازی در برابر روز بدون ورزش",
+      la: "بندسازی", lb: "بدون ورزش",
+      inA: (d) => d.exerciseBJJ === 1,
+      inB: (d) => d.exerciseDone === false,
+      outs: ["sMin", "focusQuality", "mood", "stress", "sleepQualityNx", "sMinNx"],
+    },
+    {
+      id: "vigorous",
+      title: "ورزش شدید در برابر ورزش سبک",
+      la: "شدید", lb: "سبک",
+      inA: (d) => d.exerciseIntensityVigorous === 1,
+      inB: (d) => d.exerciseIntensity === "light",
+      outs: ["sleepQualityNx", "sleepLatencyNx", "mood", "focusQuality", "sMinNx"],
+    },
+
+    /* ---------- تمرکز ADHD (v6) ---------- */
+    {
+      id: "focusHigh",
+      title: "روز با تمرکز بالا (ADHD ≥ ۷) در برابر روز با تمرکز پایین (≤ ۴)",
+      la: "تمرکز بالا", lb: "تمرکز پایین",
+      inA: (d) => d.focusQuality != null && d.focusQuality >= 7,
+      inB: (d) => d.focusQuality != null && d.focusQuality <= 4,
+      outs: ["sMin", "adh", "sessLen", "sMinNx", "anxiety", "stress"],
+    },
+
+    /* ---------- شرایط دیگر ---------- */
     {
       id: "travel",
       title: "روز سفر در برابر روز عادی",
@@ -739,11 +943,19 @@ function computeFactors() {
     },
     {
       id: "caffeine",
-      title: "کافئین زیاد (۳+ عدد) در برابر کم (۰ تا ۱)",
+      title: "کافئین زیاد (۳+ لیوان) در برابر کم (۰ تا ۱)",
       la: "کافئین زیاد", lb: "کافئین کم",
-      inA: (d) => d.caffeine != null && d.caffeine >= 3,
-      inB: (d) => d.caffeine != null && d.caffeine <= 1,
-      outs: ["sleepLatencyNx", "sleepQualityNx", "anxiety", "focus"],
+      inA: (d) => d.caffeineCups != null && d.caffeineCups >= 3,
+      inB: (d) => d.caffeineCups != null && d.caffeineCups <= 1,
+      outs: ["sleepLatencyNx", "sleepQualityNx", "anxiety", "focusQuality"],
+    },
+    {
+      id: "lateCaffeine",
+      title: "کافئین بعد از ۱۴:۰۰ در برابر کافئین فقط قبل از ۱۲:۰۰",
+      la: "کافئین دیر", lb: "کافئین زود",
+      inA: (d) => d.caffeineLastTime != null && d.caffeineLastTime >= 14,
+      inB: (d) => d.caffeineCups != null && d.caffeineCups > 0 && (d.caffeineLastTime == null || d.caffeineLastTime < 12),
+      outs: ["sleepLatencyNx", "sleepQualityNx", "sleepHoursNx", "focus", "sMinNx"],
     },
     {
       id: "lateStudy",
@@ -769,6 +981,54 @@ function computeFactors() {
       inB: (d) => d.hasStudy && d.sMin > 0 && testsOf(d) === 0,
       outs: ["anxiety", "stress", "mood", "sleepLatencyNx", "sleepQualityNx"],
     },
+
+    /* ---------- v6: رویداد استرس‌زا ---------- */
+    {
+      id: "stressEvent",
+      title: "روز با رویداد استرس‌زا در برابر بدون رویداد",
+      la: "با رویداد", lb: "بدون",
+      inA: (d) => d.stressorCount != null && d.stressorCount >= 1,
+      inB: (d) => d.stressorCount === 0,
+      outs: ["sMin", "adh", "anxiety", "stress", "mood", "sleepLatencyNx", "sMinNx"],
+    },
+
+    /* ---------- v6: نور صبح ---------- */
+    {
+      id: "morningLight",
+      title: "نور صبح ≥ ۳۰ دقیقه در برابر کمتر از ۱۵ دقیقه",
+      la: "نور کافی", lb: "نور کم",
+      inA: (d) => d.morningLightMin != null && d.morningLightMin >= 30,
+      inB: (d) => d.morningLightMin != null && d.morningLightMin < 15,
+      outs: ["focusQuality", "sMin", "sleepQualityNx", "sleepLatencyNx", "mood"],
+    },
+
+    /* ---------- v6: علائم جسمی ---------- */
+    {
+      id: "headache",
+      title: "روز با سردرد متوسط+ در برابر روز بدون سردرد",
+      la: "با سردرد", lb: "بدون",
+      inA: (d) => d.headache != null && d.headache >= 2,
+      inB: (d) => d.headache === 0,
+      outs: ["sMin", "focusQuality", "stress", "mood"],
+    },
+    {
+      id: "fatigue",
+      title: "روز با خستگی غیرمعمول در برابر روز بدون خستگی",
+      la: "خسته", lb: "سرحال",
+      inA: (d) => d.fatigueBeyond != null && d.fatigueBeyond >= 2,
+      inB: (d) => d.fatigueBeyond === 0,
+      outs: ["sMin", "focusQuality", "mood", "sleepQualityNx", "sMinNx"],
+    },
+
+    /* ---------- v6: تنهایی ---------- */
+    {
+      id: "loneliness",
+      title: "روز با تنهایی بالا (≥ ۷) در برابر پایین (≤ ۴)",
+      la: "تنها", lb: "متصل",
+      inA: (d) => d.loneliness != null && d.loneliness >= 7,
+      inB: (d) => d.loneliness != null && d.loneliness <= 4,
+      outs: ["sMin", "mood", "stress", "anxiety", "sMinNx"],
+    },
   ];
   return F.map((f) => ({ ...f, comp: compare(hist, f.inA, f.inB, f.outs.map((id) => MET[id])) }));
 }
@@ -782,11 +1042,11 @@ function computeStatInsights(factors) {
       .slice(0, 2);
     for (const r of rows) all.push({ f, r });
   }
-  return all.sort((a, b) => Math.abs(b.r.t) - Math.abs(a.r.t)).slice(0, 8);
+  return all.sort((a, b) => Math.abs(b.r.t) - Math.abs(a.r.t)).slice(0, 10);
 }
 
 /* ============================================================
-   آمار توصیفی مشترک
+   Aggregations
    ============================================================ */
 
 function weekdayRows(pool) {
@@ -848,7 +1108,6 @@ function punctuality(pool) {
   };
 }
 
-/* ---------- بدهی و پیش‌بینی سرعت ---------- */
 function computeDebt() {
   if (!data.plan || !data.study || !view.pIdx) return null;
   const { hist, pIdx, todayNum, byNum } = view;
@@ -949,7 +1208,7 @@ function compareRows(comp, la, lb) {
 }
 
 /* ============================================================
-   Charts (SVG)
+   Charts
    ============================================================ */
 
 const NICE = [1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24, 30, 40, 50, 60, 80, 100];
@@ -967,7 +1226,6 @@ function renderLegend(chartEl, items) {
     .join("");
 }
 
-/* میله‌های گروهی (+ خط روی محور راست + خط مرجع افقی). مقدارها را div تقسیم می‌کند (دقیقه → ساعت) */
 function buildBarChart(el, items, { bars, line = null, ref = null, div = 60 }) {
   if (!items.length) return "";
   const W = Math.max(320, el.clientWidth || 800);
@@ -1085,7 +1343,6 @@ function drawCharts() {
    Panels
    ============================================================ */
 
-/* ---------- ۱) شاخص‌های کلیدی ---------- */
 function kpiPanel() {
   const { visible, complete, days, byNum, todayNum } = view;
   const cards = [];
@@ -1138,7 +1395,6 @@ function kpiPanel() {
   return panel("insKpi", "شاخص‌های کلیدی", `<div class="ca-summary">${cards.join("")}</div>`);
 }
 
-/* ---------- ۲) یافته‌های خودکار ---------- */
 function computeDescInsights() {
   const out = [];
   const push = (tone, text) => out.push({ tone, text });
@@ -1239,7 +1495,6 @@ function insightsPanel() {
   return panel("insInsights", "یافته‌های خودکار", html);
 }
 
-/* ---------- ۳) برنامه در برابر واقعیت: نمودارها ---------- */
 function chartsPanel() {
   if (!data.study && !data.plan) return "";
   let html = subT("ساعت برنامه‌ریزی‌شده در برابر انجام‌شده (روزانه)") + `<div class="ca-chart" id="insChartPlan"></div>`;
@@ -1252,7 +1507,6 @@ function chartsPanel() {
   return panel("insCharts", "نمودارها", html);
 }
 
-/* ---------- ۴) پایبندی به برنامه ---------- */
 function planWeekRows() {
   const { pIdx, byNum, todayNum, visible } = view;
   const rangeStart = visible.length ? visible[0].dayNum : -Infinity;
@@ -1284,7 +1538,6 @@ function adherencePanel() {
 
   let html = "";
 
-  // هفته‌های برنامه
   const wk = planWeekRows();
   if (wk.length) {
     html += subT("هفته‌های برنامه");
@@ -1304,7 +1557,6 @@ function adherencePanel() {
     );
   }
 
-  // درس‌ها
   const P = new Map();
   const A = new Map();
   for (const d of pool) {
@@ -1332,7 +1584,6 @@ function adherencePanel() {
     })
   );
 
-  // نوع روز + نوع جلسه کنار هم
   const dtRows = ["A", "B", "C"]
     .map((t) => {
       const g = pool.filter((d) => d.dayType === t);
@@ -1372,7 +1623,6 @@ function adherencePanel() {
   return panel("insAdh", "پایبندی به برنامه", html);
 }
 
-/* ---------- ۵) بدهی و سرعت ---------- */
 function debtPanel() {
   if (!data.plan || !data.study) return panel("insDebt", "بدهی مطالعه و پیش‌بینی سرعت", needHint("هر دو فایل «برنامه‌ی هفتگی» و «مطالعه»"));
   const x = view.debt;
@@ -1407,7 +1657,6 @@ function debtPanel() {
   return panel("insDebt", "بدهی مطالعه و پیش‌بینی سرعت", html);
 }
 
-/* ---------- ۶) الگوهای زمانی ---------- */
 function heatHtml(mat) {
   const max = Math.max(1, ...mat.flat());
   let h = `<div class="ins-heat"><div></div>`;
@@ -1468,7 +1717,6 @@ function timePanel() {
   return panel("insTime", "الگوهای زمانی", html);
 }
 
-/* ---------- ۷) کیفیت جلسه‌ها ---------- */
 function qualityPanel() {
   if (!data.study) return "";
   const { visible, complete } = view;
@@ -1493,7 +1741,54 @@ function qualityPanel() {
   return panel("insQuality", "کیفیت جلسه‌ها", `<div class="ca-summary">${cards.join("")}</div>`);
 }
 
-/* ---------- ۸) مطالعه × چک‌این ---------- */
+/* ---------- v6: Exercise breakdown ---------- */
+
+function exercisePanel() {
+  if (!data.checkin) return "";
+  const pool = view.visible.filter((d) => d.exerciseType);
+  if (!pool.length) {
+    return panel("insExercise", "ورزش — تفکیک", hintP("هنوز ورزشی با نوع (تکواندو/بندسازی/پیاده‌روی/…) ثبت نشده."));
+  }
+
+  const TYPES = [
+    ["taekwondo", "تکواندو"],
+    ["bjj", "بندسازی"],
+    ["walking", "پیاده‌روی"],
+    ["cardio", "هوازی"],
+    ["strength", "قدرتی"],
+    ["yoga", "یوگا/کشش"],
+    ["sports", "ورزش تیمی"],
+    ["other", "سایر"],
+  ];
+
+  const rows = TYPES.map(([key, label]) => {
+    const days = pool.filter((d) => d.exerciseType === key);
+    if (!days.length) return null;
+    const minDays = days.map((d) => d.exerciseMinutes).filter(isNum);
+    return [
+      label,
+      days.length,
+      minDays.length ? `${Math.round(mean(minDays))} دق` : "—",
+      fx(avgOf(days, "focusQuality")),
+      fx(avgOf(days, "mood")),
+      fx(avgOf(days, "sMin")),
+      fx(avgOf(days, "sleepQuality")),
+    ];
+  }).filter(Boolean);
+
+  return panel(
+    "insExercise",
+    "ورزش — تفکیک",
+    table(
+      ["نوع", "روز", "میانگین مدت", "تمرکز (ADHD)", "خلق", "مطالعه (دق)", "کیفیت خواب"],
+      rows
+    ) +
+    hintP("فقط روزهایی که ورزش با نوع مشخص ثبت شده‌اند. تمرکز/خلق/خواب همان روزِ ورزش هستند؛ مقایسه‌ی دقیق در بخش «عوامل مؤثر» است.")
+  );
+}
+
+/* ---------- Correlations ---------- */
+
 const CORRS = [
   ["ساعت خواب دیشب × مطالعه‌ی امروز", "sleepHours", "sMin"],
   ["کیفیت خواب دیشب × مطالعه‌ی امروز", "sleepQuality", "sMin"],
@@ -1514,6 +1809,65 @@ const CORRS = [
   ["دقایق تمرین و تست × اضطراب همان روز", "testMin", "anxiety"],
   ["کافئین × مطالعه‌ی همان روز", "caffeine", "sMin"],
   ["میانگین طول جلسه × تمرکز همان روز", "sessLen", "focus"],
+
+  /* v6: ADHD ↔ study */
+  ["کیفیت تمرکز (ADHD) × مطالعه‌ی همان روز", "focusQuality", "sMin"],
+  ["شاخص ADHD (composite) × مطالعه‌ی همان روز", "adhdIndex", "sMin"],
+  ["به تعویق انداختن کارها × مطالعه‌ی همان روز", "taskProcrastination", "sMin"],
+  ["امتیاز بازیابی (composite) × مطالعه‌ی همان روز", "recoveryScore", "sMin"],
+  ["امتیاز سلامت خواب (composite) × مطالعه‌ی همان روز", "sleepHealth", "sMin"],
+
+  /* v6: exercise types ↔ study/focus */
+  ["روز تکواندو × خلق همان روز", "exerciseTaekwondo", "mood"],
+  ["روز تکواندو × کیفیت تمرکز همان روز", "exerciseTaekwondo", "focusQuality"],
+  ["روز تکواندو × کیفیت خواب شب بعد", "exerciseTaekwondo", "sleepQualityNx"],
+  ["روز پیاده‌روی × خلق همان روز", "exerciseWalking", "mood"],
+  ["روز بندسازی × خلق همان روز", "exerciseBJJ", "mood"],
+  ["دقایق ورزش × مطالعه‌ی فردا", "exerciseMin", "sMinNx"],
+  ["ورزش شدید × خواب شب بعد", "exerciseIntensityVigorous", "sleepQualityNx"],
+
+  /* v6: circadian */
+  ["نور صبح × کیفیت تمرکز (ADHD)", "morningLightMin", "focusQuality"],
+  ["نور صبح × مطالعه‌ی همان روز", "morningLightMin", "sMin"],
+  ["نور شدید شب × کیفیت خواب شب بعد", "eveningBrightLightShare", "sleepQualityNx"],
+
+  /* v6: meds */
+  ["اثر قرص صبح × کیفیت تمرکز همان روز", "medAmEffect", "focusQuality"],
+  ["اثر قرص صبح × مطالعه‌ی همان روز", "medAmEffect", "sMin"],
+  ["اثر قرص عصر × خلق همان روز", "medPmEffect", "mood"],
+  ["عوارض قرص صبح × استرس همان روز", "medAmSideCount", "stress"],
+  ["عوارض قرص عصر × خواب شب بعد", "medPmSideCount", "sleepQualityNx"],
+
+  /* v6: physical */
+  ["سردرد × مطالعه‌ی همان روز", "headache", "sMin"],
+  ["خستگی غیرمعمول × مطالعه‌ی همان روز", "fatigueBeyond", "sMin"],
+  ["خستگی غیرمعمول × کیفیت تمرکز همان روز", "fatigueBeyond", "focusQuality"],
+
+  /* v6: events */
+  ["رویداد استرس‌زا × مطالعه‌ی همان روز", "stressorCount", "sMin"],
+  ["رویداد استرس‌زا × مطالعه‌ی فردا", "stressorCount", "sMinNx"],
+  ["رویداد استرس‌زا × زمان به خواب شب بعد", "stressorCount", "sleepLatencyNx"],
+
+  /* v6: social */
+  ["تنهایی × خلق همان روز", "loneliness", "mood"],
+  ["روز با ارتباط معنادار × خلق همان روز", "socialContactShare", "mood"],
+  ["روز با ارتباط معنادار × مطالعه‌ی همان روز", "socialContactShare", "sMin"],
+
+  /* v6: wellbeing */
+  ["تحریک‌پذیری × استرس همان روز", "irritability", "stress"],
+  ["نشخوار فکری × زمان به خواب شب بعد", "rumination", "sleepLatencyNx"],
+  ["معناداری × مطالعه‌ی همان روز", "meaningfulness", "sMin"],
+
+  /* v6: caffeine timing */
+  ["ساعت آخرین کافئین × زمان به خواب شب بعد", "caffeineLastTime", "sleepLatencyNx"],
+  ["لیوان کافئین × زمان به خواب شب بعد", "caffeineCups", "sleepLatencyNx"],
+  ["دفعات قند/شیرینی × انرژی همان روز", "sugarEpisodes", "energy"],
+  ["لیوان آب × کیفیت تمرکز همان روز", "waterGlasses", "focusQuality"],
+  ["ساعت اولین وعده × انرژی همان روز", "firstMealTime", "energy"],
+
+  /* v6: masturbation */
+  ["شدت میل خودارضایی × استرس همان روز", "mastUrge", "stress"],
+  ["احساس گناه خودارضایی × خلق فردا", "mastGuilt", "moodNx"],
 ];
 
 function corrHtml(pool) {
@@ -1521,6 +1875,7 @@ function corrHtml(pool) {
   for (const [label, kx, ky] of CORRS) {
     const mx = view.MET[kx];
     const my = view.MET[ky];
+    if (!mx || !my) continue;
     const pairs = [];
     for (const d of pool) {
       const x = mx.get(d);
@@ -1536,7 +1891,7 @@ function corrHtml(pool) {
   return (
     `<div class="ca-corr">` +
     out
-      .slice(0, 14)
+      .slice(0, 20)
       .map((r) => {
         const pct = Math.abs(r.v) * 50;
         const fill = r.v >= 0 ? `left:50%; width:${pct}%; background:var(--ca-good)` : `right:50%; width:${pct}%; background:var(--ca-bad)`;
@@ -1551,7 +1906,7 @@ function corrHtml(pool) {
       })
       .join("") +
     `</div>` +
-    hintP("ضریب اسپیرمن؛ فقط بهترین ۱۴ مورد نمایش داده شده. «شب بعد / فردا» یعنی ورودی چک‌ینِ روز بعد (خوابِ ثبت‌شده در چک‌این هر روز مربوط به شبِ قبل از آن است).")
+    hintP("ضریب اسپیرمن؛ فقط بهترین ۲۰ مورد نمایش داده شده. «شب بعد / فردا» یعنی ورودی چک‌ینِ روز بعد (خوابِ ثبت‌شده در چک‌این هر روز مربوط به شبِ قبل از آن است).")
   );
 }
 
@@ -1560,7 +1915,6 @@ function crossPanel() {
   const { hist, MET } = view;
   let html = subT("همبستگی‌ها") + corrHtml(hist);
 
-  // پروفایل روزهای پرمطالعه
   const poolS = hist.filter((d) => d.sMin != null && d.hasCheckin);
   html += subT("روزهای پرمطالعه چه فرقی با روزهای کم‌مطالعه دارند؟");
   if (poolS.length < 18) {
@@ -1572,13 +1926,12 @@ function crossPanel() {
     const inA = (d) => d.sMin >= hi && d.sMin > lo;
     const inB = (d) => d.sMin <= lo;
     const pre = ["sleepHours", "sleepQuality", "restedness", "sleepLatency", "awakenings", "bedNum", "morningMood", "morningEnergy", "morningTension", "medDayShare", "prevExercise", "prevScore", "travelShare"].map((k) => MET[k]);
-    const co = ["mood", "stress", "anxiety", "focus", "energy", "score"].map((k) => MET[k]);
+    const co = ["mood", "stress", "anxiety", "focus", "focusQuality", "energy", "score"].map((k) => MET[k]);
     html += hintP(`گروه «پرمطالعه»: ${fmtH(hi)} ساعت یا بیشتر در روز؛ «کم‌مطالعه»: ${fmtH(lo)} ساعت یا کمتر.`);
     html += subT("شرایط قبل از شروع روز") + compareRows(compare(poolS, inA, inB, pre), "پرمطالعه", "کم‌مطالعه");
     html += subT("حال و هوای همان روز (همزمان؛ مطالعه خودش هم اثر دارد)") + compareRows(compare(poolS, inA, inB, co), "پرمطالعه", "کم‌مطالعه");
   }
 
-  // پروفایل روزهای ذهنی خوب/بد
   const poolM = hist.filter((d) => isNum(d.score) && d.hasStudy);
   html += subT("رفتار مطالعه در روزهای ذهنیِ خوب در برابر بد");
   if (poolM.length < 18) {
@@ -1613,10 +1966,9 @@ function factorsPanel() {
       </details>`;
     })
     .join("");
-  return panel("insFactors", "عوامل مؤثر (قرص، خواب، ورزش، سفر، کافئین، …)", html + COMPARE_HINT);
+  return panel("insFactors", "عوامل مؤثر (قرص، خواب، ورزش، سفر، کافئین، رویداد، …)", html + COMPARE_HINT);
 }
 
-/* ---------- ۹) مرور هفتگی ---------- */
 function weeklyBlocks() {
   const { byNum, todayNum, days } = view;
   const firstNum = days[0].dayNum;
@@ -1641,6 +1993,7 @@ function weeklyBlocks() {
       stress: avgOf(ds, "stress"),
       anxiety: avgOf(ds, "anxiety"),
       sleep: avgOf(ds, "sleepHours"),
+      focusQuality: avgOf(ds, "focusQuality"),
       med: ds.filter((d) => d.medDay === true).length,
       travel: ds.filter((d) => d.travel === true).length,
     });
@@ -1662,6 +2015,7 @@ function weeklyPanel() {
       fx(w.stress),
       fx(w.anxiety),
       fx(w.sleep),
+      fx(w.focusQuality),
       w.med || dash,
       w.travel ? `✈ ${w.travel}` : dash,
       delta == null ? dash : { v: `${delta > 0 ? "+" : ""}${delta.toFixed(1)}`, cls: delta >= 0.5 ? "ca-cell-good" : delta <= -0.5 ? "ca-cell-bad" : "" },
@@ -1669,12 +2023,11 @@ function weeklyPanel() {
   });
   const html =
     `<div class="ca-chart" id="insChartWeeks"></div>` +
-    table(["هفته (تا دیروز)", "مطالعه (س)", "پایبندی", "امتیاز", "استرس", "اضطراب", "خواب", "روز قرص", "سفر", "Δ امتیاز"], rows) +
+    table(["هفته (تا دیروز)", "مطالعه (س)", "پایبندی", "امتیاز", "استرس", "اضطراب", "خواب", "تمرکز", "روز قرص", "سفر", "Δ امتیاز"], rows) +
     hintP("هفته‌ها ۷ روزه‌ی غلتان‌اند و به دیروز ختم می‌شوند. ببین کدام هفته‌های پرمطالعه با افت امتیاز یا خوابِ کم همراه بوده‌اند.");
   return panel("insWeekly", "مرور هفتگی", html);
 }
 
-/* ---------- پوشش داده ---------- */
 function coveragePanel() {
   const { days } = view;
   const s = days.filter((d) => d.sMin > 0).length;
@@ -1740,6 +2093,7 @@ function renderAll() {
     debtPanel(),
     timePanel(),
     qualityPanel(),
+    exercisePanel(),
     crossPanel(),
     factorsPanel(),
     weeklyPanel(),

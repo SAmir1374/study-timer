@@ -1,0 +1,298 @@
+/* ==========================================================
+   Food picker — clean, accessible, modal-friendly
+   ========================================================== */
+
+.ck-food {
+  --ck-f-radius: 10px;
+  --ck-f-bg: rgba(255, 255, 255, 0.04);
+  --ck-f-bg-hover: rgba(255, 255, 255, 0.07);
+  --ck-f-border: rgba(255, 255, 255, 0.09);
+  --ck-f-accent: var(--accent, #6ea8ff);
+  --ck-f-text: var(--text, #e5e7eb);
+  --ck-f-muted: var(--text-muted, #9aa3af);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ---------- Meal tabs with count badge ---------- */
+.ck-food .ck-food__meals {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  padding: 4px;
+  background: var(--ck-f-bg);
+  border: 1px solid var(--ck-f-border);
+  border-radius: 12px;
+}
+
+.ck-food .ck-food__meal-tab {
+  position: relative;
+  padding: 9px 6px;
+  border: 1px solid transparent;
+  background: transparent;
+  border-radius: 9px;
+  color: var(--ck-f-muted);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+
+.ck-food .ck-food__meal-tab:hover {
+  background: var(--ck-f-bg-hover);
+  color: var(--ck-f-text);
+}
+
+.ck-food .ck-food__meal-tab.is-active {
+  background: var(--ck-f-accent);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(110, 168, 255, 0.35);
+}
+
+.ck-food .ck-food__meal-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.ck-food .ck-food__meal-tab.is-active .ck-food__meal-count {
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.ck-food .ck-food__meal-count[data-count="0"] {
+  display: none;
+}
+
+/* ---------- Search ---------- */
+.ck-food .ck-food__search {
+  position: relative;
+}
+
+.ck-food .ck-food__search input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 9px 34px 9px 12px;
+  background: var(--ck-f-bg);
+  border: 1px solid var(--ck-f-border);
+  border-radius: var(--ck-f-radius);
+  color: var(--ck-f-text);
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.ck-food .ck-food__search input::placeholder {
+  color: var(--ck-f-muted);
+  opacity: 0.7;
+}
+
+.ck-food .ck-food__search input:focus {
+  border-color: var(--ck-f-accent);
+  background: var(--ck-f-bg-hover);
+}
+
+.ck-food .ck-food__search::after {
+  content: "🔍";
+  position: absolute;
+  right: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* ---------- Section title ---------- */
+.ck-food .ck-food__section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ck-food .ck-food__section-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ck-f-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  padding: 0 2px;
+}
+
+/* ---------- Chips ---------- */
+.ck-food .ck-food__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ck-food .ck-food__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  background: var(--ck-f-bg);
+  border: 1px solid var(--ck-f-border);
+  border-radius: 999px;
+  color: var(--ck-f-text);
+  font-size: 12px;
+  line-height: 1.3;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  transition: background 0.12s, border-color 0.12s, transform 0.08s;
+}
+
+.ck-food .ck-food__chip:hover {
+  border-color: var(--ck-f-accent);
+  background: rgba(110, 168, 255, 0.09);
+}
+
+.ck-food .ck-food__chip:active {
+  transform: scale(0.96);
+}
+
+.ck-food .ck-food__chip.is-active {
+  background: var(--ck-f-accent);
+  border-color: var(--ck-f-accent);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(110, 168, 255, 0.3);
+}
+
+.ck-food .ck-food__chip.is-active::before {
+  content: "✓";
+  font-weight: 700;
+  font-size: 11px;
+  margin-left: 2px;
+}
+
+/* ---------- Collapsible group ---------- */
+.ck-food .ck-food__group {
+  border: 1px solid var(--ck-f-border);
+  border-radius: var(--ck-f-radius);
+  background: var(--ck-f-bg);
+  overflow: hidden;
+}
+
+.ck-food .ck-food__group summary {
+  list-style: none;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ck-f-text);
+  user-select: none;
+  transition: background 0.15s;
+}
+
+.ck-food .ck-food__group summary::-webkit-details-marker {
+  display: none;
+}
+
+.ck-food .ck-food__group summary:hover {
+  background: var(--ck-f-bg-hover);
+}
+
+.ck-food .ck-food__group summary::after {
+  content: "▾";
+  font-size: 10px;
+  opacity: 0.55;
+  transition: transform 0.18s;
+}
+
+.ck-food .ck-food__group[open] summary::after {
+  transform: rotate(180deg);
+}
+
+.ck-food .ck-food__group[open] summary {
+  border-bottom: 1px solid var(--ck-f-border);
+}
+
+.ck-food .ck-food__group-body {
+  padding: 10px 12px 12px;
+}
+
+.ck-food .ck-food__group-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 18px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--ck-f-accent);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  margin-inline-start: 6px;
+}
+
+.ck-food .ck-food__group-count[data-count="0"] {
+  display: none;
+}
+
+/* ---------- Summary (selected items) ---------- */
+.ck-food .ck-food__summary {
+  border: 1px solid var(--ck-f-border);
+  border-radius: var(--ck-f-radius);
+  background: var(--ck-f-bg);
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ck-food .ck-food__summary-row {
+  display: flex;
+  gap: 8px;
+  font-size: 12px;
+  align-items: baseline;
+}
+
+.ck-food .ck-food__summary-row[data-active="1"] .ck-food__summary-meal {
+  color: var(--ck-f-accent);
+}
+
+.ck-food .ck-food__summary-meal {
+  font-weight: 700;
+  color: var(--ck-f-text);
+  min-width: 62px;
+  flex-shrink: 0;
+}
+
+.ck-food .ck-food__summary-items {
+  flex: 1;
+  color: var(--ck-f-muted);
+  line-height: 1.6;
+}
+
+.ck-food .ck-food__summary-items:empty::after {
+  content: "—";
+  opacity: 0.5;
+}
+
+/* ---------- Empty / hidden states ---------- */
+.ck-food .ck-food__group[hidden] {
+  display: none;
+}
+
+.ck-food .ck-food__chip[style*="display: none"] {
+  display: none !important;
+}

@@ -4,7 +4,7 @@
     "name": "Study Timer",
     "dataFormat": "study-timer-json",
     "createdAt": "2026-09-26T03:00:01.956Z",
-    "updatedAt": "2026-10-24T08:34:55.473Z",
+    "updatedAt": "2026-10-24T13:53:37.345Z",
     "timeZone": "Asia/Tehran"
   },
   "settings": {
@@ -15,10 +15,10 @@
     "reducedMotion": false,
     "autoStartNextSession": false,
     "defaultSessionMinutes": 50,
-    "lastSelectedMinutes": 50,
-    "lastSelectedSubject": "مدار منطقی",
-    "lastSelectedPractice": false,
-    "lastSelectedKind": "study"
+    "lastSelectedMinutes": 30,
+    "lastSelectedSubject": "زبان تخصصی",
+    "lastSelectedPractice": true,
+    "lastSelectedKind": "test"
   },
   "studyPlan": {
     "startDate": "2026-09-19",
@@ -3170,11 +3170,36 @@
       "analysis": null,
       "createdAt": "2026-10-24T06:57:13.241Z",
       "updatedAt": "2026-10-24T07:52:13.248Z"
+    },
+    {
+      "id": "a29673fe-5b5d-4bf2-b138-d3da971133a1",
+      "type": "test",
+      "status": "completed",
+      "subject": "زبان تخصصی",
+      "isPractice": true,
+      "topic": "واژگان عمومی",
+      "planned": {
+        "durationSeconds": 1800
+      },
+      "actual": {
+        "startedAt": "2026-10-24T13:23:31.598Z",
+        "endedAt": "2026-10-24T13:53:31.598Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 1800,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-24T13:23:31.598Z",
+      "updatedAt": "2026-10-24T13:53:36.947Z"
     }
   ],
   "derived": {
     "note": "Rebuildable from `sessions`. Safe to ignore or delete; regenerated on every save.",
-    "generatedAt": "2026-10-24T08:34:55.473Z",
+    "generatedAt": "2026-10-24T13:53:37.345Z",
     "dailySummaries": {
       "2026-09-26": {
         "studySeconds": 4320,
@@ -3302,9 +3327,9 @@
         "completedSessionCount": 0
       },
       "2026-10-24": {
-        "studySeconds": 6000,
-        "sessionCount": 2,
-        "completedSessionCount": 2
+        "studySeconds": 7800,
+        "sessionCount": 3,
+        "completedSessionCount": 3
       }
     },
     "subjectSummaries": [
@@ -3402,6 +3427,13 @@
       {
         "subject": "هوش مصنوعی",
         "kind": "practice",
+        "isPractice": true,
+        "studySeconds": 1800,
+        "sessionCount": 1
+      },
+      {
+        "subject": "زبان تخصصی",
+        "kind": "test",
         "isPractice": true,
         "studySeconds": 1800,
         "sessionCount": 1

@@ -1,6 +1,6 @@
 /* =============================================================
    dailyCheckinStore.js — connects daily-checkins.json to the app
-   Same pattern as weeklyPlanStore.js.
+   Schema v6: adds interventions/phases + itemRegistry accessors.
    ============================================================= */
 
 import {
@@ -106,7 +106,7 @@ function saveNow() {
       }
       setStatus("saving");
       const text = serializeCheckinDocument(doc);
-      parseCheckinDocument(text); // self-check
+      parseCheckinDocument(text); // self-check (also recomputes scores)
       await FileStorage.writeText(handle, text);
       const readBack = await FileStorage.readText(handle);
       if (readBack !== text) throw new Error("Write verification failed");
@@ -291,11 +291,12 @@ export const DailyCheckinStore = {
     if (handle && dirty && status.state !== "permission") void saveNow();
   },
   hasUnsavedData() {
-    if (!handle) return false; // ← اگر وصل نیست، «کثیف» حساب نمی‌شود
+    if (!handle) return false;
     return dirty;
   },
 
-  /** ذخیره‌ی چک‌این امروز (یا جایگزینی اگر موجود بود) */
+  /** ذخیره‌ی چک‌این امروز (یا جایگزینی اگر موجود بود).
+   *  upsertEntry خودکار scores را محاسبه می‌کند. */
   saveCheckin(dateKey, values) {
     const entry = createCheckinEntry(dateKey);
     Object.assign(entry, values);
@@ -330,5 +331,64 @@ export const DailyCheckinStore = {
     hooks.onLoaded();
     hooks.onMessage("toastImported", "success");
     return true;
+  },
+
+  /* ---------------- Interventions (N-of-1 phases) ---------------- */
+
+  getInterventions() {
+    return doc.interventions || [];
+  },
+  addIntervention({ id, name, type, startedAt, endedAt = null, dosage = null, notes = null, color = null }) {
+    if (!id || !name || !type || !startedAt) return null;
+    doc.interventions = doc.interventions || [];
+    if (doc.interventions.some((x) => x.id === id)) return null;
+    const item = { id, name, type, startedAt, endedAt, dosage, notes, color };
+    doc.interventions.push(item);
+    markChanged(true);
+    return item;
+  },
+  endIntervention(id, endedAt) {
+    const it = (doc.interventions || []).find((x) => x.id === id);
+    if (!it) return null;
+    it.endedAt = endedAt;
+    markChanged(true);
+    return it;
+  },
+  removeIntervention(id) {
+    doc.interventions = (doc.interventions || []).filter((x) => x.id !== id);
+    markChanged(true);
+  },
+
+  /* ---------------- Phases (baseline / treatment / washout) ---------------- */
+
+  getPhases() {
+    return doc.phases || [];
+  },
+  addPhase({ startDate, endDate = null, type, label = null }) {
+    if (!startDate || !type) return null;
+    doc.phases = doc.phases || [];
+    const ph = { startDate, endDate, type, label };
+    doc.phases.push(ph);
+    markChanged(true);
+    return ph;
+  },
+  removePhase(index) {
+    if (!Array.isArray(doc.phases)) return;
+    if (index < 0 || index >= doc.phases.length) return;
+    doc.phases.splice(index, 1);
+    markChanged(true);
+  },
+
+  /* ---------------- Item registry (semantic labels for raw items) ---------------- */
+
+  getItemRegistry() {
+    return doc.itemRegistry || {};
+  },
+  registerItem(key, def) {
+    if (!key || !def) return null;
+    doc.itemRegistry = doc.itemRegistry || {};
+    doc.itemRegistry[key] = def;
+    markChanged(true);
+    return def;
   },
 };

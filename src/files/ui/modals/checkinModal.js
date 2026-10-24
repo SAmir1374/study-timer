@@ -1,23 +1,30 @@
 /* =============================================================
    ui/modals/checkinModal.js — Daily check-in modal (صبح / شب)
-   بدنه‌ی مودال از روی تعریف سؤال‌ها ساخته می‌شود.
+   Schema v6: modular sections, ADHD effect + side effects, reframed
+   masturbation, exercise type/intensity, physical/social/events/
+   circadian, responseMeta.
    ============================================================= */
 
 import { MEALS, FOOD_GROUPS, foodLabel } from "../../daliycheck/foodCatalog.js";
 import { DailyCheckinStore } from "../../daliycheck/dailyCheckinStore.js";
-import { createCheckinEntry, prevDateKey } from "../../daliycheck/dailyCheckinData.js";
+import {
+  createCheckinEntry,
+  prevDateKey,
+  computeSleepHours,
+} from "../../daliycheck/dailyCheckinData.js";
+
+// re-export برای سازگاری با کدهای قبلی
+export { computeSleepHours };
 
 const $ = (id) => document.getElementById(id);
 const bodyEl = () => $("checkinModalBody");
 
-let ctx = null; // { dateKey, slot, catchUp, sections, base, answers, choices, foodSel, activeMeal, freq, warned }
+let ctx = null;
 let bound = false;
 
 /* ============================================================
-   تعریف پرسشنامه
-   همه‌ی جمله‌ها: ۱ = اصلاً … ۵ = خیلی زیاد
-   reverse = نمره‌گذاری معکوس (۶ − پاسخ)
-   جهت نمره‌ها: خلق/انرژی/تمرکز بالا = خوب ؛ استرس/اضطراب بالا = بد
+   CONSTRUCTS — خلق / استرس / انرژی / تمرکز / اضطراب
+   ۱ = اصلاً · ۵ = خیلی زیاد
    ============================================================ */
 
 const CONSTRUCTS = {
@@ -64,6 +71,10 @@ const CONSTRUCTS = {
   },
 };
 
+/* ============================================================
+   Static option lists
+   ============================================================ */
+
 const AMOUNTS = [
   ["0.5", "نصف"],
   ["1", "۱ عدد"],
@@ -81,10 +92,74 @@ const YES_NO = [
   ["no", "نه"],
 ];
 
-/* ---------- نمره‌گذاری ---------- */
+const EXERCISE_TYPES = [
+  ["taekwondo", "تکواندو"],
+  ["bjj", "جیوجیتسو / بندسازی"],
+  ["walking", "پیاده‌روی"],
+  ["cardio", "هوازی"],
+  ["strength", "قدرتی"],
+  ["yoga", "یوگا / کشش"],
+  ["sports", "ورزش تیمی"],
+  ["other", "سایر"],
+];
+
+const EXERCISE_INTENSITIES = [
+  ["light", "سبک"],
+  ["moderate", "متوسط"],
+  ["vigorous", "شدید"],
+];
+
+const EXERCISE_TIMES = [
+  ["morning", "صبح"],
+  ["afternoon", "بعدازظهر"],
+  ["evening", "شب"],
+];
+
+const MAST_CONTEXTS = [
+  ["stress", "استرس"],
+  ["boredom", "بی‌حوصلگی"],
+  ["habit", "عادت"],
+  ["choice", "انتخاب"],
+  ["other", "سایر"],
+];
+
+const EXPLICIT_CONTEXTS = [
+  ["stress", "استرس"],
+  ["boredom", "بی‌حوصلگی"],
+  ["habit", "عادت"],
+  ["choice", "انتخاب"],
+  ["other", "سایر"],
+];
+
+const MED_SIDE_EFFECTS = [
+  ["appetite_loss", "کاهش اشتها"],
+  ["insomnia", "بی‌خوابی"],
+  ["jitteriness", "بی‌قراری"],
+  ["crash", "افت انرژی"],
+  ["headache", "سردرد"],
+  ["dry_mouth", "خشکی دهان"],
+  ["irritability", "تحریک‌پذیری"],
+  ["other", "سایر"],
+];
+
+const EVENT_TAGS = [
+  ["conflict", "تعارض"],
+  ["deadline", "ددلاین"],
+  ["health", "سلامت"],
+  ["money", "مالی"],
+  ["family", "خانواده"],
+  ["work", "کار"],
+  ["social", "اجتماعی"],
+  ["romantic", "عاطفی"],
+  ["other", "سایر"],
+];
+
+/* ============================================================
+   Scoring
+   ============================================================ */
 
 const round1 = (n) => Math.round(n * 10) / 10;
-const to10 = (mean) => round1(1 + ((mean - 1) * 9) / 4); // میانگین ۱–۵ → ۱–۱۰
+const to10 = (mean) => round1(1 + ((mean - 1) * 9) / 4); // 1–5 → 1–10
 
 function single(id) {
   const v = ctx.answers[id];
@@ -99,19 +174,17 @@ function construct(name) {
     if (v == null) continue;
     vals.push(it.reverse ? 6 - v : v);
   }
-  // حداقل دوسوم جمله‌ها باید جواب داده شده باشند
   if (vals.length < Math.max(2, Math.ceil(items.length * 0.66))) return null;
   return to10(vals.reduce((a, b) => a + b, 0) / vals.length);
 }
 
 /* ============================================================
-   HTML builders (فقط کلاس‌های موجود در برنامه)
+   HTML builders
    ============================================================ */
 
 const divider = (t) => `<div class="settings-divider">${t}</div>`;
 const hint = (t) => `<p class="settings-hint">${t}</p>`;
 
-/* showIf = id یک چک‌باکس ؛ showChoice = "id:value" برای دکمه‌های انتخابی */
 const showAttr = (showIf, showChoice) =>
   showIf ? ` data-showif="${showIf}" hidden` : showChoice ? ` data-showchoice="${showChoice}" hidden` : "";
 
@@ -125,13 +198,50 @@ const likertRow = (id, text, showIf = "") => `
     </div>
   </div>`;
 
-const choiceRow = (id, text, options, showIf = "") => `
-  <div class="field"${showAttr(showIf)}>
+const choiceRow = (id, text, options, showIf = "", showChoice = "") => `
+  <div class="field"${showAttr(showIf, showChoice)}>
     <span class="field__label">${text}</span>
-    <div class="preset-grid" data-choice="${id}" style="grid-template-columns:repeat(${options.length},1fr)">
+    <div class="preset-grid" data-choice="${id}" style="grid-template-columns:repeat(${Math.min(options.length, 6)},1fr)">
       ${options
         .map(([v, l]) => `<button type="button" class="preset-btn" data-v="${v}" aria-pressed="false">${l}</button>`)
         .join("")}
+    </div>
+  </div>`;
+
+/* Severity 0–3 (as a choice row) */
+const severityRow = (id, text, showIf = "", showChoice = "") => `
+  <div class="field"${showAttr(showIf, showChoice)}>
+    <span class="field__label">${text}</span>
+    <div class="preset-grid" data-choice="${id}" style="grid-template-columns:repeat(4,1fr)">
+      ${[["0", "هیچ"], ["1", "کم"], ["2", "متوسط"], ["3", "شدید"]]
+        .map(([v, l]) => `<button type="button" class="preset-btn" data-v="${v}" aria-pressed="false">${l}</button>`)
+        .join("")}
+    </div>
+  </div>`;
+
+/* 0–10 VAS as numeric input */
+const vasField = (id, label, showIf = "", showChoice = "") => `
+  <label class="field"${showAttr(showIf, showChoice)}>
+    <span class="field__label">${label}</span>
+    <input type="number" id="ck_${id}" min="0" max="10" step="1" inputmode="numeric"
+           placeholder="۰ = هیچ … ۱۰ = عالی" />
+  </label>`;
+
+/* Chip row (single-select, flex-wrap — for many options) */
+const chipRow = (id, text, options, showIf = "", showChoice = "") => `
+  <div class="field"${showAttr(showIf, showChoice)}>
+    <span class="field__label">${text}</span>
+    <div style="display:flex;flex-wrap:wrap;gap:6px" data-choice="${id}">
+      ${options.map(([v, l]) => `<button type="button" class="preset-btn" data-v="${v}" aria-pressed="false">${l}</button>`).join("")}
+    </div>
+  </div>`;
+
+/* Multi-select chip row */
+const multiChipRow = (id, text, options, showIf = "", showChoice = "") => `
+  <div class="field"${showAttr(showIf, showChoice)}>
+    <span class="field__label">${text}</span>
+    <div style="display:flex;flex-wrap:wrap;gap:6px" data-multichoice="${id}">
+      ${options.map(([v, l]) => `<button type="button" class="preset-btn" data-mv="${v}" aria-pressed="false">${l}</button>`).join("")}
     </div>
   </div>`;
 
@@ -162,12 +272,12 @@ const toggle = (id, label) => `
 const constructHtml = (name) =>
   divider(CONSTRUCTS[name].title) + CONSTRUCTS[name].items.map((it) => likertRow(it.id, it.text)).join("");
 
-/* سفر: تیک + یادداشت «از دیروز ادامه داده شد» */
+/* سفر: تیک + یادداشت ادامه از دیروز */
 const travelBlock = () =>
   toggle("travel", "امروز در سفر هستم / بودم") +
   `<p class="settings-hint" id="ck_travelNote" hidden>از دیروز ادامه داده شد — اگر برگشته‌ای تیک را بردار.</p>`;
 
-/* قرص: key = Morning | Afternoon */
+/* قرص */
 const medRow = (key, toggleLabel) =>
   `<div class="settings-options">` +
   toggle(`med${key}Taken`, toggleLabel) +
@@ -175,34 +285,52 @@ const medRow = (key, toggleLabel) =>
   choiceRow(`med${key}Amount`, "چقدر؟", AMOUNTS, `med${key}Taken`) +
   timeField(`med${key}Time`, "ساعت مصرف", `med${key}Taken`);
 
-/* ---------- تغذیه ---------- */
+/* ---------- Nutrition ---------- */
 
 const FLEX = "display:flex;flex-wrap:wrap;gap:6px";
 
 const foodChip = (id, label) =>
-  `<button type="button" class="preset-btn" data-food-id="${id}" aria-pressed="false">${label}</button>`;
+  `<button type="button" class="preset-btn ck-food__chip" data-food-id="${id}" aria-pressed="false">${label}</button>`;
 
 const foodGroupHtml = (g) => `
-  <details class="field">
-    <summary class="field__label">${g.title}</summary>
-    <div style="${FLEX};margin-top:8px">${g.items.map(([id, label]) => foodChip(id, label)).join("")}</div>
+  <details class="ck-food__group" data-food-group="${g.id}">
+    <summary>
+      <span>${g.title}</span>
+      <span class="ck-food__group-count" data-group-count="${g.id}" data-count="0"></span>
+    </summary>
+    <div class="ck-food__group-body">
+      <div class="ck-food__chips">
+        ${g.items.map(([id, label]) => foodChip(id, label)).join("")}
+      </div>
+    </div>
   </details>`;
 
 const mealTabs = () => `
-  <div class="preset-grid" style="grid-template-columns:repeat(4,1fr)">
+  <div class="ck-food__meals">
     ${MEALS.map(
-      (m) => `<button type="button" class="preset-btn" data-meal="${m.id}" aria-pressed="false">${m.title}</button>`
+      (m) => `
+      <button type="button" class="preset-btn ck-food__meal-tab" data-meal="${m.id}" aria-pressed="false">
+        ${m.title}
+        <span class="ck-food__meal-count" data-count="0" data-meal-count="${m.id}"></span>
+      </button>`
     ).join("")}
   </div>`;
+
+/* ============================================================
+   SECTIONS
+   ============================================================ */
 
 const SECTIONS = {
   travel: () => divider("سفر") + `<div class="settings-options">` + travelBlock() + `</div>`,
 
-  /* ورزش «دیروز» — جواب روی ورودی دیروز ذخیره می‌شود */
+  /* ورزش دیروز — روی ورودی دیروز ذخیره می‌شود */
   exYesterday: () =>
     divider("ورزش دیروز") +
     choiceRow("exY", `دیروز (${prevDateKey(ctx.dateKey)}) ورزش کردی؟`, YES_NO) +
-    numField("exYMin", "چند دقیقه؟", `min="0" max="600" inputmode="numeric"`, "", "exY:yes"),
+    numField("exYMin", "چند دقیقه؟", `min="0" max="600" inputmode="numeric"`, "", "exY:yes") +
+    chipRow("exYType", "چه ورزشی؟", EXERCISE_TYPES, "", "exY:yes") +
+    choiceRow("exYIntensity", "شدت", EXERCISE_INTENSITIES, "", "exY:yes") +
+    choiceRow("exYTime", "چه موقعی از روز؟", EXERCISE_TIMES, "", "exY:yes"),
 
   sleep: () =>
     divider("خواب دیشب") +
@@ -212,6 +340,9 @@ const SECTIONS = {
     numField("hours", "مدت خواب (ساعت — خودکار)", `min="0" max="24" step="0.1" inputmode="decimal"`) +
     numField("latency", "چند دقیقه طول کشید تا خوابت ببرد؟", `min="0" max="600" inputmode="numeric"`) +
     numField("awakenings", "چند بار شب بیدار شدی؟", `min="0" max="20" inputmode="numeric"`) +
+    numField("naps", "چرت روزانه (دقیقه)", `min="0" max="300" inputmode="numeric"`) +
+    timeField("lastCaffeineTime", "آخرین کافئین دیشب قبل خواب") +
+    numField("screenBeforeBed", "صفحه‌نمایش قبل خواب (دقیقه)", `min="0" max="300" inputmode="numeric"`) +
     `</div>` +
     likertRow("s_quality", "کیفیت کلی خواب (۱ = خیلی بد، ۵ = عالی)") +
     likertRow("s_rested", "وقتی بیدار شدم احساس استراحت‌کردگی داشتم"),
@@ -227,13 +358,19 @@ const SECTIONS = {
   medMorning: () =>
     divider("قرص ADHD — صبح") +
     hint("اگر هنوز نخورده‌ای تیک را نزن؛ شب مقدار نهایی را اصلاح می‌کنی.") +
-    medRow("Morning", "امروز صبح قرص خوردم"),
+    medRow("Morning", "امروز صبح قرص خوردم") +
+    vasField("medMorningEffect", "اثر قرص صبح (۰ = هیچ، ۱۰ = عالی)", "medMorningTaken") +
+    multiChipRow("medMorningSide", "عوارض صبح", MED_SIDE_EFFECTS, "medMorningTaken"),
 
   medDay: () =>
     divider("قرص ADHD") +
-    hint("صبح و عصر را جدا ثبت کن؛ ساعت مصرف برای تحلیل خواب مهم است.") +
+    hint("صبح و عصر را جدا ثبت کن؛ اثر و عوارض فقط اگر خوردی.") +
     medRow("Morning", "صبح قرص خوردم") +
-    medRow("Afternoon", "عصر / بعدازظهر هم قرص (یا نصف) خوردم"),
+    vasField("medMorningEffect", "اثر قرص صبح (۰ = هیچ، ۱۰ = عالی)", "medMorningTaken") +
+    multiChipRow("medMorningSide", "عوارض صبح", MED_SIDE_EFFECTS, "medMorningTaken") +
+    medRow("Afternoon", "عصر / بعدازظهر هم قرص (یا نصف) خوردم") +
+    vasField("medAfternoonEffect", "اثر قرص عصر (۰ = هیچ، ۱۰ = عالی)", "medAfternoonTaken") +
+    multiChipRow("medAfternoonSide", "عوارض عصر", MED_SIDE_EFFECTS, "medAfternoonTaken"),
 
   now: () =>
     divider("همین الان") +
@@ -248,6 +385,47 @@ const SECTIONS = {
   focus: () => constructHtml("focus"),
   anxiety: () => constructHtml("anxiety"),
 
+  wellbeing: () =>
+    divider("احساسات و معنا") +
+    hint("۱ = اصلاً · ۵ = خیلی زیاد") +
+    likertRow("irritability", "امروز زود عصبانی یا بی‌حوصله می‌شدم") +
+    likertRow("anhedonia", "از چیزهایی که قبلاً لذت می‌بردم، امروز لذت نبردم") +
+    likertRow("rumination", "افکار تکراری و مزاحم داشتم که نمی‌تونستم متوقفشون کنم") +
+    likertRow("meaningfulness", "امروز حس کردم کارهام معنادار است"),
+
+  adhd: () =>
+    divider("تمرکز و ADHD") +
+    hint("۱ = اصلاً · ۵ = خیلی زیاد") +
+    likertRow("focusQuality", "امروز روی کارهام خوب تمرکز می‌کردم") +
+    likertRow("taskProcrastination", "شروع کارها را به تعویق انداختم") +
+    likertRow("emotionalDysregulation", "احساساتم را سخت کنترل می‌کردم"),
+
+  physical: () =>
+    divider("علائم جسمی") +
+    severityRow("physHeadache", "سردرد") +
+    severityRow("physBodyPain", "درد بدن") +
+    severityRow("physFatigue", "خستگی غیرمعمول") +
+    severityRow("physDigestive", "مشکل گوارشی"),
+
+  social: () =>
+    divider("ارتباط اجتماعی") +
+    `<div class="settings-options">` +
+    toggle("socialContact", "امروز ارتباط معنادار با کسی داشتم") +
+    `</div>` +
+    likertRow("socialLonely", "احساس تنهایی می‌کردم"),
+
+  events: () =>
+    divider("رویدادها") +
+    severityRow("eventsStressors", "تعداد رویدادهای استرس‌زا") +
+    multiChipRow("eventTags", "چه نوع؟ (چندتایی)", EVENT_TAGS),
+
+  circadian: () =>
+    divider("ریتم شبانه‌روزی") +
+    numField("circMorningLight", "نور بیرون در صبح (دقیقه — ۰ تا ۱۸۰)", `min="0" max="180" inputmode="numeric"`) +
+    `<div class="settings-options">` +
+    toggle("circEveningBright", "شب در معرض نور شدید (صفحه/لامپ) بودم") +
+    `</div>`,
+
   activities: () =>
     divider("فعالیت‌ها") +
     hint("ورزش را فردا صبح (برای دیروز) ثبت می‌کنی.") +
@@ -259,39 +437,48 @@ const SECTIONS = {
 
   mast: () =>
     divider("خودارضایی (امروز)") +
-    `<div class="settings-options">` +
-    toggle("mastPos", "مثبت — از روی میل و لذت") +
-    numField("mastPosCount", "تعداد", `min="0" max="20" inputmode="numeric"`, "mastPos") +
-    toggle("mastNeg", "منفی — از روی فشار روانی / اجبار") +
-    numField("mastNegCount", "تعداد", `min="0" max="20" inputmode="numeric"`, "mastNeg") +
-    `</div>`,
+    `<div class="settings-options">` + toggle("mastDone", "انجام دادم") + `</div>` +
+    numField("mastCount", "تعداد", `min="0" max="20" inputmode="numeric"`, "mastDone") +
+    severityRow("mastUrge", "شدت میل / فشار درونی", "mastDone") +
+    severityRow("mastGuilt", "احساس گناه یا پشیمانی", "mastDone") +
+    chipRow("mastContext", "بیشتر از چه بابت؟", MAST_CONTEXTS, "mastDone"),
 
   explicit: () =>
     divider("محتوای تحریک‌آمیز (امروز)") +
-    `<div class="settings-options">` +
-    toggle("explicitViewed", "پورن یا صفحه‌های تحریک‌آمیز دیدم") +
+    `<div class="settings-options">` + toggle("explicitViewed", "پورن یا صفحه‌های تحریک‌آمیز دیدم") + `</div>` +
     numField("explicitMin", "حدوداً چند دقیقه؟", `min="0" max="1440" inputmode="numeric"`, "explicitViewed") +
-    `</div>` +
-    choiceRow("explicitDriver", "بیشتر چطور بود؟", DRIVERS, "explicitViewed"),
+    choiceRow("explicitDriver", "بیشتر چطور بود؟", DRIVERS, "explicitViewed") +
+    severityRow("explicitRegret", "احساس پشیمانی", "explicitViewed") +
+    chipRow("explicitContext", "بیشتر از چه بابت؟", EXPLICIT_CONTEXTS, "explicitViewed"),
 
   food: () =>
-    divider("تغذیه") +
-    hint("وعده را انتخاب کن و خوراکی‌هایی که خوردی را بزن (دوباره زدن = حذف).") +
-    mealTabs() +
-    `<div class="field">
-       <span class="field__label">پرتکرارها</span>
-       <div id="ck_frequent" style="${FLEX}"></div>
-     </div>` +
-    FOOD_GROUPS.map(foodGroupHtml).join("") +
-    `<div id="ck_foodsum"></div>` +
-    textField("foodOther", "غذا یا خوراکی دیگر (اختیاری)", `maxlength="200" autocomplete="off"`) +
-    `<div class="settings-grid">` +
-    numField("caffeine", "قهوه / چای / انرژی‌زا (تعداد)", `min="0" max="20" inputmode="numeric"`) +
-    `</div>` +
-    likertRow("f_quality", "کیفیت تغذیه‌ی امروز (۱ = خیلی بد، ۵ = عالی)") +
-    `<div class="settings-options">` +
-    toggle("water", "آب کافی خوردی؟") +
-    `</div>`,
+  divider("تغذیه") +
+  hint("وعده را انتخاب کن، خوراکی‌ها را بزن (دوباره زدن = حذف)، و در صورت نیاز جستجو کن.") +
+  `<div class="ck-food">
+     ${mealTabs()}
+     <div class="ck-food__search">
+       <input type="text" id="ck_foodSearch" placeholder="جستجوی خوراکی (مثلاً: برنج، تخم‌مرغ، پیتزا)…" autocomplete="off" />
+     </div>
+     <div class="ck-food__section">
+       <div class="ck-food__section-title">پرتکرارها</div>
+       <div class="ck-food__chips" id="ck_frequent"></div>
+     </div>
+     ${FOOD_GROUPS.map(foodGroupHtml).join("")}
+     <div class="ck-food__summary" id="ck_foodsum"></div>
+   </div>` +
+  `<div style="margin-top:10px">` +
+  textField("foodOther", "غذا یا خوراکی دیگر (اختیاری)", `maxlength="200" autocomplete="off"`) +
+  `</div>` +
+  `<div class="settings-grid">` +
+  numField("waterGlasses", "لیوان آب (۰–۱۵)", `min="0" max="15" inputmode="numeric"`) +
+  numField("caffeineCups", "قهوه / چای / انرژی‌زا (لیوان)", `min="0" max="10" inputmode="numeric"`) +
+  timeField("caffeineLastTime", "آخرین کافئین امروز") +
+  numField("sugarEpisodes", "دفعات مصرف قند / شیرینی امروز", `min="0" max="10" inputmode="numeric"`) +
+  timeField("firstMealTime", "اولین وعده (ساعت)") +
+  timeField("lastMealTime", "آخرین وعده (ساعت)") +
+  `</div>` +
+  likertRow("f_quality", "کیفیت تغذیه‌ی امروز (۱ = خیلی بد، ۵ = عالی)") +
+  `<div class="settings-options">` + toggle("water", "آب کافی خوردی؟") + `</div>`,
 
   day: () =>
     divider("جمع‌بندی") +
@@ -306,19 +493,8 @@ const SECTIONS = {
 };
 
 /* ============================================================
-   Sleep-hours helpers
+   Sleep-hours auto-fill
    ============================================================ */
-
-export function computeSleepHours(bedTime, wakeTime) {
-  if (!bedTime || !wakeTime) return null;
-  const [bh, bm] = bedTime.split(":").map(Number);
-  const [wh, wm] = wakeTime.split(":").map(Number);
-  if (![bh, bm, wh, wm].every(Number.isFinite)) return null;
-  let bedMin = bh * 60 + bm;
-  let wakeMin = wh * 60 + wm;
-  if (wakeMin <= bedMin) wakeMin += 24 * 60;
-  return round1((wakeMin - bedMin) / 60);
-}
 
 export function recalcSleepHours() {
   const hours = computeSleepHours($("ck_bedTime")?.value || "", $("ck_wakeTime")?.value || "");
@@ -328,7 +504,7 @@ export function recalcSleepHours() {
 }
 
 /* ============================================================
-   UI state helpers
+   UI helpers
    ============================================================ */
 
 function localKey(d = new Date()) {
@@ -336,20 +512,29 @@ function localKey(d = new Date()) {
   return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
 }
 
-/* اگر اسلات صریحاً داده نشد: بازه‌ی ۰۴–۱۸ صبح (مگر صبح ثبت شده)، بقیه شب */
 function inferSlot(entry, now = new Date()) {
   const h = now.getHours();
   if (h >= 18 || h < 4) return "evening";
   return entry?.slots?.morning ? "evening" : "morning";
 }
 
-/* لایکرت (عدد) و choice (رشته) — هر دو با «دوباره‌زدن = پاک‌کردن» */
 function paint(id) {
   const grid = bodyEl()?.querySelector(`[data-likert="${id}"], [data-choice="${id}"]`);
   if (!grid || !ctx) return;
   const cur = (grid.dataset.likert ? ctx.answers : ctx.choices)[id];
   grid.querySelectorAll(".preset-btn").forEach((b) => {
     const on = cur != null && String(cur) === b.dataset.v;
+    b.classList.toggle("is-active", on);
+    b.setAttribute("aria-pressed", String(on));
+  });
+}
+
+function paintMulti(id) {
+  const grid = bodyEl()?.querySelector(`[data-multichoice="${id}"]`);
+  if (!grid || !ctx) return;
+  const set = ctx.multiChoices[id] || new Set();
+  grid.querySelectorAll(".preset-btn").forEach((b) => {
+    const on = set.has(b.dataset.mv);
     b.classList.toggle("is-active", on);
     b.setAttribute("aria-pressed", String(on));
   });
@@ -381,7 +566,33 @@ function clearDependents(toggleId) {
         delete ctx.choices[g.dataset.choice];
         paint(g.dataset.choice);
       });
+      w.querySelectorAll("[data-multichoice]").forEach((g) => {
+        const id = g.dataset.multichoice;
+        ctx.multiChoices[id]?.clear();
+        paintMulti(id);
+      });
     });
+}
+
+function clearHiddenDependents() {
+  const root = bodyEl();
+  if (!root || !ctx) return;
+  root.querySelectorAll("[data-showchoice][hidden]").forEach((w) => {
+    w.querySelectorAll("input").forEach((i) => (i.value = ""));
+    w.querySelectorAll("[data-likert]").forEach((g) => {
+      delete ctx.answers[g.dataset.likert];
+      paint(g.dataset.likert);
+    });
+    w.querySelectorAll("[data-choice]").forEach((g) => {
+      delete ctx.choices[g.dataset.choice];
+      paint(g.dataset.choice);
+    });
+    w.querySelectorAll("[data-multichoice]").forEach((g) => {
+      const id = g.dataset.multichoice;
+      ctx.multiChoices[id]?.clear();
+      paintMulti(id);
+    });
+  });
 }
 
 function showMsg(text) {
@@ -397,9 +608,8 @@ function hideMsg() {
   if (m) m.hidden = true;
 }
 
-/* ---------- غذا ---------- */
+/* ---------- Food ---------- */
 
-/* تعداد استفاده‌ی هر خوراکی در هر وعده، از تاریخچه */
 function computeFoodFrequency() {
   const freq = { breakfast: {}, lunch: {}, dinner: {}, snack: {} };
   try {
@@ -435,20 +645,45 @@ function paintFood() {
   if (!root || !ctx || !$("ck_foodsum")) return;
   const sel = ctx.foodSel[ctx.activeMeal];
 
+  // 1) Chips active state
   root.querySelectorAll("[data-food-id]").forEach((b) => {
     const on = sel.has(b.dataset.foodId);
     b.classList.toggle("is-active", on);
     b.setAttribute("aria-pressed", String(on));
   });
+
+  // 2) Meal tabs active state
   root.querySelectorAll("[data-meal]").forEach((b) => {
     const on = b.dataset.meal === ctx.activeMeal;
     b.classList.toggle("is-active", on);
     b.setAttribute("aria-pressed", String(on));
   });
 
+  // 3) Meal tab counts
+  root.querySelectorAll("[data-meal-count]").forEach((el) => {
+    const n = ctx.foodSel[el.dataset.mealCount]?.size || 0;
+    el.textContent = n > 0 ? String(n) : "";
+    el.dataset.count = String(n);
+  });
+
+  // 4) Group counts (per currently active meal)
+  root.querySelectorAll("[data-group-count]").forEach((el) => {
+    const groupId = el.dataset.groupCount;
+    const group = FOOD_GROUPS.find((g) => g.id === groupId);
+    if (!group) return;
+    const n = group.items.filter(([id]) => sel.has(id)).length;
+    el.textContent = n > 0 ? String(n) : "";
+    el.dataset.count = String(n);
+  });
+
+  // 5) Summary (all meals)
   $("ck_foodsum").innerHTML = MEALS.map((m) => {
     const ids = [...ctx.foodSel[m.id]];
-    return `<p class="settings-hint"><b>${m.title}:</b> ${ids.length ? ids.map((id) => foodLabel(id) ?? id).join("، ") : "—"}</p>`;
+    const active = m.id === ctx.activeMeal ? "1" : "0";
+    return `<div class="ck-food__summary-row" data-active="${active}">
+      <span class="ck-food__summary-meal">${m.title}</span>
+      <span class="ck-food__summary-items">${ids.length ? ids.map((id) => foodLabel(id) ?? id).join("، ") : "—"}</span>
+    </div>`;
   }).join("");
 }
 
@@ -456,6 +691,8 @@ function setMeal(mealId) {
   ctx.activeMeal = mealId;
   renderFrequent();
   paintFood();
+  const q = $("ck_foodSearch")?.value;
+  if (q) filterFoods(q); // ← این خط
 }
 
 function toggleFood(id) {
@@ -463,6 +700,51 @@ function toggleFood(id) {
   if (sel.has(id)) sel.delete(id);
   else sel.add(id);
   paintFood();
+}
+
+/* ---------- Food search ---------- */
+
+function normalizeFa(s) {
+  if (!s) return "";
+  return String(s)
+    .replace(/[يى]/g, "ی")
+    .replace(/ك/g, "ک")
+    .replace(/[\u064B-\u0652\u0670]/g, "") // اعراب
+    .replace(/\u200c/g, "") // نیم‌فاصله
+    .toLowerCase()
+    .trim();
+}
+
+function filterFoods(query) {
+  const root = bodyEl();
+  if (!root) return;
+  const q = normalizeFa(query);
+
+  root.querySelectorAll(".ck-food__group").forEach((groupEl) => {
+    const groupId = groupEl.dataset.foodGroup;
+    const group = FOOD_GROUPS.find((g) => g.id === groupId);
+    if (!group) return;
+
+    let visibleCount = 0;
+    groupEl.querySelectorAll("[data-food-id]").forEach((chip) => {
+      const id = chip.dataset.foodId;
+      const label = normalizeFa(foodLabel(id) || "");
+      const idNorm = normalizeFa(id);
+      const groupTitle = normalizeFa(group.title);
+      const matches = !q || label.includes(q) || idNorm.includes(q) || groupTitle.includes(q);
+      chip.style.display = matches ? "" : "none";
+      if (matches) visibleCount++;
+    });
+
+    if (q) {
+      groupEl.style.display = visibleCount > 0 ? "" : "none";
+      if (visibleCount > 0) groupEl.open = true;
+    } else {
+      groupEl.style.display = "";
+      // وقتی جستجو پاک شد، گروه‌ها را در حالت اولیه (بسته) بگذار
+      groupEl.open = false;
+    }
+  });
 }
 
 /* ---------- fill ---------- */
@@ -479,45 +761,85 @@ function fill(e) {
 
   chk("travel", e.travel === true);
 
+  // sleep
   set("bedTime", e.sleep?.bedTime);
   set("wakeTime", e.sleep?.wakeTime);
   set("hours", e.sleep?.hours);
   set("latency", e.sleep?.latencyMin);
   set("awakenings", e.sleep?.awakenings);
+  set("naps", e.sleep?.napsMin);
+  set("lastCaffeineTime", e.sleep?.lastCaffeineTime);
+  set("screenBeforeBed", e.sleep?.screenBeforeBedMin);
 
+  // routine
   chk("routineDone", e.relaxationRoutine?.done);
   set("routineSteps", e.relaxationRoutine?.steps);
 
-  // قرص
+  // medication
   for (const [key, p] of [
     ["Morning", e.medication?.morning],
     ["Afternoon", e.medication?.afternoon],
   ]) {
     chk(`med${key}Taken`, p?.taken);
     set(`med${key}Time`, p?.time);
+    set(`med${key}Effect`, p?.effect);
     if (p?.taken && p?.amount != null) ctx.choices[`med${key}Amount`] = String(p.amount);
+    for (const se of p?.sideEffects || []) {
+      ctx.multiChoices[`med${key}Side`]?.add(se);
+    }
   }
 
   chk("activity1", e.activity1 === true);
   chk("operation1", e.operation1 === true);
 
-  chk("mastPos", e.masturbation?.positive?.done);
-  set("mastPosCount", e.masturbation?.positive?.count);
-  chk("mastNeg", e.masturbation?.negative?.done);
-  set("mastNegCount", e.masturbation?.negative?.count);
+  // masturbation
+  chk("mastDone", e.masturbation?.done === true);
+  set("mastCount", e.masturbation?.count);
+  if (e.masturbation?.urgeIntensity != null) ctx.choices.mastUrge = String(e.masturbation.urgeIntensity);
+  if (e.masturbation?.guilt != null) ctx.choices.mastGuilt = String(e.masturbation.guilt);
+  if (e.masturbation?.context) ctx.choices.mastContext = e.masturbation.context;
 
+  // explicit
   chk("explicitViewed", e.explicit?.viewed);
   set("explicitMin", e.explicit?.minutes);
   if (e.explicit?.viewed && e.explicit?.driver) ctx.choices.explicitDriver = e.explicit.driver;
+  if (e.explicit?.regret != null) ctx.choices.explicitRegret = String(e.explicit.regret);
+  if (e.explicit?.context) ctx.choices.explicitContext = e.explicit.context;
 
+  // physical
+  if (e.physical?.headache != null) ctx.choices.physHeadache = String(e.physical.headache);
+  if (e.physical?.bodyPain != null) ctx.choices.physBodyPain = String(e.physical.bodyPain);
+  if (e.physical?.fatigueBeyond != null) ctx.choices.physFatigue = String(e.physical.fatigueBeyond);
+  if (e.physical?.digestive != null) ctx.choices.physDigestive = String(e.physical.digestive);
+
+  // social
+  chk("socialContact", e.social?.meaningfulContact === true);
+  if (e.social?.loneliness != null) ctx.answers.socialLonely = e.social.loneliness;
+
+  // events
+  if (e.events?.stressorCount != null) ctx.choices.eventsStressors = String(e.events.stressorCount);
+  for (const t of e.events?.tags || []) ctx.multiChoices.eventTags?.add(t);
+
+  // circadian
+  set("circMorningLight", e.circadian?.morningOutdoorLight);
+  chk("circEveningBright", e.circadian?.eveningBrightLight === true);
+
+  // food
   set("foodOther", e.food?.other);
   set("caffeine", e.food?.caffeine);
+  set("waterGlasses", e.food?.waterGlasses);
+  set("caffeineCups", e.food?.caffeineCups);
+  set("caffeineLastTime", e.food?.caffeineLastTime);
+  set("sugarEpisodes", e.food?.sugarEpisodes);
+  set("firstMealTime", e.food?.firstMealTime);
+  set("lastMealTime", e.food?.lastMealTime);
   chk("water", e.food?.water);
 
+  // notes
   set("notes", e.notes);
 }
 
-/* ---------- events (یک‌بار) ---------- */
+/* ---------- events (once) ---------- */
 
 function bind() {
   if (bound) return;
@@ -532,6 +854,23 @@ function bind() {
     if (btn.dataset.meal) return setMeal(btn.dataset.meal);
     if (btn.dataset.foodId) return toggleFood(btn.dataset.foodId);
 
+    // Multi-select chips
+    if (btn.dataset.mv) {
+      const grid = btn.closest("[data-multichoice]");
+      if (!grid) return;
+      const id = grid.dataset.multichoice;
+      const set = ctx.multiChoices[id];
+      if (!set) return;
+      const v = btn.dataset.mv;
+      if (set.has(v)) set.delete(v);
+      else set.add(v);
+      btn.classList.toggle("is-active", set.has(v));
+      btn.setAttribute("aria-pressed", String(set.has(v)));
+      hideMsg();
+      return;
+    }
+
+    // Single-select (likert / choice)
     const grid = btn.closest("[data-likert],[data-choice]");
     if (!grid) return;
     const isLikert = !!grid.dataset.likert;
@@ -539,13 +878,12 @@ function bind() {
     const store = isLikert ? ctx.answers : ctx.choices;
     const v = isLikert ? Number(btn.dataset.v) : btn.dataset.v;
 
-    if (store[id] === v) delete store[id]; // دوباره‌زدن = پاک‌کردن
+    if (store[id] === v) delete store[id];
     else store[id] = v;
     paint(id);
 
-    // فیلدهای وابسته به انتخاب («چند دقیقه؟») نمایش/پاک شوند
     syncShowIf();
-    root.querySelectorAll("[data-showchoice][hidden] input").forEach((i) => (i.value = ""));
+    clearHiddenDependents();
     hideMsg();
   });
 
@@ -554,15 +892,17 @@ function bind() {
     if (!ctx || t.type !== "checkbox") return;
     if (!t.checked) clearDependents(t.id.replace(/^ck_/, ""));
     syncShowIf();
+    clearHiddenDependents();
     if (t.id === "ck_travel") {
       const note = $("ck_travelNote");
       if (note) note.hidden = true;
     }
   });
 
-  root.addEventListener("input", (ev) => {
-    if (ev.target.id === "ck_bedTime" || ev.target.id === "ck_wakeTime") recalcSleepHours();
-  });
+root.addEventListener("input", (ev) => {
+  if (ev.target.id === "ck_bedTime" || ev.target.id === "ck_wakeTime") recalcSleepHours();
+  if (ev.target.id === "ck_foodSearch") filterFoods(ev.target.value);
+});
 }
 
 /* ============================================================
@@ -589,6 +929,8 @@ export function openCheckinModal(dateKey, existingEntry, slotOverride) {
           ...(catchUp ? ["exYesterday", "sleep", "routine"] : []),
           "medDay",
           "mood", "stress", "energy", "focus", "anxiety",
+          "wellbeing", "adhd",
+          "physical", "social", "events", "circadian",
           "activities", "mast", "explicit", "food", "day", "notes",
         ];
 
@@ -606,16 +948,22 @@ export function openCheckinModal(dateKey, existingEntry, slotOverride) {
     base: entry,
     answers,
     choices: {},
+    multiChoices: {
+      medMorningSide: new Set(),
+      medAfternoonSide: new Set(),
+      eventTags: new Set(),
+    },
     foodSel,
     activeMeal: "breakfast",
     freq: computeFoodFrequency(),
     warned: false,
+    startedAt: Date.now(),
   };
 
   const intro =
     slot === "morning"
       ? "حدود ۱ دقیقه — ورزش دیروز، خواب دیشب، قرص صبح و حال همین الان."
-      : "حدود ۲ تا ۳ دقیقه — هر جمله را برای کل امروز (تا همین لحظه) نمره بده: ۱ = اصلاً · ۵ = خیلی زیاد." +
+      : "حدود ۳ دقیقه — هر جمله را برای کل امروز (تا همین لحظه) نمره بده: ۱ = اصلاً · ۵ = خیلی زیاد." +
         (catchUp ? " چون چک‌این صبح ثبت نشده، ورزش دیروز و بخش خواب و روتین هم اینجا آمده است." : "");
 
   root.innerHTML =
@@ -623,7 +971,7 @@ export function openCheckinModal(dateKey, existingEntry, slotOverride) {
 
   fill(entry);
 
-  // سفر: اگر برای این روز هنوز ثبت نشده و دیروز در سفر بود، ادامه‌ی سفر پیش‌فرض است
+  // سفر: ادامه‌ی سفر از دیروز
   const travelEl = $("ck_travel");
   if (travelEl && entry.travel == null) {
     const prev = DailyCheckinStore.getEntryForDate(prevDateKey(dateKey));
@@ -641,11 +989,16 @@ export function openCheckinModal(dateKey, existingEntry, slotOverride) {
       ctx.choices.exY = ex.done ? "yes" : "no";
       const m = $("ck_exYMin");
       if (m) m.value = ex.minutes == null ? "" : String(ex.minutes);
+      if (ex.type) ctx.choices.exYType = ex.type;
+      if (ex.intensity) ctx.choices.exYIntensity = ex.intensity;
+      if (ex.timeOfDay) ctx.choices.exYTime = ex.timeOfDay;
     }
   }
 
   syncShowIf();
-  root.querySelectorAll("[data-likert],[data-choice]").forEach((g) => paint(g.dataset.likert || g.dataset.choice));
+  root.querySelectorAll("[data-likert]").forEach((g) => paint(g.dataset.likert));
+  root.querySelectorAll("[data-choice]").forEach((g) => paint(g.dataset.choice));
+  root.querySelectorAll("[data-multichoice]").forEach((g) => paintMulti(g.dataset.multichoice));
   renderFrequent();
   paintFood();
   root.scrollTop = 0;
@@ -673,19 +1026,24 @@ export function getCheckinDateKey() {
   return ctx ? ctx.dateKey : null;
 }
 
-/* ورزش دیروز روی «ورودی دیروز» نوشته می‌شود (اگر ورودی‌اش نبود، ساخته می‌شود)
-   تا تحلیل ورزش را روی روز درست ببیند. فقط بعد از موفق‌بودن همه‌ی اعتبارسنجی‌ها صدا زده می‌شود. */
-function writeYesterdayExercise({ done, minutes }) {
+/* نوشتن ورزش دیروز روی ورودی دیروز */
+function writeYesterdayExercise({ done, minutes, type, intensity, timeOfDay }) {
   const yKey = prevDateKey(ctx.dateKey);
   const existing = DailyCheckinStore.getEntryForDate(yKey);
   const y = existing ? JSON.parse(JSON.stringify(existing)) : createCheckinEntry(yKey);
-  y.exercise = { done, minutes: done ? minutes : null, recorded: true };
+  y.exercise = {
+    done,
+    minutes: done ? minutes : null,
+    recorded: true,
+    type: done ? type : null,
+    intensity: done ? intensity : null,
+    timeOfDay: done ? timeOfDay : null,
+  };
   DailyCheckinStore.saveCheckin(yKey, y);
 }
 
 /* ============================================================
-   read → entry کامل (ورودی موجود + مقادیر این اسلات)
-   null = ذخیره نشود (پیام داخل مودال نشان داده می‌شود)
+   read → entry
    ============================================================ */
 
 const clamp = (n, lo, hi) => (n == null ? null : Math.min(hi, Math.max(lo, n)));
@@ -695,8 +1053,10 @@ export function readCheckinForm() {
   const { slot, sections, answers } = ctx;
   const has = (name) => sections.includes(name);
 
-  // کامل‌بودن پاسخ‌ها: یک‌بار هشدار نرم، بار دوم ذخیره می‌شود
-  const rows = [...bodyEl().querySelectorAll("[data-likert],[data-choice]")].filter((g) => !g.closest("[hidden]"));
+  // هشدار نرم برای فیلدهای خالی
+  const rows = [...bodyEl().querySelectorAll("[data-likert],[data-choice]")].filter(
+    (g) => !g.closest("[hidden]")
+  );
   const missing = rows.filter((g) =>
     g.dataset.likert ? answers[g.dataset.likert] == null : ctx.choices[g.dataset.choice] == null
   ).length;
@@ -726,19 +1086,26 @@ export function readCheckinForm() {
   const e = JSON.parse(JSON.stringify(ctx.base));
   const now = new Date().toISOString();
 
-  // سفر (در هر دو چک‌این وجود دارد)
+  // travel
   const travelEl = $("ck_travel");
   if (travelEl) e.travel = travelEl.checked;
 
-  // ورزش دیروز (بعد از موفق‌شدن اعتبارسنجی نوشته می‌شود)
+  // yesterday exercise
   let yesterday = null;
   if (has("exYesterday")) {
     const v = choiceVal("exY");
     if (v === "yes" || v === "no") {
-      yesterday = { done: v === "yes", minutes: v === "yes" ? int("exYMin", 0, 600) : null };
+      yesterday = {
+        done: v === "yes",
+        minutes: v === "yes" ? int("exYMin", 0, 600) : null,
+        type: v === "yes" ? choiceVal("exYType") : null,
+        intensity: v === "yes" ? choiceVal("exYIntensity") : null,
+        timeOfDay: v === "yes" ? choiceVal("exYTime") : null,
+      };
     }
   }
 
+  // sleep
   if (has("sleep")) {
     const bedTime = str("bedTime");
     const wakeTime = str("wakeTime");
@@ -751,11 +1118,15 @@ export function readCheckinForm() {
       hours: hours == null ? null : round1(hours),
       latencyMin: int("latency", 0, 600),
       awakenings: int("awakenings", 0, 20),
+      napsMin: int("naps", 0, 300),
+      lastCaffeineTime: str("lastCaffeineTime"),
+      screenBeforeBedMin: int("screenBeforeBed", 0, 300),
       quality: single("s_quality"),
       restedness: single("s_rested"),
     };
   }
 
+  // routine
   if (has("routine")) {
     const done = checked("routineDone");
     e.relaxationRoutine = {
@@ -765,7 +1136,7 @@ export function readCheckinForm() {
     };
   }
 
-  // قرص ADHD
+  // medication
   if (has("medMorning") || has("medDay")) {
     const dose = (key) => {
       const taken = checked(`med${key}Taken`);
@@ -774,6 +1145,8 @@ export function readCheckinForm() {
         taken,
         amount: taken && amt != null ? Number(amt) : null,
         time: taken ? str(`med${key}Time`) : null,
+        effect: taken ? num(`med${key}Effect`) : null,
+        sideEffects: taken ? [...(ctx.multiChoices[`med${key}Side`] || [])] : [],
       };
     };
     e.medication = {
@@ -784,6 +1157,7 @@ export function readCheckinForm() {
     };
   }
 
+  // morning "now"
   if (has("now")) {
     e.morningState = {
       mood: single("n_mood"),
@@ -792,6 +1166,43 @@ export function readCheckinForm() {
     };
   }
 
+  // physical
+  if (has("physical")) {
+    const pick = (id) => (ctx.choices[id] != null ? Number(ctx.choices[id]) : null);
+    e.physical = {
+      headache: pick("physHeadache"),
+      bodyPain: pick("physBodyPain"),
+      fatigueBeyond: pick("physFatigue"),
+      digestive: pick("physDigestive"),
+    };
+  }
+
+  // social
+  if (has("social")) {
+    e.social = {
+      meaningfulContact: $("ck_socialContact")?.checked ?? null,
+      loneliness: answers.socialLonely ?? null,
+    };
+  }
+
+  // events
+  if (has("events")) {
+    e.events = {
+      stressorCount:
+        ctx.choices.eventsStressors != null ? Number(ctx.choices.eventsStressors) : null,
+      tags: [...(ctx.multiChoices.eventTags || [])],
+    };
+  }
+
+  // circadian
+  if (has("circadian")) {
+    e.circadian = {
+      morningOutdoorLight: int("circMorningLight", 0, 180),
+      eveningBrightLight: $("ck_circEveningBright")?.checked ?? null,
+    };
+  }
+
+  // evening-only composites
   if (slot === "evening") {
     e.mood = {
       rating: construct("mood"),
@@ -803,24 +1214,31 @@ export function readCheckinForm() {
 
     e.activity1 = checked("activity1");
     e.operation1 = checked("operation1");
-    // ورزش امروز اینجا لمس نمی‌شود؛ فردا صبح ثبت می‌شود.
 
-    const posDone = checked("mastPos");
-    const negDone = checked("mastNeg");
+    // masturbation (reframe)
+    const mastDone = checked("mastDone");
     e.masturbation = {
-      positive: { done: posDone, count: posDone ? int("mastPosCount", 0, 20) : null },
-      negative: { done: negDone, count: negDone ? int("mastNegCount", 0, 20) : null },
+      recorded: true,
+      done: mastDone,
+      count: mastDone ? int("mastCount", 0, 20) : null,
+      urgeIntensity:
+        mastDone && ctx.choices.mastUrge != null ? Number(ctx.choices.mastUrge) : null,
+      guilt: mastDone && ctx.choices.mastGuilt != null ? Number(ctx.choices.mastGuilt) : null,
+      context: mastDone ? choiceVal("mastContext") : null,
     };
 
+    // explicit
     const viewed = checked("explicitViewed");
     e.explicit = {
       recorded: true,
       viewed,
       minutes: viewed ? int("explicitMin", 0, 1440) : null,
       driver: viewed ? choiceVal("explicitDriver") : null,
+      regret: viewed && ctx.choices.explicitRegret != null ? Number(ctx.choices.explicitRegret) : null,
+      context: viewed ? choiceVal("explicitContext") : null,
     };
 
-    // لاگ غذا: تعداد وعده‌ی اصلی خودکار؛ اگر هیچ‌چیز ثبت نشده → «ثبت‌نشده»
+    // food
     const log = {};
     let anyFood = false;
     let mainMeals = 0;
@@ -838,7 +1256,13 @@ export function readCheckinForm() {
       meals: logged ? mainMeals : null,
       quality: single("f_quality"),
       water: checked("water"),
+      waterGlasses: int("waterGlasses", 0, 15),
       caffeine: int("caffeine", 0, 20),
+      caffeineCups: int("caffeineCups", 0, 10),
+      caffeineLastTime: str("caffeineLastTime"),
+      sugarEpisodes: int("sugarEpisodes", 0, 10),
+      firstMealTime: str("firstMealTime"),
+      lastMealTime: str("lastMealTime"),
       log,
       other,
       logged,
@@ -847,6 +1271,24 @@ export function readCheckinForm() {
     e.dayRating = single("d_day");
     e.notes = str("notes");
   }
+
+  // responseMeta
+  const metaRows = [...bodyEl().querySelectorAll("[data-likert],[data-choice]")].filter(
+    (g) => !g.closest("[hidden]")
+  );
+  const answered = metaRows.filter((g) =>
+    g.dataset.likert ? answers[g.dataset.likert] != null : ctx.choices[g.dataset.choice] != null
+  ).length;
+  e.responseMeta = {
+    ...e.responseMeta,
+    [slot]: {
+      startedAt: new Date(ctx.startedAt).toISOString(),
+      completedAt: new Date().toISOString(),
+      durationMs: Date.now() - ctx.startedAt,
+      itemsAnswered: answered,
+      itemsSkipped: Math.max(0, metaRows.length - answered),
+    },
+  };
 
   e.items = { ...e.items, ...answers };
   e.slots = { ...e.slots, [slot]: now };
