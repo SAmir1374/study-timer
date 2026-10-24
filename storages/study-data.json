@@ -4,7 +4,7 @@
     "name": "Study Timer",
     "dataFormat": "study-timer-json",
     "createdAt": "2026-09-26T03:00:01.956Z",
-    "updatedAt": "2026-10-23T17:24:14.800Z",
+    "updatedAt": "2026-10-24T05:12:50.369Z",
     "timeZone": "Asia/Tehran"
   },
   "settings": {
@@ -15,7 +15,7 @@
     "reducedMotion": false,
     "autoStartNextSession": false,
     "defaultSessionMinutes": 50,
-    "lastSelectedMinutes": 25,
+    "lastSelectedMinutes": 50,
     "lastSelectedSubject": "مدار منطقی",
     "lastSelectedPractice": false,
     "lastSelectedKind": "study"
@@ -3120,11 +3120,36 @@
       "analysis": null,
       "createdAt": "2026-10-21T13:35:32.542Z",
       "updatedAt": "2026-10-21T13:48:37.735Z"
+    },
+    {
+      "id": "bde5eafa-583a-4f7e-8bb1-b36131d81889",
+      "type": "study",
+      "status": "completed",
+      "subject": "مدار منطقی",
+      "isPractice": false,
+      "topic": "نقشه کارنو",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-24T04:22:09.988Z",
+        "endedAt": "2026-10-24T05:12:09.988Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-24T04:22:09.988Z",
+      "updatedAt": "2026-10-24T05:12:49.928Z"
     }
   ],
   "derived": {
     "note": "Rebuildable from `sessions`. Safe to ignore or delete; regenerated on every save.",
-    "generatedAt": "2026-10-23T17:24:14.800Z",
+    "generatedAt": "2026-10-24T05:12:50.369Z",
     "dailySummaries": {
       "2026-09-26": {
         "studySeconds": 4320,
@@ -3250,6 +3275,11 @@
         "studySeconds": 783,
         "sessionCount": 1,
         "completedSessionCount": 0
+      },
+      "2026-10-24": {
+        "studySeconds": 3000,
+        "sessionCount": 1,
+        "completedSessionCount": 1
       }
     },
     "subjectSummaries": [
@@ -3289,6 +3319,13 @@
         "sessionCount": 9
       },
       {
+        "subject": "مدار منطقی",
+        "kind": "study",
+        "isPractice": false,
+        "studySeconds": 17341,
+        "sessionCount": 7
+      },
+      {
         "subject": "آمار و احتمال مهندسی",
         "kind": "study",
         "isPractice": false,
@@ -3301,13 +3338,6 @@
         "isPractice": false,
         "studySeconds": 16800,
         "sessionCount": 7
-      },
-      {
-        "subject": "مدار منطقی",
-        "kind": "study",
-        "isPractice": false,
-        "studySeconds": 14341,
-        "sessionCount": 6
       },
       {
         "subject": "زبان تخصصی",
