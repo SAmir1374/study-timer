@@ -4,7 +4,7 @@
     "name": "Study Timer",
     "dataFormat": "study-timer-json",
     "createdAt": "2026-09-26T03:00:01.956Z",
-    "updatedAt": "2026-10-24T05:12:50.369Z",
+    "updatedAt": "2026-10-24T08:34:55.473Z",
     "timeZone": "Asia/Tehran"
   },
   "settings": {
@@ -3145,11 +3145,36 @@
       "analysis": null,
       "createdAt": "2026-10-24T04:22:09.988Z",
       "updatedAt": "2026-10-24T05:12:49.928Z"
+    },
+    {
+      "id": "ff23fcdc-b5d3-4d27-9cb2-4d75004f1c43",
+      "type": "study",
+      "status": "completed",
+      "subject": "مدار منطقی",
+      "isPractice": false,
+      "topic": "مین‌ترم و ماکس‌ترم",
+      "planned": {
+        "durationSeconds": 3000
+      },
+      "actual": {
+        "startedAt": "2026-10-24T06:57:13.241Z",
+        "endedAt": "2026-10-24T07:47:13.241Z",
+        "utcOffsetMinutes": 210
+      },
+      "pauses": [],
+      "derived": {
+        "activeDurationSeconds": 3000,
+        "totalPausedSeconds": 0,
+        "pauseCount": 0
+      },
+      "analysis": null,
+      "createdAt": "2026-10-24T06:57:13.241Z",
+      "updatedAt": "2026-10-24T07:52:13.248Z"
     }
   ],
   "derived": {
     "note": "Rebuildable from `sessions`. Safe to ignore or delete; regenerated on every save.",
-    "generatedAt": "2026-10-24T05:12:50.369Z",
+    "generatedAt": "2026-10-24T08:34:55.473Z",
     "dailySummaries": {
       "2026-09-26": {
         "studySeconds": 4320,
@@ -3277,9 +3302,9 @@
         "completedSessionCount": 0
       },
       "2026-10-24": {
-        "studySeconds": 3000,
-        "sessionCount": 1,
-        "completedSessionCount": 1
+        "studySeconds": 6000,
+        "sessionCount": 2,
+        "completedSessionCount": 2
       }
     },
     "subjectSummaries": [
@@ -3322,8 +3347,8 @@
         "subject": "مدار منطقی",
         "kind": "study",
         "isPractice": false,
-        "studySeconds": 17341,
-        "sessionCount": 7
+        "studySeconds": 20341,
+        "sessionCount": 8
       },
       {
         "subject": "آمار و احتمال مهندسی",

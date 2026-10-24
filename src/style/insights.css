@@ -1,0 +1,106 @@
+/* =============================================================
+   insights.css — فقط افزوده‌ها؛ پایه از همان فایل ca-* می‌آید
+   ============================================================= */
+
+#insContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ---------- sources ---------- */
+.ins-sources {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+}
+.ins-source {
+  background: var(--ca-panel-2);
+  border: 1px solid var(--ca-border);
+  border-inline-start: 3px solid var(--ca-muted);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+.ins-source--ok { border-inline-start-color: var(--ca-good); }
+.ins-source__title { font-size: 13px; font-weight: 600; }
+.ins-source__state { font-size: 12px; color: var(--ca-muted); margin-top: 2px; }
+.ins-source__info { font-size: 12px; margin: 8px 0 10px; }
+.ins-source__actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* ---------- generic ---------- */
+.ins-sub { font-size: 13px; font-weight: 600; margin: 18px 0 8px; }
+.ins-sub:first-child { margin-top: 0; }
+.ins-split {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 16px;
+}
+
+/* ---------- insights list ---------- */
+.ins-list { display: flex; flex-direction: column; gap: 8px; }
+.ins-item {
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: var(--ca-panel-2);
+  border-inline-start: 3px solid var(--ca-accent);
+  font-size: 13px;
+  line-height: 1.8;
+}
+.ins-item--good { border-inline-start-color: var(--ca-good); }
+.ins-item--bad { border-inline-start-color: var(--ca-bad); }
+.ins-item--warn { border-inline-start-color: var(--ca-warn); }
+.ins-item small { color: var(--ca-muted); }
+
+/* ---------- tables ---------- */
+.ins-table { min-width: 520px; }
+.ins-bar {
+  display: inline-block;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--ca-accent);
+  vertical-align: middle;
+  margin-inline-start: 8px;
+}
+.ins-bar--good { background: var(--ca-good); }
+.ins-bar--bad { background: var(--ca-bad); }
+
+/* ---------- compare rows ---------- */
+.ins-cmp {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  align-items: center;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.ins-cmp small { color: var(--ca-muted); }
+.ins-cmp b { min-width: 70px; text-align: center; }
+
+/* ---------- factor accordions ---------- */
+.ins-details {
+  background: var(--ca-panel-2);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+}
+.ins-details > summary { cursor: pointer; font-size: 13px; font-weight: 600; }
+.ins-details[open] > summary { margin-bottom: 10px; }
+.ins-count { color: var(--ca-muted); font-weight: 400; font-size: 12px; margin-inline-start: 8px; }
+
+/* ---------- weekday × hour heatmap ---------- */
+.ins-heat {
+  display: grid;
+  grid-template-columns: 64px repeat(24, minmax(0, 1fr));
+  gap: 3px;
+  direction: ltr;
+}
+.ins-heat__lbl {
+  font-size: 11px;
+  color: var(--ca-muted);
+  text-align: left;
+  align-self: center;
+  unicode-bidi: plaintext;
+  white-space: nowrap;
+}
+.ins-heat__hr { font-size: 9px; color: var(--ca-muted); text-align: center; }
+.ins-heat__cell { aspect-ratio: 1; border-radius: 3px; background: var(--ca-panel-2); }

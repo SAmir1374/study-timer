@@ -1,0 +1,80 @@
+<!doctype html>
+<html
+  lang="fa"
+  dir="rtl"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>تحلیل یکپارچه — Study Timer</title>
+    <!-- استایل پایه: همان فایلی که checkin-analytics.html استفاده می‌کند (در صورت فرق اسم، عوض کن) -->
+    <link
+      rel="stylesheet"
+      href="./style/checkin-analytics.css"
+    />
+    <link
+      rel="stylesheet"
+      href="./style/insights.css"
+    />
+  </head>
+
+  <body data-theme="dark">
+    <header class="ca-header">
+      <div class="ca-header__left">
+        <a
+          class="ca-back"
+          href="./index.html"
+          aria-label="بازگشت"
+          >←</a
+        >
+        <h1>تحلیل یکپارچه</h1>
+        <span
+          class="ca-count"
+          id="insCount"
+          >—</span
+        >
+      </div>
+      <div class="ca-header__right">
+        <select
+          id="insRange"
+          class="ca-select"
+          aria-label="بازه‌ی نمایش"
+        >
+          <option value="14">۱۴ روز اخیر</option>
+          <option
+            value="30"
+            selected
+          >
+            ۳۰ روز اخیر
+          </option>
+          <option value="60">۶۰ روز اخیر</option>
+          <option value="90">۹۰ روز اخیر</option>
+          <option value="0">همه</option>
+        </select>
+        <button
+          type="button"
+          class="ca-btn ca-btn--ghost"
+          id="insReload"
+        >
+          به‌روزرسانی
+        </button>
+      </div>
+    </header>
+
+    <main class="ca-main">
+      <section
+        class="ca-panel"
+        id="insSources"
+      ></section>
+      <div id="insContent"></div>
+    </main>
+
+    <script
+      type="module"
+      src="./files/insights.js"
+    ></script>
+  </body>
+</html>
